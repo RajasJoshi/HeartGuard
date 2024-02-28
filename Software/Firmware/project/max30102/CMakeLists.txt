@@ -37,9 +37,6 @@ set_target_properties(${TARGET_NAME} PROPERTIES
 # set target compile options as defined in the cmake/compiler_options.cmake Module
 target_compile_options(${TARGET_NAME} PRIVATE ${compiler_options})
 
-# add compiler definition WITH_OPENSSL, if found
-target_compile_definitions(${TARGET_NAME} PRIVATE ${compiler_definitions} $<$<BOOL:${OPENSSL_FOUND}>:WITH_OPENSSL>)
-
 # set target link options as defined in the cmake/compiler_options.cmake Module
 target_link_options(${TARGET_NAME} PRIVATE ${linker_flags})
 
@@ -50,14 +47,9 @@ target_include_directories(${TARGET_NAME}
   PRIVATE 
     ${TARGET_INCLUDE_FOLDER}
     # include OpenSSL directories if present
-    $<$<BOOL:${OPENSSL_FOUND}>:${OPENSSL_INCLUDE_DIR}>
     # Any other extra include required
 )
 
-# link OpenSSL libraries if present
-if(OPENSSL_FOUND)
-  target_link_libraries(${TARGET_NAME} PUBLIC OpenSSL::SSL OpenSSL::Crypto)
-endif()
 
 if(BUILD_TESTING)
   list(APPEND TEST_CASES
@@ -67,7 +59,6 @@ if(BUILD_TESTING)
     add_executable(${TEST_CASE} ${CMAKE_CURRENT_SOURCE_DIR}/test/${TEST_CASE}.cpp)
     target_link_libraries(${TEST_CASE} PRIVATE ${TARGET_NAME} doctest::doctest)
     target_compile_options(${TEST_CASE} PRIVATE ${compiler_options})
-    target_compile_definitions(${TEST_CASE} PRIVATE ${compiler_definitions} $<$<BOOL:${OPENSSL_FOUND}>:WITH_OPENSSL>)
     target_link_options(${TEST_CASE} PRIVATE ${linker_flags})
 
     target_include_directories(${TEST_CASE}

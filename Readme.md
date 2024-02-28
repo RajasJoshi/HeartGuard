@@ -49,3 +49,5 @@ cmake --build . --target package
 ## Acknowledgements
 
 This project uses the [modern C++ project template](https://github.com/madduci/moderncpp-project-template) by [madduci](https://github.com/madduci).
+
+This project also uses code from the [rpi_ads1115](https://github.com/berndporr/rpi_ads1115/tree/main?tab=readme-ov-file) repository by [berndporr](https://github.com/berndporr).

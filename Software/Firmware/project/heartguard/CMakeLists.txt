@@ -17,7 +17,13 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TARGET_SOURCES})
 # Define Target according to options
 #####################################
 add_executable(${TARGET_NAME} ${TARGET_SOURCES})
+# Find pigpio library
+find_library(PIGPIO_LIBRARY pigpio)
 
+# Check if pigpio library is found
+if(NOT PIGPIO_LIBRARY)
+    message(FATAL_ERROR "pigpio library not found")
+endif()
 #####################################
 # Define Target Properties and Optional OpenSSL Dependency
 #####################################
@@ -27,9 +33,6 @@ set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME "heartguard" DEBUG_P
 
 # set target compile options as defined in the cmake/compiler_options.cmake Module
 target_compile_options(${TARGET_NAME} PRIVATE ${compiler_options})
-
-# add compiler definition WITH_OPENSSL, if found
-target_compile_definitions(${TARGET_NAME} PRIVATE ${compiler_definitions} $<$<BOOL:${OPENSSL_FOUND}>:WITH_OPENSSL>)
 
 # set target link options as defined in the cmake/compiler_options.cmake Module
 target_link_options(${TARGET_NAME} PRIVATE ${linker_flags})
@@ -45,4 +48,4 @@ target_include_directories(${TARGET_NAME}
     # Any other extra include required
 )
 
-target_link_libraries(${TARGET_NAME} PUBLIC ads1115 max30102)
+target_link_libraries(${TARGET_NAME} PUBLIC ${PIGPIO_LIBRARY} ads1115 max30102)
