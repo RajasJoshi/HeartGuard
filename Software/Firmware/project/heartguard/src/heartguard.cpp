@@ -1,17 +1,16 @@
 #include "heartguard.hpp"
 
-static bool run = true;
+static std::atomic<bool> run(true);
 static std::thread mainThread;
 static std::unique_ptr<ADS1115> hgads1115;
 static std::unique_ptr<MAX30102> hgmax30102;
+static std::condition_variable cv;
+static std::mutex cv_m;
 
 static void sighandlerShutdown(int sig) {
-  if (std::this_thread::get_id() != mainThread.get_id()) {
-    run = false;
-  } else {
-    if (run) std::cerr << "Caught signal " << sig << "\nShutting down...\n";
-    run = false;
-  }
+  std::cerr << "Caught signal " << sig << "\nShutting down...\n";
+  run = false;
+  cv.notify_all();
 }
 
 int main(int argc, char* argv[]) {
@@ -21,7 +20,8 @@ int main(int argc, char* argv[]) {
     setvbuf(stderr, NULL, _IONBF, 0);
 
     mainThread = std::thread([]() {
-      while (run) std::this_thread::yield();
+      std::unique_lock<std::mutex> lk(cv_m);
+      cv.wait(lk, [] { return !run; });
     });
 
     // register signal handler for ctrl+c and termination signal
@@ -38,7 +38,22 @@ int main(int argc, char* argv[]) {
 
     std::thread max30102Thread = std::thread([]() {
       hgmax30102 = std::make_unique<MAX30102>();
-      hgmax30102->start();
+      int result = hgmax30102->begin();
+      if (result < 0) {
+        std::cout << "Failed to start I2C (Error: " << result << ")."
+                  << std::endl;
+        return (-1 * result);
+      }
+      std::cout << "Device found (revision: " << result << ")!" << std::endl;
+
+      hgmax30102->setup();
+      hgmax30102->setPulseAmplitudeRed(0x0A);
+      while (1) {
+        std::cout << "IR: " << hgmax30102->getIR();
+        std::cout << ", RED: " << hgmax30102->getRed();
+        std::cout << std::endl;
+        usleep(500);
+      }
     });
 
     std::thread ads1115Thread = std::thread([]() {

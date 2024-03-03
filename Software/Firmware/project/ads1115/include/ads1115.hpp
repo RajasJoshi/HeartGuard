@@ -31,7 +31,7 @@ struct ADS1115settings {
   /**
    * I2C bus used (99% always set to one)
    **/
-  int i2c_bus = 1;
+  int i2c_bus = 0;
 
   /**
    * I2C address of the ads1115
