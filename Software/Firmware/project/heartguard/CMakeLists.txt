@@ -29,7 +29,7 @@ endif()
 #####################################
 
 # add target properties such as debug postfix and MSVC runtime
-set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME "heartguard" DEBUG_POSTFIX "-d" MSVC_RUNTIME_LIBRARY "${MSVC_RUNTIME_TYPE}")
+set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME "heartguard" DEBUG_POSTFIX "-d" )
 
 # set target compile options as defined in the cmake/compiler_options.cmake Module
 target_compile_options(${TARGET_NAME} PRIVATE ${compiler_options})

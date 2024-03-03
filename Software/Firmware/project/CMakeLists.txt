@@ -1,11 +1,6 @@
 
 # Project-related instructions
 
-# Activate Testing, if given
-if(BUILD_TESTING)
-  enable_testing()
-endif()
-
 #####################################
 # Define Targets
 #####################################

@@ -29,8 +29,7 @@ generate_export_header(${TARGET_NAME} EXPORT_FILE_NAME ${CMAKE_BINARY_DIR}/expor
 
 # add target properties such as debug postfix, MSVC Runtime and library version
 set_target_properties(${TARGET_NAME} PROPERTIES 
-                                      DEBUG_POSTFIX "-d" 
-                                      MSVC_RUNTIME_LIBRARY "${MSVC_RUNTIME_TYPE}" 
+                                      DEBUG_POSTFIX "-d"  
                                       VERSION ${CMAKE_PROJECT_VERSION}
                                       SOVERSION ${CMAKE_PROJECT_VERSION})
 
@@ -49,26 +48,3 @@ target_include_directories(${TARGET_NAME}
     # include OpenSSL directories if present
     # Any other extra include required
 )
-
-
-if(BUILD_TESTING)
-  list(APPEND TEST_CASES
-    hellolib_test
-  )
-  foreach(TEST_CASE ${TEST_CASES})
-    add_executable(${TEST_CASE} ${CMAKE_CURRENT_SOURCE_DIR}/test/${TEST_CASE}.cpp)
-    target_link_libraries(${TEST_CASE} PRIVATE ${TARGET_NAME} doctest::doctest)
-    target_compile_options(${TEST_CASE} PRIVATE ${compiler_options})
-    target_link_options(${TEST_CASE} PRIVATE ${linker_flags})
-
-    target_include_directories(${TEST_CASE}
-      PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/exports>
-      PRIVATE 
-        ${TARGET_INCLUDE_FOLDER}
-        # Any other extra include required
-    )
-
-    add_test(NAME ${TEST_CASE} COMMAND ${TEST_CASE})
-  endforeach(TEST_CASE ${TEST_CASES})
-endif()

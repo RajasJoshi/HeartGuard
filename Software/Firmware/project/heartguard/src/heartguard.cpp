@@ -1,17 +1,15 @@
 #include "heartguard.hpp"
 
-using namespace std;
-
 static bool run = true;
-static thread mainThread;
-static unique_ptr<ADS1115> hgads1115;
-static unique_ptr<MAX30102> hgmax30102;
+static std::thread mainThread;
+static std::unique_ptr<ADS1115> hgads1115;
+static std::unique_ptr<MAX30102> hgmax30102;
 
 static void sighandlerShutdown(int sig) {
-  if (this_thread::get_id() != mainThread.get_id()) {
+  if (std::this_thread::get_id() != mainThread.get_id()) {
     run = false;
   } else {
-    if (run) fprintf(stderr, "Caught signal %i\nShutting down...\n", sig);
+    if (run) std::cerr << "Caught signal " << sig << "\nShutting down...\n";
     run = false;
   }
 }
@@ -22,8 +20,8 @@ int main(int argc, char* argv[]) {
     setvbuf(stdout, NULL, _IONBF, 0);
     setvbuf(stderr, NULL, _IONBF, 0);
 
-    mainThread = thread([]() {
-      while (run) this_thread::yield();
+    mainThread = std::thread([]() {
+      while (run) std::this_thread::yield();
     });
 
     // register signal handler for ctrl+c and termination signal
@@ -38,13 +36,13 @@ int main(int argc, char* argv[]) {
       perror("Error: cannot handle SIGINT");
     }
 
-    thread max30102Thread = thread([]() {
-      hgmax30102 = make_unique<MAX30102>();
+    std::thread max30102Thread = std::thread([]() {
+      hgmax30102 = std::make_unique<MAX30102>();
       hgmax30102->start();
     });
 
-    thread ads1115Thread = thread([]() {
-      hgads1115 = make_unique<ADS1115>();
+    std::thread ads1115Thread = std::thread([]() {
+      hgads1115 = std::make_unique<ADS1115>();
       hgads1115->start();
     });
 
@@ -52,8 +50,8 @@ int main(int argc, char* argv[]) {
     max30102Thread.join();
     mainThread.join();  // Wait for the main thread to finish
 
-  } catch (const exception& e) {
-    cerr << "Exception: " << e.what() << endl;
+  } catch (const std::exception& e) {
+    std::cerr << "Exception: " << e.what() << std::endl;
   } catch (...) {
     std::cerr << "Caught unknown exception\n";
     return EXIT_FAILURE;
@@ -61,15 +59,3 @@ int main(int argc, char* argv[]) {
 
   return EXIT_SUCCESS;
 }
-
-// int main(int argc, char* argv[]) {
-//   fprintf(stderr, "Press any key to stop.\n");
-//   ADS1115 ads1115rpi;
-
-//   ads1115rpi.start();
-//   fprintf(stderr, "fs = %d\n",
-//           ads1115rpi.getADS1115settings().getSamplingRate());
-//   getchar();
-//   ads1115rpi.stop();
-//   return 0;
-// }

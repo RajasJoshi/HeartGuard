@@ -1,7 +1,5 @@
 #include "ads1115.hpp"
 
-using namespace std;
-
 void ADS1115::start() {
   ADS1115settings settings;
   settings.samplingRate = ADS1115settings::FS860HZ;
@@ -13,17 +11,18 @@ void ADS1115::start() {
     gpioCfgSetInternals(cfg);
     int r = gpioInitialise();
     if (r < 0) {
-      char msg[] = "Cannot init pigpio.";
+      std::string msg = "Cannot init pigpio.";
 #ifdef DEBUG
-      fprintf(stderr, "%s\n", msg);
+      std::cerr << msg << '\n';
 #endif
-      throw msg;
+      throw std::runtime_error(msg);
     }
   }
 
 #ifdef DEBUG
-  fprintf(stderr, "Init .\n");
+  std::cerr << "Init .\n";
 #endif
+
   // Enable RDY
   i2c_writeWord(reg_lo_thres, 0x0000);
   i2c_writeWord(reg_hi_thres, 0x8000);
@@ -36,7 +35,7 @@ void ADS1115::start() {
   i2c_writeWord(reg_config, r);
 
 #ifdef DEBUG
-  fprintf(stderr, "Receiving data.\n");
+  std::cerr << "Receiving data.\n";
 #endif
 
   gpioSetMode(settings.drdy_gpio, PI_INPUT);
@@ -59,8 +58,9 @@ void ADS1115::dataReady() {
 }
 
 void ADS1115::stop() {
-  gpioSetISRFuncEx(ads1115settings.drdy_gpio, RISING_EDGE, -1, NULL,
-                   (void *)this);
+  gpioSetISRFuncEx(ads1115settings.drdy_gpio, RISING_EDGE, -1, nullptr,
+                   static_cast<void *>(this));
+
   if (ads1115settings.initPIGPIO) {
     gpioTerminate();
   }
@@ -71,9 +71,10 @@ void ADS1115::i2c_writeWord(uint8_t reg, unsigned data) {
   int fd = i2cOpen(ads1115settings.i2c_bus, ads1115settings.address, 0);
   if (fd < 0) {
 #ifdef DEBUG
-    fprintf(stderr, "Could not open %02x.\n", ads1115settings.address);
+    std::cerr << "Could not open " << std::hex << ads1115settings.address
+              << ".\n";
 #endif
-    throw could_not_open_i2c;
+    throw std::runtime_error("Could not open i2c.");
   }
   char tmp[2];
   tmp[0] = (char)((data & 0xff00) >> 8);
@@ -81,10 +82,10 @@ void ADS1115::i2c_writeWord(uint8_t reg, unsigned data) {
   int r = i2cWriteI2CBlockData(fd, reg, tmp, 2);
   if (r < 0) {
 #ifdef DEBUG
-    fprintf(stderr, "Could not write word from %02x. ret=%d.\n",
-            ads1115settings.address, r);
+    std::cerr << "Could not write word from " << std::hex
+              << ads1115settings.address << ". ret=" << r << ".\n";
 #endif
-    throw "Could not read from i2c.";
+    throw std::runtime_error("Could not read from i2c.");
   }
   i2cClose(fd);
 }
@@ -93,19 +94,20 @@ unsigned ADS1115::i2c_readWord(uint8_t reg) {
   int fd = i2cOpen(ads1115settings.i2c_bus, ads1115settings.address, 0);
   if (fd < 0) {
 #ifdef DEBUG
-    fprintf(stderr, "Could not open %02x.\n", ads1115settings.address);
+    std::cerr << "Could not open " << std::hex << ads1115settings.address
+              << ".\n";
 #endif
-    throw could_not_open_i2c;
+    throw std::runtime_error("Could not open i2c.");
   }
   int r;
   char tmp[2];
   r = i2cReadI2CBlockData(fd, reg, tmp, 2);
-  if (r < 0) {
+  if (fd < 0) {
 #ifdef DEBUG
-    fprintf(stderr, "Could not read word from %02x. ret=%d.\n",
-            ads1115settings.address, r);
+    std::cerr << "Could not read word from " << std::hex
+              << ads1115settings.address << ". ret=" << r << ".\n";
 #endif
-    throw "Could not read from i2c.";
+    throw std::runtime_error("Could not read from i2c.");
   }
   i2cClose(fd);
   return (((unsigned)(tmp[0])) << 8) | ((unsigned)(tmp[1]));
@@ -116,18 +118,19 @@ int ADS1115::i2c_readConversion() {
   int fd = i2cOpen(ads1115settings.i2c_bus, ads1115settings.address, 0);
   if (fd < 0) {
 #ifdef DEBUG
-    fprintf(stderr, "Could not open %02x.\n", ads1115settings.address);
+    std::cerr << "Could not open " << std::hex << ads1115settings.address
+              << ".\n";
 #endif
-    throw could_not_open_i2c;
+    throw std::runtime_error("Could not open i2c.");
   }
   int r;
   char tmp[2];
   r = i2cReadI2CBlockData(fd, reg, tmp, 2);
-  if (r < 0) {
+  if (fd < 0) {
 #ifdef DEBUG
-    fprintf(stderr, "Could not read ADC value. ret=%d.\n", r);
+    std::cerr << "Could not read ADC value. ret=" << r << ".\n";
 #endif
-    throw "Could not read from i2c.";
+    throw std::runtime_error("Could not read from i2c.");
   }
   i2cClose(fd);
   //        return (((int)(tmp[0])) << 8) | ((int)(tmp[1]));
@@ -136,5 +139,5 @@ int ADS1115::i2c_readConversion() {
 
 void ADS1115::hasSample(float v) {
   // Implement the function here
-  printf("%e\n", v);
+  std::cout << v << std::endl;
 }
