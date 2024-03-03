@@ -55,3 +55,16 @@ target_include_directories(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME} PUBLIC ${PIGPIO_LIBRARY})
+
+
+add_executable(
+  ads1115_test
+  test/ads1115_test.cpp
+)
+target_link_libraries(
+  ads1115_test
+  GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(ads1115_test)

@@ -48,3 +48,16 @@ target_include_directories(${TARGET_NAME}
     # include OpenSSL directories if present
     # Any other extra include required
 )
+
+
+add_executable(
+  max30102_test
+  test/max30102_test.cpp
+)
+target_link_libraries(
+  max30102_test
+  GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(max30102_test)

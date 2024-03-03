@@ -49,3 +49,15 @@ target_include_directories(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME} PUBLIC ${PIGPIO_LIBRARY} ads1115 max30102)
+
+add_executable(
+  heartguard_test
+  test/heartguard_test.cpp
+)
+target_link_libraries(
+  heartguard_test
+  GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(heartguard_test)

@@ -50,6 +50,15 @@ include(InstallRequiredSystemLibraries)
 include(GenerateExportHeader)
 include(${CMAKE_SOURCE_DIR}/cmake/compiler_options.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/cpack.cmake)
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
+FetchContent_MakeAvailable(googletest)
+
+# Enable Testing
+enable_testing()
 
 #####################################
 # Define Targets
