@@ -21,17 +21,11 @@ Requiring only a Raspberry Pi, Electrocardiogram (ECG) electrodes, a Heart Rate 
 
 * a modern C++17 compiler (`gcc-8`, `clang-6.0`, `MSVC 2017` or above)
 * [`cmake`](https://cmake.org) 3.15+
-* [`conan`](https://conan.io) 2.0+ (optional)
-* `cppcheck` (optional)
-* `clang-format` (optional)
+* `libpigpio-dev`
 
 ## Available CMake Options
 
-* BUILD_TESTING     - builds the tests (requires `doctest`)
 * BUILD_SHARED_LIBS - enables or disables the generation of shared libraries
-* BUILD_WITH_MT     - valid only for MSVC, builds libraries as MultiThreaded DLL
-
-If you activate the `BUILD_TESTING` flag, you need to perform in advance a `conan install` step, just to fetch the `doctest` dependency. Another dependency (OpenSSL) is used in this project as a demonstration of including a third-party library in the process, but it is totally optional and you can activate it only if you run conan in advance.
 
 ## How to build from command line
 
@@ -41,7 +35,7 @@ The project can be built using the following commands:
 cd HeartGuard/Software/Firmware/
 mkdir -p build # md build (on Windows)
 cd build
-cmake -DBUILD_TESTING=FALSE -DBUILD_SHARED_LIBS=FALSE -DCMAKE_BUILD_TYPE=Release ..
+cmake -DBUILD_SHARED_LIBS=FALSE -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
 cmake --build . --target package
 ```
@@ -49,3 +43,5 @@ cmake --build . --target package
 ## Acknowledgements
 
 This project uses the [modern C++ project template](https://github.com/madduci/moderncpp-project-template) by [madduci](https://github.com/madduci).
+
+This project also uses code from the [rpi_ads1115](https://github.com/berndporr/rpi_ads1115/tree/main?tab=readme-ov-file) repository by [berndporr](https://github.com/berndporr).

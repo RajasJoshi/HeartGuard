@@ -11,14 +11,19 @@
 #include <unistd.h>
 
 #include <algorithm>
+#include <atomic>
 #include <cmath>
+#include <condition_variable>
+#include <csignal>
 #include <cstdio>
 #include <cstring>
+#include <iostream>
+#include <memory>
+#include <mutex>
 #include <thread>
 
 #include "ads1115.hpp"
 #include "max30102.hpp"
-
 // Add your function declarations, classes, etc. here
 
 #endif  // HEARTGUARD_HPP
