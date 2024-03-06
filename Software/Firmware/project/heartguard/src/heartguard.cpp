@@ -3,7 +3,7 @@
 static std::atomic<bool> run(true);
 static std::thread mainThread;
 static std::unique_ptr<ADS1115> hgads1115;
-static std::unique_ptr<MAX30102> hgmax30102;
+//static std::unique_ptr<MAX30102> hgmax30102;
 static std::condition_variable cv;
 static std::mutex cv_m;
 
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
     if (sigaction(SIGINT, &sa, NULL) == -1) {
       perror("Error: cannot handle SIGINT");
     }
-
+/*
     std::thread max30102Thread = std::thread([]() {
       hgmax30102 = std::make_unique<MAX30102>();
       int result = hgmax30102->begin();
@@ -55,14 +55,14 @@ int main(int argc, char* argv[]) {
         usleep(500);
       }
     });
-
+*/
     std::thread ads1115Thread = std::thread([]() {
       hgads1115 = std::make_unique<ADS1115>();
       hgads1115->start();
     });
 
     ads1115Thread.join();
-    max30102Thread.join();
+  //  max30102Thread.join();
     mainThread.join();  // Wait for the main thread to finish
 
   } catch (const std::exception& e) {
