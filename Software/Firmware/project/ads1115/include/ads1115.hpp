@@ -1,6 +1,20 @@
 #ifndef ADS1115_HPP
 #define ADS1115_HPP
 
+/*
+ * ADS1115 class to read data at a given sampling rate
+ *
+ * Copyright (c) 2007  MontaVista Software, Inc.
+ * Copyright (c) 2007  Anton Vorontsov <avorontsov@ru.mvista.com>
+ * Copyright (c) 2013-2022  Bernd Porr <mail@berndporr.me.uk>
+ * Copyright (c) 2024  Rajas Joshi <rajasj99@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License.
+ *
+ */
+
 // Include any necessary headers here
 #include <assert.h>
 #include <pigpio.h>
@@ -12,7 +26,6 @@
 #include <iostream>
 
 // enable debug messages and error messages to stderr
-#define DEBUG
 
 static const char could_not_open_i2c[] = "Could not open I2C.\n";
 
@@ -31,7 +44,7 @@ struct ADS1115settings {
   /**
    * I2C bus used (99% always set to one)
    **/
-  int i2c_bus = 0;
+  int i2c_bus = 1;
 
   /**
    * I2C address of the ads1115

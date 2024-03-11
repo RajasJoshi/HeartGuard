@@ -2,6 +2,7 @@
 #define HEARTGUARD_HPP
 
 #include <fcntl.h>
+#include <pigpio.h>
 #include <signal.h>
 #include <stdio.h>
 #include <sys/file.h>  // flock
