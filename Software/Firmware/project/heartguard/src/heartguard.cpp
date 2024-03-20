@@ -128,12 +128,6 @@ int main(int argc, char* argv[]) {
 
           hgmax30102->setup();
           hgmax30102->setPulseAmplitudeRed(0x0A);
-          while (run) {
-            std::cout << "IR: " << hgmax30102->getIR();
-            std::cout << ", RED: " << hgmax30102->getRed();
-            std::cout << std::endl;
-            usleep(500);
-          }
         } catch (const std::exception& e) {
           std::cerr << "Exception in max30102Thread: " << e.what() << std::endl;
         } catch (...) {

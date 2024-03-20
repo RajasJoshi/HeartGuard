@@ -25,4 +25,3 @@ The above diagram illustrates the connections between the various hardware compo
 ## Connection
 
 [Provide any instructions or guidelines for using the hardware components]
-
