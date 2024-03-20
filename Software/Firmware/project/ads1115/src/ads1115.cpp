@@ -38,9 +38,17 @@ void ADS1115::start() {
   std::cerr << "Receiving data.\n";
 #endif
 
-  gpioSetMode(settings.drdy_gpio, PI_INPUT);
-  gpioSetISRFuncEx(settings.drdy_gpio, RISING_EDGE, ISR_TIMEOUT, gpioISR,
-                   (void *)this);
+  int result = gpioSetMode(settings.drdy_gpio, PI_INPUT);
+  if (result < 0) {
+    throw std::runtime_error("Failed to set GPIO mode, error " +
+                             std::to_string(result));
+  }
+  result = gpioSetISRFuncEx(settings.drdy_gpio, RISING_EDGE, ISR_TIMEOUT,
+                                gpioISR, (void *)this);
+  if (result < 0) {
+    throw std::runtime_error("Failed to set GPIO ISR function, error " +
+                             std::to_string(result));
+  }
 }
 
 void ADS1115::setChannel(ADS1115settings::Input channel) {
@@ -58,8 +66,12 @@ void ADS1115::dataReady() {
 }
 
 void ADS1115::stop() {
-  gpioSetISRFuncEx(ads1115settings.drdy_gpio, RISING_EDGE, -1, nullptr,
-                   static_cast<void *>(this));
+  int result = gpioSetISRFuncEx(ads1115settings.drdy_gpio, RISING_EDGE, -1,
+                                nullptr, static_cast<void *>(this));
+  if (result < 0) {
+    throw std::runtime_error("Failed to set GPIO ISR function, error " +
+                             std::to_string(result));
+  }
 
   if (ads1115settings.initPIGPIO) {
     gpioTerminate();
