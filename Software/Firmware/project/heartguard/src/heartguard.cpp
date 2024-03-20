@@ -1,24 +1,41 @@
 #include "heartguard.hpp"
 
-static std::atomic<bool> run{true};
-static std::atomic<bool> enable_max30102{false};
-static std::atomic<bool> gpio_pins_ready{false};
-static std::unique_ptr<std::thread> mainThread;
-static std::unique_ptr<ADS1115> hgads1115;
-static std::unique_ptr<MAX30102> hgmax30102;
-static std::unique_ptr<std::thread> ads1115Thread;
-static std::unique_ptr<std::thread> max30102Thread;
-static std::condition_variable cv;
-static std::condition_variable gpio_cv;
-static std::mutex cv_m;
-static std::mutex gpio_m;
+// Global variables
+static std::atomic<bool> run{true};  ///< Controls the main execution loop.
+static std::atomic<bool> enable_max30102{
+    false};  ///< Enables the MAX30102 sensor.
+static std::atomic<bool> gpio_pins_ready{
+    false};  ///< Indicates if the GPIO pins are ready.
+static std::unique_ptr<std::thread> mainThread;  ///< Main thread.
+static std::unique_ptr<ADS1115> hgads1115;       ///< ADS1115 sensor.
+static std::unique_ptr<MAX30102> hgmax30102;     ///< MAX30102 sensor.
+static std::unique_ptr<std::thread>
+    ads1115Thread;  ///< Thread for ADS1115 sensor.
+static std::unique_ptr<std::thread>
+    max30102Thread;                 ///< Thread for MAX30102 sensor.
+static std::condition_variable cv;  ///< Condition variable for main thread.
+static std::condition_variable gpio_cv;  ///< Condition variable for GPIO pins.
+static std::mutex cv_m;                  ///< Mutex for main thread.
+static std::mutex gpio_m;                ///< Mutex for GPIO pins.
 
+/**
+ * @brief Signal handler for shutdown.
+ *
+ * @param sig Signal number.
+ */
 static void sighandlerShutdown(int sig) {
   std::cerr << "Caught signal " << sig << "\nShutting down...\n";
   run = false;
   cv.notify_all();
 }
 
+/**
+ * @brief GPIO alert function.
+ *
+ * @param gpio GPIO pin number.
+ * @param level Level of the GPIO pin.
+ * @param tick Time at which the alert occurred.
+ */
 void gpioAlert(int gpio, int level, uint32_t tick) {
   if (gpio == 27 && level == PI_LOW) {
     // If pin 27 goes low, check the state of pin 22
@@ -31,6 +48,14 @@ void gpioAlert(int gpio, int level, uint32_t tick) {
     }
   }
 }
+
+/**
+ * @brief Main function.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line arguments.
+ * @return int Exit status.
+ */
 
 int main(int argc, char* argv[]) {
   try {
