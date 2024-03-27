@@ -1,13 +1,17 @@
 #include "max30102.hpp"
 
+/**
+ * @brief Construct a new MAX30102::MAX30102 object
+ *
+ */
 MAX30102::MAX30102() {
   // Constructor
 }
 
 /**
- * Initializes sensor.
- * Returns negative number on failure.
- * Returns sensor revision on success.
+ * @brief Initializes sensor.
+ * @param i2cAddr I2C address of the MAX30102 sensor.
+ * @return int 0 if successful, -1 if failed to open I2C bus, -3 if part ID
  */
 int MAX30102::begin(uint8_t i2cAddr) {
   int cfg = gpioCfgGetInternals();
@@ -67,23 +71,29 @@ void MAX30102::disableDATARDY(void) {
 // Mode configuration //
 
 /**
- * Pull sensor out of low power mode.
+ * @brief Wake up the sensor from sleep mode.
+ * @param void
+ * @return void
  */
 void MAX30102::wakeUp(void) { bitMask(REG_MODECONFIG, MASK_SHUTDOWN, WAKEUP); }
 
 /**
- * Put sensor into low power mode.
- * During this mode the sensor will continue to respond to I2C commands
- * but will not update or take new readings, such as temperature.
+ * @brief Put the sensor into sleep mode to save power.During this mode the
+ * sensor will continue to respond to I2C commands but will not update or take
+ * new readings, such as temperature.
+ * @param void
+ * @return void
  */
 void MAX30102::shutDown(void) {
   bitMask(REG_MODECONFIG, MASK_SHUTDOWN, SHUTDOWN);
 }
 
 /**
- * All configuration, threshold, and data registers are reset
+ * @brief All configuration, threshold, and data registers are reset
  * to their power-on state through a power-on reset.
  * The reset bit is cleared back to zero after reset finishes.
+ * @param void
+ * @return void
  */
 void MAX30102::softReset(void) {
   bitMask(REG_MODECONFIG, MASK_RESET, RESET);
@@ -103,71 +113,88 @@ void MAX30102::softReset(void) {
 }
 
 /**
- * Sets which LEDs are used for sampling.
+ * @brief Sets which LEDs are used for sampling.
  * - Red only
  * - Red+IR only
  * - Custom
+ * @param mode The mode to set.
+ * @return void
  */
 void MAX30102::setLEDMode(uint8_t mode) {
   bitMask(REG_MODECONFIG, MASK_LEDMODE, mode);
 }
 
 /**
- * Sets ADC Range.
- * Available ADC Range: 2048, 4096, 8192, 16384
+ * @brief Sets the ADC range of the MAX30102. Available ADC Range: 2048, 4096,
+ * 8192, 16384
+ * @param adcRange The ADC range to set.
+ * @return void
  */
 void MAX30102::setADCRange(uint8_t adcRange) {
   bitMask(REG_PARTICLECONFIG, MASK_ADCRANGE, adcRange);
 }
 
 /**
- * Sets Sample Rate.
- * Available Sample Rates: 50, 100, 200, 400, 800, 1000, 1600, 3200
+ * @brief Sets the sample rate of the MAX30102. Available Sample Rate: 50, 100,
+ * 200, 400, 800, 1000, 1600, 3200
+ * @param sampleRate The sample rate to set.
+ * @return void
  */
 void MAX30102::setSampleRate(uint8_t sampleRate) {
   bitMask(REG_PARTICLECONFIG, MASK_SAMPLERATE, sampleRate);
 }
 
 /**
- * Sets Pulse Width.
- * Available Pulse Width: 69, 188, 215, 411
+ * @brief Sets the pulse width of the MAX30102. Available Pulse Width: 69, 118,
+ * 215, 411
+ * @param pulseWidth The pulse width to set.
+ * @return void
  */
 void MAX30102::setPulseWidth(uint8_t pulseWidth) {
   bitMask(REG_PARTICLECONFIG, MASK_PULSEWIDTH, pulseWidth);
 }
 
 /**
- * Sets Red LED Pulse Amplitude.
+ * @brief Sets RED LED Pulse Amplitude.
+ * @param amplitude The amplitude to set.
+ * @return void
  */
 void MAX30102::setPulseAmplitudeRed(uint8_t amplitude) {
   i2cWriteByteData(_i2c, REG_LED1_PULSEAMP, amplitude);
 }
 
 /**
- * Sets IR LED Pulse Amplitude.
+ * @brief Sets IR LED Pulse Amplitude.
+ * @param amplitude The amplitude to set.
+ * @return void
  */
 void MAX30102::setPulseAmplitudeIR(uint8_t amplitude) {
   i2cWriteByteData(_i2c, REG_LED2_PULSEAMP, amplitude);
 }
 
+/**
+ * @brief Sets Proximity LED Pulse Amplitude.
+ * @param amplitude The amplitude to set.
+ * @return void
+ */
 void MAX30102::setPulseAmplitudeProximity(uint8_t amplitude) {
   i2cWriteByteData(_i2c, REG_LED_PROX_AMP, amplitude);
 }
 
 /**
- * Set the IR ADC count that will trigger the beginning of particle-sensing
- * mode. The threshMSB signifies only the 8 most significant-bits of the ADC
- * count.
+ * @brief Sets Proximity Threshold.
+ * @param threshMSB The threshold to set.
+ * @return void
  */
 void MAX30102::setProximityThreshold(uint8_t threshMSB) {
   i2cWriteByteData(_i2c, REG_PROXINTTHRESH, threshMSB);
 }
 
 /**
- * Given a slot number assign a thing to it.
- * Devices are SLOT_RED_LED or SLOT_RED_PILOT (proximity)
- * Assigning a SLOT_RED_LED will pulse LED
- * Assigning a SLOT_RED_PILOT will ??
+ * @brief Enable a specific slot.
+ * @param slotNumber The slot number to enable.
+ * @param device The device to enable.
+ * @return void
  */
 void MAX30102::enableSlot(uint8_t slotNumber, uint8_t device) {
   switch (slotNumber) {
@@ -190,7 +217,9 @@ void MAX30102::enableSlot(uint8_t slotNumber, uint8_t device) {
 }
 
 /**
- * Clears all slot assignments.
+ * @brief Disable all slots.
+ * @param void
+ * @return void
  */
 void MAX30102::disableSlots(void) {
   i2cWriteByteData(_i2c, REG_MULTILEDCONFIG1, 0);
@@ -200,15 +229,18 @@ void MAX30102::disableSlots(void) {
 // FIFO Configuration //
 
 /**
- * Sets sample average.
+ * @brief Set the FIFO Almost Full value.
+ * @param samples The number of samples to set.
+ * @return void
  */
 void MAX30102::setFIFOAverage(uint8_t numberOfSamples) {
   bitMask(REG_FIFOCONFIG, MASK_SAMPLEAVG, numberOfSamples);
 }
 
 /**
- * Resets all points to start in a known state.
- * Recommended to clear FIFO before beginning a read.
+ * @brief Set the FIFO Almost Full value.
+ * @param samples The number of samples to set.
+ * @return void
  */
 void MAX30102::clearFIFO(void) {
   i2cWriteByteData(_i2c, REG_FIFOWRITEPTR, 0);
@@ -217,21 +249,27 @@ void MAX30102::clearFIFO(void) {
 }
 
 /**
- * Enable roll over if FIFO over flows.
+ * @brief Set the FIFO Almost Full value.
+ * @param samples The number of samples to set.
+ * @return void
  */
 void MAX30102::enableFIFORollover(void) {
   bitMask(REG_FIFOCONFIG, MASK_ROLLOVER, ROLLOVER_ENABLE);
 }
 
 /**
- * Read the FIFO Write Pointer.
+ * @brief Set the FIFO Almost Full value.
+ * @param samples The number of samples to set.
+ * @return void
  */
 uint8_t MAX30102::getWritePointer(void) {
   return (i2cReadByteData(_i2c, REG_FIFOWRITEPTR));
 }
 
 /**
- * Read the FIFO Read Pointer.
+ * @brief Set the FIFO Almost Full value.
+ * @param samples The number of samples to set.
+ * @return void
  */
 uint8_t MAX30102::getReadPointer(void) {
   return (i2cReadByteData(_i2c, REG_FIFOREADPTR));
@@ -239,15 +277,39 @@ uint8_t MAX30102::getReadPointer(void) {
 
 // Device ID and Revision //
 
+/**
+ * @brief Read the part ID of the MAX30102 sensor.
+ * @param void
+ * @return uint8_t The part ID.
+ */
 uint8_t MAX30102::readPartID() { return i2cReadByteData(_i2c, REG_PARTID); }
 
+/**
+ * @brief Read the revision ID of the MAX30102 sensor.
+ * @param void
+ * @return void
+ */
 void MAX30102::readRevisionID() {
   revisionID = i2cReadByteData(_i2c, REG_REVISIONID);
 }
 
+/**
+ * @brief Get the revision ID of the MAX30102 sensor.
+ * @param void
+ * @return uint8_t The revision ID.
+ */
 uint8_t MAX30102::getRevisionID() { return revisionID; }
 
-// Setup the Sensor
+/**
+ * @brief Setup the sensor with user selectable settings.
+ * @param powerLevel The power level to set.
+ * @param sampleAverage The sample average to set.
+ * @param ledMode The LED mode to set.
+ * @param sampleRate The sample rate to set.
+ * @param pulseWidth The pulse width to set.
+ * @param adcRange The ADC range to set.
+ * @return void
+ */
 void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
                      int sampleRate, int pulseWidth, int adcRange) {
   // Reset all configuration, threshold, and data registers to POR values
@@ -345,6 +407,11 @@ void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
 
 // Data Collection //
 
+/**
+ * @brief Check if there is new data available.
+ * @param void
+ * @return bool True if new data is available, false otherwise.
+ */
 uint16_t MAX30102::check(void) {
   uint8_t readPointer = getReadPointer();
   uint8_t writePointer = getWritePointer();
@@ -430,7 +497,9 @@ uint16_t MAX30102::check(void) {
 }
 
 /**
- * Set certain thing in register.
+ * @brief Get the next sample from the FIFO.
+ * @param void
+ * @return void
  */
 void MAX30102::bitMask(uint8_t reg, uint8_t mask, uint8_t thing) {
   // Read register
@@ -443,6 +512,11 @@ void MAX30102::bitMask(uint8_t reg, uint8_t mask, uint8_t thing) {
   i2cWriteByteData(_i2c, reg, originalContents | thing);
 }
 
+/**
+ * @brief Get the next sample from the FIFO.
+ * @param void
+ * @return void
+ */
 std::vector<uint8_t> MAX30102::readMany(uint8_t address, uint8_t length) {
   char* rawRead = new char[length];
   int bytesRead = i2cReadI2CBlockData(_i2c, address, rawRead, length);
@@ -456,6 +530,11 @@ std::vector<uint8_t> MAX30102::readMany(uint8_t address, uint8_t length) {
   return result;
 }
 
+/**
+ * @brief Destructor for the MAX30102 class.
+ * @param void
+ * @return void
+ */
 MAX30102::~MAX30102() {
   // Destructor
   i2cClose(_i2c);
