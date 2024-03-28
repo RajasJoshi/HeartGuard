@@ -1,0 +1,218 @@
+\hypertarget{structADS1115settings}{}\doxysection{ADS1115settings Struct Reference}
+\label{structADS1115settings}\index{ADS1115settings@{ADS1115settings}}
+
+
+{\ttfamily \#include $<$ads1115.\+hpp$>$}
+
+
+
+Collaboration diagram for ADS1115settings\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{structADS1115settings__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357}{Sampling\+Rates}} \{ \newline
+\mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a571876b8fe1fcbf0ca6d5f7c22a86ec1}{FS8\+HZ}} = 0
+, \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a2f16253b2ddb36688da0d2c9d6c37e73}{FS16\+HZ}} = 1
+, \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357afc33391b2dd7bb507a840155c6cfbd95}{FS32\+HZ}} = 2
+, \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357aaa99d6e592baaa5d271f24908249c0a7}{FS64\+HZ}} = 3
+, \newline
+\mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a3265d07f32b61328f3ded165f8cb8fbc}{FS128\+HZ}} = 4
+, \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a6a05f905cc2f142d9855ae13a925e296}{FS250\+HZ}} = 5
+, \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a7fea2393497d03736ca6bf96b3ae55b2}{FS475\+HZ}} = 6
+, \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a84398c434b3b9427990fafb9fae98093}{FS860\+HZ}} = 7
+ \}
+\item 
+enum \mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5f}{PGA}} \{ \mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5fa219c056740c23deafea320ee522d56cf}{FSR2\+\_\+048}} = 2
+, \mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5fa54314fc0ed922c14c11f8a62beec0fe4}{FSR1\+\_\+024}} = 3
+, \mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5faa52ee8e28cfbc6882b5fb52fcfaf049b}{FSR0\+\_\+512}} = 4
+, \mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5fa66050b0b2dfa108d0fe262c156ee12dc}{FSR0\+\_\+256}} = 5
+ \}
+\item 
+enum \mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560d}{Input}} \{ \mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560daa087ea46f630c382cfbe6b9e74a93956}{AIN0}} = 0
+, \mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560dabce94db830ae8bd98155120296d43187}{AIN1}} = 1
+, \mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560dab4ed82e9f524b9cd347fa8878afcf49c}{AIN2}} = 2
+, \mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560daf41398bedce7b5ce208abf29e788ba92}{AIN3}} = 3
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned \mbox{\hyperlink{structADS1115settings_ab4314bdcd3638815129e97458ca43950}{get\+Sampling\+Rate}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structADS1115settings_ae0f3b1d6ef8068fed5e580fd4d7123b3}{i2c\+\_\+bus}} = 1
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structADS1115settings_a5aac9fb517c9665aeca60f1a9b0bbbe2}{address}} = \mbox{\hyperlink{ads1115_8hpp_ad3ad1998b05e4d4087c8cca54f3d4021}{DEFAULT\+\_\+\+ADS1115\+\_\+\+ADDRESS}}
+\item 
+\mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357}{Sampling\+Rates}} \mbox{\hyperlink{structADS1115settings_aab5ef57bb9aef08aac7a7fd7de33a451}{sampling\+Rate}} = \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a571876b8fe1fcbf0ca6d5f7c22a86ec1}{FS8\+HZ}}
+\item 
+\mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5f}{PGA}} \mbox{\hyperlink{structADS1115settings_a9c5013fdbef7376faec2df49d123e67e}{pga\+Gain}} = \mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5fa219c056740c23deafea320ee522d56cf}{FSR2\+\_\+048}}
+\item 
+\mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560d}{Input}} \mbox{\hyperlink{structADS1115settings_a3f4f9b2d8b6f0ef724bd4e4a68b75245}{channel}} = \mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560daa087ea46f630c382cfbe6b9e74a93956}{AIN0}}
+\item 
+bool \mbox{\hyperlink{structADS1115settings_add939ea3e172fc3c52fe9e53b05a66e4}{init\+PIGPIO}} = true
+\item 
+int \mbox{\hyperlink{structADS1115settings_a2ec35347e84e5165a35191e670c05b79}{drdy\+\_\+gpio}} = \mbox{\hyperlink{ads1115_8hpp_a4d85f7302915fc8924b2c8baab73cf47}{DEFAULT\+\_\+\+ALERT\+\_\+\+RDY\+\_\+\+TO\+\_\+\+GPIO}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classADS1115}{ADS1115}} initial settings when starting the device. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560d}\label{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560d}} 
+\index{ADS1115settings@{ADS1115settings}!Input@{Input}}
+\index{Input@{Input}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{Input}{Input}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560d}{ADS1115settings\+::\+Input}}}
+
+Channel indices \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AIN0@{AIN0}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!AIN0@{AIN0}}}\mbox{\Hypertarget{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560daa087ea46f630c382cfbe6b9e74a93956}\label{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560daa087ea46f630c382cfbe6b9e74a93956}} 
+AIN0&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AIN1@{AIN1}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!AIN1@{AIN1}}}\mbox{\Hypertarget{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560dabce94db830ae8bd98155120296d43187}\label{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560dabce94db830ae8bd98155120296d43187}} 
+AIN1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AIN2@{AIN2}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!AIN2@{AIN2}}}\mbox{\Hypertarget{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560dab4ed82e9f524b9cd347fa8878afcf49c}\label{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560dab4ed82e9f524b9cd347fa8878afcf49c}} 
+AIN2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AIN3@{AIN3}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!AIN3@{AIN3}}}\mbox{\Hypertarget{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560daf41398bedce7b5ce208abf29e788ba92}\label{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560daf41398bedce7b5ce208abf29e788ba92}} 
+AIN3&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{structADS1115settings_a831970032a15754ead970931dd25ac5f}\label{structADS1115settings_a831970032a15754ead970931dd25ac5f}} 
+\index{ADS1115settings@{ADS1115settings}!PGA@{PGA}}
+\index{PGA@{PGA}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{PGA}{PGA}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5f}{ADS1115settings\+::\+PGA}}}
+
+Full scale range\+: 2.\+048V, 1.\+024V, 0.\+512V or 0.\+256V. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FSR2\_048@{FSR2\_048}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FSR2\_048@{FSR2\_048}}}\mbox{\Hypertarget{structADS1115settings_a831970032a15754ead970931dd25ac5fa219c056740c23deafea320ee522d56cf}\label{structADS1115settings_a831970032a15754ead970931dd25ac5fa219c056740c23deafea320ee522d56cf}} 
+FSR2\+\_\+048&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FSR1\_024@{FSR1\_024}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FSR1\_024@{FSR1\_024}}}\mbox{\Hypertarget{structADS1115settings_a831970032a15754ead970931dd25ac5fa54314fc0ed922c14c11f8a62beec0fe4}\label{structADS1115settings_a831970032a15754ead970931dd25ac5fa54314fc0ed922c14c11f8a62beec0fe4}} 
+FSR1\+\_\+024&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FSR0\_512@{FSR0\_512}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FSR0\_512@{FSR0\_512}}}\mbox{\Hypertarget{structADS1115settings_a831970032a15754ead970931dd25ac5faa52ee8e28cfbc6882b5fb52fcfaf049b}\label{structADS1115settings_a831970032a15754ead970931dd25ac5faa52ee8e28cfbc6882b5fb52fcfaf049b}} 
+FSR0\+\_\+512&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FSR0\_256@{FSR0\_256}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FSR0\_256@{FSR0\_256}}}\mbox{\Hypertarget{structADS1115settings_a831970032a15754ead970931dd25ac5fa66050b0b2dfa108d0fe262c156ee12dc}\label{structADS1115settings_a831970032a15754ead970931dd25ac5fa66050b0b2dfa108d0fe262c156ee12dc}} 
+FSR0\+\_\+256&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357}\label{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357}} 
+\index{ADS1115settings@{ADS1115settings}!SamplingRates@{SamplingRates}}
+\index{SamplingRates@{SamplingRates}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{SamplingRates}{SamplingRates}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357}{ADS1115settings\+::\+Sampling\+Rates}}}
+
+Sampling rates \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FS8HZ@{FS8HZ}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FS8HZ@{FS8HZ}}}\mbox{\Hypertarget{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a571876b8fe1fcbf0ca6d5f7c22a86ec1}\label{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a571876b8fe1fcbf0ca6d5f7c22a86ec1}} 
+FS8\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FS16HZ@{FS16HZ}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FS16HZ@{FS16HZ}}}\mbox{\Hypertarget{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a2f16253b2ddb36688da0d2c9d6c37e73}\label{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a2f16253b2ddb36688da0d2c9d6c37e73}} 
+FS16\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FS32HZ@{FS32HZ}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FS32HZ@{FS32HZ}}}\mbox{\Hypertarget{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357afc33391b2dd7bb507a840155c6cfbd95}\label{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357afc33391b2dd7bb507a840155c6cfbd95}} 
+FS32\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FS64HZ@{FS64HZ}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FS64HZ@{FS64HZ}}}\mbox{\Hypertarget{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357aaa99d6e592baaa5d271f24908249c0a7}\label{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357aaa99d6e592baaa5d271f24908249c0a7}} 
+FS64\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FS128HZ@{FS128HZ}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FS128HZ@{FS128HZ}}}\mbox{\Hypertarget{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a3265d07f32b61328f3ded165f8cb8fbc}\label{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a3265d07f32b61328f3ded165f8cb8fbc}} 
+FS128\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FS250HZ@{FS250HZ}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FS250HZ@{FS250HZ}}}\mbox{\Hypertarget{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a6a05f905cc2f142d9855ae13a925e296}\label{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a6a05f905cc2f142d9855ae13a925e296}} 
+FS250\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FS475HZ@{FS475HZ}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FS475HZ@{FS475HZ}}}\mbox{\Hypertarget{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a7fea2393497d03736ca6bf96b3ae55b2}\label{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a7fea2393497d03736ca6bf96b3ae55b2}} 
+FS475\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FS860HZ@{FS860HZ}!ADS1115settings@{ADS1115settings}}\index{ADS1115settings@{ADS1115settings}!FS860HZ@{FS860HZ}}}\mbox{\Hypertarget{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a84398c434b3b9427990fafb9fae98093}\label{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a84398c434b3b9427990fafb9fae98093}} 
+FS860\+HZ&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structADS1115settings_ab4314bdcd3638815129e97458ca43950}\label{structADS1115settings_ab4314bdcd3638815129e97458ca43950}} 
+\index{ADS1115settings@{ADS1115settings}!getSamplingRate@{getSamplingRate}}
+\index{getSamplingRate@{getSamplingRate}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{getSamplingRate()}{getSamplingRate()}}
+{\footnotesize\ttfamily unsigned ADS1115settings\+::get\+Sampling\+Rate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the sampling rate in Hz 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structADS1115settings_a5aac9fb517c9665aeca60f1a9b0bbbe2}\label{structADS1115settings_a5aac9fb517c9665aeca60f1a9b0bbbe2}} 
+\index{ADS1115settings@{ADS1115settings}!address@{address}}
+\index{address@{address}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{address}{address}}
+{\footnotesize\ttfamily uint8\+\_\+t ADS1115settings\+::address = \mbox{\hyperlink{ads1115_8hpp_ad3ad1998b05e4d4087c8cca54f3d4021}{DEFAULT\+\_\+\+ADS1115\+\_\+\+ADDRESS}}}
+
+I2C address of the ads1115 \mbox{\Hypertarget{structADS1115settings_a3f4f9b2d8b6f0ef724bd4e4a68b75245}\label{structADS1115settings_a3f4f9b2d8b6f0ef724bd4e4a68b75245}} 
+\index{ADS1115settings@{ADS1115settings}!channel@{channel}}
+\index{channel@{channel}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{channel}{channel}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560d}{Input}} ADS1115settings\+::channel = \mbox{\hyperlink{structADS1115settings_a17845a1a94f94bb7d2406dbe13bc560daa087ea46f630c382cfbe6b9e74a93956}{AIN0}}}
+
+Requested input channel (AIN0..AIN3) \mbox{\Hypertarget{structADS1115settings_a2ec35347e84e5165a35191e670c05b79}\label{structADS1115settings_a2ec35347e84e5165a35191e670c05b79}} 
+\index{ADS1115settings@{ADS1115settings}!drdy\_gpio@{drdy\_gpio}}
+\index{drdy\_gpio@{drdy\_gpio}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{drdy\_gpio}{drdy\_gpio}}
+{\footnotesize\ttfamily int ADS1115settings\+::drdy\+\_\+gpio = \mbox{\hyperlink{ads1115_8hpp_a4d85f7302915fc8924b2c8baab73cf47}{DEFAULT\+\_\+\+ALERT\+\_\+\+RDY\+\_\+\+TO\+\_\+\+GPIO}}}
+
+GPIO pin connected to ALERT/\+RDY \mbox{\Hypertarget{structADS1115settings_ae0f3b1d6ef8068fed5e580fd4d7123b3}\label{structADS1115settings_ae0f3b1d6ef8068fed5e580fd4d7123b3}} 
+\index{ADS1115settings@{ADS1115settings}!i2c\_bus@{i2c\_bus}}
+\index{i2c\_bus@{i2c\_bus}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{i2c\_bus}{i2c\_bus}}
+{\footnotesize\ttfamily int ADS1115settings\+::i2c\+\_\+bus = 1}
+
+I2C bus used (99\% always set to one) \mbox{\Hypertarget{structADS1115settings_add939ea3e172fc3c52fe9e53b05a66e4}\label{structADS1115settings_add939ea3e172fc3c52fe9e53b05a66e4}} 
+\index{ADS1115settings@{ADS1115settings}!initPIGPIO@{initPIGPIO}}
+\index{initPIGPIO@{initPIGPIO}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{initPIGPIO}{initPIGPIO}}
+{\footnotesize\ttfamily bool ADS1115settings\+::init\+PIGPIO = true}
+
+If set to true the pigpio will be initialised \mbox{\Hypertarget{structADS1115settings_a9c5013fdbef7376faec2df49d123e67e}\label{structADS1115settings_a9c5013fdbef7376faec2df49d123e67e}} 
+\index{ADS1115settings@{ADS1115settings}!pgaGain@{pgaGain}}
+\index{pgaGain@{pgaGain}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{pgaGain}{pgaGain}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5f}{PGA}} ADS1115settings\+::pga\+Gain = \mbox{\hyperlink{structADS1115settings_a831970032a15754ead970931dd25ac5fa219c056740c23deafea320ee522d56cf}{FSR2\+\_\+048}}}
+
+Requested full scale range \mbox{\Hypertarget{structADS1115settings_aab5ef57bb9aef08aac7a7fd7de33a451}\label{structADS1115settings_aab5ef57bb9aef08aac7a7fd7de33a451}} 
+\index{ADS1115settings@{ADS1115settings}!samplingRate@{samplingRate}}
+\index{samplingRate@{samplingRate}!ADS1115settings@{ADS1115settings}}
+\doxysubsubsection{\texorpdfstring{samplingRate}{samplingRate}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357}{Sampling\+Rates}} ADS1115settings\+::sampling\+Rate = \mbox{\hyperlink{structADS1115settings_aa3a33d5f6c7f14bb708a70499a225357a571876b8fe1fcbf0ca6d5f7c22a86ec1}{FS8\+HZ}}}
+
+Sampling rate requested 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Software/\+Firmware/project/ads1115/include/\mbox{\hyperlink{ads1115_8hpp}{ads1115.\+hpp}}\end{DoxyCompactItemize}

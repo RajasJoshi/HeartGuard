@@ -1,6 +1,11 @@
 #ifndef MAX30102_HPP
 #define MAX30102_HPP
 
+/**
+ * @file max30102.hpp
+ * @brief MAX30102 class for reading data from the MAX30102 sensor.
+ */
+
 // Include any necessary headers here
 #include <fcntl.h>
 #include <pigpio.h>
@@ -136,9 +141,13 @@ static const uint8_t SLOT_NONE_PILOT = 0x04;
 static const uint8_t SLOT_RED_PILOT = 0x05;
 static const uint8_t SLOT_IR_PILOT = 0x06;
 
+/**
+ * @brief MAX30102 class for reading data from the MAX30102 sensor.
+ */
 class MAX30102 {
  public:
   MAX30102(void);
+
   int begin(uint8_t i2cAddr = MAX30102_ADDRESS);
 
   bool safeCheck(uint8_t maxTimeToCheck);  // Given a max amount of time, checks
@@ -196,7 +205,6 @@ class MAX30102 {
   uint8_t getRevisionID();
   uint8_t readPartID();
 
-  // Setup the sensor with user selectable settings
   void setup(uint8_t powerLevel = 0x1F, uint8_t sampleAverage = 4,
              uint8_t ledMode = 2, int sampleRate = 400, int pulseWidth = 411,
              int adcRange = 4096);

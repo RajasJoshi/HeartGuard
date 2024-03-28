@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['safecheck_69',['safeCheck',['../classMAX30102.html#a82a6fa3dc9fb7dd83e57582ccd0a0c06',1,'MAX30102']]],
+  ['samplingrate_70',['samplingRate',['../structADS1115settings.html#aab5ef57bb9aef08aac7a7fd7de33a451',1,'ADS1115settings']]],
+  ['samplingrates_71',['SamplingRates',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357',1,'ADS1115settings']]],
+  ['setadcrange_72',['setADCRange',['../classMAX30102.html#ab936f8072cde5aaf5b0bd8b9ec9c0e2f',1,'MAX30102']]],
+  ['setchannel_73',['setChannel',['../classADS1115.html#aa9c73af16fd1583219291b0c00ecdfa6',1,'ADS1115']]],
+  ['setfifoalmostfull_74',['setFIFOAlmostFull',['../classMAX30102.html#abd8bade4eb3dbb809c364378f9017d25',1,'MAX30102']]],
+  ['setfifoaverage_75',['setFIFOAverage',['../classMAX30102.html#ae11f7b66a205c5e465668fa401427737',1,'MAX30102']]],
+  ['setledmode_76',['setLEDMode',['../classMAX30102.html#a19cae8ee364f876cb34da812d5a657f2',1,'MAX30102']]],
+  ['setproximitythreshold_77',['setProximityThreshold',['../classMAX30102.html#a5fd727b3f253f1007750534d5f40b562',1,'MAX30102']]],
+  ['setpulseamplitudeir_78',['setPulseAmplitudeIR',['../classMAX30102.html#a80aad8301d5ca50a72e72c02f9c824c9',1,'MAX30102']]],
+  ['setpulseamplitudeproximity_79',['setPulseAmplitudeProximity',['../classMAX30102.html#a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8',1,'MAX30102']]],
+  ['setpulseamplitudered_80',['setPulseAmplitudeRed',['../classMAX30102.html#a92936c050f8a49ba8da5bda2069dd1f6',1,'MAX30102']]],
+  ['setpulsewidth_81',['setPulseWidth',['../classMAX30102.html#aab527d480ff83e3059157bb793244644',1,'MAX30102']]],
+  ['setsamplerate_82',['setSampleRate',['../classMAX30102.html#a78604b395ccf72fbd6366684aa99e646',1,'MAX30102']]],
+  ['setup_83',['setup',['../classMAX30102.html#ac20a8b68fcf978b71f3fde1bb516dde8',1,'MAX30102']]],
+  ['shutdown_84',['shutDown',['../classMAX30102.html#ac5c9b06bf3cf668e018bb81a17d5aa2f',1,'MAX30102']]],
+  ['softreset_85',['softReset',['../classMAX30102.html#ad78ce89aa47f2c6e1a3cf07a6966c2c9',1,'MAX30102']]],
+  ['start_86',['start',['../classADS1115.html#a05c4fdde78e32fd5d15c05af895a4871',1,'ADS1115']]],
+  ['stop_87',['stop',['../classADS1115.html#aa3063eac80a95f6db16950e9783bc92b',1,'ADS1115']]],
+  ['storage_5fsize_88',['STORAGE_SIZE',['../max30102_8hpp.html#a8d6f782ffe53d87f0fd0327d4b09352c',1,'max30102.hpp']]]
+];

@@ -1,0 +1,712 @@
+\hypertarget{classMAX30102}{}\doxysection{MAX30102 Class Reference}
+\label{classMAX30102}\index{MAX30102@{MAX30102}}
+
+
+\mbox{\hyperlink{classMAX30102}{MAX30102}} class for reading data from the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor.  
+
+
+
+
+{\ttfamily \#include $<$max30102.\+hpp$>$}
+
+
+
+Collaboration diagram for MAX30102\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classMAX30102__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMAX30102_a631728e610c1c3eab45d2fc33e78dd50}{MAX30102}} (void)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classMAX30102_a631728e610c1c3eab45d2fc33e78dd50}{MAX30102\+::\+MAX30102}} object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classMAX30102_ab148e8492b5c8b5bc60b501ed84f3d46}{begin}} (uint8\+\_\+t i2c\+Addr=\mbox{\hyperlink{max30102_8hpp_ad7327a848315960f1d8828a09316c6a9}{MAX30102\+\_\+\+ADDRESS}})
+\begin{DoxyCompactList}\small\item\em Initializes sensor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classMAX30102_a82a6fa3dc9fb7dd83e57582ccd0a0c06}{safe\+Check}} (uint8\+\_\+t max\+Time\+To\+Check)
+\item 
+void \mbox{\hyperlink{classMAX30102_ab6c07c546e397bd5d87292f434a0ee8c}{wake\+Up}} ()
+\begin{DoxyCompactList}\small\item\em Wake up the sensor from sleep mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_ac5c9b06bf3cf668e018bb81a17d5aa2f}{shut\+Down}} ()
+\begin{DoxyCompactList}\small\item\em Put the sensor into sleep mode to save power.\+During this mode the sensor will continue to respond to I2C commands but will not update or take new readings, such as temperature. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_ad78ce89aa47f2c6e1a3cf07a6966c2c9}{soft\+Reset}} ()
+\begin{DoxyCompactList}\small\item\em All configuration, threshold, and data registers are reset to their power-\/on state through a power-\/on reset. The reset bit is cleared back to zero after reset finishes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_a19cae8ee364f876cb34da812d5a657f2}{set\+LEDMode}} (uint8\+\_\+t mode)
+\begin{DoxyCompactList}\small\item\em Sets which LEDs are used for sampling. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_ab936f8072cde5aaf5b0bd8b9ec9c0e2f}{set\+ADCRange}} (uint8\+\_\+t adc\+Range)
+\begin{DoxyCompactList}\small\item\em Sets the ADC range of the \mbox{\hyperlink{classMAX30102}{MAX30102}}. Available ADC Range\+: 2048, 4096, 8192, 16384. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_a78604b395ccf72fbd6366684aa99e646}{set\+Sample\+Rate}} (uint8\+\_\+t sample\+Rate)
+\begin{DoxyCompactList}\small\item\em Sets the sample rate of the \mbox{\hyperlink{classMAX30102}{MAX30102}}. Available Sample Rate\+: 50, 100, 200, 400, 800, 1000, 1600, 3200. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_aab527d480ff83e3059157bb793244644}{set\+Pulse\+Width}} (uint8\+\_\+t pulse\+Width)
+\begin{DoxyCompactList}\small\item\em Sets the pulse width of the \mbox{\hyperlink{classMAX30102}{MAX30102}}. Available Pulse Width\+: 69, 118, 215, 411. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_a92936c050f8a49ba8da5bda2069dd1f6}{set\+Pulse\+Amplitude\+Red}} (uint8\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Sets RED LED Pulse Amplitude. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_a80aad8301d5ca50a72e72c02f9c824c9}{set\+Pulse\+Amplitude\+IR}} (uint8\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Sets IR LED Pulse Amplitude. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8}{set\+Pulse\+Amplitude\+Proximity}} (uint8\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Sets Proximity LED Pulse Amplitude. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_a5fd727b3f253f1007750534d5f40b562}{set\+Proximity\+Threshold}} (uint8\+\_\+t thres\+MSB)
+\begin{DoxyCompactList}\small\item\em Sets Proximity Threshold. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_a34426debd59ef446363a7af352bdbd8e}{enable\+Slot}} (uint8\+\_\+t slot\+Number, uint8\+\_\+t device)
+\begin{DoxyCompactList}\small\item\em Enable a specific slot. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_a07872942c5ee098cde2364b4d86ebec6}{disable\+Slots}} (void)
+\begin{DoxyCompactList}\small\item\em Disable all slots. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classMAX30102_a535f24c507d05409d99bf4311fdb535c}{get\+INT1}} (void)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classMAX30102_af9e1c521388e59c718a2ab4c219d8d34}{get\+INT2}} (void)
+\item 
+void \mbox{\hyperlink{classMAX30102_a4d436e6c3874f03fc32ca1412fbd8dfb}{enable\+AFULL}} (void)
+\item 
+void \mbox{\hyperlink{classMAX30102_aec4831802832defb3f6453f27649f9fd}{disable\+AFULL}} (void)
+\item 
+void \mbox{\hyperlink{classMAX30102_a2e9b9a516572433c2dec4a304acb67f7}{enable\+DATARDY}} (void)
+\item 
+void \mbox{\hyperlink{classMAX30102_a23ac69410cbbbd0479bc195205be492f}{disable\+DATARDY}} (void)
+\item 
+void \mbox{\hyperlink{classMAX30102_ae11f7b66a205c5e465668fa401427737}{set\+FIFOAverage}} (uint8\+\_\+t samples)
+\begin{DoxyCompactList}\small\item\em Set the FIFO Almost Full value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_a13354720f66fc1ec7d579bb3e765a96d}{enable\+FIFORollover}} ()
+\begin{DoxyCompactList}\small\item\em Set the FIFO Almost Full value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_ac45e805b747d6723f59e41cbd6b0c8e9}{disable\+FIFORollover}} ()
+\item 
+void \mbox{\hyperlink{classMAX30102_abd8bade4eb3dbb809c364378f9017d25}{set\+FIFOAlmost\+Full}} (uint8\+\_\+t samples)
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classMAX30102_a023a175af4f01d54f24f632296f71775}{check}} (void)
+\begin{DoxyCompactList}\small\item\em Check if there is new data available. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classMAX30102_a1b147f6bf43019fe2fcaf8448657ad5a}{available}} (void)
+\item 
+void \mbox{\hyperlink{classMAX30102_a2c3f09f90f952e44aa2d1d6456c0ea0e}{next\+Sample}} (void)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classMAX30102_a2dd900a208752875bc47eaaa6de45c60}{get\+FIFORed}} (void)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classMAX30102_a04ae15b45111ff3345fba97f3e558885}{get\+FIFOIR}} (void)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classMAX30102_aeaf1c7ea1764c7d0553386cabfb783e6}{get\+Write\+Pointer}} (void)
+\begin{DoxyCompactList}\small\item\em Set the FIFO Almost Full value. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classMAX30102_a99dd07d94cdca56a0116bd3bc40eeb66}{get\+Read\+Pointer}} (void)
+\begin{DoxyCompactList}\small\item\em Set the FIFO Almost Full value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_afbac1a581d2acb9aeb9dbe12b2d83b00}{clear\+FIFO}} (void)
+\begin{DoxyCompactList}\small\item\em Set the FIFO Almost Full value. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classMAX30102_a9864b29afe6f70f866e21f2c0b2a1df3}{get\+Revision\+ID}} ()
+\begin{DoxyCompactList}\small\item\em Get the revision ID of the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classMAX30102_ac17326fd1347d61dfbfd5ab76d039fb2}{read\+Part\+ID}} ()
+\begin{DoxyCompactList}\small\item\em Read the part ID of the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMAX30102_ac20a8b68fcf978b71f3fde1bb516dde8}{setup}} (uint8\+\_\+t power\+Level=0x1F, uint8\+\_\+t sample\+Average=4, uint8\+\_\+t led\+Mode=2, int sample\+Rate=400, int pulse\+Width=411, int adc\+Range=4096)
+\begin{DoxyCompactList}\small\item\em Setup the sensor with user selectable settings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classMAX30102}{MAX30102}} class for reading data from the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMAX30102_a631728e610c1c3eab45d2fc33e78dd50}\label{classMAX30102_a631728e610c1c3eab45d2fc33e78dd50}} 
+\index{MAX30102@{MAX30102}!MAX30102@{MAX30102}}
+\index{MAX30102@{MAX30102}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{MAX30102()}{MAX30102()}}
+{\footnotesize\ttfamily MAX30102\+::\+MAX30102 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{classMAX30102_a631728e610c1c3eab45d2fc33e78dd50}{MAX30102\+::\+MAX30102}} object. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMAX30102_a1b147f6bf43019fe2fcaf8448657ad5a}\label{classMAX30102_a1b147f6bf43019fe2fcaf8448657ad5a}} 
+\index{MAX30102@{MAX30102}!available@{available}}
+\index{available@{available}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{available()}{available()}}
+{\footnotesize\ttfamily uint8\+\_\+t MAX30102\+::available (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_ab148e8492b5c8b5bc60b501ed84f3d46}\label{classMAX30102_ab148e8492b5c8b5bc60b501ed84f3d46}} 
+\index{MAX30102@{MAX30102}!begin@{begin}}
+\index{begin@{begin}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily int MAX30102\+::begin (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{i2c\+Addr = {\ttfamily \mbox{\hyperlink{max30102_8hpp_ad7327a848315960f1d8828a09316c6a9}{MAX30102\+\_\+\+ADDRESS}}} }\end{DoxyParamCaption})}
+
+
+
+Initializes sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i2c\+Addr} & I2C address of the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 0 if successful, -\/1 if failed to open I2C bus, -\/3 if part ID 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{classMAX30102_ab148e8492b5c8b5bc60b501ed84f3d46_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_a023a175af4f01d54f24f632296f71775}\label{classMAX30102_a023a175af4f01d54f24f632296f71775}} 
+\index{MAX30102@{MAX30102}!check@{check}}
+\index{check@{check}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{check()}{check()}}
+{\footnotesize\ttfamily uint16\+\_\+t MAX30102\+::check (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Check if there is new data available. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if new data is available, false otherwise. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMAX30102_a023a175af4f01d54f24f632296f71775_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_afbac1a581d2acb9aeb9dbe12b2d83b00}\label{classMAX30102_afbac1a581d2acb9aeb9dbe12b2d83b00}} 
+\index{MAX30102@{MAX30102}!clearFIFO@{clearFIFO}}
+\index{clearFIFO@{clearFIFO}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{clearFIFO()}{clearFIFO()}}
+{\footnotesize\ttfamily void MAX30102\+::clear\+FIFO (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Set the FIFO Almost Full value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em samples} & The number of samples to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_aec4831802832defb3f6453f27649f9fd}\label{classMAX30102_aec4831802832defb3f6453f27649f9fd}} 
+\index{MAX30102@{MAX30102}!disableAFULL@{disableAFULL}}
+\index{disableAFULL@{disableAFULL}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{disableAFULL()}{disableAFULL()}}
+{\footnotesize\ttfamily void MAX30102\+::disable\+AFULL (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_a23ac69410cbbbd0479bc195205be492f}\label{classMAX30102_a23ac69410cbbbd0479bc195205be492f}} 
+\index{MAX30102@{MAX30102}!disableDATARDY@{disableDATARDY}}
+\index{disableDATARDY@{disableDATARDY}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{disableDATARDY()}{disableDATARDY()}}
+{\footnotesize\ttfamily void MAX30102\+::disable\+DATARDY (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_ac45e805b747d6723f59e41cbd6b0c8e9}\label{classMAX30102_ac45e805b747d6723f59e41cbd6b0c8e9}} 
+\index{MAX30102@{MAX30102}!disableFIFORollover@{disableFIFORollover}}
+\index{disableFIFORollover@{disableFIFORollover}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{disableFIFORollover()}{disableFIFORollover()}}
+{\footnotesize\ttfamily void MAX30102\+::disable\+FIFORollover (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_a07872942c5ee098cde2364b4d86ebec6}\label{classMAX30102_a07872942c5ee098cde2364b4d86ebec6}} 
+\index{MAX30102@{MAX30102}!disableSlots@{disableSlots}}
+\index{disableSlots@{disableSlots}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{disableSlots()}{disableSlots()}}
+{\footnotesize\ttfamily void MAX30102\+::disable\+Slots (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Disable all slots. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_a4d436e6c3874f03fc32ca1412fbd8dfb}\label{classMAX30102_a4d436e6c3874f03fc32ca1412fbd8dfb}} 
+\index{MAX30102@{MAX30102}!enableAFULL@{enableAFULL}}
+\index{enableAFULL@{enableAFULL}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{enableAFULL()}{enableAFULL()}}
+{\footnotesize\ttfamily void MAX30102\+::enable\+AFULL (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMAX30102_a4d436e6c3874f03fc32ca1412fbd8dfb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_a2e9b9a516572433c2dec4a304acb67f7}\label{classMAX30102_a2e9b9a516572433c2dec4a304acb67f7}} 
+\index{MAX30102@{MAX30102}!enableDATARDY@{enableDATARDY}}
+\index{enableDATARDY@{enableDATARDY}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{enableDATARDY()}{enableDATARDY()}}
+{\footnotesize\ttfamily void MAX30102\+::enable\+DATARDY (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMAX30102_a2e9b9a516572433c2dec4a304acb67f7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_a13354720f66fc1ec7d579bb3e765a96d}\label{classMAX30102_a13354720f66fc1ec7d579bb3e765a96d}} 
+\index{MAX30102@{MAX30102}!enableFIFORollover@{enableFIFORollover}}
+\index{enableFIFORollover@{enableFIFORollover}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{enableFIFORollover()}{enableFIFORollover()}}
+{\footnotesize\ttfamily void MAX30102\+::enable\+FIFORollover (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Set the FIFO Almost Full value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em samples} & The number of samples to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_a34426debd59ef446363a7af352bdbd8e}\label{classMAX30102_a34426debd59ef446363a7af352bdbd8e}} 
+\index{MAX30102@{MAX30102}!enableSlot@{enableSlot}}
+\index{enableSlot@{enableSlot}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{enableSlot()}{enableSlot()}}
+{\footnotesize\ttfamily void MAX30102\+::enable\+Slot (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{slot\+Number,  }\item[{uint8\+\_\+t}]{device }\end{DoxyParamCaption})}
+
+
+
+Enable a specific slot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em slot\+Number} & The slot number to enable. \\
+\hline
+{\em device} & The device to enable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_a04ae15b45111ff3345fba97f3e558885}\label{classMAX30102_a04ae15b45111ff3345fba97f3e558885}} 
+\index{MAX30102@{MAX30102}!getFIFOIR@{getFIFOIR}}
+\index{getFIFOIR@{getFIFOIR}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{getFIFOIR()}{getFIFOIR()}}
+{\footnotesize\ttfamily uint32\+\_\+t MAX30102\+::get\+FIFOIR (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_a2dd900a208752875bc47eaaa6de45c60}\label{classMAX30102_a2dd900a208752875bc47eaaa6de45c60}} 
+\index{MAX30102@{MAX30102}!getFIFORed@{getFIFORed}}
+\index{getFIFORed@{getFIFORed}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{getFIFORed()}{getFIFORed()}}
+{\footnotesize\ttfamily uint32\+\_\+t MAX30102\+::get\+FIFORed (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_a535f24c507d05409d99bf4311fdb535c}\label{classMAX30102_a535f24c507d05409d99bf4311fdb535c}} 
+\index{MAX30102@{MAX30102}!getINT1@{getINT1}}
+\index{getINT1@{getINT1}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{getINT1()}{getINT1()}}
+{\footnotesize\ttfamily uint8\+\_\+t MAX30102\+::get\+INT1 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_af9e1c521388e59c718a2ab4c219d8d34}\label{classMAX30102_af9e1c521388e59c718a2ab4c219d8d34}} 
+\index{MAX30102@{MAX30102}!getINT2@{getINT2}}
+\index{getINT2@{getINT2}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{getINT2()}{getINT2()}}
+{\footnotesize\ttfamily uint8\+\_\+t MAX30102\+::get\+INT2 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_a99dd07d94cdca56a0116bd3bc40eeb66}\label{classMAX30102_a99dd07d94cdca56a0116bd3bc40eeb66}} 
+\index{MAX30102@{MAX30102}!getReadPointer@{getReadPointer}}
+\index{getReadPointer@{getReadPointer}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{getReadPointer()}{getReadPointer()}}
+{\footnotesize\ttfamily uint8\+\_\+t MAX30102\+::get\+Read\+Pointer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Set the FIFO Almost Full value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em samples} & The number of samples to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMAX30102_a99dd07d94cdca56a0116bd3bc40eeb66_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_a9864b29afe6f70f866e21f2c0b2a1df3}\label{classMAX30102_a9864b29afe6f70f866e21f2c0b2a1df3}} 
+\index{MAX30102@{MAX30102}!getRevisionID@{getRevisionID}}
+\index{getRevisionID@{getRevisionID}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{getRevisionID()}{getRevisionID()}}
+{\footnotesize\ttfamily uint8\+\_\+t MAX30102\+::get\+Revision\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the revision ID of the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t The revision ID. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_aeaf1c7ea1764c7d0553386cabfb783e6}\label{classMAX30102_aeaf1c7ea1764c7d0553386cabfb783e6}} 
+\index{MAX30102@{MAX30102}!getWritePointer@{getWritePointer}}
+\index{getWritePointer@{getWritePointer}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{getWritePointer()}{getWritePointer()}}
+{\footnotesize\ttfamily uint8\+\_\+t MAX30102\+::get\+Write\+Pointer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Set the FIFO Almost Full value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em samples} & The number of samples to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMAX30102_aeaf1c7ea1764c7d0553386cabfb783e6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_a2c3f09f90f952e44aa2d1d6456c0ea0e}\label{classMAX30102_a2c3f09f90f952e44aa2d1d6456c0ea0e}} 
+\index{MAX30102@{MAX30102}!nextSample@{nextSample}}
+\index{nextSample@{nextSample}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{nextSample()}{nextSample()}}
+{\footnotesize\ttfamily void MAX30102\+::next\+Sample (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_ac17326fd1347d61dfbfd5ab76d039fb2}\label{classMAX30102_ac17326fd1347d61dfbfd5ab76d039fb2}} 
+\index{MAX30102@{MAX30102}!readPartID@{readPartID}}
+\index{readPartID@{readPartID}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{readPartID()}{readPartID()}}
+{\footnotesize\ttfamily uint8\+\_\+t MAX30102\+::read\+Part\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read the part ID of the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t The part ID. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{classMAX30102_ac17326fd1347d61dfbfd5ab76d039fb2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_a82a6fa3dc9fb7dd83e57582ccd0a0c06}\label{classMAX30102_a82a6fa3dc9fb7dd83e57582ccd0a0c06}} 
+\index{MAX30102@{MAX30102}!safeCheck@{safeCheck}}
+\index{safeCheck@{safeCheck}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{safeCheck()}{safeCheck()}}
+{\footnotesize\ttfamily bool MAX30102\+::safe\+Check (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{max\+Time\+To\+Check }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_ab936f8072cde5aaf5b0bd8b9ec9c0e2f}\label{classMAX30102_ab936f8072cde5aaf5b0bd8b9ec9c0e2f}} 
+\index{MAX30102@{MAX30102}!setADCRange@{setADCRange}}
+\index{setADCRange@{setADCRange}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setADCRange()}{setADCRange()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+ADCRange (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{adc\+Range }\end{DoxyParamCaption})}
+
+
+
+Sets the ADC range of the \mbox{\hyperlink{classMAX30102}{MAX30102}}. Available ADC Range\+: 2048, 4096, 8192, 16384. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em adc\+Range} & The ADC range to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_abd8bade4eb3dbb809c364378f9017d25}\label{classMAX30102_abd8bade4eb3dbb809c364378f9017d25}} 
+\index{MAX30102@{MAX30102}!setFIFOAlmostFull@{setFIFOAlmostFull}}
+\index{setFIFOAlmostFull@{setFIFOAlmostFull}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setFIFOAlmostFull()}{setFIFOAlmostFull()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+FIFOAlmost\+Full (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{samples }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMAX30102_ae11f7b66a205c5e465668fa401427737}\label{classMAX30102_ae11f7b66a205c5e465668fa401427737}} 
+\index{MAX30102@{MAX30102}!setFIFOAverage@{setFIFOAverage}}
+\index{setFIFOAverage@{setFIFOAverage}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setFIFOAverage()}{setFIFOAverage()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+FIFOAverage (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{number\+Of\+Samples }\end{DoxyParamCaption})}
+
+
+
+Set the FIFO Almost Full value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em samples} & The number of samples to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMAX30102_ae11f7b66a205c5e465668fa401427737_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_a19cae8ee364f876cb34da812d5a657f2}\label{classMAX30102_a19cae8ee364f876cb34da812d5a657f2}} 
+\index{MAX30102@{MAX30102}!setLEDMode@{setLEDMode}}
+\index{setLEDMode@{setLEDMode}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setLEDMode()}{setLEDMode()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+LEDMode (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mode }\end{DoxyParamCaption})}
+
+
+
+Sets which LEDs are used for sampling. 
+
+
+\begin{DoxyItemize}
+\item Red only
+\item Red+\+IR only
+\item Custom 
+\begin{DoxyParams}{Parameters}
+{\em mode} & The mode to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classMAX30102_a5fd727b3f253f1007750534d5f40b562}\label{classMAX30102_a5fd727b3f253f1007750534d5f40b562}} 
+\index{MAX30102@{MAX30102}!setProximityThreshold@{setProximityThreshold}}
+\index{setProximityThreshold@{setProximityThreshold}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setProximityThreshold()}{setProximityThreshold()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+Proximity\+Threshold (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{thresh\+MSB }\end{DoxyParamCaption})}
+
+
+
+Sets Proximity Threshold. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em thresh\+MSB} & The threshold to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_a80aad8301d5ca50a72e72c02f9c824c9}\label{classMAX30102_a80aad8301d5ca50a72e72c02f9c824c9}} 
+\index{MAX30102@{MAX30102}!setPulseAmplitudeIR@{setPulseAmplitudeIR}}
+\index{setPulseAmplitudeIR@{setPulseAmplitudeIR}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setPulseAmplitudeIR()}{setPulseAmplitudeIR()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+Pulse\+Amplitude\+IR (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{amplitude }\end{DoxyParamCaption})}
+
+
+
+Sets IR LED Pulse Amplitude. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amplitude} & The amplitude to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8}\label{classMAX30102_a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8}} 
+\index{MAX30102@{MAX30102}!setPulseAmplitudeProximity@{setPulseAmplitudeProximity}}
+\index{setPulseAmplitudeProximity@{setPulseAmplitudeProximity}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setPulseAmplitudeProximity()}{setPulseAmplitudeProximity()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+Pulse\+Amplitude\+Proximity (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{amplitude }\end{DoxyParamCaption})}
+
+
+
+Sets Proximity LED Pulse Amplitude. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amplitude} & The amplitude to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_a92936c050f8a49ba8da5bda2069dd1f6}\label{classMAX30102_a92936c050f8a49ba8da5bda2069dd1f6}} 
+\index{MAX30102@{MAX30102}!setPulseAmplitudeRed@{setPulseAmplitudeRed}}
+\index{setPulseAmplitudeRed@{setPulseAmplitudeRed}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setPulseAmplitudeRed()}{setPulseAmplitudeRed()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+Pulse\+Amplitude\+Red (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{amplitude }\end{DoxyParamCaption})}
+
+
+
+Sets RED LED Pulse Amplitude. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amplitude} & The amplitude to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_aab527d480ff83e3059157bb793244644}\label{classMAX30102_aab527d480ff83e3059157bb793244644}} 
+\index{MAX30102@{MAX30102}!setPulseWidth@{setPulseWidth}}
+\index{setPulseWidth@{setPulseWidth}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setPulseWidth()}{setPulseWidth()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+Pulse\+Width (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{pulse\+Width }\end{DoxyParamCaption})}
+
+
+
+Sets the pulse width of the \mbox{\hyperlink{classMAX30102}{MAX30102}}. Available Pulse Width\+: 69, 118, 215, 411. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pulse\+Width} & The pulse width to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_a78604b395ccf72fbd6366684aa99e646}\label{classMAX30102_a78604b395ccf72fbd6366684aa99e646}} 
+\index{MAX30102@{MAX30102}!setSampleRate@{setSampleRate}}
+\index{setSampleRate@{setSampleRate}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setSampleRate()}{setSampleRate()}}
+{\footnotesize\ttfamily void MAX30102\+::set\+Sample\+Rate (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sample\+Rate }\end{DoxyParamCaption})}
+
+
+
+Sets the sample rate of the \mbox{\hyperlink{classMAX30102}{MAX30102}}. Available Sample Rate\+: 50, 100, 200, 400, 800, 1000, 1600, 3200. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sample\+Rate} & The sample rate to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_ac20a8b68fcf978b71f3fde1bb516dde8}\label{classMAX30102_ac20a8b68fcf978b71f3fde1bb516dde8}} 
+\index{MAX30102@{MAX30102}!setup@{setup}}
+\index{setup@{setup}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void MAX30102\+::setup (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{power\+Level = {\ttfamily 0x1F},  }\item[{uint8\+\_\+t}]{sample\+Average = {\ttfamily 4},  }\item[{uint8\+\_\+t}]{led\+Mode = {\ttfamily 2},  }\item[{int}]{sample\+Rate = {\ttfamily 400},  }\item[{int}]{pulse\+Width = {\ttfamily 411},  }\item[{int}]{adc\+Range = {\ttfamily 4096} }\end{DoxyParamCaption})}
+
+
+
+Setup the sensor with user selectable settings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em power\+Level} & The power level to set. \\
+\hline
+{\em sample\+Average} & The sample average to set. \\
+\hline
+{\em led\+Mode} & The LED mode to set. \\
+\hline
+{\em sample\+Rate} & The sample rate to set. \\
+\hline
+{\em pulse\+Width} & The pulse width to set. \\
+\hline
+{\em adc\+Range} & The ADC range to set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMAX30102_ac20a8b68fcf978b71f3fde1bb516dde8_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_ac5c9b06bf3cf668e018bb81a17d5aa2f}\label{classMAX30102_ac5c9b06bf3cf668e018bb81a17d5aa2f}} 
+\index{MAX30102@{MAX30102}!shutDown@{shutDown}}
+\index{shutDown@{shutDown}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{shutDown()}{shutDown()}}
+{\footnotesize\ttfamily void MAX30102\+::shut\+Down (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Put the sensor into sleep mode to save power.\+During this mode the sensor will continue to respond to I2C commands but will not update or take new readings, such as temperature. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMAX30102_ad78ce89aa47f2c6e1a3cf07a6966c2c9}\label{classMAX30102_ad78ce89aa47f2c6e1a3cf07a6966c2c9}} 
+\index{MAX30102@{MAX30102}!softReset@{softReset}}
+\index{softReset@{softReset}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{softReset()}{softReset()}}
+{\footnotesize\ttfamily void MAX30102\+::soft\+Reset (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+All configuration, threshold, and data registers are reset to their power-\/on state through a power-\/on reset. The reset bit is cleared back to zero after reset finishes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{classMAX30102_ad78ce89aa47f2c6e1a3cf07a6966c2c9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMAX30102_ab6c07c546e397bd5d87292f434a0ee8c}\label{classMAX30102_ab6c07c546e397bd5d87292f434a0ee8c}} 
+\index{MAX30102@{MAX30102}!wakeUp@{wakeUp}}
+\index{wakeUp@{wakeUp}!MAX30102@{MAX30102}}
+\doxysubsubsection{\texorpdfstring{wakeUp()}{wakeUp()}}
+{\footnotesize\ttfamily void MAX30102\+::wake\+Up (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Wake up the sensor from sleep mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Software/\+Firmware/project/max30102/include/\mbox{\hyperlink{max30102_8hpp}{max30102.\+hpp}}\item 
+Software/\+Firmware/project/max30102/src/\mbox{\hyperlink{max30102_8cpp}{max30102.\+cpp}}\end{DoxyCompactItemize}
