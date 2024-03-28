@@ -1,0 +1,5 @@
+<map id="MAX30102::check" name="MAX30102::check">
+<area shape="rect" id="node1" title="Check if there is new data available." alt="" coords="5,31,144,57"/>
+<area shape="rect" id="node2" href="$classMAX30102.html#a99dd07d94cdca56a0116bd3bc40eeb66" title="Set the FIFO Almost Full value." alt="" coords="193,5,393,32"/>
+<area shape="rect" id="node3" href="$classMAX30102.html#aeaf1c7ea1764c7d0553386cabfb783e6" title="Set the FIFO Almost Full value." alt="" coords="192,56,395,83"/>
+</map>

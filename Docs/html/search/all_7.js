@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['i2c_5fbus_19',['i2c_bus',['../structADS1115settings.html#ae0f3b1d6ef8068fed5e580fd4d7123b3',1,'ADS1115settings']]],
-  ['initpigpio_20',['initPIGPIO',['../structADS1115settings.html#add939ea3e172fc3c52fe9e53b05a66e4',1,'ADS1115settings']]],
-  ['input_21',['Input',['../structADS1115settings.html#a17845a1a94f94bb7d2406dbe13bc560d',1,'ADS1115settings']]]
+  ['hassample_48',['hasSample',['../classADS1115.html#a816bec5812a59878dfe26cafae05dc68',1,'ADS1115']]],
+  ['heartguard_2ecpp_49',['heartguard.cpp',['../heartguard_8cpp.html',1,'']]],
+  ['heartguard_2ehpp_50',['heartguard.hpp',['../heartguard_8hpp.html',1,'']]],
+  ['heartguard_5ftest_2ecpp_51',['heartguard_test.cpp',['../heartguard__test_8cpp.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readpartid_28',['readPartID',['../classMAX30102.html#ac17326fd1347d61dfbfd5ab76d039fb2',1,'MAX30102']]]
+  ['nextsample_65',['nextSample',['../classMAX30102.html#a2c3f09f90f952e44aa2d1d6456c0ea0e',1,'MAX30102']]]
 ];

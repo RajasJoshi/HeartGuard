@@ -1,0 +1,4 @@
+<map id="MAX30102::begin" name="MAX30102::begin">
+<area shape="rect" id="node1" title="Initializes sensor." alt="" coords="5,5,141,32"/>
+<area shape="rect" id="node2" href="$classMAX30102.html#ac17326fd1347d61dfbfd5ab76d039fb2" title="Read the part ID of the MAX30102 sensor." alt="" coords="189,5,357,32"/>
+</map>

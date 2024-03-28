@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['check_57',['check',['../classMAX30102.html#a023a175af4f01d54f24f632296f71775',1,'MAX30102']]],
-  ['clearfifo_58',['clearFIFO',['../classMAX30102.html#afbac1a581d2acb9aeb9dbe12b2d83b00',1,'MAX30102']]]
+  ['begin_105',['begin',['../classMAX30102.html#ab148e8492b5c8b5bc60b501ed84f3d46',1,'MAX30102']]]
 ];
