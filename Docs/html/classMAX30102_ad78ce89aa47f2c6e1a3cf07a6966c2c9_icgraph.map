@@ -1,0 +1,4 @@
+<map id="MAX30102::softReset" name="MAX30102::softReset">
+<area shape="rect" id="node1" title="All configuration, threshold, and data registers are reset to their power&#45;on state through a power&#45;on..." alt="" coords="189,5,351,32"/>
+<area shape="rect" id="node2" href="$classMAX30102.html#ac20a8b68fcf978b71f3fde1bb516dde8" title="Setup the sensor with user selectable settings." alt="" coords="5,5,141,32"/>
+</map>

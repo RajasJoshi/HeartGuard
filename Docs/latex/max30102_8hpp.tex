@@ -1,0 +1,79 @@
+\hypertarget{max30102_8hpp}{}\doxysection{Software/\+Firmware/project/max30102/include/max30102.hpp File Reference}
+\label{max30102_8hpp}\index{Software/Firmware/project/max30102/include/max30102.hpp@{Software/Firmware/project/max30102/include/max30102.hpp}}
+
+
+\mbox{\hyperlink{classMAX30102}{MAX30102}} class for reading data from the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor.  
+
+
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$pigpio.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+Include dependency graph for max30102.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{max30102_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{max30102_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classMAX30102}{MAX30102}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classMAX30102}{MAX30102}} class for reading data from the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{max30102_8hpp_ad7327a848315960f1d8828a09316c6a9}{MAX30102\+\_\+\+ADDRESS}}~0x57
+\item 
+\#define \mbox{\hyperlink{max30102_8hpp_aab040ced3ff06bdd71655d55a5f8db14}{I2\+C\+\_\+\+BUFFER\+\_\+\+LENGTH}}~32
+\item 
+\#define \mbox{\hyperlink{max30102_8hpp_a6516333f436e810b6855db75f3b3cbbc}{INTERRUPT\+\_\+\+PIN}}~17
+\item 
+\#define \mbox{\hyperlink{max30102_8hpp_a8d6f782ffe53d87f0fd0327d4b09352c}{STORAGE\+\_\+\+SIZE}}~4
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classMAX30102}{MAX30102}} class for reading data from the \mbox{\hyperlink{classMAX30102}{MAX30102}} sensor. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{max30102_8hpp_aab040ced3ff06bdd71655d55a5f8db14}\label{max30102_8hpp_aab040ced3ff06bdd71655d55a5f8db14}} 
+\index{max30102.hpp@{max30102.hpp}!I2C\_BUFFER\_LENGTH@{I2C\_BUFFER\_LENGTH}}
+\index{I2C\_BUFFER\_LENGTH@{I2C\_BUFFER\_LENGTH}!max30102.hpp@{max30102.hpp}}
+\doxysubsubsection{\texorpdfstring{I2C\_BUFFER\_LENGTH}{I2C\_BUFFER\_LENGTH}}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+BUFFER\+\_\+\+LENGTH~32}
+
+\mbox{\Hypertarget{max30102_8hpp_a6516333f436e810b6855db75f3b3cbbc}\label{max30102_8hpp_a6516333f436e810b6855db75f3b3cbbc}} 
+\index{max30102.hpp@{max30102.hpp}!INTERRUPT\_PIN@{INTERRUPT\_PIN}}
+\index{INTERRUPT\_PIN@{INTERRUPT\_PIN}!max30102.hpp@{max30102.hpp}}
+\doxysubsubsection{\texorpdfstring{INTERRUPT\_PIN}{INTERRUPT\_PIN}}
+{\footnotesize\ttfamily \#define INTERRUPT\+\_\+\+PIN~17}
+
+\mbox{\Hypertarget{max30102_8hpp_ad7327a848315960f1d8828a09316c6a9}\label{max30102_8hpp_ad7327a848315960f1d8828a09316c6a9}} 
+\index{max30102.hpp@{max30102.hpp}!MAX30102\_ADDRESS@{MAX30102\_ADDRESS}}
+\index{MAX30102\_ADDRESS@{MAX30102\_ADDRESS}!max30102.hpp@{max30102.hpp}}
+\doxysubsubsection{\texorpdfstring{MAX30102\_ADDRESS}{MAX30102\_ADDRESS}}
+{\footnotesize\ttfamily \#define MAX30102\+\_\+\+ADDRESS~0x57}
+
+\mbox{\Hypertarget{max30102_8hpp_a8d6f782ffe53d87f0fd0327d4b09352c}\label{max30102_8hpp_a8d6f782ffe53d87f0fd0327d4b09352c}} 
+\index{max30102.hpp@{max30102.hpp}!STORAGE\_SIZE@{STORAGE\_SIZE}}
+\index{STORAGE\_SIZE@{STORAGE\_SIZE}!max30102.hpp@{max30102.hpp}}
+\doxysubsubsection{\texorpdfstring{STORAGE\_SIZE}{STORAGE\_SIZE}}
+{\footnotesize\ttfamily \#define STORAGE\+\_\+\+SIZE~4}
+
