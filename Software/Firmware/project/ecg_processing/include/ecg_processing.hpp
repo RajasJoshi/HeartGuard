@@ -1,0 +1,3 @@
+#ifndef ECG_PROCESSING_HPP
+#define ECG_PROCESSING_HPP
+

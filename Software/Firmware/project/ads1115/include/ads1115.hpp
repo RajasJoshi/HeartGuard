@@ -7,7 +7,6 @@
  * Copyright (c) 2007  MontaVista Software, Inc.
  * Copyright (c) 2007  Anton Vorontsov <avorontsov@ru.mvista.com>
  * Copyright (c) 2013-2022  Bernd Porr <mail@berndporr.me.uk>
- * Copyright (c) 2024  Rajas Joshi <rajasj99@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -125,9 +124,9 @@ class ADS1115 {
    * Called when a new sample is available.
    * This needs to be implemented in a derived
    * class by the client. Defined as abstract.
-   * \param sample Voltage from the selected channel.
+   * \\param sample Voltage from the selected channel.
    **/
-  void hasSample(float v);
+  virtual void hasSample(float v) = 0;
 
   /**
    * Selects a different channel at the multiplexer
