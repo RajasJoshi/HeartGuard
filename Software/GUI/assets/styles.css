@@ -1,0 +1,96 @@
+/* Your Existing Styles */
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #F8F9FA;
+    /* We'll refine this for dark mode */
+    border-bottom: 1px solid #DDD;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+#logo {
+    height: 40px;
+}
+
+#title {
+    font-size: 20px;
+    margin: 0;
+    transition: color 0.5s ease;
+}
+
+#info-row {
+    background-color: #F0F0F0;
+    /* We'll refine this for dark mode */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+#info-row span {
+    margin-right: 10px;
+}
+
+#content {
+    flex: 1;
+    padding: 20px;
+}
+
+.theme-switch-container {
+    display: inline-block;
+    margin-left: auto;
+    vertical-align: middle;
+}
+
+/* Optional: Customize the switch itself */
+.theme-switch input[type="checkbox"]+label::before {
+    background-color: #343a40;
+}
+
+/* Material Design Additions */
+body {
+    font-family: Roboto, sans-serif;
+    background-color: #FAFAFA;
+    color: #212121;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+body.dark-mode #info-row {
+    background-color: #212529;
+    color: #ccc;
+    border-color: #333;
+}
+
+body.dark-mode #header {
+    background-color: #212529;
+    border-color: #333;
+}
+
+.material-button {
+    background-color: #6200EE;
+    /* Replace with your primary color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease;
+}
+
+.material-button:hover {
+    background-color: #512DA8;
+    /* Slightly darker on hover */
+}
+
+body.dark-mode .material-button {
+    background-color: #7C4DFF;
+    /* Adjust for Dark Mode */
+}
