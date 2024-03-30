@@ -54,6 +54,12 @@ add_executable(
   max30102_test
   test/max30102_test.cpp
 )
+
+add_executable(
+  max30102
+  src/max30102.cpp
+)
+
 target_link_libraries(
   max30102_test
   GTest::gtest_main
