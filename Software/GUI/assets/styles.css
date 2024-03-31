@@ -25,7 +25,6 @@
     /* We'll refine this for dark mode */
     padding: 15px;
     border-radius: 8px;
-    margin-bottom: 20px;
     font-weight: bold;
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }
@@ -36,13 +35,14 @@
 
 #content {
     flex: 1;
-    padding: 20px;
+    padding: 10px;
 }
 
 .theme-switch-container {
-    display: inline-block;
+    display: flex;
     margin-left: auto;
     vertical-align: middle;
+    float: right;
 }
 
 /* Optional: Customize the switch itself */
@@ -67,30 +67,44 @@ body.dark-mode #info-row {
     background-color: #212529;
     color: #ccc;
     border-color: #333;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }
 
 body.dark-mode #header {
     background-color: #212529;
     border-color: #333;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
-.material-button {
-    background-color: #6200EE;
-    /* Replace with your primary color */
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.3s ease;
-}
-
-.material-button:hover {
-    background-color: #512DA8;
-    /* Slightly darker on hover */
+body.dark-mode #title {
+    /* Add dark-mode styling for the title */
+    color: #e0e0e0;
+    transition: color 0.5s ease;
 }
 
 body.dark-mode .material-button {
     background-color: #7C4DFF;
+    transition: background-color 0.3s ease;
     /* Adjust for Dark Mode */
+}
+
+body.dark-mode .material-button:hover {
+    background-color: #512DA8;
+    /* Adjust for Dark Mode */
+}
+
+.custom-upload {
+    width: 25%;
+    height: 40px;
+    line-height: 40px;
+    border-width: 1px;
+    border-style: dashed;
+    border-radius: 1px;
+    text-align: center;
+    float: left;
+}
+
+.custom-upload.dark-mode {
+    background-color: #222;
+    color: white;
 }
