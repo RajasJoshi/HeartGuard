@@ -31,7 +31,7 @@ void readCSV(const std::string& filename, std::vector<double>& x, std::vector<do
 
 int main() {
     std::vector<double> x_data, y_data;
-    std::string filename = "project/max30102/src/visualize.cpp"; // Change to your CSV file's name
+    std::string filename = "project/max30102/Sample Data/data_9.dat"; // Change to your CSV file's name
     
     // Read initial data
     readCSV(filename, x_data, y_data);
