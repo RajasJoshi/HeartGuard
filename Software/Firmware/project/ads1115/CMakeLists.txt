@@ -51,6 +51,8 @@ target_include_directories(${TARGET_NAME}
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/exports>
   PRIVATE 
     ${TARGET_INCLUDE_FOLDER}
+    ${Boost_INCLUDE_DIRS}
+    ${BOOST_LOCKFREE_DIR}
     # Any other extra include required
 )
 

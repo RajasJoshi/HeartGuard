@@ -6,13 +6,15 @@ static std::atomic<bool> enable_max30102{
     false};  ///< Enables the MAX30102 sensor.
 static std::atomic<bool> gpio_pins_ready{
     false};  ///< Indicates if the GPIO pins are ready.
-static std::unique_ptr<std::thread> mainThread;  ///< Main thread.
 static std::unique_ptr<ADS1115> hgads1115;       ///< ADS1115 sensor.
 static std::unique_ptr<MAX30102> hgmax30102;     ///< MAX30102 sensor.
+static std::unique_ptr<ECG> hgecg;               ///< ECG sensor.
+static std::unique_ptr<std::thread> mainThread;  ///< Main thread.
 static std::unique_ptr<std::thread>
     ads1115Thread;  ///< Thread for ADS1115 sensor.
 static std::unique_ptr<std::thread>
-    max30102Thread;                 ///< Thread for MAX30102 sensor.
+    max30102Thread;                             ///< Thread for MAX30102 sensor.
+static std::unique_ptr<std::thread> ecgThread;  ///< Thread for ECG sensor.
 static std::condition_variable cv;  ///< Condition variable for main thread.
 static std::condition_variable gpio_cv;  ///< Condition variable for GPIO pins.
 static std::mutex cv_m;                  ///< Mutex for main thread.
@@ -138,6 +140,21 @@ int main(int argc, char* argv[]) {
       }
     });
 
+    ecgThread = std::make_unique<std::thread>([]() {
+      try {
+        // Wait for the GPIO pins to be ready before starting the ecg thread
+        std::unique_lock<std::mutex> lk(gpio_m);
+        gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
+
+        hgecg = std::make_unique<ECG>();
+        hgecg->start(hgads1115);
+      } catch (const std::exception& e) {
+        std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
+      } catch (...) {
+        std::cerr << "Caught unknown exception in ecgThread\n";
+      }
+    });
+
     // Create the max30102 thread
     if (enable_max30102) {
       max30102Thread = std::make_unique<std::thread>([]() {
@@ -153,6 +170,12 @@ int main(int argc, char* argv[]) {
 
           hgmax30102->setup();
           hgmax30102->setPulseAmplitudeRed(0x0A);
+          while (1) {
+            std::cout << "IR: " << hgmax30102->getFIFOIR();
+            std::cout << ", RED: " << hgmax30102->getFIFORed();
+            std::cout << std::endl;
+            sleep(1);
+          }
         } catch (const std::exception& e) {
           std::cerr << "Exception in max30102Thread: " << e.what() << std::endl;
         } catch (...) {

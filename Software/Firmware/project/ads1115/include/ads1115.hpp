@@ -21,8 +21,10 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <thread> 
 #include <unistd.h>
 
+#include <boost/lockfree/spsc_queue.hpp>
 #include <iostream>
 
 // enable debug messages and error messages to stderr
@@ -120,6 +122,9 @@ class ADS1115 {
    * stops on exit.
    **/
   ~ADS1115() { stop(); }
+
+  boost::lockfree::spsc_queue<float, boost::lockfree::capacity<1024>>
+      ads115queue;
 
   /**
    * Called when a new sample is available.
