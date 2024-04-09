@@ -49,8 +49,8 @@ target_include_directories(${TARGET_NAME}
 
     # Any other extra include required
 )
-
-target_link_libraries(${TARGET_NAME} PUBLIC )
+find_package(iir)
+target_link_libraries(${TARGET_NAME} PUBLIC iir::iir)
 
 
 # add_executable(

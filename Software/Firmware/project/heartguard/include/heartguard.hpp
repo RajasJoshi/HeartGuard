@@ -40,6 +40,7 @@
 #include "ads1115.hpp"
 #include "ecg.hpp"
 #include "max30102.hpp"
+#include "Iir.h"
 // Add your function declarations, classes, etc. here
 
 #endif  // HEARTGUARD_HPP

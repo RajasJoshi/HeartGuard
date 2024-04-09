@@ -8,7 +8,6 @@ add_subdirectory(heartguard)
 add_subdirectory(ads1115)
 add_subdirectory(max30102)
 add_subdirectory(ecg)
-
 #####################################
 # Define Install Targets
 #####################################

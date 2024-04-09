@@ -53,6 +53,9 @@ target_include_directories(${TARGET_NAME}
 
 target_link_libraries(${TARGET_NAME} PUBLIC ${PIGPIO_LIBRARY} ads1115 max30102 ecg)
 
+find_package(iir)
+target_link_libraries(${TARGET_NAME} PUBLIC iir::iir)
+
 add_executable(
   heartguard_test
   test/heartguard_test.cpp
