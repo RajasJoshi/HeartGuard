@@ -4,18 +4,14 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 import numpy as np
 import pandas as pd
-import base64
-import io
+import socket
+import threading
+import queue
 
+HOST = "127.0.0.1"  # Standard loopback interface (localhost)
+PORT = 5000  # Port to listen on
 
-# ECG Data Loading (Replace with your loading logic)
-def load_ecg_data(filename):
-    ecg_data = np.loadtxt(filename)
-    return ecg_data
-
-
-# Load data (adjust as needed)
-ecg_data = load_ecg_data("assets/ECG_1000Hz_7.dat")
+# Sample data
 heart_rate_data = 100 + np.random.randn(100)  # Random data for HR
 heart_rate = 100
 resp_rate = 28
@@ -23,6 +19,7 @@ core_temp = 40.3
 spo2 = 92
 spo2_data = 90 + np.random.randn(100)  # Random data for SpO2
 hrv = 0.2
+
 
 # Dash App
 app = dash.Dash(__name__)
@@ -60,15 +57,6 @@ app.layout = html.Div(
                     dbc.Switch(id="theme-switch", label="Dark Mode", value=False),
                     className="theme-switch-container",
                 ),
-                dbc.RadioItems(
-                    options=[
-                        {"label": "Use Loaded Data", "value": "loaded"},
-                        {"label": "Use Original Data", "value": "original"},
-                    ],
-                    inline=True,
-                    value="original",  # Initial selection
-                    id="data-choice",
-                ),
                 dbc.Row(
                     [
                         dbc.Col(
@@ -78,17 +66,6 @@ app.layout = html.Div(
                                 className="save-button",
                             )
                         ),
-                        dbc.Col(
-                            dcc.Upload(
-                                id="data-upload",
-                                children=html.Div(
-                                    ["Drag and Drop or ", html.A("Select Files")]
-                                ),
-                                className="custom-upload",
-                                # Allow multiple files to be uploaded
-                                multiple=True,
-                            )
-                        ),  # Column for Upload
                         # Column for Save Button
                     ],
                 ),
@@ -104,8 +81,34 @@ app.layout = html.Div(
                 dcc.Graph(id="spo2-graph"),
             ],
         ),
+        html.Div(
+            [
+                # ... Your other layout components ...
+                dcc.Store(id="data-queue"),  # Store the initial empty queue here
+                dcc.Interval(id="interval-component", interval=1000, n_intervals=0),
+            ]
+        ),
     ]
 )
+
+# Shared data queue
+data_queue = queue.Queue()
+
+
+# Client connection function
+def connect_to_server():
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))  # Connect to the server
+        while True:
+            data = s.recv(1024)
+            if not data:
+                break
+            data_queue.put(data.decode("utf-8"))
+
+
+# Start the client connection thread
+client_thread = threading.Thread(target=connect_to_server)
+client_thread.start()
 
 
 @app.callback(
@@ -144,66 +147,39 @@ def update_vital_signs(theme_value):
 
 @app.callback(
     Output("ecg-graph", "figure"),
-    Input("data-choice", "value"),
-    Input("data-upload", "contents"),  # For loading data
-    State("data-upload", "filename"),
+    Input("interval-component", "n_intervals"),  # Assuming an Interval component
     Input("theme-switch", "value"),
+    State("data-queue", "data"),
 )  # Keep existing input if needed
-def update_ecg_graph(data_choice, contents, filenames, dark_mode):
+def update_ecg_graph(n_intervals, dark_mode, data_queue):
+    try:
+        new_data = data_queue.get_nowait()
+        ecg_fig = px.line(new_data, title="ECG Signal", labels={"value": "ECG (mV)"})
 
-    if data_choice == "loaded" and contents:
-        for content, filename in zip(contents, filenames):
-            content_type, content_string = content.split(",")
-            decoded = base64.b64decode(content_string)
-            if "ecg" in filename:
-                loaded_ecg_data = pd.read_csv(
-                    io.StringIO(decoded.decode("utf-8"))
-                ).to_numpy()
-                ecg_fig = px.line(
-                    loaded_ecg_data, title="ECG Signal", labels={"value": "ECG (mV)"}
-                )
-    else:  # Use original data (assuming you have a function to load it)
-        ecg_fig = px.line(ecg_data, title="ECG Signal", labels={"value": "ECG (mV)"})
+        # Access the trace (assuming it's the first one)
+        ecg_trace = ecg_fig.data[0]
 
-    # Access the trace (assuming it's the first one)
-    ecg_trace = ecg_fig.data[0]
+        # Set the trace name
+        ecg_trace.name = "ECG Signal"
 
-    # Set the trace name
-    ecg_trace.name = "ECG Signal"
+        if dark_mode:
+            ecg_fig.update_layout(
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                font_color="white",
+            )
 
-    if dark_mode:
-        ecg_fig.update_layout(
-            paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(0,0,0,0)",
-            font_color="white",
-        )
-
-    return ecg_fig
+        return ecg_fig
+    except queue.Empty:
+        return dash.no_update
 
 
 @app.callback(
     Output("heart-rate-graph", "figure"),
-    Input("data-choice", "value"),
-    Input("data-upload", "contents"),  # For loading data
-    State("data-upload", "filename"),
     Input("theme-switch", "value"),
 )
-def update_heart_rate_graph(data_choice, contents, filenames, dark_mode):
-    if data_choice == "loaded" and contents:
-        for content, filename in zip(contents, filenames):
-            content_type, content_string = content.split(",")
-            decoded = base64.b64decode(content_string)
-            if "hr" in filename:
-                loaded_hr_data = pd.read_csv(
-                    io.StringIO(decoded.decode("utf-8"))
-                ).to_numpy()
-                hr_fig = px.line(
-                    loaded_hr_data, title="Heart Rate", labels={"value": "HR (bpm)"}
-                )
-    else:  # Use original data (assuming you have a function to load it)
-        hr_fig = px.line(
-            heart_rate_data, title="Heart Rate", labels={"value": "HR (bpm)"}
-        )
+def update_heart_rate_graph(dark_mode):
+    hr_fig = px.line(heart_rate_data, title="Heart Rate", labels={"value": "HR (bpm)"})
 
     hr_trace = hr_fig.data[0]
     hr_trace.name = "Heart Rate"
@@ -220,27 +196,10 @@ def update_heart_rate_graph(data_choice, contents, filenames, dark_mode):
 
 @app.callback(
     Output("spo2-graph", "figure"),
-    Input("data-choice", "value"),
-    Input("data-upload", "contents"),  # For loading data
-    State("data-upload", "filename"),
     Input("theme-switch", "value"),
 )
-def update_spo2_graph(data_choice, contents, filenames, dark_mode):
-    if data_choice == "loaded" and contents:
-        for content, filename in zip(contents, filenames):
-            content_type, content_string = content.split(",")
-            decoded = base64.b64decode(content_string)
-            if "" in filename:
-                loaded_spo2_data = pd.read_csv(
-                    io.StringIO(decoded.decode("utf-8"))
-                ).to_numpy()
-                spo2_fig = px.line(
-                    loaded_spo2_data, title="Blood Oxygen", labels={"value": "SpO2 (%)"}
-                )
-    else:  # Use original data (assuming you have a function to load it)
-        spo2_fig = px.line(
-            spo2_data, title="Blood Oxygen", labels={"value": "SpO2 (%)"}
-        )
+def update_spo2_graph(dark_mode):
+    spo2_fig = px.line(spo2_data, title="Blood Oxygen", labels={"value": "SpO2 (%)"})
 
     spo2_trace = spo2_fig.data[0]
     spo2_trace.name = "SpO2"
