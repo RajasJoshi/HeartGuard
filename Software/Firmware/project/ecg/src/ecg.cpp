@@ -43,7 +43,11 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
       if (count%int(SAMPLING_RATE) == 0){
         calculate_heart_rate(SAMPLING_RATE);
       }
-
+      if (count%int(2*SAMPLING_RATE) == 0){
+        recalculate_mean();
+        recalculate_std();
+        recalculate_threshold();
+      }
       if (count%int(4*SAMPLING_RATE) == 0){
         calculate_RR_interval(SAMPLING_RATE);
       }

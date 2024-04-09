@@ -42,17 +42,38 @@ class ECG {
     static constexpr float highpass_cutoff_frequency = 0.1f;   // Hz (baseline wander removal)
     static constexpr float lowpass_cutoff_frequency = 100.0f;  // Hz (for noise removal)
 
-
-
     // biological data
     std::vector<int> detected_peaks;    // Store indices of detected R peaks
-    float threshold = 0.5f;             // Threshold for peak detection
-    bool variable_threshold = false;    // if true, threshold is calculated every 4 seconds, else it is fixed at 0.5
+    float mean = 0;                     // Mean of the ECG signal
+    float std = 0;                      // Standard deviation of the ECG signal
+    float threshold = mean + 3*std;     // Threshold for peak detection
     float RR_interval = 0.0f;           // stores the most recent R_R interval
     float heart_rate;                   // stores the most recent heart rate  
     std::vector<float> RR_intervals;    // Stores each RR interval for HRV calculation
     std::vector<float> HRV;             // Stores the hrv scores for calcualtion every 15 seconds
     
+    void recalculate_mean() {
+      float sum = 0.0f;
+      for (int i = 0; i < BUFFER_SIZE; i++) {
+        sum += circularBuffer[i];
+      }
+      mean = sum / BUFFER_SIZE;
+      std::cout << "Mean: " << mean << std::endl;
+    }
+
+    void recalculate_std() {
+      float sum = 0.0f;
+      for (int i = 0; i < BUFFER_SIZE; i++) {
+        sum += (circularBuffer[i] - mean) * (circularBuffer[i] - mean);
+      }
+      std = std::sqrt(sum / BUFFER_SIZE);
+      std::cout << "Standard deviation: " << std << std::endl;
+    }
+
+    void recalculate_threshold() {
+      threshold = mean + 2.2*std;
+      std::cout << "Threshold: " << threshold << std::endl;
+    }
 
     float ECG_filtering(Iir::RBJ::IIRNotch& notch_filter,
                         Iir::Butterworth::LowPass<filter_order>& lowpass_filter,
@@ -63,7 +84,7 @@ class ECG {
       filtered_sample_hp = lowpass_filter.filter(filtered_sample_hp);
       circularBuffer[headIndex] = notch_filter.filter(filtered_sample_hp);
 
-      if (circularBuffer[headIndex] > threshold && (detected_peaks.empty() || (headIndex - detected_peaks.back()) > int(0.27 * SAMPLING_RATE))) { // 220 max HR so ~0.27s between peaks minimum
+      if (circularBuffer[headIndex] > threshold && (detected_peaks.empty() || (headIndex - detected_peaks.back()) > int(0.2 * SAMPLING_RATE)) && (circularBuffer[headIndex] > circularBuffer[(headIndex -1) % BUFFER_SIZE])) { // 300 max HR so ~0.2s between peaks minimum
       detected_peaks.push_back(headIndex);
       }
       int index = headIndex;
