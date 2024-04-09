@@ -10,8 +10,6 @@ cmake_minimum_required(VERSION 3.15.0 FATAL_ERROR)
 cmake_policy(SET CMP0063 NEW)
 # Enables the MSVC_RUNTIME_LIBRARY property on targets
 cmake_policy(SET CMP0091 NEW)
-# Enables the CMP0135 policy to allow setting the CXX_STANDARD property on targets
-cmake_policy(SET CMP0135 NEW)
 # Define the Project Name and Description
 project(moderncpp-project LANGUAGES CXX DESCRIPTION "Codebase for Heartguard Project")
 
@@ -59,12 +57,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-# FetchContent_Declare(
-#   iir
-#   URL https://github.com/berndporr/iir1/archive/refs/tags/1.9.4.zip
-# )
-# FetchContent_MakeAvailable(iir)
-  
 # Enable Testing
 enable_testing()
 

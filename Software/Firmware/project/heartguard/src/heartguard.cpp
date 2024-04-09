@@ -128,8 +128,8 @@ int main(int argc, char* argv[]) {
     ads1115Thread = std::make_unique<std::thread>([]() {
       try {
         // Wait for the GPIO pins to be ready before starting the ads1115 thread
-        // std::unique_lock<std::mutex> lk(gpio_m);
-        // gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
+        std::unique_lock<std::mutex> lk(gpio_m);
+        gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
 
         hgads1115 = std::make_unique<ADS1115>();
         hgads1115->start();
@@ -143,8 +143,8 @@ int main(int argc, char* argv[]) {
     ecgThread = std::make_unique<std::thread>([]() {
       try {
         // Wait for the GPIO pins to be ready before starting the ecg thread
-        // std::unique_lock<std::mutex> lk(gpio_m);
-        // gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
+        std::unique_lock<std::mutex> lk(gpio_m);
+        gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
 
         hgecg = std::make_unique<ECG>();
         hgecg->start(hgads1115);
