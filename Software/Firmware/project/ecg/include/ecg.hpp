@@ -31,7 +31,8 @@ class ECG {
 
   private:
     // Add your private member variables here
-    static const int BUFFER_SIZE = 860*4; // 4 seconds of data at 860 Hz
+    static const int SAMPLING_RATE = 860.0f; // Hz
+    static const int BUFFER_SIZE = SAMPLING_RATE*4; // 4 seconds of data at 860 Hz
     float circularBuffer[BUFFER_SIZE];
     int headIndex = 0;  // Index where the next value will be written
     bool bufferFull;
@@ -44,9 +45,9 @@ class ECG {
 
     // biological data
     std::vector<int> detected_peaks;    // Store indices of detected R peaks
-    float mean = 0;                     // Mean of the ECG signal
-    float std = 0;                      // Standard deviation of the ECG signal
-    float threshold = mean + 3*std;     // Threshold for peak detection
+    float mean = 0.0f;                     // Mean of the ECG signal
+    float stdev = 0.0f;                      // Standard deviation of the ECG signal
+    float threshold = mean + 3*stdev;     // Threshold for peak detection
     float RR_interval = 0.0f;           // stores the most recent R_R interval
     float heart_rate;                   // stores the most recent heart rate  
     std::vector<float> RR_intervals;    // Stores each RR interval for HRV calculation
@@ -58,22 +59,38 @@ class ECG {
         sum += circularBuffer[i];
       }
       mean = sum / BUFFER_SIZE;
-      std::cout << "Mean: " << mean << std::endl;
     }
 
-    void recalculate_std() {
+    void recalculate_stdev() {
       float sum = 0.0f;
       for (int i = 0; i < BUFFER_SIZE; i++) {
         sum += (circularBuffer[i] - mean) * (circularBuffer[i] - mean);
       }
-      std = std::sqrt(sum / BUFFER_SIZE);
-      std::cout << "Standard deviation: " << std << std::endl;
+      stdev = std::sqrt(sum / BUFFER_SIZE);
     }
 
     void recalculate_threshold() {
-      threshold = mean + 2.2*std;
-      std::cout << "Threshold: " << threshold << std::endl;
+      threshold = mean + 2*stdev;
     }
+
+    void calculate_RR_interval_hr(float SAMPLING_RATE) {
+      if (detected_peaks.empty()) {
+          heart_rate = 0.0f;
+        }
+      if (detected_peaks.size() > 1){
+      float average_time_between_peaks = 0.0f;
+      for (int i = 1; i <= static_cast<int>(detected_peaks.size()); i++) {
+          int time_between_peaks = (detected_peaks[i] - detected_peaks[i - 1] + BUFFER_SIZE) % BUFFER_SIZE;
+          average_time_between_peaks += time_between_peaks;
+      }
+      average_time_between_peaks /= (detected_peaks.size() - 1);
+      RR_interval = average_time_between_peaks / SAMPLING_RATE;
+      RR_intervals.push_back(RR_interval);
+      heart_rate = 60.0f / (RR_interval);
+      std::cout << "Heart Rate: " << heart_rate << " (bpm)" << std::endl;
+
+     }
+    } 
 
     float ECG_filtering(Iir::RBJ::IIRNotch& notch_filter,
                         Iir::Butterworth::LowPass<filter_order>& lowpass_filter,
@@ -84,45 +101,19 @@ class ECG {
       filtered_sample_hp = lowpass_filter.filter(filtered_sample_hp);
       circularBuffer[headIndex] = notch_filter.filter(filtered_sample_hp);
 
-      if (circularBuffer[headIndex] > threshold && (detected_peaks.empty() || (headIndex - detected_peaks.back()) > int(0.2 * SAMPLING_RATE)) && (circularBuffer[headIndex] > circularBuffer[(headIndex -1) % BUFFER_SIZE])) { // 300 max HR so ~0.2s between peaks minimum
-      detected_peaks.push_back(headIndex);
+      if (circularBuffer[headIndex] > threshold && (circularBuffer[headIndex] > circularBuffer[(headIndex -1) % BUFFER_SIZE]) ) { 
+        if (detected_peaks.empty() || ((headIndex - detected_peaks.back() + BUFFER_SIZE) % BUFFER_SIZE > (0.2 * SAMPLING_RATE))) { // 300 max HR so ~0.2s between peaks minimum#
+             detected_peaks.push_back(headIndex);
+            if (detected_peaks.size() > 2){
+                detected_peaks.erase(detected_peaks.begin());
+                calculate_RR_interval_hr(SAMPLING_RATE);
+            }
+        }
       }
       int index = headIndex;
       headIndex = (headIndex + 1) % BUFFER_SIZE;
       return circularBuffer[index];
     }
-
-    void calculate_heart_rate(float SAMPLING_RATE) {
-      if (detected_peaks.empty()) {
-          heart_rate = 0.0f;
-        }
-      if (detected_peaks.size() > 1){
-      float average_time_between_peaks = 0.0f;
-      for (int i = 1; i < static_cast<int>(detected_peaks.size()); i++) {
-          int time_between_peaks = detected_peaks[i] - detected_peaks[i - 1];
-          average_time_between_peaks += time_between_peaks;
-      }
-      average_time_between_peaks /= (detected_peaks.size() - 1);
-
-      heart_rate = 60.0f / (average_time_between_peaks / SAMPLING_RATE);
-      std::cout << "Heart rate: " << heart_rate << " bpm" << std::endl;
-      detected_peaks.pop_back();
-      }
-  } 
-
-  void empty_values(){
-    detected_peaks.clear();
-  }
-
-  void calculate_RR_interval(float SAMPLING_RATE) {
-    if (detected_peaks.size() < 2) {
-        std::cout << "No peaks detected" << std::endl;
-    }else{
-    float last_peak = detected_peaks.back();
-    float second_last_peak = detected_peaks[detected_peaks.size() - 2];
-    RR_intervals.push_back((last_peak - second_last_peak) * 1000 / SAMPLING_RATE); // convert to ms
-    } 
-}
 
 void calculate_hrv() {
     if (!(RR_intervals.size() > 1)){
@@ -143,6 +134,10 @@ void calculate_hrv() {
 
     // float scaled_hrv = (ln_rmssd / 6.5f) * 100.0f; // max ln_rmssd is usually ~6.5 so scale for a score from 0-100 (from a database)
     // scaled_hrv = std::clamp(scaled_hrv, 0.0f, 100.0f); // Enforce bounds
+}
+
+void empty_values() {
+    RR_intervals.clear();
 }
 
   

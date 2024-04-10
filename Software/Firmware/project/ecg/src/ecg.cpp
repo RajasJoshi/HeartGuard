@@ -35,27 +35,23 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
       std::this_thread::yield();
     } else {
       float fs = ECG_filtering(notch_filter, lowpass_filter, highpass_filter, value, SAMPLING_RATE);
-      
       std::ofstream file("ecg_data.csv", std::ios::app);
       file << "raw, " << value << ", filtered, " << fs << std::endl;
       file.close();
 
-      if (count%int(SAMPLING_RATE) == 0){
-        calculate_heart_rate(SAMPLING_RATE);
-      }
-      if (count%int(2*SAMPLING_RATE) == 0){
+      if (count%int(10*SAMPLING_RATE) == 0){
+        std::cout << "recalculating mean, stdev, and threshold" << std::endl;
         recalculate_mean();
-        recalculate_std();
+        recalculate_stdev();
         recalculate_threshold();
-      }
-      if (count%int(4*SAMPLING_RATE) == 0){
-        calculate_RR_interval(SAMPLING_RATE);
+        empty_values();
+        std::cout << "mean: " << mean << " stdev: " << stdev << " threshold: " << threshold << std::endl;
       }
 
-      if (count%int(15*SAMPLING_RATE) == 0){
-        calculate_hrv();
-        empty_values();
-      }
+      // if (count%int(15*SAMPLING_RATE) == 0){
+      //   calculate_hrv();
+      //   empty_values();
+      // }
 
       count = count%10000 + 1;
     }
