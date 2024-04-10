@@ -21,7 +21,7 @@
 // Define any constants here
 #define MAX30102_ADDRESS 0x57
 #define I2C_BUFFER_LENGTH 32
-#define INTERRUPT_PIN 17  // Change this to the GPIO pin number you are using
+#define INTERRUPT_PIN 16  // Change this to the GPIO pin number you are using
 
 // Status Registers
 static const uint8_t REG_INTSTAT1 = 0x00;
@@ -147,6 +147,7 @@ static const uint8_t SLOT_IR_PILOT = 0x06;
 class MAX30102 {
  public:
   MAX30102(void);
+  ~MAX30102(void);
 
   int begin(uint8_t i2cAddr = MAX30102_ADDRESS);
 
@@ -225,9 +226,6 @@ class MAX30102 {
 
   static void gpioISR(int, int, uint32_t, void* userdata) {
     ((MAX30102*)userdata)->check();
-    std::cout << "IR: " << sense.IR[sense.head];
-    std::cout << ", RED: " << sense.red[sense.head];
-    std::cout << std::endl;
   }
 
 #define STORAGE_SIZE 4

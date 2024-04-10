@@ -38,7 +38,7 @@ int MAX30102::begin(uint8_t i2cAddr) {
                              std::to_string(result));
   }
 
-  _i2c = i2cOpen(1, i2cAddr, 0);
+  _i2c = i2cOpen(0, i2cAddr, 0);
   if (_i2c < 0) {
     // Failed to open the I2C bus
     return -1;
@@ -406,6 +406,15 @@ void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
 }
 
 // Data Collection //
+/**
+ * Report the next Red value in FIFO.
+ */
+uint32_t MAX30102::getFIFORed(void) { return (sense.red[sense.head]); }
+
+/**
+ * Report the next IR value in FIFO.
+ */
+uint32_t MAX30102::getFIFOIR(void) { return (sense.IR[sense.head]); }
 
 /**
  * @brief Check if there is new data available.
