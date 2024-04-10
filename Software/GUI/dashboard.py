@@ -1,95 +1,30 @@
-import dash
-from dash import dcc, html, Input, Output, State
-import dash_bootstrap_components as dbc
-import plotly.express as px
+import sys
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import (
+    QApplication,
+    QMainWindow,
+    QVBoxLayout,
+    QWidget,
+    QLabel,
+    QHBoxLayout,
+    QButtonGroup,
+    QRadioButton,
+)
+import pyqtgraph as pg
 import numpy as np
-import pandas as pd
+from random import randint
+from qt_material import apply_stylesheet
 import socket
 import threading
 import queue
+from collections import deque
+from PyQt6.QtGui import QIcon
 
-HOST = "127.0.0.1"  # Standard loopback interface (localhost)
-PORT = 5000  # Port to listen on
-
-# Sample data
-heart_rate_data = 100 + np.random.randn(100)  # Random data for HR
-heart_rate = 100
-resp_rate = 28
-core_temp = 40.3
-spo2 = 92
-spo2_data = 90 + np.random.randn(100)  # Random data for SpO2
-hrv = 0.2
-
-
-# Dash App
-app = dash.Dash(__name__)
-
-
-app.layout = html.Div(
-    [
-        html.Div(  # Header
-            id="header",
-            children=[
-                html.Img(src=app.get_asset_url("banner.png"), alt="Logo", id="logo"),
-                html.H2("HeartGuard Lite", id="title"),
-            ],
-        ),
-        html.Div(  # Information Row
-            id="info-row",
-            children=[
-                html.Span("Heart Rate: "),
-                html.Span(id="heart-rate"),
-                html.Span(" bpm | "),  # Added separators
-                html.Span("Resp Rate: "),
-                html.Span(id="resp-rate"),
-                html.Span(" bpm | "),
-                html.Span("Core Temp: "),
-                html.Span(id="core-temp"),
-                html.Span(" °C | "),
-                html.Span("SpO2: "),
-                html.Span(id="spo2"),
-                html.Span(" %"),
-                html.Span(" | "),
-                html.Span("HRV: "),
-                html.Span(id="hrv"),
-                html.Span(" | "),
-                html.Span(
-                    dbc.Switch(id="theme-switch", label="Dark Mode", value=False),
-                    className="theme-switch-container",
-                ),
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            dbc.Button(
-                                "Save Data",
-                                id="save-button",
-                                className="save-button",
-                            )
-                        ),
-                        # Column for Save Button
-                    ],
-                ),
-                html.Span(id="save-confirmation"),
-                html.Span(id="output-image-upload"),  # For confirmation messages
-            ],
-        ),
-        html.Div(  # Content area
-            id="content",
-            children=[
-                dcc.Graph(id="ecg-graph"),
-                dcc.Graph(id="heart-rate-graph"),
-                dcc.Graph(id="spo2-graph"),
-            ],
-        ),
-        html.Div(
-            [
-                # ... Your other layout components ...
-                dcc.Store(id="data-queue"),  # Store the initial empty queue here
-                dcc.Interval(id="interval-component", interval=1000, n_intervals=0),
-            ]
-        ),
-    ]
-)
+HOST = "127.0.0.1"
+PORT = 5000
+SAMPLING_RATE = 860  # Hz
+SAMPLING_PERIOD = 1000 / SAMPLING_RATE  # ms
+buffer_size = 4 * SAMPLING_RATE  # Adjust buffer size as needed
 
 # Shared data queue
 data_queue = queue.Queue()
@@ -98,12 +33,15 @@ data_queue = queue.Queue()
 # Client connection function
 def connect_to_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))  # Connect to the server
+        s.connect((HOST, PORT))
         while True:
             data = s.recv(1024)
             if not data:
                 break
-            data_queue.put(data.decode("utf-8"))
+
+            for value in data.decode("utf-8").splitlines():
+                if value:
+                    data_queue.put(float(value.strip()))
 
 
 # Start the client connection thread
@@ -111,150 +49,124 @@ client_thread = threading.Thread(target=connect_to_server)
 client_thread.start()
 
 
-@app.callback(
-    Output("save-confirmation", "children"),
-    Input("save-button", "n_clicks"),
-    State("ecg-graph", "figure"),
-    State("heart-rate-graph", "figure"),  # Add HR graph
-    State("spo2-graph", "figure"),
-)  # Add SpO2 graph
-def save_data(n_clicks, ecg_figure, hr_figure, spo2_figure):
-    if n_clicks:
-        ecg_data = ecg_figure["data"][0]["y"]
-        hr_data = hr_figure["data"][0]["y"]
-        spo2_data = spo2_figure["data"][0]["y"]
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
-        # Option 1: Save as separate CSV files
-        pd.DataFrame(ecg_data).to_csv("ecg_data.csv", index=False)
-        pd.DataFrame(hr_data).to_csv("hr_data.csv", index=False)
-        pd.DataFrame(spo2_data).to_csv("spo2_data.csv", index=False)
+        self.setWindowTitle("HEARTGUARD LITE")
 
-        return "ECG, HR, and SpO2 data saved!"
+        # Data generation parameters
+        self.data_points = 100
+        self.x_data = list(range(self.data_points))
+        self.y_data2 = [randint(0, 50) for _ in range(self.data_points)]
+        self.y_data3 = [randint(-50, 50) for _ in range(self.data_points)]
+        self.data_buffer = deque([0] * buffer_size, maxlen=buffer_size)
 
+        # Central Widget and Main Layout
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        main_layout = QVBoxLayout(central_widget)
+        self.setWindowIcon(QIcon("assets/banner.png"))
 
-@app.callback(
-    Output("heart-rate", "children"),
-    Output("resp-rate", "children"),
-    Output("core-temp", "children"),
-    Output("spo2", "children"),
-    Output("hrv", "children"),
-    Input("theme-switch", "value"),  # Or a suitable trigger
-)
-def update_vital_signs(theme_value):
-    # ... Logic to get the current values (if needed) ...
-    return heart_rate, resp_rate, core_temp, spo2, hrv
+        # Theme control elements in info row
+        self.theme_button_group = QButtonGroup()
+        self.dark_blue_button = QRadioButton("Dark Blue")
+        self.light_blue_button = QRadioButton("Light Blue")
+        self.theme_button_group.addButton(self.dark_blue_button)
+        self.theme_button_group.addButton(self.light_blue_button)
+        self.dark_blue_button.setChecked(True)
+        self.theme_button_group.buttonToggled.connect(self.update_theme)
 
+        # Information Row
+        info_row_layout = QHBoxLayout()
+        self.heart_rate_label = QLabel("Heart Rate: ")
+        self.resp_rate_label = QLabel("Resp Rate: ")
+        self.core_temp_label = QLabel("Core Temp: ")
+        self.spo2_label = QLabel("SpO2: ")
+        self.hrv_label = QLabel("HRV: ")
+        info_row_layout.addWidget(self.heart_rate_label)
+        info_row_layout.addWidget(self.resp_rate_label)
+        info_row_layout.addWidget(self.core_temp_label)
+        info_row_layout.addWidget(self.spo2_label)
+        info_row_layout.addWidget(self.hrv_label)
+        # Add theme controls to the info row layout
+        info_row_layout.addWidget(self.dark_blue_button)
+        info_row_layout.addWidget(self.light_blue_button)
+        main_layout.addLayout(info_row_layout)
 
-@app.callback(
-    Output("ecg-graph", "figure"),
-    Input("interval-component", "n_intervals"),  # Assuming an Interval component
-    Input("theme-switch", "value"),
-    State("data-queue", "data"),
-)  # Keep existing input if needed
-def update_ecg_graph(n_intervals, dark_mode, data_queue):
-    try:
-        new_data = data_queue.get_nowait()
-        ecg_fig = px.line(new_data, title="ECG Signal", labels={"value": "ECG (mV)"})
+        # Create PlotWidgets with initial labels, titles, and legends
+        self.plot1 = pg.PlotWidget()
+        self.plot1.setLabel("bottom", "X-Axis")
+        self.plot1.setLabel("left", "Y-Axis")
+        self.plot1.setTitle("Graph 1")
+        self.plot1.addLegend()
 
-        # Access the trace (assuming it's the first one)
-        ecg_trace = ecg_fig.data[0]
+        self.plot2 = pg.PlotWidget()
+        self.plot2.setLabel("bottom", "X-Axis")
+        self.plot2.setLabel("left", "Y-Axis")
+        self.plot2.setTitle("Graph 2")
+        self.plot2.addLegend()
 
-        # Set the trace name
-        ecg_trace.name = "ECG Signal"
+        self.plot3 = pg.PlotWidget()
+        self.plot3.setLabel("bottom", "X-Axis")
+        self.plot3.setLabel("left", "Y-Axis")
+        self.plot3.setTitle("Graph 3")
+        self.plot3.addLegend()
 
-        if dark_mode:
-            ecg_fig.update_layout(
-                paper_bgcolor="rgba(0,0,0,0)",
-                plot_bgcolor="rgba(0,0,0,0)",
-                font_color="white",
-            )
+        # Graph Row (You might want another layout here depending on graph arrangement)
+        main_layout.addWidget(self.plot1)
+        main_layout.addWidget(self.plot2)
+        main_layout.addWidget(self.plot3)
 
-        return ecg_fig
-    except queue.Empty:
-        return dash.no_update
+        # Initial plotting
+        self.graphUpdater()
 
+        # Timer for periodic updates
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.graphUpdater)
+        self.timer.start(30)  # Update every second
 
-@app.callback(
-    Output("heart-rate-graph", "figure"),
-    Input("theme-switch", "value"),
-)
-def update_heart_rate_graph(dark_mode):
-    hr_fig = px.line(heart_rate_data, title="Heart Rate", labels={"value": "HR (bpm)"})
+    def graphUpdater(self):
+        while not data_queue.empty():
+            value = data_queue.get()
+            self.data_buffer.append(value)
+        x_data = np.arange(-len(self.data_buffer), 0)
+        y_data = np.array(self.data_buffer)
 
-    hr_trace = hr_fig.data[0]
-    hr_trace.name = "Heart Rate"
+        # Simulate new data
+        for i in range(self.data_points - 1):
+            self.y_data2[i] = self.y_data2[i + 1]
+            self.y_data3[i] = self.y_data3[i + 1]
+        self.y_data2[-1] = randint(0, 50)
+        self.y_data3[-1] = randint(-50, 50)
 
-    if dark_mode:
-        hr_fig.update_layout(
-            paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(0,0,0,0)",
-            font_color="white",
+        # Update the plots
+        self.plot1.plot(x_data, y_data, clear=True)
+        self.plot2.plot(self.x_data, self.y_data2, clear=True)
+        self.plot3.plot(self.x_data, self.y_data3, clear=True)
+
+        # Update information labels (example)
+        self.heart_rate_label.setText("Heart Rate: {}".format(randint(60, 100)))
+        self.resp_rate_label.setText("Resp Rate: {}".format(randint(12, 20)))
+        self.core_temp_label.setText(
+            "Core Temp: {:.1f}".format(np.random.uniform(36.5, 37.5))
         )
+        self.spo2_label.setText("SpO2: {}".format(randint(95, 99)))
+        self.hrv_label.setText("HRV: {}".format(randint(40, 80)))
 
-    return hr_fig  # Return both figure and text
+    def update_theme(self, button):
+        themes = {
+            self.dark_blue_button: "dark_blue.xml",
+            self.light_blue_button: "light_blue.xml",
+        }
+        if button.isChecked():
+            theme_file = themes[button]
+            apply_stylesheet(app, theme=theme_file)
 
-
-@app.callback(
-    Output("spo2-graph", "figure"),
-    Input("theme-switch", "value"),
-)
-def update_spo2_graph(dark_mode):
-    spo2_fig = px.line(spo2_data, title="Blood Oxygen", labels={"value": "SpO2 (%)"})
-
-    spo2_trace = spo2_fig.data[0]
-    spo2_trace.name = "SpO2"
-
-    if dark_mode:
-        spo2_fig.update_layout(
-            paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(0,0,0,0)",
-            font_color="white",
-        )
-
-    return spo2_fig  # Return both figure and text
-
-
-app.index_string = """<!DOCTYPE html>
-<html>
-
-<head>
-    <title>HeartGuard Dashboard</title>
-    {%metas%}
-    {%favicon%}
-    {%css%}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="/assets/styles.css">
-</head>
-
-<body>
-    <script>
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-                document.getElementById('theme-switch').addEventListener('change', function (event) {
-                    document.body.classList.toggle('dark-mode');
-                });
-            }, 100);
-        });
-    </script>
-
-    {%app_entry%}
-
-    <div id="header">
-    </div>
-
-    <div id="content">
-    </div>
-
-    <footer>
-        {%config%}
-        {%scripts%}
-        {%renderer%}
-    </footer>
-</body>
-
-</html>"""
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    apply_stylesheet(app, theme="dark_blue.xml")  # Initial theme
+    window.show()
+    app.exec()
