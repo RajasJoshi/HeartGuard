@@ -1,0 +1,1019 @@
+diff --git a/Software/Firmware/project/ads1115/CMakeLists.txt b/Software/Firmware/project/ads1115/CMakeLists.txt
+index d8571e4..68bd036 100644
+--- a/Software/Firmware/project/ads1115/CMakeLists.txt
++++ b/Software/Firmware/project/ads1115/CMakeLists.txt
+@@ -18,13 +18,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TARGET_SOURCES})
+ #####################################
+ 
+ add_library(${TARGET_NAME} STATIC ${TARGET_SOURCES})
+-# Find pigpio library
+-find_library(PIGPIO_LIBRARY pigpio)
+ 
+-# Check if pigpio library is found
+-if(NOT PIGPIO_LIBRARY)
+-    message(FATAL_ERROR "pigpio library not found")
+-endif()
+ 
+ #####################################
+ # Define Target Properties and Optional OpenSSL Dependency
+@@ -56,8 +50,7 @@ target_include_directories(${TARGET_NAME}
+     # Any other extra include required
+ )
+ 
+-target_link_libraries(${TARGET_NAME} PUBLIC ${PIGPIO_LIBRARY})
+-
++target_link_libraries(${TARGET_NAME} PUBLIC gpiod)
+ 
+ add_executable(
+   ads1115_test
+diff --git a/Software/Firmware/project/ads1115/include/ads1115.hpp b/Software/Firmware/project/ads1115/include/ads1115.hpp
+index f87ca66..7eb8281 100644
+--- a/Software/Firmware/project/ads1115/include/ads1115.hpp
++++ b/Software/Firmware/project/ads1115/include/ads1115.hpp
+@@ -17,17 +17,23 @@
+ 
+ // Include any necessary headers here
+ #include <assert.h>
+-#include <pigpio.h>
++#include <fcntl.h>
++#include <gpiod.h>
++#include <linux/i2c-dev.h>
+ #include <stdint.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <thread> 
++#include <sys/ioctl.h>
+ #include <unistd.h>
+ 
+ #include <boost/lockfree/spsc_queue.hpp>
+ #include <iostream>
++#include <thread>
+ 
+ // enable debug messages and error messages to stderr
++#ifndef NDEBUG
++#define DEBUG
++#endif
+ 
+ static const char could_not_open_i2c[] = "Could not open I2C.\n";
+ 
+@@ -102,9 +108,9 @@ struct ADS1115settings {
+   Input channel = AIN0;
+ 
+   /**
+-   * If set to true the pigpio will be initialised
++   * GPIO Chip number which receives the Data Ready signal
+    **/
+-  bool initPIGPIO = true;
++  int drdy_chip = 0;
+ 
+   /**
+    * GPIO pin connected to ALERT/RDY
+@@ -112,6 +118,10 @@ struct ADS1115settings {
+   int drdy_gpio = DEFAULT_ALERT_RDY_TO_GPIO;
+ };
+ 
++/**
++ * This class reads data from the ADS1115 in the background (separate
++ * thread) and calls a callback function whenever data is available.
++ **/
+ class ADS1115 {
+  public:
+   // Constructor and destructor
+@@ -132,7 +142,7 @@ class ADS1115 {
+    * class by the client. Defined as abstract.
+    * \param sample Voltage from the selected channel.
+    **/
+-  void hasSample(float v);
++  void hasSample(float sample);
+ 
+   /**
+    * Selects a different channel at the multiplexer
+@@ -158,9 +168,7 @@ class ADS1115 {
+ 
+   void dataReady();
+ 
+-  static void gpioISR(int, int, uint32_t, void* userdata) {
+-    ((ADS1115*)userdata)->dataReady();
+-  }
++  void worker();
+ 
+   void i2c_writeWord(uint8_t reg, unsigned data);
+   unsigned i2c_readWord(uint8_t reg);
+@@ -184,7 +192,15 @@ class ADS1115 {
+     assert(1 == 0);
+     return 0;
+   }
+-  // Private member variables and functions
++
++  struct gpiod_chip *chipDRDY = nullptr;
++  struct gpiod_line *pinDRDY = nullptr;
++
++  std::thread thr;
++
++  int fd_i2c = -1;
++
++  bool running = false;
+ };
+ 
+ #endif  // ADS1115_HPP
+\ No newline at end of file
+diff --git a/Software/Firmware/project/ads1115/src/ads1115.cpp b/Software/Firmware/project/ads1115/src/ads1115.cpp
+index 463ac1d..cded67d 100644
+--- a/Software/Firmware/project/ads1115/src/ads1115.cpp
++++ b/Software/Firmware/project/ads1115/src/ads1115.cpp
+@@ -8,18 +8,23 @@ void ADS1115::start() {
+   settings.samplingRate = ADS1115settings::FS860HZ;
+   ads1115settings = settings;
+ 
+-  if (settings.initPIGPIO) {
+-    int cfg = gpioCfgGetInternals();
+-    cfg |= PI_CFG_NOSIGHANDLER;
+-    gpioCfgSetInternals(cfg);
+-    int r = gpioInitialise();
+-    if (r < 0) {
+-      std::string msg = "Cannot init pigpio.";
++  char gpioFilename[20];
++  snprintf(gpioFilename, 19, "/dev/i2c-%d", settings.i2c_bus);
++  fd_i2c = open(gpioFilename, O_RDWR);
++  if (fd_i2c < 0) {
++    char i2copen[] = "Could not open I2C.\n";
+ #ifdef DEBUG
+-      std::cerr << msg << '\n';
++    fprintf(stderr, i2open);
+ #endif
+-      throw std::runtime_error(msg);
+-    }
++    throw i2copen;
++  }
++
++  if (ioctl(fd_i2c, I2C_SLAVE, settings.address) < 0) {
++    char i2cslave[] = "Could not access I2C adress.\n";
++#ifdef DEBUG
++    fprintf(stderr, i2cslave);
++#endif
++    throw i2cslave;
+   }
+ 
+ #ifdef DEBUG
+@@ -41,24 +46,24 @@ void ADS1115::start() {
+   std::cerr << "Receiving data.\n";
+ #endif
+ 
+-  int result = gpioSetMode(settings.drdy_gpio, PI_INPUT);
+-  if (result < 0) {
+-    throw std::runtime_error("Failed to set GPIO mode, error " +
+-                             std::to_string(result));
+-  }
+-  result = gpioSetISRFuncEx(settings.drdy_gpio, RISING_EDGE, ISR_TIMEOUT,
+-                            gpioISR, (void *)this);
+-  if (result < 0) {
+-    throw std::runtime_error("Failed to set GPIO ISR function, error " +
+-                             std::to_string(result));
++  chipDRDY = gpiod_chip_open_by_number(settings.drdy_chip);
++  pinDRDY = gpiod_chip_get_line(chipDRDY, settings.drdy_gpio);
++
++  int ret = gpiod_line_request_rising_edge_events(pinDRDY, "Consumer");
++  if (ret < 0) {
++#ifdef DEBUG
++    fprintf(stderr,
++            "Request event notification failed on pin %d and chip %d.\n",
++            settings.drdy_chip, settings.drdy_gpio);
++#endif
++    throw "Could not request event for IRQ.";
+   }
++
++  running = true;
++
++  thr = std::thread(&ADS1115::worker, this);
+ }
+ 
+-/**
+- * @brief Sets the channel for the ADS1115 sensor.
+- *
+- * @param channel The channel to set.
+- */
+ void ADS1115::setChannel(ADS1115settings::Input channel) {
+   unsigned r = i2c_readWord(reg_config);
+   r = r & (~(3 << 12));
+@@ -76,20 +81,26 @@ void ADS1115::dataReady() {
+   hasSample(v);
+ }
+ 
++void ADS1115::worker() {
++  while (running) {
++    const struct timespec ts = {1, 0};
++    gpiod_line_event_wait(pinDRDY, &ts);
++    struct gpiod_line_event event;
++    gpiod_line_event_read(pinDRDY, &event);
++    dataReady();
++  }
++}
++
+ /**
+  * @brief Stops the ADS1115 sensor.
+  */
+ void ADS1115::stop() {
+-  int result = gpioSetISRFuncEx(ads1115settings.drdy_gpio, RISING_EDGE, -1,
+-                                nullptr, static_cast<void *>(this));
+-  if (result < 0) {
+-    throw std::runtime_error("Failed to set GPIO ISR function, error " +
+-                             std::to_string(result));
+-  }
+-
+-  if (ads1115settings.initPIGPIO) {
+-    gpioTerminate();
+-  }
++  if (!running) return;
++  running = false;
++  thr.join();
++  gpiod_line_release(pinDRDY);
++  gpiod_chip_close(chipDRDY);
++  close(fd_i2c);
+ }
+ 
+ /**
+@@ -99,18 +110,11 @@ void ADS1115::stop() {
+  * @param data The data to write.
+  */
+ void ADS1115::i2c_writeWord(uint8_t reg, unsigned data) {
+-  int fd = i2cOpen(ads1115settings.i2c_bus, ads1115settings.address, 0);
+-  if (fd < 0) {
+-#ifdef DEBUG
+-    std::cerr << "Could not open " << std::hex << ads1115settings.address
+-              << ".\n";
+-#endif
+-    throw std::runtime_error("Could not open i2c.");
+-  }
+-  char tmp[2];
+-  tmp[0] = (char)((data & 0xff00) >> 8);
+-  tmp[1] = (char)(data & 0x00ff);
+-  int r = i2cWriteI2CBlockData(fd, reg, tmp, 2);
++  uint8_t tmp[3];
++  tmp[0] = reg;
++  tmp[1] = (char)((data & 0xff00) >> 8);
++  tmp[2] = (char)(data & 0x00ff);
++  long int r = write(fd_i2c, &tmp, 3);
+   if (r < 0) {
+ #ifdef DEBUG
+     std::cerr << "Could not write word from " << std::hex
+@@ -118,64 +122,36 @@ void ADS1115::i2c_writeWord(uint8_t reg, unsigned data) {
+ #endif
+     throw std::runtime_error("Could not read from i2c.");
+   }
+-  i2cClose(fd);
+ }
+ 
+-/**
+- * @brief Reads a word from the I2C bus.
+- *
+- * @param reg The register to read from.
+- * @return unsigned The data read.
+- */
+ unsigned ADS1115::i2c_readWord(uint8_t reg) {
+-  int fd = i2cOpen(ads1115settings.i2c_bus, ads1115settings.address, 0);
+-  if (fd < 0) {
+-#ifdef DEBUG
+-    std::cerr << "Could not open " << std::hex << ads1115settings.address
+-              << ".\n";
+-#endif
+-    throw std::runtime_error("Could not open i2c.");
+-  }
+-  int r;
+-  char tmp[2];
+-  r = i2cReadI2CBlockData(fd, reg, tmp, 2);
+-  if (fd < 0) {
++  uint8_t tmp[2];
++  tmp[0] = reg;
++  write(fd_i2c, &tmp, 1);
++  long int r = read(fd_i2c, tmp, 2);
++  if (r < 0) {
+ #ifdef DEBUG
+     std::cerr << "Could not read word from " << std::hex
+               << ads1115settings.address << ". ret=" << r << ".\n";
+ #endif
+-    throw std::runtime_error("Could not read from i2c.");
++    throw "Could not read from i2c.";
+   }
+-  i2cClose(fd);
+   return (((unsigned)(tmp[0])) << 8) | ((unsigned)(tmp[1]));
+ }
+ 
+-/**
+- * @brief Reads the conversion result from the I2C bus.
+- *
+- * @return int The conversion result.
+- */
+ int ADS1115::i2c_readConversion() {
+   const int reg = 0;
+-  int fd = i2cOpen(ads1115settings.i2c_bus, ads1115settings.address, 0);
+-  if (fd < 0) {
++  char tmp[3];
++  tmp[0] = reg;
++  write(fd_i2c, &tmp, 1);
++  long int r = read(fd_i2c, tmp, 2);
++  if (r < 0) {
+ #ifdef DEBUG
+     std::cerr << "Could not open " << std::hex << ads1115settings.address
+               << ".\n";
+ #endif
+     throw std::runtime_error("Could not open i2c.");
+   }
+-  int r;
+-  char tmp[2];
+-  r = i2cReadI2CBlockData(fd, reg, tmp, 2);
+-  if (fd < 0) {
+-#ifdef DEBUG
+-    std::cerr << "Could not read ADC value. ret=" << r << ".\n";
+-#endif
+-    throw std::runtime_error("Could not read from i2c.");
+-  }
+-  i2cClose(fd);
+-  //        return (((int)(tmp[0])) << 8) | ((int)(tmp[1]));
+   return ((int)(tmp[0]) << 8) | (int)(tmp[1]);
+ }
+ 
+diff --git a/Software/Firmware/project/heartguard/CMakeLists.txt b/Software/Firmware/project/heartguard/CMakeLists.txt
+index 34b66c0..9822a76 100644
+--- a/Software/Firmware/project/heartguard/CMakeLists.txt
++++ b/Software/Firmware/project/heartguard/CMakeLists.txt
+@@ -17,13 +17,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TARGET_SOURCES})
+ # Define Target according to options
+ #####################################
+ add_executable(${TARGET_NAME} ${TARGET_SOURCES})
+-# Find pigpio library
+-find_library(PIGPIO_LIBRARY pigpio)
+ 
+-# Check if pigpio library is found
+-if(NOT PIGPIO_LIBRARY)
+-    message(FATAL_ERROR "pigpio library not found")
+-endif()
+ #####################################
+ # Define Target Properties and Optional OpenSSL Dependency
+ #####################################
+@@ -51,7 +45,7 @@ target_include_directories(${TARGET_NAME}
+     # Any other extra include required
+ )
+ 
+-target_link_libraries(${TARGET_NAME} PUBLIC ${PIGPIO_LIBRARY} ads1115 max30102 ecg)
++target_link_libraries(${TARGET_NAME} PUBLIC gpiod ads1115 max30102 ecg)
+ 
+ add_executable(
+   heartguard_test
+diff --git a/Software/Firmware/project/heartguard/src/heartguard.cpp b/Software/Firmware/project/heartguard/src/heartguard.cpp
+index 34e10c1..9be85e1 100644
+--- a/Software/Firmware/project/heartguard/src/heartguard.cpp
++++ b/Software/Firmware/project/heartguard/src/heartguard.cpp
+@@ -31,25 +31,25 @@ static void sighandlerShutdown(int sig) {
+   cv.notify_all();
+ }
+ 
+-/**
+- * @brief GPIO alert function.
+- *
+- * @param gpio GPIO pin number.
+- * @param level Level of the GPIO pin.
+- * @param tick Time at which the alert occurred.
+- */
+-void gpioAlert(int gpio, int level, uint32_t tick) {
+-  if (gpio == 27 && level == PI_LOW) {
+-    // If pin 27 goes low, check the state of pin 22
+-    int pin2_state = gpioRead(22);
+-    if (pin2_state == PI_LOW) {
+-      // If both pins are low, signal the condition variable
+-      std::lock_guard<std::mutex> lk(gpio_m);
+-      gpio_pins_ready = true;
+-      gpio_cv.notify_all();
+-    }
+-  }
+-}
++// /**
++//  * @brief GPIO alert function.
++//  *
++//  * @param gpio GPIO pin number.
++//  * @param level Level of the GPIO pin.
++//  * @param tick Time at which the alert occurred.
++//  */
++// void gpioAlert(int gpio, int level, uint32_t tick) {
++//   if (gpio == 27 && level == PI_LOW) {
++//     // If pin 27 goes low, check the state of pin 22
++//     int pin2_state = gpioRead(22);
++//     if (pin2_state == PI_LOW) {
++//       // If both pins are low, signal the condition variable
++//       std::lock_guard<std::mutex> lk(gpio_m);
++//       gpio_pins_ready = true;
++//       gpio_cv.notify_all();
++//     }
++//   }
++// }
+ 
+ /**
+  * @brief Main function.
+@@ -96,64 +96,65 @@ int main(int argc, char* argv[]) {
+     }
+ 
+     // Initialize the GPIO library
+-    int result = gpioInitialise();
+-    if (result < 0) {
+-      std::cerr << "Failed to initialize GPIO, error " << result << std::endl;
+-      return EXIT_FAILURE;
+-    }
++    // int result = gpioInitialise();
++    // if (result < 0) {
++    //   std::cerr << "Failed to initialize GPIO, error " << result << std::endl;
++    //   return EXIT_FAILURE;
++    // }
+ 
+     mainThread = std::make_unique<std::thread>([]() {
+       std::unique_lock<std::mutex> lk(cv_m);
+       cv.wait(lk, [] { return !run; });
+     });
+ 
+-    // Set the callback function for GPIO pin 27
+-    result = gpioSetMode(27, PI_INPUT);
+-    if (result < 0) {
+-      throw std::runtime_error("Failed to set GPIO mode, error " +
+-                               std::to_string(result));
+-    }
+-    result = gpioSetPullUpDown(27, PI_PUD_UP);  // Set pull up resistor
+-    if (result < 0) {
+-      throw std::runtime_error("Failed to set GPIO pull configuration, error " +
+-                               std::to_string(result));
+-    }
+-    result = gpioSetAlertFunc(27, gpioAlert);
+-    if (result < 0) {
+-      throw std::runtime_error("Failed to set GPIO alert function, error " +
+-                               std::to_string(result));
+-    }
+-
+-    // Create the ads1115 thread
+-    ads1115Thread = std::make_unique<std::thread>([]() {
+-      try {
+-        // Wait for the GPIO pins to be ready before starting the ads1115 thread
+-        std::unique_lock<std::mutex> lk(gpio_m);
+-        gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
+-
+-        hgads1115 = std::make_unique<ADS1115>();
+-        hgads1115->start();
+-      } catch (const std::exception& e) {
+-        std::cerr << "Exception in ads1115Thread: " << e.what() << std::endl;
+-      } catch (...) {
+-        std::cerr << "Caught unknown exception in ads1115Thread\n";
+-      }
+-    });
+-
+-    ecgThread = std::make_unique<std::thread>([]() {
+-      try {
+-        // Wait for the GPIO pins to be ready before starting the ecg thread
+-        std::unique_lock<std::mutex> lk(gpio_m);
+-        gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
+-
+-        hgecg = std::make_unique<ECG>();
+-        hgecg->start(hgads1115);
+-      } catch (const std::exception& e) {
+-        std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
+-      } catch (...) {
+-        std::cerr << "Caught unknown exception in ecgThread\n";
+-      }
+-    });
++    // // Set the callback function for GPIO pin 27
++    // result = gpioSetMode(27, PI_INPUT);
++    // if (result < 0) {
++    //   throw std::runtime_error("Failed to set GPIO mode, error " +
++    //                            std::to_string(result));
++    // }
++    // result = gpioSetPullUpDown(27, PI_PUD_UP);  // Set pull up resistor
++    // if (result < 0) {
++    //   throw std::runtime_error("Failed to set GPIO pull configuration, error
++    //   " +
++    //                            std::to_string(result));
++    // }
++    // result = gpioSetAlertFunc(27, gpioAlert);
++    // if (result < 0) {
++    //   throw std::runtime_error("Failed to set GPIO alert function, error " +
++    //                            std::to_string(result));
++    // }
++
++    // // Create the ads1115 thread
++    // ads1115Thread = std::make_unique<std::thread>([]() {
++    //   try {
++    //     // Wait for the GPIO pins to be ready before starting the ads1115
++    //     thread std::unique_lock<std::mutex> lk(gpio_m); gpio_cv.wait(lk, [] {
++    //     return gpio_pins_ready.load(); });
++
++    //     hgads1115 = std::make_unique<ADS1115>();
++    //     hgads1115->start();
++    //   } catch (const std::exception& e) {
++    //     std::cerr << "Exception in ads1115Thread: " << e.what() << std::endl;
++    //   } catch (...) {
++    //     std::cerr << "Caught unknown exception in ads1115Thread\n";
++    //   }
++    // });
++
++    // ecgThread = std::make_unique<std::thread>([]() {
++    //   try {
++    //     // Wait for the GPIO pins to be ready before starting the ecg thread
++    //     std::unique_lock<std::mutex> lk(gpio_m);
++    //     gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
++
++    //     hgecg = std::make_unique<ECG>();
++    //     hgecg->start(hgads1115);
++    //   } catch (const std::exception& e) {
++    //     std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
++    //   } catch (...) {
++    //     std::cerr << "Caught unknown exception in ecgThread\n";
++    //   }
++    // });
+ 
+     // Create the max30102 thread
+     if (enable_max30102) {
+@@ -184,7 +185,8 @@ int main(int argc, char* argv[]) {
+       });
+     }
+ 
+-    ads1115Thread->join();
++    // ads1115Thread->join();
++    // ecgThread->join();
+     if (max30102Thread) {
+       max30102Thread->join();
+     }
+@@ -195,9 +197,9 @@ int main(int argc, char* argv[]) {
+   } catch (...) {
+     // If an exception is thrown, join the threads before rethrowing the
+     // exception
+-    if (ads1115Thread && ads1115Thread->joinable()) {
+-      ads1115Thread->join();
+-    }
++    // if (ads1115Thread && ads1115Thread->joinable()) {
++    //   ads1115Thread->join();
++    // }
+     if (max30102Thread && max30102Thread->joinable()) {
+       max30102Thread->join();
+     }
+diff --git a/Software/Firmware/project/max30102/include/max30102.hpp b/Software/Firmware/project/max30102/include/max30102.hpp
+index 4052f53..2fe9e12 100644
+--- a/Software/Firmware/project/max30102/include/max30102.hpp
++++ b/Software/Firmware/project/max30102/include/max30102.hpp
+@@ -8,18 +8,25 @@
+ 
+ // Include any necessary headers here
+ #include <fcntl.h>
+-#include <pigpio.h>
++#include <gpiod.h>
+ #include <sys/ioctl.h>
+ #include <unistd.h>
+ 
++#include <boost/lockfree/spsc_queue.hpp>
+ #include <chrono>
+ #include <cstdint>
+ #include <cstring>
+ #include <iostream>
++#include <thread>
+ #include <vector>
+ 
+-// Define any constants here
++#include "i2c-dev.h"
++
+ #define MAX30102_ADDRESS 0x57
++
++#define I2C_SPEED_STANDARD 100000
++#define I2C_SPEED_FAST 400000
++
+ #define I2C_BUFFER_LENGTH 32
+ #define INTERRUPT_PIN 16  // Change this to the GPIO pin number you are using
+ 
+@@ -149,8 +156,11 @@ class MAX30102 {
+   MAX30102(void);
+   ~MAX30102(void);
+ 
+-  int begin(uint8_t i2cAddr = MAX30102_ADDRESS);
++  int begin(uint32_t i2cSpeed = I2C_SPEED_STANDARD,
++            uint8_t i2cAddr = MAX30102_ADDRESS);
+ 
++  uint32_t getRed(void);                   // Returns immediate red value
++  uint32_t getIR(void);                    // Returns immediate IR value
+   bool safeCheck(uint8_t maxTimeToCheck);  // Given a max amount of time, checks
+                                            // for new data.
+ 
+@@ -176,6 +186,7 @@ class MAX30102 {
+   void disableSlots(void);
+ 
+   // Data Collection
++  void worker();
+ 
+   // Interrupts
+   uint8_t getINT1(void);
+@@ -206,6 +217,7 @@ class MAX30102 {
+   uint8_t getRevisionID();
+   uint8_t readPartID();
+ 
++  // Setup the sensor with user selectable settings
+   void setup(uint8_t powerLevel = 0x1F, uint8_t sampleAverage = 4,
+              uint8_t ledMode = 2, int sampleRate = 400, int pulseWidth = 411,
+              int adcRange = 4096);
+@@ -224,10 +236,6 @@ class MAX30102 {
+ 
+   std::vector<uint8_t> readMany(uint8_t address, uint8_t length);
+ 
+-  static void gpioISR(int, int, uint32_t, void* userdata) {
+-    ((MAX30102*)userdata)->check();
+-  }
+-
+ #define STORAGE_SIZE 4
+   typedef struct Record {
+     uint32_t red[STORAGE_SIZE];
+@@ -236,6 +244,18 @@ class MAX30102 {
+     uint8_t tail;
+   } sense_struct;
+   sense_struct sense;
++
++  struct gpiod_chip *chipDRDY = nullptr;
++  struct gpiod_line *pinDRDY = nullptr;
++
++  int drdy_chip = 0;
++  int drdy_gpio = INTERRUPT_PIN;
++
++  std::thread thr;
++
++  int fd_i2c = -1;
++
++  bool running = false;
+ };
+ 
+ #endif  // MAX30102_HPP
+\ No newline at end of file
+diff --git a/Software/Firmware/project/max30102/src/max30102.cpp b/Software/Firmware/project/max30102/src/max30102.cpp
+index bcf4925..d93e970 100644
+--- a/Software/Firmware/project/max30102/src/max30102.cpp
++++ b/Software/Firmware/project/max30102/src/max30102.cpp
+@@ -9,41 +9,42 @@ MAX30102::MAX30102() {
+ }
+ 
+ /**
+- * @brief Initializes sensor.
+- * @param i2cAddr I2C address of the MAX30102 sensor.
+- * @return int 0 if successful, -1 if failed to open I2C bus, -3 if part ID
+- */
+-int MAX30102::begin(uint8_t i2cAddr) {
+-  int cfg = gpioCfgGetInternals();
+-  cfg |= PI_CFG_NOSIGHANDLER;
+-  gpioCfgSetInternals(cfg);
+-  int r = gpioInitialise();
+-  if (r < 0) {
+-    std::string msg = "Cannot init pigpio.";
++ * Initializes sensor.
++ * Returns negative number on failure.
++ * Returns sensor revision on success.
++ */
++int MAX30102::begin(uint32_t i2cSpeed, uint8_t i2cAddr) {
++  chipDRDY = gpiod_chip_open_by_number(drdy_chip);
++  pinDRDY = gpiod_chip_get_line(chipDRDY, drdy_gpio);
++
++  int ret = gpiod_line_request_rising_edge_events(pinDRDY, "Consumer");
++  if (ret < 0) {
+ #ifdef DEBUG
+-    std::cerr << msg << '\n';
++    fprintf(stderr,
++            "Request event notification failed on pin %d and chip %d.\n",
++            drdy_chip, drdy_gpio);
+ #endif
+-    throw std::runtime_error(msg);
++    throw "Could not request event for IRQ.";
+   }
+ 
+-  int result = gpioSetMode(INTERRUPT_PIN, PI_INPUT);
+-  if (result < 0) {
+-    throw std::runtime_error("Failed to set GPIO mode, error " +
+-                             std::to_string(result));
+-  }
+-  result =
+-      gpioSetISRFuncEx(INTERRUPT_PIN, RISING_EDGE, 1000, gpioISR, (void*)this);
+-  if (result < 0) {
+-    throw std::runtime_error("Failed to set GPIO ISR function, error " +
+-                             std::to_string(result));
+-  }
++  running = true;
+ 
+-  _i2c = i2cOpen(0, i2cAddr, 0);
+-  if (_i2c < 0) {
+-    // Failed to open the I2C bus
++  thr = std::thread(&MAX30102::worker, this);
++
++  // [TODO] Set I2C Speed.
++  const char *devName = "/dev/i2c-0";
++
++  // Open the I2C bus
++  int fd = open(devName, O_RDWR);
++  if (fd == -1) {
+     return -1;
+   }
+ 
++  if (ioctl(fd, I2C_SLAVE, i2cAddr) < 0) {
++    return -2;
++  }
++
++  _i2c = fd;
+   _i2caddr = i2cAddr;
+ 
+   // Check if part id matches.
+@@ -51,9 +52,11 @@ int MAX30102::begin(uint8_t i2cAddr) {
+     return -3;
+   }
+ 
+-  return i2cReadByteData(_i2c, REG_REVISIONID);
++  return i2c_smbus_read_byte_data(fd, REG_REVISIONID);
+ }
+ 
++// Interrupt configuration //
++
+ void MAX30102::enableAFULL(void) {
+   bitMask(REG_INTENABLE1, MASK_INT_A_FULL, INT_A_FULL_ENABLE);
+ }
+@@ -103,7 +106,7 @@ void MAX30102::softReset(void) {
+   auto startTime = std::chrono::system_clock::now();
+   std::chrono::system_clock::time_point endTime;
+   do {
+-    uint8_t response = i2cReadByteData(_i2c, REG_MODECONFIG);
++    uint8_t response = i2c_smbus_read_byte_data(_i2c, REG_MODECONFIG);
+     if ((response & RESET) == 0) break;  // Done reset!
+     usleep(1);                           // Prevent over burden the I2C bus
+     endTime = std::chrono::system_clock::now();
+@@ -160,7 +163,7 @@ void MAX30102::setPulseWidth(uint8_t pulseWidth) {
+  * @return void
+  */
+ void MAX30102::setPulseAmplitudeRed(uint8_t amplitude) {
+-  i2cWriteByteData(_i2c, REG_LED1_PULSEAMP, amplitude);
++  i2c_smbus_write_byte_data(_i2c, REG_LED1_PULSEAMP, amplitude);
+ }
+ 
+ /**
+@@ -169,7 +172,7 @@ void MAX30102::setPulseAmplitudeRed(uint8_t amplitude) {
+  * @return void
+  */
+ void MAX30102::setPulseAmplitudeIR(uint8_t amplitude) {
+-  i2cWriteByteData(_i2c, REG_LED2_PULSEAMP, amplitude);
++  i2c_smbus_write_byte_data(_i2c, REG_LED2_PULSEAMP, amplitude);
+ }
+ 
+ /**
+@@ -178,7 +181,7 @@ void MAX30102::setPulseAmplitudeIR(uint8_t amplitude) {
+  * @return void
+  */
+ void MAX30102::setPulseAmplitudeProximity(uint8_t amplitude) {
+-  i2cWriteByteData(_i2c, REG_LED_PROX_AMP, amplitude);
++  i2c_smbus_write_byte_data(_i2c, REG_LED_PROX_AMP, amplitude);
+ }
+ 
+ /**
+@@ -187,7 +190,7 @@ void MAX30102::setPulseAmplitudeProximity(uint8_t amplitude) {
+  * @return void
+  */
+ void MAX30102::setProximityThreshold(uint8_t threshMSB) {
+-  i2cWriteByteData(_i2c, REG_PROXINTTHRESH, threshMSB);
++  i2c_smbus_write_byte_data(_i2c, REG_PROXINTTHRESH, threshMSB);
+ }
+ 
+ /**
+@@ -222,8 +225,8 @@ void MAX30102::enableSlot(uint8_t slotNumber, uint8_t device) {
+  * @return void
+  */
+ void MAX30102::disableSlots(void) {
+-  i2cWriteByteData(_i2c, REG_MULTILEDCONFIG1, 0);
+-  i2cWriteByteData(_i2c, REG_MULTILEDCONFIG2, 0);
++  i2c_smbus_write_byte_data(_i2c, REG_MULTILEDCONFIG1, 0);
++  i2c_smbus_write_byte_data(_i2c, REG_MULTILEDCONFIG2, 0);
+ }
+ 
+ // FIFO Configuration //
+@@ -238,14 +241,14 @@ void MAX30102::setFIFOAverage(uint8_t numberOfSamples) {
+ }
+ 
+ /**
+- * @brief Set the FIFO Almost Full value.
++ * @brief Set the FIFO Almost Full valu.
+  * @param samples The number of samples to set.
+  * @return void
+  */
+ void MAX30102::clearFIFO(void) {
+-  i2cWriteByteData(_i2c, REG_FIFOWRITEPTR, 0);
+-  i2cWriteByteData(_i2c, REG_FIFOOVERFLOW, 0);
+-  i2cWriteByteData(_i2c, REG_FIFOREADPTR, 0);
++  i2c_smbus_write_byte_data(_i2c, REG_FIFOWRITEPTR, 0);
++  i2c_smbus_write_byte_data(_i2c, REG_FIFOOVERFLOW, 0);
++  i2c_smbus_write_byte_data(_i2c, REG_FIFOREADPTR, 0);
+ }
+ 
+ /**
+@@ -257,13 +260,20 @@ void MAX30102::enableFIFORollover(void) {
+   bitMask(REG_FIFOCONFIG, MASK_ROLLOVER, ROLLOVER_ENABLE);
+ }
+ 
++/**
++ * Disable roll over if FIFO over flows.
++ */
++void MAX30102::disableFIFORollover(void) {
++  bitMask(REG_FIFOCONFIG, MASK_ROLLOVER, ROLLOVER_DISABLE);
++}
++
+ /**
+  * @brief Set the FIFO Almost Full value.
+  * @param samples The number of samples to set.
+  * @return void
+  */
+-uint8_t MAX30102::getWritePointer(void) {
+-  return (i2cReadByteData(_i2c, REG_FIFOWRITEPTR));
++void MAX30102::setFIFOAlmostFull(uint8_t numberOfSamples) {
++  bitMask(REG_FIFOCONFIG, MASK_A_FULL, numberOfSamples);
+ }
+ 
+ /**
+@@ -271,8 +281,15 @@ uint8_t MAX30102::getWritePointer(void) {
+  * @param samples The number of samples to set.
+  * @return void
+  */
++uint8_t MAX30102::getWritePointer(void) {
++  return (i2c_smbus_read_byte_data(_i2c, REG_FIFOWRITEPTR));
++}
++
++/**
++ * Read the FIFO Read Pointer.
++ */
+ uint8_t MAX30102::getReadPointer(void) {
+-  return (i2cReadByteData(_i2c, REG_FIFOREADPTR));
++  return (i2c_smbus_read_byte_data(_i2c, REG_FIFOREADPTR));
+ }
+ 
+ // Device ID and Revision //
+@@ -282,7 +299,9 @@ uint8_t MAX30102::getReadPointer(void) {
+  * @param void
+  * @return uint8_t The part ID.
+  */
+-uint8_t MAX30102::readPartID() { return i2cReadByteData(_i2c, REG_PARTID); }
++uint8_t MAX30102::readPartID() {
++  return i2c_smbus_read_byte_data(_i2c, REG_PARTID);
++}
+ 
+ /**
+  * @brief Read the revision ID of the MAX30102 sensor.
+@@ -290,7 +309,7 @@ uint8_t MAX30102::readPartID() { return i2cReadByteData(_i2c, REG_PARTID); }
+  * @return void
+  */
+ void MAX30102::readRevisionID() {
+-  revisionID = i2cReadByteData(_i2c, REG_REVISIONID);
++  revisionID = i2c_smbus_read_byte_data(_i2c, REG_REVISIONID);
+ }
+ 
+ /**
+@@ -406,6 +425,36 @@ void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
+ }
+ 
+ // Data Collection //
++
++/**
++ * Returns the number of samples available.
++ */
++uint8_t MAX30102::available(void) {
++  int8_t numberOfSamples = sense.head - sense.tail;
++  if (numberOfSamples < 0) numberOfSamples += STORAGE_SIZE;
++  return (numberOfSamples);
++}
++
++/**
++ * Report the most recent Red value.
++ */
++uint32_t MAX30102::getRed(void) {
++  if (safeCheck(250))
++    return (sense.red[sense.head]);
++  else
++    return (0);
++}
++
++/**
++ * Report the most recent IR value.
++ */
++uint32_t MAX30102::getIR(void) {
++  if (safeCheck(250))
++    return (sense.IR[sense.head]);
++  else
++    return (0);
++}
++
+ /**
+  * Report the next Red value in FIFO.
+  */
+@@ -417,10 +466,15 @@ uint32_t MAX30102::getFIFORed(void) { return (sense.red[sense.head]); }
+ uint32_t MAX30102::getFIFOIR(void) { return (sense.IR[sense.head]); }
+ 
+ /**
+- * @brief Check if there is new data available.
+- * @param void
+- * @return bool True if new data is available, false otherwise.
++ * Advance the tail.
+  */
++void MAX30102::nextSample(void) {
++  if (available()) {
++    sense.tail++;
++    sense.tail %= STORAGE_SIZE;
++  }
++}
++
+ uint16_t MAX30102::check(void) {
+   uint8_t readPointer = getReadPointer();
+   uint8_t writePointer = getWritePointer();
+@@ -506,38 +560,67 @@ uint16_t MAX30102::check(void) {
+ }
+ 
+ /**
+- * @brief Get the next sample from the FIFO.
+- * @param void
+- * @return void
++ * Check for new data but give up after a certain amount of time.
++ * Returns true if new data was found.
++ * Returns false if new data was not found.
++ */
++bool MAX30102::safeCheck(uint8_t maxTimeToCheck) {
++  auto markTime = std::chrono::system_clock::now();
++
++  while (1) {
++    auto endTime = std::chrono::system_clock::now();
++    if ((std::chrono::duration_cast<std::chrono::milliseconds>(endTime -
++                                                               markTime)
++             .count()) > maxTimeToCheck) {
++      return false;
++    }
++
++    if (check() == true) {
++      // We found new data!
++      return true;
++    }
++
++    usleep(1);
++  }
++}
++
++/**
++ * Set certain thing in register.
+  */
+ void MAX30102::bitMask(uint8_t reg, uint8_t mask, uint8_t thing) {
+   // Read register
+-  uint8_t originalContents = i2cReadByteData(_i2c, reg);
++  uint8_t originalContents = i2c_smbus_read_byte_data(_i2c, reg);
+ 
+   // Zero-out portions of the register based on mask
+   originalContents = originalContents & mask;
+ 
+   // Change contents of register
+-  i2cWriteByteData(_i2c, reg, originalContents | thing);
++  i2c_smbus_write_byte_data(_i2c, reg, originalContents | thing);
+ }
+ 
+ /**
+- * @brief Get the next sample from the FIFO.
+- * @param void
+- * @return void
++ * Read multiple bytes from register.
+  */
+ std::vector<uint8_t> MAX30102::readMany(uint8_t address, uint8_t length) {
+-  char* rawRead = new char[length];
+-  int bytesRead = i2cReadI2CBlockData(_i2c, address, rawRead, length);
++  ioctl(_i2c, I2C_SLAVE, _i2caddr);
++  uint8_t *rawRead = new uint8_t[length];
++  i2c_smbus_read_i2c_block_data(_i2c, address, length, rawRead);
+   std::vector<uint8_t> result;
+-  if (bytesRead >= 0) {
+-    for (int i = 0; i < bytesRead; i++) {
+-      result.push_back(static_cast<uint8_t>(rawRead[i]));
+-    }
++  for (uint8_t i = 0; i < length; i++) {
++    result.push_back(rawRead[i]);
+   }
+-  delete[] rawRead;
+   return result;
+ }
++void MAX30102::worker() {
++  while (running) {
++    const struct timespec ts = {1, 0};
++    gpiod_line_event_wait(pinDRDY, &ts);
++    struct gpiod_line_event event;
++    gpiod_line_event_read(pinDRDY, &event);
++    std::cout << "Event detected." << std::endl;
++    check();
++  }
++}
+ 
+ /**
+  * @brief Destructor for the MAX30102 class.
+@@ -546,6 +629,10 @@ std::vector<uint8_t> MAX30102::readMany(uint8_t address, uint8_t length) {
+  */
+ MAX30102::~MAX30102() {
+   // Destructor
+-  i2cClose(_i2c);
+-  gpioTerminate();
+-}
++  if (!running) return;
++  running = false;
++  thr.join();
++  gpiod_line_release(pinDRDY);
++  gpiod_chip_close(chipDRDY);
++  close(fd_i2c);
++}
+\ No newline at end of file

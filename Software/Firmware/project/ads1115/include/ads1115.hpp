@@ -21,8 +21,10 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <thread> 
 #include <unistd.h>
 
+#include <boost/lockfree/spsc_queue.hpp>
 #include <iostream>
 
 // enable debug messages and error messages to stderr
@@ -80,14 +82,14 @@ struct ADS1115settings {
   SamplingRates samplingRate = FS8HZ;
 
   /**
-   * Full scale range: 2.048V, 1.024V, 0.512V or 0.256V.
+   * Full scale range: 4.096, 2.048V, 1.024V, 0.512V or 0.256V.
    **/
-  enum PGA { FSR2_048 = 2, FSR1_024 = 3, FSR0_512 = 4, FSR0_256 = 5 };
+  enum PGA { FSR4_096 = 1,FSR2_048 = 2, FSR1_024 = 3, FSR0_512 = 4, FSR0_256 = 5 };
 
   /**
    * Requested full scale range
    **/
-  PGA pgaGain = FSR2_048;
+  PGA pgaGain = FSR4_096;
 
   /**
    * Channel indices
@@ -120,6 +122,9 @@ class ADS1115 {
    * stops on exit.
    **/
   ~ADS1115() { stop(); }
+
+  boost::lockfree::spsc_queue<float, boost::lockfree::capacity<1024>>
+      ads115queue;
 
   /**
    * Called when a new sample is available.
@@ -167,6 +172,8 @@ class ADS1115 {
 
   float fullScaleVoltage() {
     switch (ads1115settings.pgaGain) {
+      case ADS1115settings::FSR4_096:
+        return 4.096f;
       case ADS1115settings::FSR2_048:
         return 2.048f;
       case ADS1115settings::FSR1_024:
