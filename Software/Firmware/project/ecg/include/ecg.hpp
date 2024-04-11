@@ -6,6 +6,11 @@
 #include <algorithm>
 #include "Iir.h"
 #include <fstream>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h> 
+#include <unistd.h> 
+
 
 
 class ECG {
@@ -52,6 +57,16 @@ class ECG {
     float heart_rate;                   // stores the most recent heart rate  
     std::vector<float> RR_intervals;    // Stores each RR interval for HRV calculation
     std::vector<float> HRV;             // Stores the hrv scores for calcualtion every 15 seconds
+
+
+    // Socket variables
+    int server_socket;                // Socket for the connection
+    int client_socket;                // Socket for the client
+    struct sockaddr_in address;   
+    const int port = 5000;            // Example port number
+    bool socket_connected = false;    // Flag to track connection status
+
+    void setupSocket();               // Function to set up the socket
     
     void recalculate_mean() {
       float sum = 0.0f;
