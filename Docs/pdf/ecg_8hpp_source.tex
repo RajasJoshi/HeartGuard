@@ -1,0 +1,80 @@
+\doxysection{ecg.\+hpp}
+\hypertarget{ecg_8hpp_source}{}\label{ecg_8hpp_source}\index{Software/Firmware/project/ecg/include/ecg.hpp@{Software/Firmware/project/ecg/include/ecg.hpp}}
+\mbox{\hyperlink{ecg_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ECG\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ECG\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <arpa/inet.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <netinet/in.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}Iir.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ads1115_8hpp}{ads1115.hpp}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classECG}{ECG}}\ \{}
+\DoxyCodeLine{00017\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \mbox{\hyperlink{classECG_a9a7243ed1f05e13be33ce5e4a743b05d}{ECG}}();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Constructor}}
+\DoxyCodeLine{00019\ \ \ \mbox{\hyperlink{classECG_a002e45b4fe3cf8710a1e6289f61e78fe}{\string~ECG}}();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Destructor}}
+\DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classECG_a54ef07ae8554eaabae9fd14a8c93abdf}{start}}(std::unique\_ptr<ADS1115>\&\ ads\_ptr);\ \ \textcolor{comment}{//\ Start\ the\ ECG\ sensor}}
+\DoxyCodeLine{00021\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classECG_a00e642fe0cf0806ca18af138136aa025}{stop}}(\textcolor{keywordtype}{void});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Stop\ the\ ECG\ sensor}}
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classECG_ab06157349c21c71d908f5d6180ea18d1}{display\_buffer}}(\textcolor{keywordtype}{void});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Display\ the\ buffer}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \textcolor{comment}{//\ Add\ your\ private\ member\ variables\ here}}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SAMPLING\_RATE\ =\ 860.0f;\ \ \textcolor{comment}{//\ Hz}}
+\DoxyCodeLine{00027\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ BUFFER\_SIZE\ =}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ SAMPLING\_RATE\ *\ 4;\ \ \textcolor{comment}{//\ 4\ seconds\ of\ data\ at\ 860\ Hz}}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{float}\ circularBuffer[BUFFER\_SIZE];}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{int}\ headIndex\ =\ 0;\ \ \textcolor{comment}{//\ Index\ where\ the\ next\ value\ will\ be\ written}}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{bool}\ bufferFull;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \textcolor{comment}{//\ infinite\ impulse\ response\ library\ filter\ params}}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ filter\_order\ =\ 4;\ \ \textcolor{comment}{//\ 4th\ order\ filter}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ cutoff\_frequency\ =}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ 50.0f;\ \ \textcolor{comment}{//\ Hz\ (EMG\ /\ Power\ line\ removal)}}
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ highpass\_cutoff\_frequency\ =}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ 0.1f;\ \ \textcolor{comment}{//\ Hz\ (baseline\ wander\ removal)}}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ lowpass\_cutoff\_frequency\ =}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ 100.0f;\ \ \textcolor{comment}{//\ Hz\ (for\ noise\ removal)}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \textcolor{comment}{//\ biological\ data}}
+\DoxyCodeLine{00043\ \ \ std::vector<int>\ detected\_peaks;\ \ \ \ \ \textcolor{comment}{//\ Store\ indices\ of\ detected\ R\ peaks}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{float}\ mean\ =\ 0.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mean\ of\ the\ ECG\ signal}}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{float}\ stdev\ =\ 0.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Standard\ deviation\ of\ the\ ECG\ signal}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{float}\ threshold\ =\ mean\ +\ 3\ *\ stdev;\ \ \textcolor{comment}{//\ Threshold\ for\ peak\ detection}}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{float}\ RR\_interval\ =\ 0.0f;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stores\ the\ most\ recent\ R\_R\ interval}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{float}\ heart\_rate;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stores\ the\ most\ recent\ heart\ rate}}
+\DoxyCodeLine{00049\ \ \ std::vector<float>}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ RR\_intervals;\ \ \textcolor{comment}{//\ Stores\ each\ RR\ interval\ for\ HRV\ calculation}}
+\DoxyCodeLine{00051\ \ \ std::vector<float>}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ HRV;\ \ \textcolor{comment}{//\ Stores\ the\ hrv\ scores\ for\ calcualtion\ every\ 15\ seconds}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \textcolor{comment}{//\ Socket\ variables}}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{int}\ server\_socket;\ \ \textcolor{comment}{//\ Socket\ for\ the\ connection}}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{int}\ client\_socket;\ \ \textcolor{comment}{//\ Socket\ for\ the\ client}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ address;}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ port\ =\ 5000;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Example\ port\ number}}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{bool}\ socket\_connected\ =\ \textcolor{keyword}{false};\ \ \textcolor{comment}{//\ Flag\ to\ track\ connection\ status}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ setupSocket(\textcolor{keywordtype}{void});\ \ \textcolor{comment}{//\ Function\ to\ set\ up\ the\ socket}}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ recalculate\_mean(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ recalculate\_stdev(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{void}\ recalculate\_threshold(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{void}\ calculate\_RR\_interval\_hr(\textcolor{keywordtype}{float}\ SAMPLING\_RATE);}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{float}\ ECG\_filtering(Iir::RBJ::IIRNotch\&\ notch\_filter,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Iir::Butterworth::LowPass<filter\_order>\&\ lowpass\_filter,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Iir::Butterworth::HighPass<filter\_order>\&\ highpass\_filter,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sample,\ \textcolor{keywordtype}{float}\ SAMPLING\_RATE);}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{void}\ calculate\_hrv(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{void}\ empty\_values(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ ECG\_HPP}}
+
+\end{DoxyCode}

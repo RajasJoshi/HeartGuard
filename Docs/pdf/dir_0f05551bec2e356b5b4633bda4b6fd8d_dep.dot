@@ -1,0 +1,23 @@
+digraph "Software/Firmware/project"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_a0d0cfd3eed1b74f03698919d30d8fc6 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="Firmware", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_a0d0cfd3eed1b74f03698919d30d8fc6.html",tooltip=""]
+  subgraph clusterdir_0f05551bec2e356b5b4633bda4b6fd8d {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_0f05551bec2e356b5b4633bda4b6fd8d.html",tooltip=""]
+    dir_0f05551bec2e356b5b4633bda4b6fd8d [shape=plaintext, label="project"];
+  dir_970d6700fad0eea1fd73061d0f7b3c90 [label="ads1115", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_970d6700fad0eea1fd73061d0f7b3c90.html",tooltip=""];
+  dir_2bee69849a4f5579481b2253a42a2741 [label="ecg", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_2bee69849a4f5579481b2253a42a2741.html",tooltip=""];
+  dir_4fedc7ead3d2b404954f303db05aff23 [label="heartguard", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_4fedc7ead3d2b404954f303db05aff23.html",tooltip=""];
+  dir_4f9538d0e23f9eaa41c1c6f4181212d5 [label="max30102", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_4f9538d0e23f9eaa41c1c6f4181212d5.html",tooltip=""];
+  }
+  }
+  dir_2bee69849a4f5579481b2253a42a2741->dir_970d6700fad0eea1fd73061d0f7b3c90 [headlabel="1", labeldistance=1.5 headhref="dir_000001_000000.html" href="dir_000001_000000.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_4fedc7ead3d2b404954f303db05aff23->dir_970d6700fad0eea1fd73061d0f7b3c90 [headlabel="1", labeldistance=1.5 headhref="dir_000003_000000.html" href="dir_000003_000000.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_4fedc7ead3d2b404954f303db05aff23->dir_2bee69849a4f5579481b2253a42a2741 [headlabel="1", labeldistance=1.5 headhref="dir_000003_000001.html" href="dir_000003_000001.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_4fedc7ead3d2b404954f303db05aff23->dir_4f9538d0e23f9eaa41c1c6f4181212d5 [headlabel="1", labeldistance=1.5 headhref="dir_000003_000008.html" href="dir_000003_000008.html" color="steelblue1" fontcolor="steelblue1"];
+}

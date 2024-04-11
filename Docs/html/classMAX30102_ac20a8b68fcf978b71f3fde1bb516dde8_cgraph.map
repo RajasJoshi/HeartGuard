@@ -1,7 +1,0 @@
-<map id="MAX30102::setup" name="MAX30102::setup">
-<area shape="rect" id="node1" title="Setup the sensor with user selectable settings." alt="" coords="5,81,141,108"/>
-<area shape="rect" id="node2" href="$classMAX30102.html#a4d436e6c3874f03fc32ca1412fbd8dfb" title=" " alt="" coords="199,5,385,32"/>
-<area shape="rect" id="node3" href="$classMAX30102.html#a2e9b9a516572433c2dec4a304acb67f7" title=" " alt="" coords="189,56,395,83"/>
-<area shape="rect" id="node4" href="$classMAX30102.html#ae11f7b66a205c5e465668fa401427737" title="Set the FIFO Almost Full value." alt="" coords="191,107,393,133"/>
-<area shape="rect" id="node5" href="$classMAX30102.html#ad78ce89aa47f2c6e1a3cf07a6966c2c9" title="All configuration, threshold, and data registers are reset to their power&#45;on state through a power&#45;on..." alt="" coords="211,157,373,184"/>
-</map>

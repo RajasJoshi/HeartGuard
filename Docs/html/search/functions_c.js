@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wakeup_149',['wakeUp',['../classMAX30102.html#ab6c07c546e397bd5d87292f434a0ee8c',1,'MAX30102']]]
+  ['wakeup_0',['wakeUp',['../classMAX30102.html#ab6c07c546e397bd5d87292f434a0ee8c',1,'MAX30102']]]
 ];
