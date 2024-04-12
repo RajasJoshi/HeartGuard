@@ -7,7 +7,9 @@
 add_subdirectory(heartguard)
 add_subdirectory(ads1115)
 add_subdirectory(max30102)
-
+add_subdirectory(ecg)
+add_subdirectory(iir)
+add_subdirectory(tcpserver)
 #####################################
 # Define Install Targets
 #####################################
@@ -33,4 +35,28 @@ install(
     ${CMAKE_BINARY_DIR}/exports/max30102_export.hpp
   DESTINATION 
     include/max30102
+)
+
+install(
+  FILES 
+    ${CMAKE_SOURCE_DIR}/project/ecg/include/ecg.hpp
+    ${CMAKE_BINARY_DIR}/exports/ecg_export.hpp
+  DESTINATION 
+    include/ecg
+)
+
+install(
+  FILES 
+    ${CMAKE_SOURCE_DIR}/project/iir/include/iir.hpp
+    ${CMAKE_BINARY_DIR}/exports/iir_export.hpp
+  DESTINATION 
+    include/iir
+)
+
+install(
+  FILES 
+    ${CMAKE_SOURCE_DIR}/project/tcpserver/include/tcpserver.hpp
+    ${CMAKE_BINARY_DIR}/exports/tcpserver_export.hpp
+  DESTINATION 
+    include/tcpserver
 )

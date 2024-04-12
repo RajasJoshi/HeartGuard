@@ -17,12 +17,12 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TARGET_SOURCES})
 # Define Target according to options
 #####################################
 add_executable(${TARGET_NAME} ${TARGET_SOURCES})
-# Find pigpio library
-find_library(PIGPIO_LIBRARY pigpio)
+# Find gpiod library
+find_library(GPIOD_LIBRARY gpiod)
 
-# Check if pigpio library is found
-if(NOT PIGPIO_LIBRARY)
-    message(FATAL_ERROR "pigpio library not found")
+# Check if gpiod library is found
+if(NOT GPIOD_LIBRARY)
+    message(FATAL_ERROR "libgpiod library not found")
 endif()
 #####################################
 # Define Target Properties and Optional OpenSSL Dependency
@@ -43,12 +43,19 @@ target_include_directories(${TARGET_NAME}
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/exports>
   PRIVATE 
     ${TARGET_INCLUDE_FOLDER}
+    ${Boost_INCLUDE_DIRS}
+    ${BOOST_LOCKFREE_DIR}
+    ${BOOST_CIRCULAR_BUFFER_INCLUDE_DIRS}
+    ${BOOST_ASIO_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/../ads1115/include
     ${CMAKE_CURRENT_SOURCE_DIR}/../max30102/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../ecg/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../iir/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../tcpserver/include
     # Any other extra include required
 )
 
-target_link_libraries(${TARGET_NAME} PUBLIC ${PIGPIO_LIBRARY} ads1115 max30102)
+target_link_libraries(${TARGET_NAME} PUBLIC ${GPIOD_LIBRARY} ads1115 max30102 ecg iir tcpserver)
 
 add_executable(
   heartguard_test

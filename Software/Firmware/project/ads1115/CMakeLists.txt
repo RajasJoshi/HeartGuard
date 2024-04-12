@@ -18,12 +18,12 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TARGET_SOURCES})
 #####################################
 
 add_library(${TARGET_NAME} STATIC ${TARGET_SOURCES})
-# Find pigpio library
-find_library(PIGPIO_LIBRARY pigpio)
+# Find gpiod library
+find_library(GPIOD_LIBRARY gpiod)
 
-# Check if pigpio library is found
-if(NOT PIGPIO_LIBRARY)
-    message(FATAL_ERROR "pigpio library not found")
+# Check if gpiod library is found
+if(NOT GPIOD_LIBRARY)
+    message(FATAL_ERROR "libgpiod library not found")
 endif()
 
 #####################################
@@ -51,10 +51,12 @@ target_include_directories(${TARGET_NAME}
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/exports>
   PRIVATE 
     ${TARGET_INCLUDE_FOLDER}
+    ${Boost_INCLUDE_DIRS}
+    ${BOOST_LOCKFREE_DIR}
     # Any other extra include required
 )
 
-target_link_libraries(${TARGET_NAME} PUBLIC ${PIGPIO_LIBRARY})
+target_link_libraries(${TARGET_NAME} PUBLIC ${GPIOD_LIBRARY})
 
 
 add_executable(

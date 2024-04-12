@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['test_89',['TEST',['../ads1115__test_8cpp.html#abf3f6e3e34f5576715dbe8cae3d49885',1,'TEST(Ads1115Test, BasicStructure):&#160;ads1115_test.cpp'],['../heartguard__test_8cpp.html#a55ba0a2b0d1eb640793b4ec40e1d22a3',1,'TEST(HeartguardTest, BasicStructure):&#160;heartguard_test.cpp'],['../max30102__test_8cpp.html#acf8093e94637653788fcf53a418c1ae2',1,'TEST(Max30102Test, BasicStructure):&#160;max30102_test.cpp']]]
+  ['page_0',['My Personal Index Page',['../index.html',1,'']]],
+  ['personal_20index_20page_1',['My Personal Index Page',['../index.html',1,'']]],
+  ['pga_2',['PGA',['../structADS1115settings.html#a831970032a15754ead970931dd25ac5f',1,'ADS1115settings']]],
+  ['pgagain_3',['pgaGain',['../structADS1115settings.html#a9c5013fdbef7376faec2df49d123e67e',1,'ADS1115settings']]]
 ];

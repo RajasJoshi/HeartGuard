@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pgagain_156',['pgaGain',['../structADS1115settings.html#a9c5013fdbef7376faec2df49d123e67e',1,'ADS1115settings']]]
+  ['flags_0',['flags',['../structi2c__msg.html#a4b3bc1a36147fedfbdf9a15cc6ae88d9',1,'i2c_msg']]]
 ];

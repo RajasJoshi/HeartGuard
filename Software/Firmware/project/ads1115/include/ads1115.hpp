@@ -6,7 +6,7 @@
  *
  * Copyright (c) 2007  MontaVista Software, Inc.
  * Copyright (c) 2007  Anton Vorontsov <avorontsov@ru.mvista.com>
- * Copyright (c) 2013-2022  Bernd Porr <mail@berndporr.me.uk>
+ * Copyright (c) 2013-2024  Bernd Porr <mail@berndporr.me.uk>
  * Copyright (c) 2024  Rajas Joshi <rajasj99@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,12 +17,17 @@
 
 // Include any necessary headers here
 #include <assert.h>
-#include <pigpio.h>
+#include <linux/i2c-dev.h>
+#include <gpiod.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <thread> 
 #include <unistd.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
 
+#include <boost/lockfree/spsc_queue.hpp>
 #include <iostream>
 
 // enable debug messages and error messages to stderr
@@ -80,14 +85,14 @@ struct ADS1115settings {
   SamplingRates samplingRate = FS8HZ;
 
   /**
-   * Full scale range: 2.048V, 1.024V, 0.512V or 0.256V.
+   * Full scale range: 4.096, 2.048V, 1.024V, 0.512V or 0.256V.
    **/
-  enum PGA { FSR2_048 = 2, FSR1_024 = 3, FSR0_512 = 4, FSR0_256 = 5 };
+  enum PGA { FSR4_096 = 1,FSR2_048 = 2, FSR1_024 = 3, FSR0_512 = 4, FSR0_256 = 5 };
 
   /**
    * Requested full scale range
    **/
-  PGA pgaGain = FSR2_048;
+  PGA pgaGain = FSR4_096;
 
   /**
    * Channel indices
@@ -100,9 +105,9 @@ struct ADS1115settings {
   Input channel = AIN0;
 
   /**
-   * If set to true the pigpio will be initialised
+   * GPIO Chip number which receives the Data Ready signal
    **/
-  bool initPIGPIO = true;
+  int drdy_chip = 0;
 
   /**
    * GPIO pin connected to ALERT/RDY
@@ -120,6 +125,9 @@ class ADS1115 {
    * stops on exit.
    **/
   ~ADS1115() { stop(); }
+
+  boost::lockfree::spsc_queue<float, boost::lockfree::capacity<1024>>
+      ads115queue;
 
   /**
    * Called when a new sample is available.
@@ -153,8 +161,14 @@ class ADS1115 {
 
   void dataReady();
 
-  static void gpioISR(int, int, uint32_t, void* userdata) {
-    ((ADS1115*)userdata)->dataReady();
+  void worker() {
+    while (running) {
+        const struct timespec ts = { 1, 0 };
+        gpiod_line_event_wait(lineDRDY, &ts);
+        struct gpiod_line_event event;
+        gpiod_line_event_read(lineDRDY, &event);
+        dataReady();
+	  }
   }
 
   void i2c_writeWord(uint8_t reg, unsigned data);
@@ -167,6 +181,8 @@ class ADS1115 {
 
   float fullScaleVoltage() {
     switch (ads1115settings.pgaGain) {
+      case ADS1115settings::FSR4_096:
+        return 4.096f;
       case ADS1115settings::FSR2_048:
         return 2.048f;
       case ADS1115settings::FSR1_024:
@@ -180,6 +196,14 @@ class ADS1115 {
     return 0;
   }
   // Private member variables and functions
+    struct gpiod_chip *chipDRDY;
+    struct gpiod_line *lineDRDY;
+
+    std::thread thr;
+
+    int fdDRDY = -1;
+
+    bool running = false;
 };
 
 #endif  // ADS1115_HPP

@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# pip env
+/Software/GUI/frontend_env/
+
 # Compiled Object files
 *.slo
 *.lo
