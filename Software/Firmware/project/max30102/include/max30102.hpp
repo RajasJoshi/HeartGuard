@@ -8,7 +8,6 @@
 
 // Include any necessary headers here
 #include <fcntl.h>
-#include <pigpio.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 
@@ -18,8 +17,13 @@
 #include <iostream>
 #include <vector>
 
-// Define any constants here
+#include "i2c-dev.h"
+
 #define MAX30102_ADDRESS 0x57
+
+#define I2C_SPEED_STANDARD 100000
+#define I2C_SPEED_FAST 400000
+
 #define I2C_BUFFER_LENGTH 32
 #define INTERRUPT_PIN 16  // Change this to the GPIO pin number you are using
 
@@ -147,10 +151,11 @@ static const uint8_t SLOT_IR_PILOT = 0x06;
 class MAX30102 {
  public:
   MAX30102(void);
-  ~MAX30102(void);
+  int begin(uint32_t i2cSpeed = I2C_SPEED_STANDARD,
+            uint8_t i2cAddr = MAX30102_ADDRESS);
 
-  int begin(uint8_t i2cAddr = MAX30102_ADDRESS);
-
+  uint32_t getRed(void);                   // Returns immediate red value
+  uint32_t getIR(void);                    // Returns immediate IR value
   bool safeCheck(uint8_t maxTimeToCheck);  // Given a max amount of time, checks
                                            // for new data.
 
@@ -184,6 +189,12 @@ class MAX30102 {
   void disableAFULL(void);
   void enableDATARDY(void);
   void disableDATARDY(void);
+  void enableALCOVF(void);
+  void disableALCOVF(void);
+  void enablePROXINT(void);
+  void disablePROXINT(void);
+  void enableDIETEMPRDY(void);
+  void disableDIETEMPRDY(void);
 
   // FIFO Configurations
   void setFIFOAverage(uint8_t samples);
@@ -202,10 +213,18 @@ class MAX30102 {
   uint8_t getReadPointer(void);
   void clearFIFO(void);
 
+  // Proximity Mode Interrupt Threshold
+  void setPROXINTTHRESH(uint8_t val);
+
+  // Die Temperature
+  float readTemperature();
+  float readTemperatureF();
+
   // Detecting ID/Revision
   uint8_t getRevisionID();
   uint8_t readPartID();
 
+  // Setup the sensor with user selectable settings
   void setup(uint8_t powerLevel = 0x1F, uint8_t sampleAverage = 4,
              uint8_t ledMode = 2, int sampleRate = 400, int pulseWidth = 411,
              int adcRange = 4096);
@@ -223,10 +242,6 @@ class MAX30102 {
   void bitMask(uint8_t reg, uint8_t mask, uint8_t thing);
 
   std::vector<uint8_t> readMany(uint8_t address, uint8_t length);
-
-  static void gpioISR(int, int, uint32_t, void* userdata) {
-    ((MAX30102*)userdata)->check();
-  }
 
 #define STORAGE_SIZE 4
   typedef struct Record {

@@ -1,12 +1,9 @@
 #ifndef ECG_HPP
 #define ECG_HPP
 
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
 #include <algorithm>
+#include <boost/circular_buffer.hpp>
+#include <boost/lockfree/spsc_queue.hpp>
 #include <fstream>
 #include <queue>
 
@@ -20,6 +17,8 @@ class ECG {
   void start(std::unique_ptr<ADS1115>& ads_ptr);  // Start the ECG sensor
   void stop(void);                                // Stop the ECG sensor
   void display_buffer(void);                      // Display the buffer
+  boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<1024>>
+      ecgtcpqueue;
 
  private:
   // Add your private member variables here
@@ -51,14 +50,6 @@ class ECG {
   std::vector<float>
       HRV;  // Stores the hrv scores for calcualtion every 15 seconds
 
-  // Socket variables
-  int server_socket;  // Socket for the connection
-  int client_socket;  // Socket for the client
-  struct sockaddr_in address;
-  const int port = 5000;          // Example port number
-  bool socket_connected = false;  // Flag to track connection status
-
-  void setupSocket(void);  // Function to set up the socket
   void recalculate_mean(void);
   void recalculate_stdev(void);
   void recalculate_threshold(void);
