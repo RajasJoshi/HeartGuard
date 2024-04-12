@@ -209,6 +209,8 @@ class MAX30102 {
   void setup(uint8_t powerLevel = 0x1F, uint8_t sampleAverage = 4,
              uint8_t ledMode = 2, int sampleRate = 400, int pulseWidth = 411,
              int adcRange = 4096);
+             
+  ~MAX30102();
 
  private:
   int _i2c;
@@ -225,7 +227,14 @@ class MAX30102 {
   std::vector<uint8_t> readMany(uint8_t address, uint8_t length);
 
   static void gpioISR(int, int, uint32_t, void* userdata) {
+<<<<<<< HEAD
     ((MAX30102*)userdata)->check();
+=======
+    MAX30102* max = static_cast<MAX30102*>(userdata);
+    std::cout << "IR: " << max->sense.IR[max->sense.head];
+    std::cout << ", RED: " << max->sense.red[max->sense.head];
+    std::cout << std::endl;
+>>>>>>> 57151da4cc2750d82618a852e0d46785bd8e1758
   }
 
 #define STORAGE_SIZE 4
@@ -236,6 +245,8 @@ class MAX30102 {
     uint8_t tail;
   } sense_struct;
   sense_struct sense;
+  
+  
 };
 
 #endif  // MAX30102_HPP
