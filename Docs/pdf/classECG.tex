@@ -1,0 +1,92 @@
+\doxysection{ECG Class Reference}
+\hypertarget{classECG}{}\label{classECG}\index{ECG@{ECG}}
+
+
+{\ttfamily \#include $<$ecg.\+hpp$>$}
+
+
+
+Collaboration diagram for ECG\+:
+% FIG 0
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classECG_a9a7243ed1f05e13be33ce5e4a743b05d}{ECG}} ()
+\begin{DoxyCompactList}\small\item\em Starts the \doxylink{classECG}{ECG} sensor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classECG_a002e45b4fe3cf8710a1e6289f61e78fe}{\texorpdfstring{$\sim$}{\string~}\+ECG}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{classECG}{ECG} sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classECG_a54ef07ae8554eaabae9fd14a8c93abdf}{start}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classADS1115}{ADS1115}} $>$ \&ads\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Starts the \doxylink{classECG}{ECG} sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classECG_a00e642fe0cf0806ca18af138136aa025}{stop}} (void)
+\begin{DoxyCompactList}\small\item\em Stops the \doxylink{classECG}{ECG} sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classECG_ab06157349c21c71d908f5d6180ea18d1}{display\+\_\+buffer}} (void)
+\begin{DoxyCompactList}\small\item\em Displays the buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classECG_a9a7243ed1f05e13be33ce5e4a743b05d}\label{classECG_a9a7243ed1f05e13be33ce5e4a743b05d} 
+\index{ECG@{ECG}!ECG@{ECG}}
+\index{ECG@{ECG}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{ECG()}{ECG()}}
+{\footnotesize\ttfamily ECG\+::\+ECG (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Starts the \doxylink{classECG}{ECG} sensor. 
+
+\Hypertarget{classECG_a002e45b4fe3cf8710a1e6289f61e78fe}\label{classECG_a002e45b4fe3cf8710a1e6289f61e78fe} 
+\index{ECG@{ECG}!````~ECG@{\texorpdfstring{$\sim$}{\string~}ECG}}
+\index{````~ECG@{\texorpdfstring{$\sim$}{\string~}ECG}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ECG()}{\string~ECG()}}
+{\footnotesize\ttfamily ECG\+::\texorpdfstring{$\sim$}{\string~}\+ECG (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \doxylink{classECG}{ECG} sensor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classECG_ab06157349c21c71d908f5d6180ea18d1}\label{classECG_ab06157349c21c71d908f5d6180ea18d1} 
+\index{ECG@{ECG}!display\_buffer@{display\_buffer}}
+\index{display\_buffer@{display\_buffer}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{display\_buffer()}{display\_buffer()}}
+{\footnotesize\ttfamily void ECG\+::display\+\_\+buffer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays the buffer. 
+
+\Hypertarget{classECG_a54ef07ae8554eaabae9fd14a8c93abdf}\label{classECG_a54ef07ae8554eaabae9fd14a8c93abdf} 
+\index{ECG@{ECG}!start@{start}}
+\index{start@{start}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily void ECG\+::start (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classADS1115}{ADS1115}} $>$ \&}]{ads\+\_\+ptr }\end{DoxyParamCaption})}
+
+
+
+Starts the \doxylink{classECG}{ECG} sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ads\+\_\+ptr} & Pointer to the \doxylink{classADS1115}{ADS1115} object. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{classECG_a00e642fe0cf0806ca18af138136aa025}\label{classECG_a00e642fe0cf0806ca18af138136aa025} 
+\index{ECG@{ECG}!stop@{stop}}
+\index{stop@{stop}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily void ECG\+::stop (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Stops the \doxylink{classECG}{ECG} sensor. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Software/\+Firmware/project/ecg/include/\mbox{\hyperlink{ecg_8hpp}{ecg.\+hpp}}\item 
+Software/\+Firmware/project/ecg/src/\mbox{\hyperlink{ecg_8cpp}{ecg.\+cpp}}\end{DoxyCompactItemize}
