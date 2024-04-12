@@ -21,7 +21,7 @@ Requiring only a Raspberry Pi, Electrocardiogram (ECG) electrodes, a Heart Rate 
 
 - a modern C++17 compiler (`gcc-8`, `clang-6.0`, `MSVC 2017` or above)
 - [`cmake`](https://cmake.org) 3.15+
-- `libpigpio-dev`
+- `libgpiod-dev`
 
 ### Installing Required Tools
 
@@ -40,13 +40,13 @@ Install the C++ compiler and cmake:
 sudo apt install build-essential cmake
 ```
 
-Install the libpigpio-dev library:
+Install the libgpiod-dev library:
 
 ```shell
-sudo apt install libpigpio-dev
+sudo apt install libgpiod-dev
 ```
 
-These commands will install the GCC C++ compiler, cmake, and the libpigpio-dev library, which are required to build and run the HeartGuard Lite software.
+These commands will install the GCC C++ compiler, cmake, and the libgpiod-dev library, which are required to build and run the HeartGuard Lite software.
 
 ### Enabling I2C on Raspberry Pi
 

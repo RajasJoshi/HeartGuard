@@ -17,12 +17,12 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TARGET_SOURCES})
 # Define Target according to options
 #####################################
 add_executable(${TARGET_NAME} ${TARGET_SOURCES})
-# Find pigpio library
-find_library(PIGPIO_LIBRARY pigpio)
+# Find gpiod library
+find_library(GPIOD_LIBRARY gpiod)
 
-# Check if pigpio library is found
-if(NOT PIGPIO_LIBRARY)
-    message(FATAL_ERROR "pigpio library not found")
+# Check if gpiod library is found
+if(NOT GPIOD_LIBRARY)
+    message(FATAL_ERROR "libgpiod library not found")
 endif()
 #####################################
 # Define Target Properties and Optional OpenSSL Dependency
@@ -51,7 +51,7 @@ target_include_directories(${TARGET_NAME}
     # Any other extra include required
 )
 
-target_link_libraries(${TARGET_NAME} PUBLIC ${PIGPIO_LIBRARY} ads1115 max30102 ecg)
+target_link_libraries(${TARGET_NAME} PUBLIC ${GPIOD_LIBRARY} ads1115 max30102 ecg)
 
 find_package(iir)
 target_link_libraries(${TARGET_NAME} PUBLIC iir::iir)
