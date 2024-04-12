@@ -20,7 +20,8 @@ import queue
 from collections import deque
 from PyQt6.QtGui import QIcon
 
-HOST = "192.168.84.65"  
+
+HOST = "192.168.236.65"  
 PORT = 5000
 SAMPLING_RATE = 860  # Hz
 SAMPLING_PERIOD = 1000 / SAMPLING_RATE  # ms
