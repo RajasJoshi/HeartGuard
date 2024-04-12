@@ -1,13 +1,22 @@
 
-# ads1115 target instructions
+# iir target instructions
 
 #####################################
 # Define Target Information
 #####################################
-set(TARGET_NAME ecg)
+set(TARGET_NAME iir)
 set(TARGET_INCLUDE_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(TARGET_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/ecg.cpp)
+set(TARGET_SOURCES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Biquad.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Butterworth.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Cascade.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ChebyshevI.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ChebyshevII.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Custom.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/PoleFilter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/RBJ.cpp
 
+)
 #####################################
 # Support IDE Visualization
 #####################################
@@ -18,7 +27,6 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TARGET_SOURCES})
 #####################################
 
 add_library(${TARGET_NAME} STATIC ${TARGET_SOURCES})
-
 
 #####################################
 # Define Target Properties and Optional OpenSSL Dependency
@@ -45,23 +53,21 @@ target_include_directories(${TARGET_NAME}
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/exports>
   PRIVATE 
     ${TARGET_INCLUDE_FOLDER}
-    ${Boost_INCLUDE_DIRS}
-    ${BOOST_CIRCULAR_BUFFER_INCLUDE_DIRS}
-    ${BOOST_ASIO_INCLUDE_DIRS}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../ads1115/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../iir/include
+
     # Any other extra include required
 )
 
+target_link_libraries(${TARGET_NAME} PUBLIC)
+
 
 # add_executable(
-#   ecg_test
-#   test/ecg_test.cpp
+#   ads1115_test
+#   test/ads1115_test.cpp
 # )
 # target_link_libraries(
-#   ecg_test
+#   ads1115_test
 #   GTest::gtest_main
 # )
 
 # include(GoogleTest)
-# gtest_discover_tests(ecg_test)
+# gtest_discover_tests(ads1115_test)
