@@ -7,7 +7,12 @@
  */
 
 // Include any necessary headers here
+#include <assert.h>
 #include <fcntl.h>
+#include <gpiod.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 
@@ -15,6 +20,7 @@
 #include <cstdint>
 #include <cstring>
 #include <iostream>
+#include <thread>
 #include <vector>
 
 #include "i2c-dev.h"
@@ -153,6 +159,7 @@ class MAX30102 {
   MAX30102(void);
   int begin(uint32_t i2cSpeed = I2C_SPEED_STANDARD,
             uint8_t i2cAddr = MAX30102_ADDRESS);
+  void stop(void);
 
   uint32_t getRed(void);                   // Returns immediate red value
   uint32_t getIR(void);                    // Returns immediate IR value
@@ -242,6 +249,42 @@ class MAX30102 {
   void bitMask(uint8_t reg, uint8_t mask, uint8_t thing);
 
   std::vector<uint8_t> readMany(uint8_t address, uint8_t length);
+
+  // Private member variables and functions
+  struct gpiod_chip *chipDRDY;
+  struct gpiod_line *lineDRDY;
+  /**
++   * GPIO Chip number which receives the Data Ready signal
++   **/
+  int drdy_chip = 0;
+
+  /**
++   * GPIO pin connected to ALERT/RDY
++   **/
+  int drdy_gpio = INTERRUPT_PIN;
+
+  std::thread thr;
+
+  int fdDRDY = -1;
+
+  bool running = false;
+
+  void dataReady();
+
+  void worker() {
+    while (running) {
+      // std::cout << "Waiting for data ready signal\n";
+      // const struct timespec ts = {1, 0};
+      // gpiod_line_event_wait(lineDRDY, &ts);
+      // struct gpiod_line_event event;
+      // gpiod_line_event_read(lineDRDY, &event);
+      dataReady();
+      // std::cout << "IR: " << getIR();
+      // std::cout << ", RED: " << getRed();
+      // std::cout << std::endl;
+      // sleep(1);
+    }
+  }
 
 #define STORAGE_SIZE 4
   typedef struct Record {

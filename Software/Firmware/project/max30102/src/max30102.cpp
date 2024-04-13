@@ -35,6 +35,22 @@ int MAX30102::begin(uint32_t i2cSpeed, uint8_t i2cAddr) {
     return -3;
   }
 
+//   chipDRDY = gpiod_chip_open_by_number(drdy_chip);
+//   lineDRDY = gpiod_chip_get_line(chipDRDY, drdy_gpio);
+
+//   int ret = gpiod_line_request_falling_edge_events(lineDRDY, "Consumer");
+//   if (ret < 0) {
+// #ifdef DEBUG
+//     perror("Request event notification failed.\n");
+// #endif
+//     throw "Could not request event for IRQ.";
+//   }
+
+  running = true;
+
+  thr = std::thread(&MAX30102::worker, this);
+
+
   return i2c_smbus_read_byte_data(fd, REG_REVISIONID);
 }
 
@@ -341,8 +357,8 @@ void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
   softReset();
 
   // FIFO Configuration //
-  i2c_smbus_write_byte_data(_i2c, REG_INTENABLE1, 0xC0);
-  i2c_smbus_write_byte_data(_i2c, REG_INTENABLE2, 0x00);
+  enableAFULL();
+  enableDATARDY();
 
   // The chip will average multiple samples of same type together if you wish
   if (sampleAverage == 1)
@@ -616,4 +632,23 @@ std::vector<uint8_t> MAX30102::readMany(uint8_t address, uint8_t length) {
     result.push_back(rawRead[i]);
   }
   return result;
+}
+
+/**
+ * @brief Handles the event when data is ready.
+ */
+void MAX30102::dataReady() {
+  // std::cout << "Data Ready!" << std::endl;
+  std::cout << "IR: " << getIR();
+  std::cout << ", RED: " << getRed();
+  std::cout << std::endl;
+}
+
+void MAX30102::stop() {
+  if (!running) return;
+  running = false;
+  thr.join();
+  gpiod_line_release(lineDRDY);
+  gpiod_chip_close(chipDRDY);
+  close(fdDRDY);
 }

@@ -143,7 +143,7 @@ int main(int argc, char* argv[]) {
       }
     });
 
-    ecgThread = std::make_unique<std::thread>([]() {
+    /*ecgThread = std::make_unique<std::thread>([]() {
       try {
         // Wait for the GPIO pins to be ready before starting the ecg thread
         // std::unique_lock<std::mutex> lk(gpio_m);
@@ -171,7 +171,7 @@ int main(int argc, char* argv[]) {
       } catch (...) {
         std::cerr << "Caught unknown exception in tcpServerThread\n";
       }
-    });
+    });*/
 
     // Create the max30102 thread
     if (enable_max30102) {
@@ -188,12 +188,12 @@ int main(int argc, char* argv[]) {
 
           hgmax30102->setup();
           hgmax30102->setPulseAmplitudeRed(0x0A);
-          while (1) {
-            std::cout << "IR: " << hgmax30102->getFIFOIR();
-            std::cout << ", RED: " << hgmax30102->getFIFORed();
-            std::cout << std::endl;
-            sleep(1);
-          }
+          // while (1) {
+          //   std::cout << "IR: " << hgmax30102->getIR();
+          //   std::cout << ", RED: " << hgmax30102->getRed();
+          //   std::cout << std::endl;
+          //   sleep(1);
+          // }
         } catch (const std::exception& e) {
           std::cerr << "Exception in max30102Thread: " << e.what() << std::endl;
         } catch (...) {
@@ -202,7 +202,7 @@ int main(int argc, char* argv[]) {
       });
     }
 
-    ads1115Thread->join();
+    //ads1115Thread->join();
     if (max30102Thread) {
       max30102Thread->join();
     }
