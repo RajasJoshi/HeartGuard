@@ -17,7 +17,7 @@ static std::unique_ptr<std::thread>
     max30102Thread;                             ///< Thread for MAX30102 sensor.
 static std::unique_ptr<std::thread> ecgThread;  ///< Thread for ECG sensor.
 static std::unique_ptr<std::thread>
-    tcpServerThread;  ///< Thread for TCP server.
+    tcpServerThread;                ///< Thread for TCP server.
 static std::condition_variable cv;  ///< Condition variable for main thread.
 static std::condition_variable gpio_cv;  ///< Condition variable for GPIO pins.
 static std::mutex cv_m;                  ///< Mutex for main thread.
@@ -33,26 +33,6 @@ static void sighandlerShutdown(int sig) {
   run = false;
   cv.notify_all();
 }
-
-/**
- * @brief GPIO alert function.
- *
- * @param gpio GPIO pin number.
- * @param level Level of the GPIO pin.
- * @param tick Time at which the alert occurred.
- */
-// void gpioAlert(int gpio, int level, uint32_t tick) {
-//   if (gpio == 27 && level == PI_LOW) {
-//     // If pin 27 goes low, check the state of pin 22
-//     int pin2_state = gpioRead(22);
-//     if (pin2_state == PI_LOW) {
-//       // If both pins are low, signal the condition variable
-//       std::lock_guard<std::mutex> lk(gpio_m);
-//       gpio_pins_ready = true;
-//       gpio_cv.notify_all();
-//     }
-//   }
-// }
 
 /**
  * @brief Main function.
@@ -98,42 +78,14 @@ int main(int argc, char* argv[]) {
       perror("Error: cannot handle SIGINT");
     }
 
-    // Initialize the GPIO library
-    // int result = gpioInitialise();
-    // if (result < 0) {
-    //   std::cerr << "Failed to initialize GPIO, error " << result << std::endl;
-    //   return EXIT_FAILURE;
-    // }
-
     mainThread = std::make_unique<std::thread>([]() {
       std::unique_lock<std::mutex> lk(cv_m);
       cv.wait(lk, [] { return !run; });
     });
 
-    // // Set the callback function for GPIO pin 27
-    // result = gpioSetMode(27, PI_INPUT);
-    // if (result < 0) {
-    //   throw std::runtime_error("Failed to set GPIO mode, error " +
-    //                            std::to_string(result));
-    // }
-    // result = gpioSetPullUpDown(27, PI_PUD_UP);  // Set pull up resistor
-    // if (result < 0) {
-    //   throw std::runtime_error("Failed to set GPIO pull configuration, error " +
-    //                            std::to_string(result));
-    // }
-    // result = gpioSetAlertFunc(27, gpioAlert);
-    // if (result < 0) {
-    //   throw std::runtime_error("Failed to set GPIO alert function, error " +
-    //                            std::to_string(result));
-    // }
-
     // Create the ads1115 thread
     ads1115Thread = std::make_unique<std::thread>([]() {
       try {
-        // Wait for the GPIO pins to be ready before starting the ads1115 thread
-        // std::unique_lock<std::mutex> lk(gpio_m);
-        // gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
-
         hgads1115 = std::make_unique<ADS1115>();
         hgads1115->start();
       } catch (const std::exception& e) {
@@ -145,10 +97,6 @@ int main(int argc, char* argv[]) {
 
     ecgThread = std::make_unique<std::thread>([]() {
       try {
-        // Wait for the GPIO pins to be ready before starting the ecg thread
-        // std::unique_lock<std::mutex> lk(gpio_m);
-        // gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
-
         hgecg = std::make_unique<ECG>();
         hgecg->start(hgads1115);
       } catch (const std::exception& e) {
@@ -160,10 +108,6 @@ int main(int argc, char* argv[]) {
 
     tcpServerThread = std::make_unique<std::thread>([]() {
       try {
-        // Wait for the GPIO pins to be ready before starting the tcp server
-        // std::unique_lock<std::mutex> lk(gpio_m);
-        // gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
-
         hgtcpserver = std::make_unique<TcpServer>();
         hgtcpserver->start(hgecg);
       } catch (const std::exception& e) {

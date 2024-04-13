@@ -113,7 +113,6 @@ void MAX30102::softReset(void) {
   do {
     uint8_t response = i2c_smbus_read_byte_data(_i2c, REG_MODECONFIG);
     if ((response & RESET) == 0) break;  // Done reset!
-    usleep(1);                           // Prevent over burden the I2C bus
     endTime = std::chrono::system_clock::now();
   } while ((std::chrono::duration_cast<std::chrono::milliseconds>(endTime -
                                                                   startTime)
@@ -272,50 +271,6 @@ uint8_t MAX30102::getReadPointer(void) {
 }
 
 /**
- * Die Temperature.
- * Returns temperature in C.
- */
-float MAX30102::readTemperature() {
-  // DIE_TEMP_RDY interrupt must be enabled.
-
-  // Step 1: Config die temperature register to take 1 temperature sample.
-  i2c_smbus_write_byte_data(_i2c, REG_DIETEMPCONFIG, 0x01);
-
-  // Poll for bit to clear, reading is then complete.
-  // Timeout after 100ms.
-  auto startTime = std::chrono::system_clock::now();
-  std::chrono::system_clock::time_point endTime;
-  do {
-    // Check to see whether DIE_TEMP_RDY interrupt is set.
-    uint8_t response = i2c_smbus_read_byte_data(_i2c, REG_INTSTAT2);
-    if ((response & INT_DIE_TEMP_RDY_ENABLE) > 0) break;
-    usleep(1);
-    endTime = std::chrono::system_clock::now();
-  } while (
-      std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime)
-          .count() < 100);
-
-  // Step 2: Read die temperature register (integer)
-  int8_t tempInt = i2c_smbus_read_byte_data(_i2c, REG_DIETEMPINT);
-  uint8_t tempFrac = i2c_smbus_read_byte_data(
-      _i2c, REG_DIETEMPFRAC);  // causes clearing of the DIE_TEMP_RDY interrupt
-
-  // Step 3: Calculate temperature.
-  return (float)tempInt + ((float)tempFrac * 0.0625);
-}
-
-/**
- * Returns die temperature in F.
- */
-float MAX30102::readTemperatureF() {
-  float temp = readTemperature();
-
-  if (temp != -999.0) temp = temp * 1.8 + 32.0;
-
-  return (temp);
-}
-
-/**
  * Sets the PROX_INT_THRESHold.
  */
 void MAX30102::setPROXINTTHRESH(uint8_t val) {
@@ -327,12 +282,6 @@ void MAX30102::setPROXINTTHRESH(uint8_t val) {
 uint8_t MAX30102::readPartID() {
   return i2c_smbus_read_byte_data(_i2c, REG_PARTID);
 }
-
-void MAX30102::readRevisionID() {
-  revisionID = i2c_smbus_read_byte_data(_i2c, REG_REVISIONID);
-}
-
-uint8_t MAX30102::getRevisionID() { return revisionID; }
 
 // Setup the Sensor
 void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
