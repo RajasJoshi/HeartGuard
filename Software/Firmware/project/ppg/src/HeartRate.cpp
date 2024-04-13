@@ -6,7 +6,7 @@
 LowPassFilter lpf(0.08, M_PI);
 HighPassFilter hpf(0.08, M_PI);
 
-// Fake Constructor
+// Default Constructor
 HeartRate::HeartRate() {
 }
 
