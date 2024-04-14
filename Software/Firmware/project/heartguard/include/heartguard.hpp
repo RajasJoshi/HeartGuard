@@ -41,6 +41,7 @@
 #include "ads1115.hpp"
 #include "ecg.hpp"
 #include "max30102.hpp"
+#include "ppg.hpp"
 #include "tcpserver.hpp"
 // Add your function declarations, classes, etc. here
 

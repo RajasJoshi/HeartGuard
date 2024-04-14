@@ -38,9 +38,9 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
     } else {
       float fs = ECG_filtering(notch_filter, lowpass_filter, highpass_filter,
                                value, SAMPLING_RATE);
-      std::string message = "raw" + std::to_string(value) + ",filtered" +
-                            std::to_string(fs) + ",heartrate" +
-                            std::to_string(heart_rate) + ",";
+      std::string message = "ecg," + std::to_string(value) + "," +
+                            std::to_string(fs) + "," +
+                            std::to_string(heart_rate);
       while (!ecgtcpqueue.push(message)) {
         std::this_thread::yield();  // Yield if queue is full}
       }

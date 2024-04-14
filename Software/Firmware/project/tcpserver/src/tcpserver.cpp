@@ -10,11 +10,7 @@ TcpServer::TcpServer() {}
  * @param ads_ptr Pointer to the ecg object.
  */
 void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr) {
-  std::cout << "about to setup socket" << std::endl;
-
   setupSocket();
-
-  std::cout << "socket setup" << std::endl;
 
   fd_set read_fds, write_fds;
   struct timeval timeout;
@@ -43,7 +39,6 @@ void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr) {
       if (!ecg_ptr->ecgtcpqueue.pop(message)) {
         std::this_thread::yield();
       } else {
-        std::cout << "Message: " << message << std::endl;
         if (socket_connected) {
           if (send(client_socket, message.c_str(), message.length(), 0) < 0) {
             std::cerr << "Error sending data" << std::endl;

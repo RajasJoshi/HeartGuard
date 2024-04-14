@@ -51,11 +51,12 @@ target_include_directories(${TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/../max30102/include
     ${CMAKE_CURRENT_SOURCE_DIR}/../ecg/include
     ${CMAKE_CURRENT_SOURCE_DIR}/../iir/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../ppg/include
     ${CMAKE_CURRENT_SOURCE_DIR}/../tcpserver/include
     # Any other extra include required
 )
 
-target_link_libraries(${TARGET_NAME} PUBLIC ${GPIOD_LIBRARY} ads1115 max30102 ecg iir tcpserver)
+target_link_libraries(${TARGET_NAME} PUBLIC ${GPIOD_LIBRARY} ads1115 max30102 ecg iir ppg tcpserver)
 
 add_executable(
   heartguard_test
