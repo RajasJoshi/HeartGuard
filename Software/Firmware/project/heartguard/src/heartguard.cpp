@@ -2,8 +2,7 @@
 
 // Global variables
 static std::atomic<bool> run{true};  ///< Controls the main execution loop.
-static std::atomic<bool> enable_max30102{
-    false};  ///< Enables the MAX30102 sensor.
+
 static std::atomic<bool> gpio_pins_ready{
     false};  ///< Indicates if the GPIO pins are ready.
 static std::unique_ptr<ADS1115> hgads1115;       ///< ADS1115 sensor.
@@ -60,8 +59,6 @@ int main(int argc, char* argv[]) {
       } else if (arg == "-v" || arg == "--version") {
         std::cout << "Version 1.0.0\n";
         return EXIT_SUCCESS;
-      } else if (arg == "-m" || arg == "--max30102") {
-        enable_max30102 = true;
       } else {
         std::cerr << "Unknown argument: " << arg << "\n";
         return EXIT_FAILURE;
@@ -85,87 +82,83 @@ int main(int argc, char* argv[]) {
       cv.wait(lk, [] { return !run; });
     });
 
+    // Create the ads1115 thread
+    ads1115Thread = std::make_unique<std::thread>([]() {
+      try {
+        hgads1115 = std::make_unique<ADS1115>();
+        hgads1115->start();
+      } catch (const std::exception& e) {
+        std::cerr << "Exception in ads1115Thread: " << e.what() << std::endl;
+      } catch (...) {
+        std::cerr << "Caught unknown exception in ads1115Thread\n";
+      }
+    });
 
-    // // Create the ads1115 thread
-    // ads1115Thread = std::make_unique<std::thread>([]() {
-    //   try {
-    //     hgads1115 = std::make_unique<ADS1115>();
-    //     hgads1115->start();
-    //   } catch (const std::exception& e) {
-    //     std::cerr << "Exception in ads1115Thread: " << e.what() << std::endl;
-    //   } catch (...) {
-    //     std::cerr << "Caught unknown exception in ads1115Thread\n";
-    //   }
-    // });
-
-    // ecgThread = std::make_unique<std::thread>([]() {
-    //   try {
-    //     hgecg = std::make_unique<ECG>();
-    //     hgecg->start(hgads1115);
-    //   } catch (const std::exception& e) {
-    //     std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
-    //   } catch (...) {
-    //     std::cerr << "Caught unknown exception in ecgThread\n";
-    //   }
-    // });
-
-    // tcpServerThread = std::make_unique<std::thread>([]() {
-    //   try {
-    //     hgtcpserver = std::make_unique<TcpServer>();
-    //     hgtcpserver->start(hgecg);
-    //   } catch (const std::exception& e) {
-    //     std::cerr << "Exception in tcpServerThread: " << e.what() <<
-    //     std::endl;
-    //   } catch (...) {
-    //     std::cerr << "Caught unknown exception in tcpServerThread\n";
-    //   }
-    // });
-
+    ecgThread = std::make_unique<std::thread>([]() {
+      try {
+        hgecg = std::make_unique<ECG>();
+        hgecg->start(hgads1115);
+      } catch (const std::exception& e) {
+        std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
+      } catch (...) {
+        std::cerr << "Caught unknown exception in ecgThread\n";
+      }
+    });
 
     // Create the max30102 thread
-    if (enable_max30102) {
-      max30102Thread = std::make_unique<std::thread>([]() {
-        try {
-          hgmax30102 = std::make_unique<MAX30102>();
-          int result = hgmax30102->begin();
-          if (result < 0) {
-            throw std::runtime_error(
-                "Failed to start I2C (Error: " + std::to_string(result) + ").");
-          }
-          std::cout << "Device found (revision: " << result << ")!"
-                    << std::endl;
 
-          hgmax30102->setup();
-          hgmax30102->setPulseAmplitudeRed(0x0A);
-        } catch (const std::exception& e) {
-          std::cerr << "Exception in max30102Thread: " << e.what() << std::endl;
-        } catch (...) {
-          std::cerr << "Caught unknown exception in max30102Thread\n";
+    max30102Thread = std::make_unique<std::thread>([]() {
+      try {
+        hgmax30102 = std::make_unique<MAX30102>();
+        int result = hgmax30102->start();
+        if (result < 0) {
+          throw std::runtime_error(
+              "Failed to start I2C (Error: " + std::to_string(result) + ").");
         }
-      });
+        std::cout << "Device found (revision: " << result << ")!" << std::endl;
 
-      ppgThread = std::make_unique<std::thread>([]() {
-        try {
-          hgppg = std::make_unique<PPG>();
-          hgppg->start(hgmax30102);
-        } catch (const std::exception& e) {
-          std::cerr << "Exception in ppgThread: " << e.what() << std::endl;
-        } catch (...) {
-          std::cerr << "Caught unknown exception in ppgThread\n";
-        }
-      });
+        hgmax30102->setup();
+        hgmax30102->setPulseAmplitudeRed(0x0A);
+      } catch (const std::exception& e) {
+        std::cerr << "Exception in max30102Thread: " << e.what() << std::endl;
+      } catch (...) {
+        std::cerr << "Caught unknown exception in max30102Thread\n";
+      }
+    });
+
+    ppgThread = std::make_unique<std::thread>([]() {
+      try {
+        hgppg = std::make_unique<PPG>();
+        hgppg->start(hgmax30102);
+        std::cout << "Began heart rate calculation..." << std::endl;
+      } catch (const std::exception& e) {
+        std::cerr << "Exception in ppgThread: " << e.what() << std::endl;
+      } catch (...) {
+        std::cerr << "Caught unknown exception in ppgThread\n";
+      }
+    });
+
+    tcpServerThread = std::make_unique<std::thread>([]() {
+      try {
+        hgtcpserver = std::make_unique<TcpServer>();
+        hgtcpserver->start(hgecg, hgppg);
+
+      } catch (const std::exception& e) {
+        std::cerr << "Exception in tcpServerThread: " << e.what() << std::endl;
+      } catch (...) {
+        std::cerr << "Caught unknown exception in tcpServerThread\n";
+      }
+    });
+
+    if (ads1115Thread) {
+      ads1115Thread->join();
     }
-
-
-    // if (ads1115Thread) {
-    //   ads1115Thread->join();
-    // }
-    // if (ecgThread) {
-    //   ecgThread->join();
-    // }
-    // if (tcpServerThread) {
-    //   tcpServerThread->join();
-    // }
+    if (ecgThread) {
+      ecgThread->join();
+    }
+    if (tcpServerThread) {
+      tcpServerThread->join();
+    }
     if (max30102Thread) {
       max30102Thread->join();
     }
@@ -173,21 +166,20 @@ int main(int argc, char* argv[]) {
       ppgThread->join();
     }
     mainThread->join();  // Wait for the main thread to finish
-
   } catch (const std::exception& e) {
     std::cerr << "Exception: " << e.what() << std::endl;
   } catch (...) {
     // If an exception is thrown, join the threads before rethrowing the
     // exception
-    // if (ads1115Thread && ads1115Thread->joinable()) {
-    //   ads1115Thread->join();
-    // }
-    // if (ecgThread && ecgThread->joinable()) {
-    //   ecgThread->join();
-    // }
-    // if (tcpServerThread && tcpServerThread->joinable()) {
-    //   tcpServerThread->join();
-    // }
+    if (ads1115Thread && ads1115Thread->joinable()) {
+      ads1115Thread->join();
+    }
+    if (ecgThread && ecgThread->joinable()) {
+      ecgThread->join();
+    }
+    if (tcpServerThread && tcpServerThread->joinable()) {
+      tcpServerThread->join();
+    }
     if (max30102Thread && max30102Thread->joinable()) {
       max30102Thread->join();
     }

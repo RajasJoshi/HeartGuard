@@ -4,9 +4,9 @@
 #####################################
 # Define Target Information
 #####################################
-set(TARGET_NAME ecg)
+set(TARGET_NAME ppg)
 set(TARGET_INCLUDE_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(TARGET_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/HeartRate.cpp)
+set(TARGET_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/ppg.cpp)
 
 #####################################
 # Support IDE Visualization
@@ -45,8 +45,8 @@ target_include_directories(${TARGET_NAME}
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/exports>
   PRIVATE 
     ${TARGET_INCLUDE_FOLDER}
+    ${Boost_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/../max30102/include
-
     # Any other extra include required
 )
 

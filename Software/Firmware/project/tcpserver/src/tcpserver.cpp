@@ -9,46 +9,15 @@ TcpServer::TcpServer() {}
  * @brief Starts the ECG sensor.
  * @param ads_ptr Pointer to the ecg object.
  */
-void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr) {
+void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr,
+                      std::unique_ptr<PPG>& ppg_ptr) {
   setupSocket();
 
-  fd_set read_fds, write_fds;
-  struct timeval timeout;
-  timeout.tv_sec = 5;
-  timeout.tv_usec = 0;
-
-  while (true) {
-    FD_ZERO(&read_fds);
-    FD_ZERO(&write_fds);
-    FD_SET(client_socket, &read_fds);
-    FD_SET(client_socket, &write_fds);
-
-    int activity =
-        select(client_socket + 1, &read_fds, &write_fds, NULL, &timeout);
-
-    if ((activity < 0) && (errno != EINTR)) {
-      std::cerr << "select error" << std::endl;
-    }
-
-    if (FD_ISSET(client_socket, &read_fds)) {
-      // Handle incoming data from client
-    }
-
-    if (FD_ISSET(client_socket, &write_fds)) {
-      std::string message;
-      if (!ecg_ptr->ecgtcpqueue.pop(message)) {
-        std::this_thread::yield();
-      } else {
-        if (socket_connected) {
-          if (send(client_socket, message.c_str(), message.length(), 0) < 0) {
-            std::cerr << "Error sending data" << std::endl;
-            socket_connected = false;  // Handle connection issue
-            // Potentially attempt to re-establish connection
-          }
-        }
-      }
-    }
-  }
+  // Create and start worker threads
+  worker1 = std::thread(TcpServer::workerThreadFunc, this,
+                        std::ref(ecg_ptr->ecgtcpqueue));
+  worker2 = std::thread(TcpServer::workerThreadFunc, this,
+                        std::ref(ppg_ptr->ppgtcpqueue));
 }
 
 void TcpServer::setupSocket() {
@@ -107,4 +76,8 @@ TcpServer::~TcpServer() {
       std::cout << "Client socket closed" << std::endl;
     }
   }
+
+  // Join the worker threads
+  if (worker1.joinable()) worker1.join();
+  if (worker2.joinable()) worker2.join();
 }

@@ -18,7 +18,7 @@ MAX30102::~MAX30102() {
  * Returns negative number on failure.
  * Returns sensor revision on success.
  */
-int MAX30102::begin() {
+int MAX30102::start() {
   // [TODO] Set I2C Speed.
   const char *devName = "/dev/i2c-0";
 
@@ -282,8 +282,9 @@ uint8_t MAX30102::readPartID() {
 }
 
 // Setup the Sensor
-void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
-                     int sampleRate, int pulseWidth, int adcRange) {
+void MAX30102::setup() {
+  uint8_t ledMode = 2;
+
   // Reset all configuration, threshold, and data registers to POR values
   softReset();
 
@@ -302,8 +303,7 @@ void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
   // Mode Configuration //
   setLEDMode(LEDMODE_REDIRONLY);
 
-  activeLEDs =
-      ledMode;  // used to control how many bytes to read from FIFO buffer
+  activeLEDs = 2;  // used to control how many bytes to read from FIFO buffer
 
   // Particle Sensing Configuration //
   setADCRange(ADCRANGE_2048);
@@ -311,14 +311,13 @@ void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
   setPulseWidth(PULSEWIDTH_411);  // 18 bit resolution
 
   // LED Pulse Amplitude Configuration //
-  setPulseAmplitudeRed(powerLevel);
-  setPulseAmplitudeIR(powerLevel);
-  setPulseAmplitudeProximity(powerLevel);
+  setPulseAmplitudeRed(0x1F);
+  setPulseAmplitudeIR(0x1F);
+  setPulseAmplitudeProximity(0x1F);
 
   // Multi-LED Mode Configuration //
-  // Enable the readings of the three LEDs [TODO] only 2!
   enableSlot(1, SLOT_RED_LED);
-  if (ledMode > 1) enableSlot(2, SLOT_IR_LED);
+  enableSlot(2, SLOT_IR_LED);
 
   // Reset the FIFO before we begin checking the sensor.
   clearFIFO();
@@ -470,13 +469,7 @@ std::vector<uint8_t> MAX30102::readMany(uint8_t address, uint8_t length) {
 /**
  * @brief Handles the event when data is ready.
  */
-void MAX30102::dataReady() {
-  check();
-  FloatPair data = {getIR(), getRed()};
-  while (!max30102queue.push(data)) {
-    std::this_thread::yield();  // Yield if queue is full
-  }
-}
+void MAX30102::dataReady() { check(); }
 
 void MAX30102::stop() {
   if (!running) return;

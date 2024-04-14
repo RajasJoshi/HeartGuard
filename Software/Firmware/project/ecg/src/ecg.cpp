@@ -27,9 +27,6 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
   Iir::Butterworth::LowPass<filter_order> lowpass_filter;
   lowpass_filter.setup(SAMPLING_RATE, lowpass_cutoff_frequency);
 
-  std::cout << "ECG sensor started" << std::endl;
-  std::cout << "ECG sensor sampling rate: " << SAMPLING_RATE << " Hz"
-            << std::endl;
   float value;
 
   while (running) {
@@ -46,13 +43,10 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
       }
 
       if (count % int(10 * SAMPLING_RATE) == 0) {
-        std::cout << "recalculating mean, stdev, and threshold" << std::endl;
         recalculate_mean();
         recalculate_stdev();
         recalculate_threshold();
         empty_values();
-        std::cout << "mean: " << mean << " stdev: " << stdev
-                  << " threshold: " << threshold << std::endl;
       }
 
       count = count % 10000 + 1;
@@ -107,7 +101,6 @@ void ECG::calculate_RR_interval_hr(float SAMPLING_RATE) {
     RR_interval = average_time_between_peaks / SAMPLING_RATE;
     RR_intervals.push_back(RR_interval);
     heart_rate = 60.0f / (RR_interval);
-    std::cout << "Heart Rate: " << heart_rate << " (bpm)" << std::endl;
   }
 }
 
@@ -155,7 +148,6 @@ void ECG::calculate_hrv() {
   if (!(RR_intervals.size() > 1)) {
     std::cout << "Not enough RR intervals to calculate HRV" << std::endl;
   }
-  std::cout << "RR intervals: " << RR_intervals.size() << std::endl;
   float sum_sq_diffs = 0.0f;
   for (int i = 1; i < static_cast<int>(RR_intervals.size()); i++) {
     float diff = RR_intervals[i] - RR_intervals[i - 1];
@@ -164,7 +156,6 @@ void ECG::calculate_hrv() {
 
   float mean_sq_diffs = sum_sq_diffs / (RR_intervals.size() - 1);
   float rmssd = std::sqrt(mean_sq_diffs);
-  std::cout << "RMSSD: " << rmssd << std::endl;
   HRV.push_back(rmssd);
 }
 
@@ -179,9 +170,7 @@ void ECG::empty_values() { RR_intervals.clear(); }
 void ECG::display_buffer(void) {
   for (int i = 0; i < BUFFER_SIZE; i++) {
     int index = (headIndex + i) % BUFFER_SIZE;
-    std::cout << circularBuffer[index] << " ";
   }
-  std::cout << std::endl;
 }
 
 /**

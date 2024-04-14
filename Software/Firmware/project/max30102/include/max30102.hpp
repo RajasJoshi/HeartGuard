@@ -16,7 +16,6 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-#include <boost/lockfree/spsc_queue.hpp>
 #include <chrono>
 #include <cstdint>
 #include <cstring>
@@ -29,7 +28,7 @@
 #define MAX30102_ADDRESS 0x57
 
 #define I2C_BUFFER_LENGTH 32
-#define INTERRUPT_PIN 4  // Change this to the GPIO pin number you are using
+#define INTERRUPT_PIN 16  // Change this to the GPIO pin number you are using
 
 // Status Registers
 static const uint8_t REG_INTSTAT1 = 0x00;
@@ -161,7 +160,7 @@ class MAX30102 {
  public:
   MAX30102(void);
   ~MAX30102(void);
-  int begin();
+  int start();
   void stop(void);
 
   uint32_t getRed(void);  // Returns immediate red value
@@ -224,12 +223,7 @@ class MAX30102 {
   uint8_t readPartID();
 
   // Setup the sensor with user selectable settings
-  void setup(uint8_t powerLevel = 0x1F, uint8_t sampleAverage = 4,
-             uint8_t ledMode = 2, int sampleRate = 400, int pulseWidth = 411,
-             int adcRange = 4096);
-
-  boost::lockfree::spsc_queue<FloatPair, boost::lockfree::capacity<1024>>
-      max30102queue;
+  void setup();
 
  private:
   int _i2c;
