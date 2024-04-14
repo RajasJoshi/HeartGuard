@@ -249,6 +249,7 @@ class MAX30102 {
   struct gpiod_chip *chipDRDY;
   struct gpiod_line *lineDRDY;
   /**
+
    * GPIO Chip number which receives the Data Ready signal
    **/
   int drdy_chip = 0;

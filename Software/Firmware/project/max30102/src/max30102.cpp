@@ -479,7 +479,6 @@ void MAX30102::dataReady() {
 }
 
 void MAX30102::stop() {
-  shutDown();
   if (!running) return;
   running = false;
   thr.join();

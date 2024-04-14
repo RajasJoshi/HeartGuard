@@ -85,6 +85,7 @@ int main(int argc, char* argv[]) {
       cv.wait(lk, [] { return !run; });
     });
 
+
     // // Create the ads1115 thread
     // ads1115Thread = std::make_unique<std::thread>([]() {
     //   try {
@@ -120,6 +121,7 @@ int main(int argc, char* argv[]) {
     //   }
     // });
 
+
     // Create the max30102 thread
     if (enable_max30102) {
       max30102Thread = std::make_unique<std::thread>([]() {
@@ -154,6 +156,7 @@ int main(int argc, char* argv[]) {
       });
     }
 
+
     // if (ads1115Thread) {
     //   ads1115Thread->join();
     // }
@@ -163,7 +166,6 @@ int main(int argc, char* argv[]) {
     // if (tcpServerThread) {
     //   tcpServerThread->join();
     // }
-
     if (max30102Thread) {
       max30102Thread->join();
     }
