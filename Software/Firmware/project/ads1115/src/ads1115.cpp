@@ -166,10 +166,7 @@ int ADS1115::i2c_readConversion() {
  * @param v The sample value.
  */
 void ADS1115::hasSample(float v) {
-  // Implement the function here
-  // std::cout << "ECG value before queue: " << v << std::endl;
-
-  while (!ads115queue.push(v)) {
-    std::this_thread::yield();  // Yield if queue is full}
+    while (!ads115queue.push(v)) {
+    std::this_thread::yield();  // Yield if queue is full
   }
 }

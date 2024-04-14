@@ -21,14 +21,6 @@ class ECG {
       ecgtcpqueue;
 
  private:
-  // Add your private member variables here
-  static const int SAMPLING_RATE = 860.0f;  // Hz
-  static const int BUFFER_SIZE =
-      SAMPLING_RATE * 4;  // 4 seconds of data at 860 Hz
-  float circularBuffer[BUFFER_SIZE];
-  int headIndex = 0;  // Index where the next value will be written
-  bool bufferFull;
-
   // infinite impulse response library filter params
   static const int filter_order = 4;  // 4th order filter
   static constexpr float cutoff_frequency =
@@ -36,15 +28,23 @@ class ECG {
   static constexpr float highpass_cutoff_frequency =
       0.1f;  // Hz (baseline wander removal)
   static constexpr float lowpass_cutoff_frequency =
-      100.0f;  // Hz (for noise removal)
+      100.0f;                               // Hz (for noise removal)
+  static const int SAMPLING_RATE = 860.0f;  // Hz
+  static const int BUFFER_SIZE =
+      SAMPLING_RATE * 4;  // 4 seconds of data at 860 Hz
+  float circularBuffer[BUFFER_SIZE];
+
+  std::atomic<bool> running;
+  std::atomic<int> headIndex;
+  std::atomic<bool> bufferFull;
+  std::atomic<float> mean = 0.0f;
+  std::atomic<float> stdev = 0.0f;
+  std::atomic<float> threshold = mean + 3 * stdev;
+  std::atomic<float> RR_interval = 0.0f;
+  std::atomic<float> heart_rate;
 
   // biological data
-  std::vector<int> detected_peaks;     // Store indices of detected R peaks
-  float mean = 0.0f;                   // Mean of the ECG signal
-  float stdev = 0.0f;                  // Standard deviation of the ECG signal
-  float threshold = mean + 3 * stdev;  // Threshold for peak detection
-  float RR_interval = 0.0f;            // stores the most recent R_R interval
-  float heart_rate;                    // stores the most recent heart rate
+  std::vector<int> detected_peaks;  // Store indices of detected R peaks
   std::vector<float>
       RR_intervals;  // Stores each RR interval for HRV calculation
   std::vector<float>

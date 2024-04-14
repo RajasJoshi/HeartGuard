@@ -9,6 +9,7 @@ static std::atomic<bool> gpio_pins_ready{
 static std::unique_ptr<ADS1115> hgads1115;       ///< ADS1115 sensor.
 static std::unique_ptr<MAX30102> hgmax30102;     ///< MAX30102 sensor.
 static std::unique_ptr<ECG> hgecg;               ///< ECG sensor.
+static std::unique_ptr<PPG> hgppg;               ///< GPIO pins.
 static std::unique_ptr<TcpServer> hgtcpserver;   ///< TCP server.
 static std::unique_ptr<std::thread> mainThread;  ///< Main thread.
 static std::unique_ptr<std::thread>
@@ -16,8 +17,9 @@ static std::unique_ptr<std::thread>
 static std::unique_ptr<std::thread>
     max30102Thread;                             ///< Thread for MAX30102 sensor.
 static std::unique_ptr<std::thread> ecgThread;  ///< Thread for ECG sensor.
+static std::unique_ptr<std::thread> ppgThread;  ///< Thread for PPG sensor.
 static std::unique_ptr<std::thread>
-    tcpServerThread;  ///< Thread for TCP server.
+    tcpServerThread;                ///< Thread for TCP server.
 static std::condition_variable cv;  ///< Condition variable for main thread.
 static std::condition_variable gpio_cv;  ///< Condition variable for GPIO pins.
 static std::mutex cv_m;                  ///< Mutex for main thread.
@@ -33,26 +35,6 @@ static void sighandlerShutdown(int sig) {
   run = false;
   cv.notify_all();
 }
-
-/**
- * @brief GPIO alert function.
- *
- * @param gpio GPIO pin number.
- * @param level Level of the GPIO pin.
- * @param tick Time at which the alert occurred.
- */
-// void gpioAlert(int gpio, int level, uint32_t tick) {
-//   if (gpio == 27 && level == PI_LOW) {
-//     // If pin 27 goes low, check the state of pin 22
-//     int pin2_state = gpioRead(22);
-//     if (pin2_state == PI_LOW) {
-//       // If both pins are low, signal the condition variable
-//       std::lock_guard<std::mutex> lk(gpio_m);
-//       gpio_pins_ready = true;
-//       gpio_cv.notify_all();
-//     }
-//   }
-// }
 
 /**
  * @brief Main function.
@@ -98,80 +80,47 @@ int main(int argc, char* argv[]) {
       perror("Error: cannot handle SIGINT");
     }
 
-    // Initialize the GPIO library
-    // int result = gpioInitialise();
-    // if (result < 0) {
-    //   std::cerr << "Failed to initialize GPIO, error " << result << std::endl;
-    //   return EXIT_FAILURE;
-    // }
-
     mainThread = std::make_unique<std::thread>([]() {
       std::unique_lock<std::mutex> lk(cv_m);
       cv.wait(lk, [] { return !run; });
     });
 
-    // // Set the callback function for GPIO pin 27
-    // result = gpioSetMode(27, PI_INPUT);
-    // if (result < 0) {
-    //   throw std::runtime_error("Failed to set GPIO mode, error " +
-    //                            std::to_string(result));
-    // }
-    // result = gpioSetPullUpDown(27, PI_PUD_UP);  // Set pull up resistor
-    // if (result < 0) {
-    //   throw std::runtime_error("Failed to set GPIO pull configuration, error " +
-    //                            std::to_string(result));
-    // }
-    // result = gpioSetAlertFunc(27, gpioAlert);
-    // if (result < 0) {
-    //   throw std::runtime_error("Failed to set GPIO alert function, error " +
-    //                            std::to_string(result));
-    // }
 
-    // Create the ads1115 thread
-    ads1115Thread = std::make_unique<std::thread>([]() {
-      try {
-        // Wait for the GPIO pins to be ready before starting the ads1115 thread
-        // std::unique_lock<std::mutex> lk(gpio_m);
-        // gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
+    // // Create the ads1115 thread
+    // ads1115Thread = std::make_unique<std::thread>([]() {
+    //   try {
+    //     hgads1115 = std::make_unique<ADS1115>();
+    //     hgads1115->start();
+    //   } catch (const std::exception& e) {
+    //     std::cerr << "Exception in ads1115Thread: " << e.what() << std::endl;
+    //   } catch (...) {
+    //     std::cerr << "Caught unknown exception in ads1115Thread\n";
+    //   }
+    // });
 
-        hgads1115 = std::make_unique<ADS1115>();
-        hgads1115->start();
-      } catch (const std::exception& e) {
-        std::cerr << "Exception in ads1115Thread: " << e.what() << std::endl;
-      } catch (...) {
-        std::cerr << "Caught unknown exception in ads1115Thread\n";
-      }
-    });
+    // ecgThread = std::make_unique<std::thread>([]() {
+    //   try {
+    //     hgecg = std::make_unique<ECG>();
+    //     hgecg->start(hgads1115);
+    //   } catch (const std::exception& e) {
+    //     std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
+    //   } catch (...) {
+    //     std::cerr << "Caught unknown exception in ecgThread\n";
+    //   }
+    // });
 
-    /*ecgThread = std::make_unique<std::thread>([]() {
-      try {
-        // Wait for the GPIO pins to be ready before starting the ecg thread
-        // std::unique_lock<std::mutex> lk(gpio_m);
-        // gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
+    // tcpServerThread = std::make_unique<std::thread>([]() {
+    //   try {
+    //     hgtcpserver = std::make_unique<TcpServer>();
+    //     hgtcpserver->start(hgecg);
+    //   } catch (const std::exception& e) {
+    //     std::cerr << "Exception in tcpServerThread: " << e.what() <<
+    //     std::endl;
+    //   } catch (...) {
+    //     std::cerr << "Caught unknown exception in tcpServerThread\n";
+    //   }
+    // });
 
-        hgecg = std::make_unique<ECG>();
-        hgecg->start(hgads1115);
-      } catch (const std::exception& e) {
-        std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
-      } catch (...) {
-        std::cerr << "Caught unknown exception in ecgThread\n";
-      }
-    });
-
-    tcpServerThread = std::make_unique<std::thread>([]() {
-      try {
-        // Wait for the GPIO pins to be ready before starting the tcp server
-        // std::unique_lock<std::mutex> lk(gpio_m);
-        // gpio_cv.wait(lk, [] { return gpio_pins_ready.load(); });
-
-        hgtcpserver = std::make_unique<TcpServer>();
-        hgtcpserver->start(hgecg);
-      } catch (const std::exception& e) {
-        std::cerr << "Exception in tcpServerThread: " << e.what() << std::endl;
-      } catch (...) {
-        std::cerr << "Caught unknown exception in tcpServerThread\n";
-      }
-    });*/
 
     // Create the max30102 thread
     if (enable_max30102) {
@@ -188,23 +137,40 @@ int main(int argc, char* argv[]) {
 
           hgmax30102->setup();
           hgmax30102->setPulseAmplitudeRed(0x0A);
-          // while (1) {
-          //   std::cout << "IR: " << hgmax30102->getIR();
-          //   std::cout << ", RED: " << hgmax30102->getRed();
-          //   std::cout << std::endl;
-          //   sleep(1);
-          // }
         } catch (const std::exception& e) {
           std::cerr << "Exception in max30102Thread: " << e.what() << std::endl;
         } catch (...) {
           std::cerr << "Caught unknown exception in max30102Thread\n";
         }
       });
+
+      ppgThread = std::make_unique<std::thread>([]() {
+        try {
+          hgppg = std::make_unique<PPG>();
+          hgppg->start(hgmax30102);
+        } catch (const std::exception& e) {
+          std::cerr << "Exception in ppgThread: " << e.what() << std::endl;
+        } catch (...) {
+          std::cerr << "Caught unknown exception in ppgThread\n";
+        }
+      });
     }
 
-    //ads1115Thread->join();
+
+    // if (ads1115Thread) {
+    //   ads1115Thread->join();
+    // }
+    // if (ecgThread) {
+    //   ecgThread->join();
+    // }
+    // if (tcpServerThread) {
+    //   tcpServerThread->join();
+    // }
     if (max30102Thread) {
       max30102Thread->join();
+    }
+    if (ppgThread) {
+      ppgThread->join();
     }
     mainThread->join();  // Wait for the main thread to finish
 
@@ -213,11 +179,20 @@ int main(int argc, char* argv[]) {
   } catch (...) {
     // If an exception is thrown, join the threads before rethrowing the
     // exception
-    if (ads1115Thread && ads1115Thread->joinable()) {
-      ads1115Thread->join();
-    }
+    // if (ads1115Thread && ads1115Thread->joinable()) {
+    //   ads1115Thread->join();
+    // }
+    // if (ecgThread && ecgThread->joinable()) {
+    //   ecgThread->join();
+    // }
+    // if (tcpServerThread && tcpServerThread->joinable()) {
+    //   tcpServerThread->join();
+    // }
     if (max30102Thread && max30102Thread->joinable()) {
       max30102Thread->join();
+    }
+    if (ppgThread && ppgThread->joinable()) {
+      ppgThread->join();
     }
     if (mainThread && mainThread->joinable()) {
       mainThread->join();

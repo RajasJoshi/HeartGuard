@@ -3,12 +3,11 @@
 
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
 #include <algorithm>
-#include <boost/asio.hpp>  // Core Asio functionality
-#include <boost/circular_buffer.hpp>
 #include <boost/lockfree/spsc_queue.hpp>
 #include <fstream>
 #include <queue>
@@ -20,8 +19,6 @@ class TcpServer {
   TcpServer();                                // Constructor
   ~TcpServer();                               // Destructor
   void start(std::unique_ptr<ECG>& ecg_ptr);  // Start the ECG sensor
-  void stop(void);                            // Stop the ECG sensor
-  void send_data(void);                       // Send data to the client
 
  private:
   // Socket variables

@@ -10,6 +10,7 @@ ECG::ECG() {}
  * @param ads_ptr Pointer to the ADS1115 object.
  */
 void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
+  running = true;  // Add this line
   const ADS1115settings& settings = ads_ptr->getADS1115settings();
   const float SAMPLING_RATE = settings.getSamplingRate();
   int count = 0;
@@ -31,15 +32,15 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
             << std::endl;
   float value;
 
-  while (true) {
+  while (running) {
     if (!ads_ptr->ads115queue.pop(value)) {
       std::this_thread::yield();
     } else {
       float fs = ECG_filtering(notch_filter, lowpass_filter, highpass_filter,
                                value, SAMPLING_RATE);
-      std::string message = "raw" + std::to_string(value) + ",filtered" +
-                            std::to_string(fs) + ",heartrate" +
-                            std::to_string(heart_rate) + ",";
+      std::string message = "ecg," + std::to_string(value) + "," +
+                            std::to_string(fs) + "," +
+                            std::to_string(heart_rate);
       while (!ecgtcpqueue.push(message)) {
         std::this_thread::yield();  // Yield if queue is full}
       }
@@ -187,12 +188,14 @@ void ECG::display_buffer(void) {
  * @brief Stops the ECG sensor.
  */
 void ECG::stop() {
-  // Add your code here
+  running = false;
+  std::cout << "Stopping ECG sensor..." << std::endl;
 }
 
 /**
  * @brief Destructor for the ECG sensor.
  */
 ECG::~ECG() {
-  // Add your code here
+  stop();
+  std::cout << "ECG sensor stopped" << std::endl;
 }

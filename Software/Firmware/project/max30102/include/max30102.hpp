@@ -16,6 +16,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include <boost/lockfree/spsc_queue.hpp>
 #include <chrono>
 #include <cstdint>
 #include <cstring>
@@ -27,11 +28,8 @@
 
 #define MAX30102_ADDRESS 0x57
 
-#define I2C_SPEED_STANDARD 100000
-#define I2C_SPEED_FAST 400000
-
 #define I2C_BUFFER_LENGTH 32
-#define INTERRUPT_PIN 16  // Change this to the GPIO pin number you are using
+#define INTERRUPT_PIN 4  // Change this to the GPIO pin number you are using
 
 // Status Registers
 static const uint8_t REG_INTSTAT1 = 0x00;
@@ -151,20 +149,23 @@ static const uint8_t SLOT_NONE_PILOT = 0x04;
 static const uint8_t SLOT_RED_PILOT = 0x05;
 static const uint8_t SLOT_IR_PILOT = 0x06;
 
+struct FloatPair {
+  float value1;
+  float value2;
+};
+
 /**
  * @brief MAX30102 class for reading data from the MAX30102 sensor.
  */
 class MAX30102 {
  public:
   MAX30102(void);
-  int begin(uint32_t i2cSpeed = I2C_SPEED_STANDARD,
-            uint8_t i2cAddr = MAX30102_ADDRESS);
+  ~MAX30102(void);
+  int begin();
   void stop(void);
 
-  uint32_t getRed(void);                   // Returns immediate red value
-  uint32_t getIR(void);                    // Returns immediate IR value
-  bool safeCheck(uint8_t maxTimeToCheck);  // Given a max amount of time, checks
-                                           // for new data.
+  uint32_t getRed(void);  // Returns immediate red value
+  uint32_t getIR(void);   // Returns immediate IR value
 
   // Configuration
   void wakeUp();
@@ -212,7 +213,6 @@ class MAX30102 {
   // FIFO Reading
   uint16_t check(void);
   uint8_t available(void);
-  void nextSample(void);
   uint32_t getFIFORed(void);
   uint32_t getFIFOIR(void);
 
@@ -220,21 +220,16 @@ class MAX30102 {
   uint8_t getReadPointer(void);
   void clearFIFO(void);
 
-  // Proximity Mode Interrupt Threshold
-  void setPROXINTTHRESH(uint8_t val);
-
-  // Die Temperature
-  float readTemperature();
-  float readTemperatureF();
-
   // Detecting ID/Revision
-  uint8_t getRevisionID();
   uint8_t readPartID();
 
   // Setup the sensor with user selectable settings
   void setup(uint8_t powerLevel = 0x1F, uint8_t sampleAverage = 4,
              uint8_t ledMode = 2, int sampleRate = 400, int pulseWidth = 411,
              int adcRange = 4096);
+
+  boost::lockfree::spsc_queue<FloatPair, boost::lockfree::capacity<1024>>
+      max30102queue;
 
  private:
   int _i2c;
@@ -254,13 +249,14 @@ class MAX30102 {
   struct gpiod_chip *chipDRDY;
   struct gpiod_line *lineDRDY;
   /**
-+   * GPIO Chip number which receives the Data Ready signal
-+   **/
+
+   * GPIO Chip number which receives the Data Ready signal
+   **/
   int drdy_chip = 0;
 
   /**
-+   * GPIO pin connected to ALERT/RDY
-+   **/
+   * GPIO pin connected to ALERT/RDY
+   **/
   int drdy_gpio = INTERRUPT_PIN;
 
   std::thread thr;
@@ -273,16 +269,11 @@ class MAX30102 {
 
   void worker() {
     while (running) {
-      // std::cout << "Waiting for data ready signal\n";
-      // const struct timespec ts = {1, 0};
-      // gpiod_line_event_wait(lineDRDY, &ts);
-      // struct gpiod_line_event event;
-      // gpiod_line_event_read(lineDRDY, &event);
+      const struct timespec ts = {1, 0};
+      gpiod_line_event_wait(lineDRDY, &ts);
+      struct gpiod_line_event event;
+      gpiod_line_event_read(lineDRDY, &event);
       dataReady();
-      // std::cout << "IR: " << getIR();
-      // std::cout << ", RED: " << getRed();
-      // std::cout << std::endl;
-      // sleep(1);
     }
   }
 
