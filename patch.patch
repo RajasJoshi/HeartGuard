@@ -1,0 +1,1203 @@
+diff --git a/Software/Firmware/project/ecg/src/ecg.cpp b/Software/Firmware/project/ecg/src/ecg.cpp
+index 7b0f4a0..a7d652c 100644
+--- a/Software/Firmware/project/ecg/src/ecg.cpp
++++ b/Software/Firmware/project/ecg/src/ecg.cpp
+@@ -27,9 +27,6 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
+   Iir::Butterworth::LowPass<filter_order> lowpass_filter;
+   lowpass_filter.setup(SAMPLING_RATE, lowpass_cutoff_frequency);
+ 
+-  std::cout << "ECG sensor started" << std::endl;
+-  std::cout << "ECG sensor sampling rate: " << SAMPLING_RATE << " Hz"
+-            << std::endl;
+   float value;
+ 
+   while (running) {
+@@ -46,13 +43,10 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
+       }
+ 
+       if (count % int(10 * SAMPLING_RATE) == 0) {
+-        std::cout << "recalculating mean, stdev, and threshold" << std::endl;
+         recalculate_mean();
+         recalculate_stdev();
+         recalculate_threshold();
+         empty_values();
+-        std::cout << "mean: " << mean << " stdev: " << stdev
+-                  << " threshold: " << threshold << std::endl;
+       }
+ 
+       count = count % 10000 + 1;
+@@ -107,7 +101,6 @@ void ECG::calculate_RR_interval_hr(float SAMPLING_RATE) {
+     RR_interval = average_time_between_peaks / SAMPLING_RATE;
+     RR_intervals.push_back(RR_interval);
+     heart_rate = 60.0f / (RR_interval);
+-    std::cout << "Heart Rate: " << heart_rate << " (bpm)" << std::endl;
+   }
+ }
+ 
+@@ -155,7 +148,6 @@ void ECG::calculate_hrv() {
+   if (!(RR_intervals.size() > 1)) {
+     std::cout << "Not enough RR intervals to calculate HRV" << std::endl;
+   }
+-  std::cout << "RR intervals: " << RR_intervals.size() << std::endl;
+   float sum_sq_diffs = 0.0f;
+   for (int i = 1; i < static_cast<int>(RR_intervals.size()); i++) {
+     float diff = RR_intervals[i] - RR_intervals[i - 1];
+@@ -164,7 +156,6 @@ void ECG::calculate_hrv() {
+ 
+   float mean_sq_diffs = sum_sq_diffs / (RR_intervals.size() - 1);
+   float rmssd = std::sqrt(mean_sq_diffs);
+-  std::cout << "RMSSD: " << rmssd << std::endl;
+   HRV.push_back(rmssd);
+ }
+ 
+@@ -179,9 +170,7 @@ void ECG::empty_values() { RR_intervals.clear(); }
+ void ECG::display_buffer(void) {
+   for (int i = 0; i < BUFFER_SIZE; i++) {
+     int index = (headIndex + i) % BUFFER_SIZE;
+-    std::cout << circularBuffer[index] << " ";
+   }
+-  std::cout << std::endl;
+ }
+ 
+ /**
+diff --git a/Software/Firmware/project/heartguard/src/heartguard.cpp b/Software/Firmware/project/heartguard/src/heartguard.cpp
+index ef598c5..03ac6e6 100644
+--- a/Software/Firmware/project/heartguard/src/heartguard.cpp
++++ b/Software/Firmware/project/heartguard/src/heartguard.cpp
+@@ -2,8 +2,7 @@
+ 
+ // Global variables
+ static std::atomic<bool> run{true};  ///< Controls the main execution loop.
+-static std::atomic<bool> enable_max30102{
+-    false};  ///< Enables the MAX30102 sensor.
++
+ static std::atomic<bool> gpio_pins_ready{
+     false};  ///< Indicates if the GPIO pins are ready.
+ static std::unique_ptr<ADS1115> hgads1115;       ///< ADS1115 sensor.
+@@ -60,8 +59,6 @@ int main(int argc, char* argv[]) {
+       } else if (arg == "-v" || arg == "--version") {
+         std::cout << "Version 1.0.0\n";
+         return EXIT_SUCCESS;
+-      } else if (arg == "-m" || arg == "--max30102") {
+-        enable_max30102 = true;
+       } else {
+         std::cerr << "Unknown argument: " << arg << "\n";
+         return EXIT_FAILURE;
+@@ -85,87 +82,83 @@ int main(int argc, char* argv[]) {
+       cv.wait(lk, [] { return !run; });
+     });
+ 
++    // Create the ads1115 thread
++    ads1115Thread = std::make_unique<std::thread>([]() {
++      try {
++        hgads1115 = std::make_unique<ADS1115>();
++        hgads1115->start();
++      } catch (const std::exception& e) {
++        std::cerr << "Exception in ads1115Thread: " << e.what() << std::endl;
++      } catch (...) {
++        std::cerr << "Caught unknown exception in ads1115Thread\n";
++      }
++    });
+ 
+-    // // Create the ads1115 thread
+-    // ads1115Thread = std::make_unique<std::thread>([]() {
+-    //   try {
+-    //     hgads1115 = std::make_unique<ADS1115>();
+-    //     hgads1115->start();
+-    //   } catch (const std::exception& e) {
+-    //     std::cerr << "Exception in ads1115Thread: " << e.what() << std::endl;
+-    //   } catch (...) {
+-    //     std::cerr << "Caught unknown exception in ads1115Thread\n";
+-    //   }
+-    // });
+-
+-    // ecgThread = std::make_unique<std::thread>([]() {
+-    //   try {
+-    //     hgecg = std::make_unique<ECG>();
+-    //     hgecg->start(hgads1115);
+-    //   } catch (const std::exception& e) {
+-    //     std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
+-    //   } catch (...) {
+-    //     std::cerr << "Caught unknown exception in ecgThread\n";
+-    //   }
+-    // });
+-
+-    // tcpServerThread = std::make_unique<std::thread>([]() {
+-    //   try {
+-    //     hgtcpserver = std::make_unique<TcpServer>();
+-    //     hgtcpserver->start(hgecg);
+-    //   } catch (const std::exception& e) {
+-    //     std::cerr << "Exception in tcpServerThread: " << e.what() <<
+-    //     std::endl;
+-    //   } catch (...) {
+-    //     std::cerr << "Caught unknown exception in tcpServerThread\n";
+-    //   }
+-    // });
+-
++    ecgThread = std::make_unique<std::thread>([]() {
++      try {
++        hgecg = std::make_unique<ECG>();
++        hgecg->start(hgads1115);
++      } catch (const std::exception& e) {
++        std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
++      } catch (...) {
++        std::cerr << "Caught unknown exception in ecgThread\n";
++      }
++    });
+ 
+     // Create the max30102 thread
+-    if (enable_max30102) {
+-      max30102Thread = std::make_unique<std::thread>([]() {
+-        try {
+-          hgmax30102 = std::make_unique<MAX30102>();
+-          int result = hgmax30102->begin();
+-          if (result < 0) {
+-            throw std::runtime_error(
+-                "Failed to start I2C (Error: " + std::to_string(result) + ").");
+-          }
+-          std::cout << "Device found (revision: " << result << ")!"
+-                    << std::endl;
+-
+-          hgmax30102->setup();
+-          hgmax30102->setPulseAmplitudeRed(0x0A);
+-        } catch (const std::exception& e) {
+-          std::cerr << "Exception in max30102Thread: " << e.what() << std::endl;
+-        } catch (...) {
+-          std::cerr << "Caught unknown exception in max30102Thread\n";
+-        }
+-      });
+-
+-      ppgThread = std::make_unique<std::thread>([]() {
+-        try {
+-          hgppg = std::make_unique<PPG>();
+-          hgppg->start(hgmax30102);
+-        } catch (const std::exception& e) {
+-          std::cerr << "Exception in ppgThread: " << e.what() << std::endl;
+-        } catch (...) {
+-          std::cerr << "Caught unknown exception in ppgThread\n";
++
++    max30102Thread = std::make_unique<std::thread>([]() {
++      try {
++        hgmax30102 = std::make_unique<MAX30102>();
++        int result = hgmax30102->start();
++        if (result < 0) {
++          throw std::runtime_error(
++              "Failed to start I2C (Error: " + std::to_string(result) + ").");
+         }
+-      });
+-    }
++        std::cout << "Device found (revision: " << result << ")!" << std::endl;
++
++        hgmax30102->setup();
++        hgmax30102->setPulseAmplitudeRed(0x0A);
++      } catch (const std::exception& e) {
++        std::cerr << "Exception in max30102Thread: " << e.what() << std::endl;
++      } catch (...) {
++        std::cerr << "Caught unknown exception in max30102Thread\n";
++      }
++    });
++
++    ppgThread = std::make_unique<std::thread>([]() {
++      try {
++        hgppg = std::make_unique<PPG>();
++        hgppg->start(hgmax30102);
++        std::cout << "Began heart rate calculation..." << std::endl;
++      } catch (const std::exception& e) {
++        std::cerr << "Exception in ppgThread: " << e.what() << std::endl;
++      } catch (...) {
++        std::cerr << "Caught unknown exception in ppgThread\n";
++      }
++    });
++
++    tcpServerThread = std::make_unique<std::thread>([]() {
++      try {
++        hgtcpserver = std::make_unique<TcpServer>();
++        hgtcpserver->start(hgecg, hgppg);
+ 
++      } catch (const std::exception& e) {
++        std::cerr << "Exception in tcpServerThread: " << e.what() << std::endl;
++      } catch (...) {
++        std::cerr << "Caught unknown exception in tcpServerThread\n";
++      }
++    });
+ 
+-    // if (ads1115Thread) {
+-    //   ads1115Thread->join();
+-    // }
+-    // if (ecgThread) {
+-    //   ecgThread->join();
+-    // }
+-    // if (tcpServerThread) {
+-    //   tcpServerThread->join();
+-    // }
++    if (ads1115Thread) {
++      ads1115Thread->join();
++    }
++    if (ecgThread) {
++      ecgThread->join();
++    }
++    if (tcpServerThread) {
++      tcpServerThread->join();
++    }
+     if (max30102Thread) {
+       max30102Thread->join();
+     }
+@@ -173,21 +166,20 @@ int main(int argc, char* argv[]) {
+       ppgThread->join();
+     }
+     mainThread->join();  // Wait for the main thread to finish
+-
+   } catch (const std::exception& e) {
+     std::cerr << "Exception: " << e.what() << std::endl;
+   } catch (...) {
+     // If an exception is thrown, join the threads before rethrowing the
+     // exception
+-    // if (ads1115Thread && ads1115Thread->joinable()) {
+-    //   ads1115Thread->join();
+-    // }
+-    // if (ecgThread && ecgThread->joinable()) {
+-    //   ecgThread->join();
+-    // }
+-    // if (tcpServerThread && tcpServerThread->joinable()) {
+-    //   tcpServerThread->join();
+-    // }
++    if (ads1115Thread && ads1115Thread->joinable()) {
++      ads1115Thread->join();
++    }
++    if (ecgThread && ecgThread->joinable()) {
++      ecgThread->join();
++    }
++    if (tcpServerThread && tcpServerThread->joinable()) {
++      tcpServerThread->join();
++    }
+     if (max30102Thread && max30102Thread->joinable()) {
+       max30102Thread->join();
+     }
+diff --git a/Software/Firmware/project/max30102/include/max30102.hpp b/Software/Firmware/project/max30102/include/max30102.hpp
+index 29281b7..48427fb 100644
+--- a/Software/Firmware/project/max30102/include/max30102.hpp
++++ b/Software/Firmware/project/max30102/include/max30102.hpp
+@@ -16,7 +16,6 @@
+ #include <sys/ioctl.h>
+ #include <unistd.h>
+ 
+-#include <boost/lockfree/spsc_queue.hpp>
+ #include <chrono>
+ #include <cstdint>
+ #include <cstring>
+@@ -29,7 +28,7 @@
+ #define MAX30102_ADDRESS 0x57
+ 
+ #define I2C_BUFFER_LENGTH 32
+-#define INTERRUPT_PIN 4  // Change this to the GPIO pin number you are using
++#define INTERRUPT_PIN 16  // Change this to the GPIO pin number you are using
+ 
+ // Status Registers
+ static const uint8_t REG_INTSTAT1 = 0x00;
+@@ -161,7 +160,7 @@ class MAX30102 {
+  public:
+   MAX30102(void);
+   ~MAX30102(void);
+-  int begin();
++  int start();
+   void stop(void);
+ 
+   uint32_t getRed(void);  // Returns immediate red value
+@@ -224,12 +223,7 @@ class MAX30102 {
+   uint8_t readPartID();
+ 
+   // Setup the sensor with user selectable settings
+-  void setup(uint8_t powerLevel = 0x1F, uint8_t sampleAverage = 4,
+-             uint8_t ledMode = 2, int sampleRate = 400, int pulseWidth = 411,
+-             int adcRange = 4096);
+-
+-  boost::lockfree::spsc_queue<FloatPair, boost::lockfree::capacity<1024>>
+-      max30102queue;
++  void setup();
+ 
+  private:
+   int _i2c;
+diff --git a/Software/Firmware/project/max30102/src/max30102.cpp b/Software/Firmware/project/max30102/src/max30102.cpp
+index a0ff1f7..f03bd06 100644
+--- a/Software/Firmware/project/max30102/src/max30102.cpp
++++ b/Software/Firmware/project/max30102/src/max30102.cpp
+@@ -18,7 +18,7 @@ MAX30102::~MAX30102() {
+  * Returns negative number on failure.
+  * Returns sensor revision on success.
+  */
+-int MAX30102::begin() {
++int MAX30102::start() {
+   // [TODO] Set I2C Speed.
+   const char *devName = "/dev/i2c-0";
+ 
+@@ -282,8 +282,9 @@ uint8_t MAX30102::readPartID() {
+ }
+ 
+ // Setup the Sensor
+-void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
+-                     int sampleRate, int pulseWidth, int adcRange) {
++void MAX30102::setup() {
++  uint8_t ledMode = 2;
++
+   // Reset all configuration, threshold, and data registers to POR values
+   softReset();
+ 
+@@ -302,8 +303,7 @@ void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
+   // Mode Configuration //
+   setLEDMode(LEDMODE_REDIRONLY);
+ 
+-  activeLEDs =
+-      ledMode;  // used to control how many bytes to read from FIFO buffer
++  activeLEDs = 2;  // used to control how many bytes to read from FIFO buffer
+ 
+   // Particle Sensing Configuration //
+   setADCRange(ADCRANGE_2048);
+@@ -311,14 +311,13 @@ void MAX30102::setup(uint8_t powerLevel, uint8_t sampleAverage, uint8_t ledMode,
+   setPulseWidth(PULSEWIDTH_411);  // 18 bit resolution
+ 
+   // LED Pulse Amplitude Configuration //
+-  setPulseAmplitudeRed(powerLevel);
+-  setPulseAmplitudeIR(powerLevel);
+-  setPulseAmplitudeProximity(powerLevel);
++  setPulseAmplitudeRed(0x1F);
++  setPulseAmplitudeIR(0x1F);
++  setPulseAmplitudeProximity(0x1F);
+ 
+   // Multi-LED Mode Configuration //
+-  // Enable the readings of the three LEDs [TODO] only 2!
+   enableSlot(1, SLOT_RED_LED);
+-  if (ledMode > 1) enableSlot(2, SLOT_IR_LED);
++  enableSlot(2, SLOT_IR_LED);
+ 
+   // Reset the FIFO before we begin checking the sensor.
+   clearFIFO();
+@@ -470,13 +469,7 @@ std::vector<uint8_t> MAX30102::readMany(uint8_t address, uint8_t length) {
+ /**
+  * @brief Handles the event when data is ready.
+  */
+-void MAX30102::dataReady() {
+-  check();
+-  FloatPair data = {getIR(), getRed()};
+-  while (!max30102queue.push(data)) {
+-    std::this_thread::yield();  // Yield if queue is full
+-  }
+-}
++void MAX30102::dataReady() { check(); }
+ 
+ void MAX30102::stop() {
+   if (!running) return;
+diff --git a/Software/Firmware/project/ppg/CMakeLists.txt b/Software/Firmware/project/ppg/CMakeLists.txt
+index 80a3aa1..a97ac3e 100644
+--- a/Software/Firmware/project/ppg/CMakeLists.txt
++++ b/Software/Firmware/project/ppg/CMakeLists.txt
+@@ -4,9 +4,9 @@
+ #####################################
+ # Define Target Information
+ #####################################
+-set(TARGET_NAME ecg)
++set(TARGET_NAME ppg)
+ set(TARGET_INCLUDE_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/include)
+-set(TARGET_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/HeartRate.cpp)
++set(TARGET_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/ppg.cpp)
+ 
+ #####################################
+ # Support IDE Visualization
+@@ -45,8 +45,8 @@ target_include_directories(${TARGET_NAME}
+     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/exports>
+   PRIVATE 
+     ${TARGET_INCLUDE_FOLDER}
++    ${Boost_INCLUDE_DIRS}
+     ${CMAKE_CURRENT_SOURCE_DIR}/../max30102/include
+-
+     # Any other extra include required
+ )
+ 
+diff --git a/Software/Firmware/project/ppg/include/HeartRate.h b/Software/Firmware/project/ppg/include/HeartRate.h
+deleted file mode 100644
+index b497691..0000000
+--- a/Software/Firmware/project/ppg/include/HeartRate.h
++++ /dev/null
+@@ -1,52 +0,0 @@
+-#include <cstdint>
+-#include <chrono>
+-#include "max30102.hpp"
+-
+-class HeartRate {
+-	public:
+-		HeartRate(); // Fake constructor
+-		HeartRate(MAX30102 *sensor);
+-		~HeartRate();
+-		
+-		void begin();
+-		void stop();
+-		int getSafeIRHeartRate();
+-		int getLatestIRHeartRate();
+-		int getLatestRedHeartRate();
+-		float getLatestTemperatureF();
+-	private:
+-		MAX30102* sensor;
+-		bool running = false;
+-
+-		const int static BPM_BUFFER_SIZE = 100;
+-		int32_t bpmBuffer[BPM_BUFFER_SIZE];
+-		int nextBPMBufferIndex = 0;
+-
+-		std::chrono::time_point<std::chrono::system_clock> timeLastLoopRan;
+-		// IR Data
+-		std::chrono::time_point<std::chrono::system_clock> timeLastIRHeartBeat;
+-		int32_t irLastValue; 
+-		int latestIRBPM;
+-		int averageIRBPM;
+-		// Red Data
+-		std::chrono::time_point<std::chrono::system_clock> timeLastRedHeartBeat;
+-		uint64_t redLastValue; 
+-		int latestRedBPM;
+-		// Temperature Data
+-		float latestTemperature = -999;
+-
+-		// For Peak Detection
+-		int32_t localMaxima;
+-		int32_t localMinima;
+-		const static int8_t PAST_PEAKS_SIZE = 2;
+-		int32_t pastMaximas[PAST_PEAKS_SIZE];
+-		int32_t pastMinimas[PAST_PEAKS_SIZE];
+-
+-		void loopThread();
+-		void runCalculationLoop();
+-		void updateTemperature();
+-		void resetCalculations();
+-		int32_t Derivative(int32_t data);
+-		int32_t getPeakThreshold();
+-		bool peakDetect(int32_t data);
+-};
+\ No newline at end of file
+diff --git a/Software/Firmware/project/ppg/include/ppg.hpp b/Software/Firmware/project/ppg/include/ppg.hpp
+index 5cb1433..d5b4737 100644
+--- a/Software/Firmware/project/ppg/include/ppg.hpp
++++ b/Software/Firmware/project/ppg/include/ppg.hpp
+@@ -3,23 +3,60 @@
+ 
+ #include <algorithm>
+ #include <boost/lockfree/spsc_queue.hpp>
++#include <chrono>
++#include <cstdint>
+ #include <fstream>
+ #include <queue>
++#include <thread>
+ 
++#include "DigitalFilters.h"
+ #include "max30102.hpp"
+ 
+ class PPG {
+  public:
+-  PPG();                                                // Constructor
+-  ~PPG();                                               // Destructor
++  PPG(void);                                            // Constructor
++  ~PPG(void);                                           // Destructor
+   void start(std::unique_ptr<MAX30102>& max30102_ptr);  // Start the PPG sensor
+   void stop(void);                                      // Stop the PPG sensor
++
+   boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<1024>>
+       ppgtcpqueue;
+ 
+  private:
+   bool running = false;  // Indicates if the PPG sensor is running
+-  float PPG_filtering();
++
++  const int static BPM_BUFFER_SIZE = 100;
++  int32_t bpmBuffer[BPM_BUFFER_SIZE];
++  int nextBPMBufferIndex = 0;
++
++  const int static SPO2_BUFFER_SIZE = 100;
++  int32_t spo2Buffer[SPO2_BUFFER_SIZE];
++  int nextspo2BufferIndex = 0;
++
++  std::chrono::time_point<std::chrono::system_clock> timeLastLoopRan;
++  // IR Data
++  std::chrono::time_point<std::chrono::system_clock> timeLastIRHeartBeat;
++  int32_t irLastValue;
++  int latestIRBPM;
++  int averageIRBPM;
++  int latestRedSpO2;
++  int averageRedSpO2;
++
++  // For Peak Detection
++  int32_t localMaxima;
++  int32_t localMinima;
++  const static int8_t PAST_PEAKS_SIZE = 2;
++  int32_t pastMaximas[PAST_PEAKS_SIZE];
++  int32_t pastMinimas[PAST_PEAKS_SIZE];
++  bool crest = false;
++  bool trough = false;
++  uint8_t dataBeenIncreasing = 0;
++  uint8_t nextPastPeaksIndex = 0;
++
++  void PPG_filtering(std::unique_ptr<MAX30102>& ppgmax30102_ptr);
++  void resetCalculations();
++  bool peakDetect(int32_t data);
++  void loopThread(std::unique_ptr<MAX30102>& ppgmax30102_ptr);
+ };
+ 
+ #endif  // PPG_HPP
+\ No newline at end of file
+diff --git a/Software/Firmware/project/ppg/src/HeartRate.cpp b/Software/Firmware/project/ppg/src/HeartRate.cpp
+deleted file mode 100644
+index a51f107..0000000
+--- a/Software/Firmware/project/ppg/src/HeartRate.cpp
++++ /dev/null
+@@ -1,306 +0,0 @@
+-#include <iostream>
+-#include <thread>
+-#include "DigitalFilters.h"
+-#include "HeartRate.h"
+-
+-LowPassFilter lpf(0.08, M_PI);
+-HighPassFilter hpf(0.08, M_PI);
+-
+-// Default Constructor
+-HeartRate::HeartRate() {
+-}
+-
+-// Constructor
+-HeartRate::HeartRate(MAX30102 *_sensor) {
+-	sensor = _sensor;
+-	if (sensor->begin() < 0) {
+-		std::cout << "Failed i2c." << std::endl;
+-		// Failed i2c.
+-		throw;
+-	}
+-//	sensor->setup(0x2F);
+-	sensor->setup();
+-}
+-
+-// Destructor
+-HeartRate::~HeartRate() {
+-	// Stop calculation loop if running.
+-	running = false;
+-
+-	// Shutdown sensor->
+-	sensor->shutDown();
+-}
+-
+-/**
+- * Start calculation loop.
+- * You must call this function before requesting heart rate data.
+- */
+-void HeartRate::begin() {
+-	if (running) return;
+-	running = true;
+-
+-	// Init last values.
+-	irLastValue = -999;
+-	redLastValue = -999;
+-	// Init local maxima/minima for peak detection
+-	localMaxima = -9999;
+-	localMinima = 9999;
+-	// Get current time.
+-	auto timeCurrent = std::chrono::system_clock::now();
+-	// Init last heartbeat times.
+-	timeLastIRHeartBeat = timeCurrent;
+-	timeLastRedHeartBeat = timeCurrent;
+-
+-	std::thread t1(&HeartRate::loopThread, this);
+-	t1.detach();
+-}
+-
+-void HeartRate::loopThread() {
+-	while (running) {
+-		runCalculationLoop();
+-//		updateTemperature();
+-	}
+-}
+-
+-/**
+- * Stops the calculation loop.
+- * You may no longer get heart rate data after calling this function.
+- */
+-void HeartRate::stop() {
+-	running = false;
+-	resetCalculations();
+-}
+-
+-//int loopCount = 1;
+-void HeartRate::runCalculationLoop() {
+-	// Wait until new data is available from sensor->
+-	while (!sensor->available()) {
+-		sensor->check();
+-	}
+-	
+-	// Get data from sensor->and store in global variables
+-	auto timeCurrent = std::chrono::system_clock::now();
+-	uint32_t irValue = sensor->getIR();
+-	uint32_t redValue = sensor->getRed();
+-
+-	// Let's get the number of miliseconds passed since we last ran the loop.
+-	int loopDelta = std::chrono::duration_cast<std::chrono::milliseconds>(timeCurrent - timeLastLoopRan).count();
+-	// We're finished with timeLastLoopRan, so let's update it's value for next time.
+-	timeLastLoopRan = timeCurrent;
+-
+-	// Check whether finger is on sensor->
+-	if (irValue < 100000) {
+-		// Finger is not on sensor->
+-		// Clear all calculations and exit out of loop.
+-		resetCalculations();
+-		return;
+-	}
+-
+-	// Calculate the IR heart rate //
+-	
+-	int32_t filteredIRValue = static_cast<int32_t>(irValue);
+-	filteredIRValue = lpf.update(filteredIRValue);
+-	filteredIRValue = hpf.update(filteredIRValue);
+-
+-//	[DEBUG] Uncomment lines below to disable heart rate calculation and display raw data.
+-//	std::cout << loopCount++ << "," << filteredIRValue << std::endl;
+-//	return;
+-
+-	int timeSinceLastIRHeartBeat = std::chrono::duration_cast<std::chrono::milliseconds>(timeCurrent - timeLastIRHeartBeat).count();
+-
+-	//std::cout << loopCount++ << "," << filteredIRValue << ": ";
+-	if (peakDetect(filteredIRValue)) {
+-		int _irBPM = 60000/timeSinceLastIRHeartBeat;
+-		latestIRBPM = _irBPM;
+-		bpmBuffer[nextBPMBufferIndex++] = _irBPM;
+-		if (nextBPMBufferIndex >= BPM_BUFFER_SIZE) nextBPMBufferIndex = 0;
+-		//std::cout << "BPM : " << _irBPM;
+-		
+-		// Update timeLastIRHeartBeat for next time.
+-		timeLastIRHeartBeat = timeCurrent;
+-	}
+-	//std::cout << std::endl;
+-
+-	// We're finished with irLastValue, so let's update their value for next time.
+-	irLastValue = filteredIRValue;
+-	
+-	// Calculate the Red heart rate //
+-/*	
+-	int32_t filteredRedValue = static_cast<int32_t>(redValue);
+-	filteredRedValue = LowPassFilter(filteredRedValue);
+-	filteredRedValue = HighPassFilter(filteredRedValue);
+-	filteredRedValue = Derivative(filteredRedValue);
+-	filteredRedValue = Derivative(filteredRedValue);
+-	int redValueDelta = filteredRedValue - redLastValue; // Get the change in value.
+-	int timeSinceLastRedHeartBeat = std::chrono::duration_cast<std::chrono::milliseconds>(timeCurrent - timeLastRedHeartBeat).count();
+-	// We're finished with redLastValue, so let's update it's value for next time.
+-	redLastValue = filteredRedValue;
+-
+-	if (filteredRedValue < -10 && redHasBeat == false && timeSinceLastRedHeartBeat > 0) {
+-		int _redBPM = 60000/timeSinceLastRedHeartBeat;
+-		if (_redBPM > 35) { // Ignore result if BPM is a crazy number.
+-			if (_redBPM < 200) {
+-				latestRedBPM = _redBPM;
+-			}
+-			redHasBeat = true;
+-			// Update timeLastRedHeartBeat for next time.
+-			timeLastRedHeartBeat = timeCurrent;
+-		}
+-	} else if (filteredRedValue > 0 && redHasBeat == true) {
+-		redHasBeat = false;
+-	}
+-*/
+-}
+-
+-/**
+- * Updates the temperature variable.
+- */
+-void HeartRate::updateTemperature() {
+-	latestTemperature = sensor->readTemperatureF();
+-}
+-
+-/**
+- * Detects peaks in heart data.
+- * Returns true when input data is a peak.
+- * Warning: Algorithm isn't that good.
+- */
+-bool crest = false;
+-bool trough = false;
+-uint8_t dataBeenIncreasing = 0;
+-uint8_t nextPastPeaksIndex = 0;
+-
+-int32_t HeartRate::getPeakThreshold() {
+-	int32_t avgMaximas = 0;
+-	int32_t avgMinimas = 0;
+-	for (int i = 0; i < HeartRate::PAST_PEAKS_SIZE; i++) {
+-		//std::cout << "Index " << i << ": " << pastMaximas[i] << "/" << pastMinimas[i] << ", ";
+-		avgMaximas += pastMaximas[i];
+-		avgMinimas += pastMinimas[i];
+-	}
+-	//std::cout << "Average Maximas: " << avgMaximas << ", Minimas: " << avgMinimas << std::endl;
+-	avgMaximas /= HeartRate::PAST_PEAKS_SIZE;
+-	avgMinimas /= HeartRate::PAST_PEAKS_SIZE;
+-	int32_t threshold = (avgMaximas+avgMinimas)/1.5;
+-	if (threshold > 0 || threshold < -500) {
+-		return -20;
+-	}
+-	return threshold;
+-}
+-bool HeartRate::peakDetect(int32_t data) {
+-	//std::cout << "Data: " << data << ", irLastValue: " << irLastValue << ", localMaxima: " << localMaxima << ", localMinima: "<< localMinima << std::endl;
+-	if (irLastValue == -999) {
+-		// This is first time peakDetect is called.
+-		return false;
+-	}
+-	if (crest && trough && data > irLastValue) {
+-		dataBeenIncreasing++;
+-		if (dataBeenIncreasing >= 2) {
+-			// This is a beat.
+-			// Add local maxima & minima to past
+-			pastMaximas[nextPastPeaksIndex] = localMaxima;
+-			pastMinimas[nextPastPeaksIndex] = localMinima;
+-			nextPastPeaksIndex++;
+-			if (nextPastPeaksIndex >= HeartRate::PAST_PEAKS_SIZE) {
+-				nextPastPeaksIndex = 0;
+-			}
+-			// Reset values
+-			crest = trough = false;
+-			dataBeenIncreasing = 0;
+-			localMaxima = -9999;
+-			localMinima = 9999;
+-			
+-			return true;
+-		}
+-	}
+-	//int32_t threshold = getPeakThreshold();
+-	//std::cout << "Threshold: " << threshold << ", max: " << localMaxima << ", min: " << localMinima << std::endl;
+-	if (data > localMaxima) {
+-		localMaxima = data;
+-		if (data > 100) {
+-			crest = true;
+-		}
+-	}
+-	if (crest && data < localMinima) {
+-		localMinima = data;
+-		if (crest && data < -100) {
+-			trough = true;
+-		}
+-	}
+-	return false;
+-}
+-
+-/**
+- * Clears all calculations.
+- */
+-void HeartRate::resetCalculations() {
+-	// Clear stored heart rates.
+-	latestIRBPM = 0;
+-	//lastIRBPM = 0;
+-	latestRedBPM = 0;
+-	//lastRedBPM = 0;
+-
+-//	calculateMiddle = true;
+-	// Reset peak detection.
+-	crest = trough = false;
+-	nextPastPeaksIndex = 0;
+-	dataBeenIncreasing = 0;
+-	localMaxima = -9999;
+-	localMinima = 9999;
+-
+-	// Reset bpm buffer
+-	for (int i = 0; i < BPM_BUFFER_SIZE; i++) {
+-		bpmBuffer[i] = 0;
+-	}
+-
+-	// Reset last values.
+-	irLastValue = -999;
+-	redLastValue = -999;
+-
+-	// Get current time.
+-	auto timeCurrent = std::chrono::system_clock::now();
+-	// Reset last heartbeat times.
+-	timeLastIRHeartBeat = timeCurrent;
+-	timeLastRedHeartBeat = timeCurrent;
+-}
+-
+-/**
+- * Returns the average measured heart rate.
+- * This method ignores heart rate values greater than 150 or lower than 45.
+- */
+-int HeartRate::getSafeIRHeartRate() {
+-	int avgBPM = 0;
+-	int bpmCount = 0;
+-	for (int i = 0; i < BPM_BUFFER_SIZE; i++) {
+-		int _bpm = bpmBuffer[i];
+-		if (_bpm > 45 && _bpm < 150) {
+-			avgBPM += _bpm;
+-			bpmCount++;
+-		}
+-	}
+-	if (bpmCount > 0) avgBPM /= bpmCount;
+-	return (avgBPM == 0) ? -1 : avgBPM;
+-}
+-
+-/**
+- * Returns the latest calculated IR heart rate. (unchecked!)
+- */
+-int HeartRate::getLatestIRHeartRate() {
+-	if (latestIRBPM == 0) {
+-		return -1;
+-	}
+-	return latestIRBPM;
+-}
+-
+-/**
+- * Returns the latest calculated Red heart rate. (unchecked!)
+- */
+-int HeartRate::getLatestRedHeartRate() {
+-	if (latestRedBPM == 0) {
+-		return -1;
+-	}
+-	return latestRedBPM;
+-}
+-
+-float HeartRate::getLatestTemperatureF() {
+-	return latestTemperature;
+-}
+\ No newline at end of file
+diff --git a/Software/Firmware/project/ppg/src/ppg.cpp b/Software/Firmware/project/ppg/src/ppg.cpp
+index efdfaf5..30754e4 100644
+--- a/Software/Firmware/project/ppg/src/ppg.cpp
++++ b/Software/Firmware/project/ppg/src/ppg.cpp
+@@ -10,22 +10,177 @@ PPG::PPG() {}
+  * @param ads_ptr Pointer to the ADS1115 object.
+  */
+ void PPG::start(std::unique_ptr<MAX30102>& max30102_ptr) {
+-  running = true;  // Add this line
+-  FloatPair data;
++  if (running) return;
++  running = true;
+ 
++  irLastValue = -999;
++  // Init local maxima/minima for peak detection
++  localMaxima = -9999;
++  localMinima = 9999;
++  // Get current time.
++  auto timeCurrent = std::chrono::system_clock::now();
++  // Init last heartbeat times.
++  timeLastIRHeartBeat = timeCurrent;
++
++  std::thread t1(&PPG::loopThread, this,
++                 std::ref(max30102_ptr));  // Pass by reference
++  t1.detach();
++}
++
++void PPG::loopThread(
++    std::unique_ptr<MAX30102>& ppgmax30102_ptr) {  // Receive by reference
+   while (running) {
+-    if (!max30102_ptr->max30102queue.pop(data)) {
+-      std::this_thread::yield();
+-    } else {  // Process the received data
+-      float receivedVal1 = data.value1;
+-      float receivedVal2 = data.value2;
+-      std::cout << "Received values: " << receivedVal1 << ", " << receivedVal2
+-                << std::endl;
++    PPG_filtering(ppgmax30102_ptr);  // Pass by reference again
++
++    std::this_thread::sleep_for(
++        std::chrono::milliseconds(1000));  // sleep for 100 milliseconds
++
++    std::string message = "ppg," + std::to_string(latestIRBPM) + "," +
++                          std::to_string(latestRedSpO2);
++    while (!ppgtcpqueue.push(message)) {
++      std::this_thread::yield();  // Yield if queue is full}
++    }
++  }
++}
++
++LowPassFilter lpf(0.08, M_PI);
++HighPassFilter hpf(0.08, M_PI);
++/**
++ * @brief Filters the PPG data.
++ * @param ppgmax30102_ptr Pointer to the MAX30102 object.
++ */
++void PPG::PPG_filtering(std::unique_ptr<MAX30102>& ppgmax30102_ptr) {
++  auto timeCurrent = std::chrono::system_clock::now();
++  uint32_t irValue = ppgmax30102_ptr->getIR();
++  uint32_t redValue = ppgmax30102_ptr->getRed();
++
++  // Let's get the number of miliseconds passed since we last ran the loop.
++  int loopDelta = std::chrono::duration_cast<std::chrono::milliseconds>(
++                      timeCurrent - timeLastLoopRan)
++                      .count();
++  // We're finished with timeLastLoopRan, so let's update it's value for next
++  // time.
++  timeLastLoopRan = timeCurrent;
++
++  // Check whether finger is on sensor->
++  if (irValue < 100000) {
++    // Finger is not on sensor->
++    // Clear all calculations and exit out of loop.
++    resetCalculations();
++    return;
++  }
++
++  // Calculate the IR heart rate //
++
++  int32_t filteredIRValue = static_cast<int32_t>(irValue);
++  int32_t filteredRedValue = static_cast<int32_t>(redValue);
++  filteredIRValue = lpf.update(filteredIRValue);
++  filteredIRValue = hpf.update(filteredIRValue);
++  filteredRedValue = lpf.update(filteredRedValue);
++  filteredRedValue = hpf.update(filteredRedValue);
++
++  int timeSinceLastIRHeartBeat =
++      std::chrono::duration_cast<std::chrono::milliseconds>(timeCurrent -
++                                                            timeLastIRHeartBeat)
++          .count();
++
++  if (peakDetect(filteredIRValue)) {
++    int _irBPM = 60000 / timeSinceLastIRHeartBeat;
++    latestIRBPM = _irBPM;
++    bpmBuffer[nextBPMBufferIndex++] = _irBPM;
++    if (nextBPMBufferIndex >= BPM_BUFFER_SIZE) nextBPMBufferIndex = 0;
++    // Calculate SpO2
++    float ratioOfRatios =
++        (filteredRedValue / filteredIRValue) / 0.1047;  // Calibration may vary
++
++    int spo2 = 104 - 17 * ratioOfRatios;
++    latestRedSpO2 = spo2;
++    spo2Buffer[nextspo2BufferIndex++] = spo2;
++    if (nextspo2BufferIndex >= BPM_BUFFER_SIZE) nextspo2BufferIndex = 0;
++
++    // Update timeLastIRHeartBeat for next time.
++    timeLastIRHeartBeat = timeCurrent;
++  }
++
++  // We're finished with irLastValue, so let's update their value for next time.
++  irLastValue = filteredIRValue;
++}
++
++/**
++ * Detects peaks in heart data.
++ * Returns true when input data is a peak.
++ * Warning: Algorithm isn't that good.
++ */
++
++bool PPG::peakDetect(int32_t data) {
++  if (irLastValue == -999) {
++    // This is first time peakDetect is called.
++    return false;
++  }
++  if (crest && trough && data > irLastValue) {
++    dataBeenIncreasing++;
++    if (dataBeenIncreasing >= 2) {
++      // This is a beat.
++      // Add local maxima & minima to past
++      pastMaximas[nextPastPeaksIndex] = localMaxima;
++      pastMinimas[nextPastPeaksIndex] = localMinima;
++      nextPastPeaksIndex++;
++      if (nextPastPeaksIndex >= PPG::PAST_PEAKS_SIZE) {
++        nextPastPeaksIndex = 0;
++      }
++      // Reset values
++      crest = trough = false;
++      dataBeenIncreasing = 0;
++      localMaxima = -9999;
++      localMinima = 9999;
++
++      return true;
++    }
++  }
++
++  if (data > localMaxima) {
++    localMaxima = data;
++    if (data > 100) {
++      crest = true;
+     }
+   }
++  if (crest && data < localMinima) {
++    localMinima = data;
++    if (crest && data < -100) {
++      trough = true;
++    }
++  }
++  return false;
+ }
+ 
+-float PPG::PPG_filtering() {}
++void PPG::resetCalculations() {
++  // Clear stored heart rates.
++  latestIRBPM = 0;
++
++  // Reset peak detection.
++  crest = trough = false;
++  nextPastPeaksIndex = 0;
++  dataBeenIncreasing = 0;
++  localMaxima = -9999;
++  localMinima = 9999;
++
++  // Reset bpm buffer
++  for (int i = 0; i < BPM_BUFFER_SIZE; i++) {
++    bpmBuffer[i] = 0;
++  }
++
++  for (int i = 0; i < SPO2_BUFFER_SIZE; i++) {
++    spo2Buffer[i] = 0;
++  }
++
++  // Reset last values.
++  irLastValue = -999;
++
++  // Get current time.
++  auto timeCurrent = std::chrono::system_clock::now();
++  // Reset last heartbeat times.
++  timeLastIRHeartBeat = timeCurrent;
++}
+ 
+ /**
+  * @brief Stops the PPG sensor.
+diff --git a/Software/Firmware/project/tcpserver/CMakeLists.txt b/Software/Firmware/project/tcpserver/CMakeLists.txt
+index f4fa35f..adbc59b 100644
+--- a/Software/Firmware/project/tcpserver/CMakeLists.txt
++++ b/Software/Firmware/project/tcpserver/CMakeLists.txt
+@@ -48,8 +48,10 @@ target_include_directories(${TARGET_NAME}
+     ${Boost_INCLUDE_DIRS}
+     ${BOOST_CIRCULAR_BUFFER_INCLUDE_DIRS}
+     ${BOOST_ASIO_INCLUDE_DIRS}
++    ${CMAKE_CURRENT_SOURCE_DIR}/../ppg/include
+     ${CMAKE_CURRENT_SOURCE_DIR}/../ecg/include
+     ${CMAKE_CURRENT_SOURCE_DIR}/../ads1115/include
++    ${CMAKE_CURRENT_SOURCE_DIR}/../max30102/include
+     # Any other extra include required
+ )
+ 
+diff --git a/Software/Firmware/project/tcpserver/include/tcpserver.hpp b/Software/Firmware/project/tcpserver/include/tcpserver.hpp
+index 34642b7..78b2f3d 100644
+--- a/Software/Firmware/project/tcpserver/include/tcpserver.hpp
++++ b/Software/Firmware/project/tcpserver/include/tcpserver.hpp
+@@ -9,26 +9,58 @@
+ 
+ #include <algorithm>
+ #include <boost/lockfree/spsc_queue.hpp>
++#include <cerrno>
++#include <condition_variable>
++#include <cstring>
+ #include <fstream>
++#include <iostream>
++#include <mutex>
+ #include <queue>
++#include <string>
++#include <thread>
+ 
+ #include "ecg.hpp"
++#include "ppg.hpp"
+ 
+ class TcpServer {
+  public:
+-  TcpServer();                                // Constructor
+-  ~TcpServer();                               // Destructor
+-  void start(std::unique_ptr<ECG>& ecg_ptr);  // Start the ECG sensor
++  TcpServer();
++  ~TcpServer();
++
++  void start(std::unique_ptr<ECG>& ecg_ptr, std::unique_ptr<PPG>& ppg_ptr);
+ 
+  private:
+-  // Socket variables
+-  int server_socket;  // Socket for the connection
+-  int client_socket;  // Socket for the client
+-  struct sockaddr_in address;
+-  const int port = 5000;          // Example port number
+-  bool socket_connected = false;  // Flag to track connection status
++  void setupSocket();
++  static void workerThreadFunc(
++      TcpServer* server_ptr,
++      boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<1024>>&
++          data_queue) {
++    while (true) {
++      std::string message;
++      // Pop data from the queue
++      if (!data_queue.pop(message)) {
++        std::this_thread::yield();
++      } else {
++        std::lock_guard<std::mutex> lock(server_ptr->socket_mutex);
++        if (server_ptr->socket_connected) {
++          if (send(server_ptr->client_socket, message.c_str(), message.length(),
++                   0) < 0) {
++            std::cerr << "Error sending data: " << strerror(errno) << std::endl;
++            server_ptr->socket_connected = false;  // Manage connection state
++            break;                                 // Exit the loop on error
++          }
++        }
++      }
++    }
++  }
+ 
+-  void setupSocket(void);  // Function to set up the socket
++  const int port = 5000;  // Example port number
++  int server_socket, client_socket;
++  struct sockaddr_in address;
++  bool socket_connected = false;
++  std::mutex socket_mutex;  // Mutex for socket access
++  std::thread worker1;
++  std::thread worker2;
+ };
+ 
+ #endif  // TCPSERVER_HPP
+\ No newline at end of file
+diff --git a/Software/Firmware/project/tcpserver/src/tcpserver.cpp b/Software/Firmware/project/tcpserver/src/tcpserver.cpp
+index 5c48ec8..8820fca 100644
+--- a/Software/Firmware/project/tcpserver/src/tcpserver.cpp
++++ b/Software/Firmware/project/tcpserver/src/tcpserver.cpp
+@@ -9,46 +9,15 @@ TcpServer::TcpServer() {}
+  * @brief Starts the ECG sensor.
+  * @param ads_ptr Pointer to the ecg object.
+  */
+-void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr) {
++void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr,
++                      std::unique_ptr<PPG>& ppg_ptr) {
+   setupSocket();
+ 
+-  fd_set read_fds, write_fds;
+-  struct timeval timeout;
+-  timeout.tv_sec = 5;
+-  timeout.tv_usec = 0;
+-
+-  while (true) {
+-    FD_ZERO(&read_fds);
+-    FD_ZERO(&write_fds);
+-    FD_SET(client_socket, &read_fds);
+-    FD_SET(client_socket, &write_fds);
+-
+-    int activity =
+-        select(client_socket + 1, &read_fds, &write_fds, NULL, &timeout);
+-
+-    if ((activity < 0) && (errno != EINTR)) {
+-      std::cerr << "select error" << std::endl;
+-    }
+-
+-    if (FD_ISSET(client_socket, &read_fds)) {
+-      // Handle incoming data from client
+-    }
+-
+-    if (FD_ISSET(client_socket, &write_fds)) {
+-      std::string message;
+-      if (!ecg_ptr->ecgtcpqueue.pop(message)) {
+-        std::this_thread::yield();
+-      } else {
+-        if (socket_connected) {
+-          if (send(client_socket, message.c_str(), message.length(), 0) < 0) {
+-            std::cerr << "Error sending data" << std::endl;
+-            socket_connected = false;  // Handle connection issue
+-            // Potentially attempt to re-establish connection
+-          }
+-        }
+-      }
+-    }
+-  }
++  // Create and start worker threads
++  worker1 = std::thread(TcpServer::workerThreadFunc, this,
++                        std::ref(ecg_ptr->ecgtcpqueue));
++  worker2 = std::thread(TcpServer::workerThreadFunc, this,
++                        std::ref(ppg_ptr->ppgtcpqueue));
+ }
+ 
+ void TcpServer::setupSocket() {
+@@ -107,4 +76,8 @@ TcpServer::~TcpServer() {
+       std::cout << "Client socket closed" << std::endl;
+     }
+   }
++
++  // Join the worker threads
++  if (worker1.joinable()) worker1.join();
++  if (worker2.joinable()) worker2.join();
+ }
