@@ -1,12 +1,13 @@
 var searchData=
 [
-  ['ledmode_0',['ledMode',['../structMAX30102settings.html#a43df059424a7c3ed2d513d1d0f53cd05',1,'MAX30102settings']]],
-  ['len_1',['len',['../structi2c__msg.html#a10d1943df9a527109bf60733baf7b0a4',1,'i2c_msg']]],
-  ['lowpass_5fcutoff_5ffrequency_2',['lowpass_cutoff_frequency',['../classECG.html#adee40ac4de3b8b48d01211db63bde918',1,'ECG']]],
-  ['lowpassfilter_3',['LowPassFilter',['../classLowPassFilter.html',1,'LowPassFilter'],['../classLowPassFilter.html#a1c849f64650861c87a3f2a19b2255473',1,'LowPassFilter::LowPassFilter()']]],
-  ['lowpassfilter2_4',['LowPassFilter2',['../classLowPassFilter2.html',1,'LowPassFilter2'],['../classLowPassFilter2.html#a05dfd33751e89949740e91961b3e0379',1,'LowPassFilter2::LowPassFilter2()']]],
-  ['lowpassfilter3_5',['LowPassFilter3',['../classLowPassFilter3.html',1,'LowPassFilter3'],['../classLowPassFilter3.html#a2aee3a775bf81a4e2c8ba565a45e2790',1,'LowPassFilter3::LowPassFilter3()']]],
-  ['lowpassfilter3diffapprox_6',['LowPassFilter3DiffApprox',['../classLowPassFilter3DiffApprox.html',1,'LowPassFilter3DiffApprox'],['../classLowPassFilter3DiffApprox.html#a72176a4c7ed1bfe464e39750414068d9',1,'LowPassFilter3DiffApprox::LowPassFilter3DiffApprox()']]],
-  ['lowpassfilter3matchedz_7',['LowPassFilter3MatchedZ',['../classLowPassFilter3MatchedZ.html',1,'LowPassFilter3MatchedZ'],['../classLowPassFilter3MatchedZ.html#a2987ee0dd4328d4abab2efb5498a3cea',1,'LowPassFilter3MatchedZ::LowPassFilter3MatchedZ()']]],
-  ['lpf_8',['lpf',['../ppg_8cpp.html#aaf52e25facdc0730fe4f48ab1fadeb81',1,'ppg.cpp']]]
+  ['main_0',['main',['../heartguard_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'heartguard.cpp']]],
+  ['max30102_1',['MAX30102',['../classMAX30102.html',1,'MAX30102'],['../classMAX30102.html#a631728e610c1c3eab45d2fc33e78dd50',1,'MAX30102::MAX30102()']]],
+  ['max30102_2ecpp_2',['max30102.cpp',['../max30102_8cpp.html',1,'']]],
+  ['max30102_2ehpp_3',['max30102.hpp',['../max30102_8hpp.html',1,'']]],
+  ['max30102_5faddress_4',['MAX30102_ADDRESS',['../max30102_8hpp.html#ad7327a848315960f1d8828a09316c6a9',1,'max30102.hpp']]],
+  ['max30102_5ftest_2ecpp_5',['max30102_test.cpp',['../max30102__test_8cpp.html',1,'']]],
+  ['max30102settings_6',['MAX30102settings',['../structMAX30102settings.html',1,'']]],
+  ['mean_7',['mean',['../classECG.html#a639c779bc093af0ed47ba1bd34d7b4e5',1,'ECG']]],
+  ['movingavaragefilter_8',['MovingAvarageFilter',['../classMovingAvarageFilter.html',1,'']]],
+  ['msgs_9',['msgs',['../structi2c__rdwr__ioctl__data.html#a436bb0f35544ff79b2c0ac3570f5b7f0',1,'i2c_rdwr_ioctl_data']]]
 ];
