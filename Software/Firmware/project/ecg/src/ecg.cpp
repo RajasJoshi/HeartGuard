@@ -96,7 +96,7 @@ void ECG::calculate_RR_interval_hr(float SAMPLING_RATE) {
           BUFFER_SIZE;
       average_time_between_peaks += time_between_peaks;
     }
-    average_time_between_peaks /= (detected_peaks.size() - 1);
+    average_time_between_peaks /= float(detected_peaks.size() - 1);
     RR_interval = average_time_between_peaks / SAMPLING_RATE;
     RR_intervals.push_back(RR_interval);
     heart_rate = 60.0f / (RR_interval);

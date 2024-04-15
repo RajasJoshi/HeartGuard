@@ -20,7 +20,7 @@ class ECG {
   boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<1024>>
       ecgtcpqueue;
 
- private:
+
   // infinite impulse response library filter params
   static const int filter_order = 4;  // 4th order filter
   static constexpr float cutoff_frequency =
@@ -32,7 +32,7 @@ class ECG {
   static const int SAMPLING_RATE = 860.0f;  // Hz
   static const int BUFFER_SIZE =
       SAMPLING_RATE * 4;  // 4 seconds of data at 860 Hz
-  float circularBuffer[BUFFER_SIZE];
+  float circularBuffer[BUFFER_SIZE] = {0.0f};
 
   std::atomic<bool> running;
   std::atomic<int> headIndex;
@@ -60,6 +60,7 @@ class ECG {
                       float sample, float SAMPLING_RATE);
   void calculate_hrv(void);
   void empty_values(void);
+private:
 };
 
 #endif  // ECG_HPP
