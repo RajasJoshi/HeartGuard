@@ -22,9 +22,6 @@ class PPG {
   boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<1024>>
       ppgtcpqueue;
 
- private:
-  bool running = false;  // Indicates if the PPG sensor is running
-
   const int static BPM_BUFFER_SIZE = 100;
   int32_t bpmBuffer[BPM_BUFFER_SIZE];
   int nextBPMBufferIndex = 0;
@@ -32,6 +29,11 @@ class PPG {
   const int static SPO2_BUFFER_SIZE = 100;
   int32_t spo2Buffer[SPO2_BUFFER_SIZE];
   int nextspo2BufferIndex = 0;
+
+ private:
+  bool running = false;  // Indicates if the PPG sensor is running
+
+
 
   std::chrono::time_point<std::chrono::system_clock> timeLastLoopRan;
   // IR Data

@@ -112,6 +112,14 @@ cmake -DBUILD_SHARED_LIBS=FALSE -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
 cmake --build . --target package
 ```
+## Testing
+This project uses CTest, a testing framework included with CMake, to automate test execution. To run the existing tests, navigate to your build directory and execute the following command:
+```
+ctest
+```
+This command will discover and run all the registered test cases within the project.
+
+
 
 ## Acknowledgements
 

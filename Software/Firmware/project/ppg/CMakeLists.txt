@@ -51,14 +51,27 @@ target_include_directories(${TARGET_NAME}
 )
 
 
-# add_executable(
-#   ppg_test
-#   test/ppg_test.cpp
-# )
-# target_link_libraries(
-#   ppg_test
-#   GTest::gtest_main
-# )
+add_executable(
+  ppg_test
+  test/ppg_test.cpp
+)
 
-# include(GoogleTest)
-# gtest_discover_tests(ppg_test)
+target_include_directories(ppg_test
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/exports>
+  PRIVATE 
+    ${TARGET_INCLUDE_FOLDER}
+    ${Boost_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../max30102/include
+    # Any other extra include required
+)
+
+target_link_libraries(
+  ppg_test
+  GTest::gtest_main
+  ppg
+)
+
+
+include(GoogleTest)
+gtest_discover_tests(ppg_test)
