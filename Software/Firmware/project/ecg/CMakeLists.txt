@@ -51,7 +51,6 @@ target_include_directories(${TARGET_NAME}
     ${TARGET_INCLUDE_FOLDER}
     ${Boost_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/../ads1115/include
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../iir/include
     # Any other extra include required
 )
 
@@ -68,7 +67,7 @@ target_include_directories(ecg_test
     ${TARGET_INCLUDE_FOLDER}
     ${Boost_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/../ads1115/include
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../iir/include
+
     # Any other extra include required
 )
 

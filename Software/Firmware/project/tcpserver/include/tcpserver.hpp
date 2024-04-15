@@ -31,6 +31,11 @@ class TcpServer {
 
  private:
   void setupSocket();
+  /*
+   * @brief Worker thread function.
+   * @param tcp_server Pointer to the TcpServer object.
+   * @param queue Reference to the queue.
+   */
   static void workerThreadFunc(
       TcpServer* server_ptr,
       boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<1024>>&

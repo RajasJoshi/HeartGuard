@@ -7,7 +7,7 @@ PPG::PPG() {}
 
 /**
  * @brief Starts the PPG sensor.
- * @param ads_ptr Pointer to the ADS1115 object.
+ * @param max30102_ptr Pointer to the MAX30102 object.
  */
 void PPG::start(std::unique_ptr<MAX30102>& max30102_ptr) {
   if (running) return;
@@ -107,11 +107,10 @@ void PPG::PPG_filtering(std::unique_ptr<MAX30102>& ppgmax30102_ptr) {
 }
 
 /**
- * Detects peaks in heart data.
- * Returns true when input data is a peak.
- * Warning: Algorithm isn't that good.
+ * @brief Detects peaks in heart data.
+ * @param data The data to be analyzed.
+ * @return True if the data is a peak, false otherwise.
  */
-
 bool PPG::peakDetect(int32_t data) {
   if (irLastValue == -999) {
     // This is first time peakDetect is called.
@@ -153,6 +152,9 @@ bool PPG::peakDetect(int32_t data) {
   return false;
 }
 
+/**
+ * @brief Resets the calculations for the PPG sensor.
+ */
 void PPG::resetCalculations() {
   // Clear stored heart rates.
   latestIRBPM = 0;

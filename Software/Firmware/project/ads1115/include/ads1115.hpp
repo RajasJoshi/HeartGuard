@@ -17,24 +17,22 @@
 
 // Include any necessary headers here
 #include <assert.h>
-#include <linux/i2c-dev.h>
+#include <fcntl.h>
 #include <gpiod.h>
+#include <linux/i2c-dev.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <thread> 
-#include <unistd.h>
-#include <fcntl.h>
 #include <sys/ioctl.h>
+#include <unistd.h>
 
 #include <boost/lockfree/spsc_queue.hpp>
 #include <iostream>
+#include <thread>
 
 // enable debug messages and error messages to stderr
 
 static const char could_not_open_i2c[] = "Could not open I2C.\n";
-
-#define ISR_TIMEOUT 1000
 
 // default address if ADDR is pulled to GND
 #define DEFAULT_ADS1115_ADDRESS 0x48
@@ -87,7 +85,13 @@ struct ADS1115settings {
   /**
    * Full scale range: 4.096, 2.048V, 1.024V, 0.512V or 0.256V.
    **/
-  enum PGA { FSR4_096 = 1,FSR2_048 = 2, FSR1_024 = 3, FSR0_512 = 4, FSR0_256 = 5 };
+  enum PGA {
+    FSR4_096 = 1,
+    FSR2_048 = 2,
+    FSR1_024 = 3,
+    FSR0_512 = 4,
+    FSR0_256 = 5
+  };
 
   /**
    * Requested full scale range
@@ -120,6 +124,11 @@ class ADS1115 {
   // Constructor and destructor
   void start();
   // Public member functions
+  /**
+   * Constructor which sets the settings for the ADS1115.
+   **/
+  ADS1115() {}
+
   /**
    * Destructor which makes sure the data acquisition
    * stops on exit.
@@ -163,12 +172,12 @@ class ADS1115 {
 
   void worker() {
     while (running) {
-        const struct timespec ts = { 1, 0 };
-        gpiod_line_event_wait(lineDRDY, &ts);
-        struct gpiod_line_event event;
-        gpiod_line_event_read(lineDRDY, &event);
-        dataReady();
-	  }
+      const struct timespec ts = {1, 0};
+      gpiod_line_event_wait(lineDRDY, &ts);
+      struct gpiod_line_event event;
+      gpiod_line_event_read(lineDRDY, &event);
+      dataReady();
+    }
   }
 
   void i2c_writeWord(uint8_t reg, unsigned data);
@@ -196,14 +205,14 @@ class ADS1115 {
     return 0;
   }
   // Private member variables and functions
-    struct gpiod_chip *chipDRDY;
-    struct gpiod_line *lineDRDY;
+  struct gpiod_chip *chipDRDY;
+  struct gpiod_line *lineDRDY;
 
-    std::thread thr;
+  std::thread thr;
 
-    int fdDRDY = -1;
+  int fdDRDY = -1;
 
-    bool running = false;
+  bool running = false;
 };
 
 #endif  // ADS1115_HPP

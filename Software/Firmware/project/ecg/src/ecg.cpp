@@ -27,9 +27,8 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
   Iir::Butterworth::LowPass<filter_order> lowpass_filter;
   lowpass_filter.setup(SAMPLING_RATE, lowpass_cutoff_frequency);
 
-  float value;
-
   while (running) {
+    float value;
     if (!ads_ptr->ads115queue.pop(value)) {
       std::this_thread::yield();
     } else {
@@ -37,7 +36,7 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
                                value, SAMPLING_RATE);
       std::string message = "ecg," + std::to_string(value) + "," +
                             std::to_string(fs) + "," +
-                            std::to_string(heart_rate);
+                            std::to_string(heart_rate) + "#";
       while (!ecgtcpqueue.push(message)) {
         std::this_thread::yield();  // Yield if queue is full}
       }

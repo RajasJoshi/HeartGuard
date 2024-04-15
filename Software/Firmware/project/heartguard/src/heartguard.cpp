@@ -106,7 +106,6 @@ int main(int argc, char* argv[]) {
     });
 
     // Create the max30102 thread
-
     max30102Thread = std::make_unique<std::thread>([]() {
       try {
         hgmax30102 = std::make_unique<MAX30102>();
@@ -126,6 +125,7 @@ int main(int argc, char* argv[]) {
       }
     });
 
+    // Create the ppg thread
     ppgThread = std::make_unique<std::thread>([]() {
       try {
         hgppg = std::make_unique<PPG>();
@@ -138,6 +138,7 @@ int main(int argc, char* argv[]) {
       }
     });
 
+    // Create the tcp server thread
     tcpServerThread = std::make_unique<std::thread>([]() {
       try {
         hgtcpserver = std::make_unique<TcpServer>();
