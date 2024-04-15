@@ -53,6 +53,5 @@ var searchData=
   ['i2c_5fsmbus_5fwrite_50',['I2C_SMBUS_WRITE',['../i2c-dev_8h.html#ac4d2a9af170b85b33c640c811f240c76',1,'i2c-dev.h']]],
   ['i2c_5ftenbit_51',['I2C_TENBIT',['../i2c-dev_8h.html#a2a0b1f3843e98977be7476579c851305',1,'i2c-dev.h']]],
   ['i2c_5ftimeout_52',['I2C_TIMEOUT',['../i2c-dev_8h.html#afa3215f0aa766367f5d34bee80929152',1,'i2c-dev.h']]],
-  ['interrupt_5fpin_53',['INTERRUPT_PIN',['../max30102_8hpp.html#a6516333f436e810b6855db75f3b3cbbc',1,'max30102.hpp']]],
-  ['isr_5ftimeout_54',['ISR_TIMEOUT',['../ads1115_8hpp.html#aaa9b71fc04bd91a5cdf4030dd5fe6551',1,'ads1115.hpp']]]
+  ['interrupt_5fpin_53',['INTERRUPT_PIN',['../max30102_8hpp.html#a6516333f436e810b6855db75f3b3cbbc',1,'max30102.hpp']]]
 ];

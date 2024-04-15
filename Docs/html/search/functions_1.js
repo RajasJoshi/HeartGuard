@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['begin_0',['begin',['../classMAX30102.html#ab148e8492b5c8b5bc60b501ed84f3d46',1,'MAX30102']]]
+  ['begin_0',['begin',['../classCircularDelay.html#ae8fedbd231b8e1b99b5a7bb321e4421c',1,'CircularDelay']]]
 ];

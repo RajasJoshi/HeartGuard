@@ -1,14 +1,17 @@
 \doxysection{Software/\+Firmware/project/ads1115/include/ads1115.hpp File Reference}
 \hypertarget{ads1115_8hpp}{}\label{ads1115_8hpp}\index{Software/Firmware/project/ads1115/include/ads1115.hpp@{Software/Firmware/project/ads1115/include/ads1115.hpp}}
 {\ttfamily \#include $<$assert.\+h$>$}\newline
-{\ttfamily \#include $<$pigpio.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$gpiod.\+h$>$}\newline
+{\ttfamily \#include $<$linux/i2c-\/dev.\+h$>$}\newline
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
-{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
 {\ttfamily \#include $<$unistd.\+h$>$}\newline
 {\ttfamily \#include $<$boost/lockfree/spsc\+\_\+queue.\+hpp$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
 Include dependency graph for ads1115.\+hpp\+:
 % FIG 0
 This graph shows which files directly or indirectly include this file\+:
@@ -22,8 +25,6 @@ class \mbox{\hyperlink{classADS1115}{ADS1115}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
-\item 
-\#define \mbox{\hyperlink{ads1115_8hpp_aaa9b71fc04bd91a5cdf4030dd5fe6551}{ISR\+\_\+\+TIMEOUT}}~1000
 \item 
 \#define \mbox{\hyperlink{ads1115_8hpp_ad3ad1998b05e4d4087c8cca54f3d4021}{DEFAULT\+\_\+\+ADS1115\+\_\+\+ADDRESS}}~0x48
 \item 
@@ -43,10 +44,4 @@ class \mbox{\hyperlink{classADS1115}{ADS1115}}
 \index{DEFAULT\_ALERT\_RDY\_TO\_GPIO@{DEFAULT\_ALERT\_RDY\_TO\_GPIO}!ads1115.hpp@{ads1115.hpp}}
 \doxysubsubsection{\texorpdfstring{DEFAULT\_ALERT\_RDY\_TO\_GPIO}{DEFAULT\_ALERT\_RDY\_TO\_GPIO}}
 {\footnotesize\ttfamily \#define DEFAULT\+\_\+\+ALERT\+\_\+\+RDY\+\_\+\+TO\+\_\+\+GPIO~17}
-
-\Hypertarget{ads1115_8hpp_aaa9b71fc04bd91a5cdf4030dd5fe6551}\label{ads1115_8hpp_aaa9b71fc04bd91a5cdf4030dd5fe6551} 
-\index{ads1115.hpp@{ads1115.hpp}!ISR\_TIMEOUT@{ISR\_TIMEOUT}}
-\index{ISR\_TIMEOUT@{ISR\_TIMEOUT}!ads1115.hpp@{ads1115.hpp}}
-\doxysubsubsection{\texorpdfstring{ISR\_TIMEOUT}{ISR\_TIMEOUT}}
-{\footnotesize\ttfamily \#define ISR\+\_\+\+TIMEOUT~1000}
 

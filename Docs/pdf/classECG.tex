@@ -20,7 +20,65 @@ void \mbox{\hyperlink{classECG_a54ef07ae8554eaabae9fd14a8c93abdf}{start}} (std\+
 void \mbox{\hyperlink{classECG_a00e642fe0cf0806ca18af138136aa025}{stop}} (void)
 \begin{DoxyCompactList}\small\item\em Stops the \doxylink{classECG}{ECG} sensor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classECG_ab06157349c21c71d908f5d6180ea18d1}{display\+\_\+buffer}} (void)
-\begin{DoxyCompactList}\small\item\em Displays the buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Displays the buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classECG_a3072af22c3d67e726ba583a1d5c3e585}{recalculate\+\_\+mean}} (void)
+\begin{DoxyCompactList}\small\item\em Recalculates the mean of the \doxylink{classECG}{ECG} signal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classECG_a84a83e0204600ca4a2c8b5d4c48ce34a}{recalculate\+\_\+stdev}} (void)
+\begin{DoxyCompactList}\small\item\em Recalculates the standard deviation of the \doxylink{classECG}{ECG} signal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classECG_ac48d6aab420142578e31c622e98f51ba}{recalculate\+\_\+threshold}} (void)
+\begin{DoxyCompactList}\small\item\em Recalculates the threshold for peak detection. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classECG_a9c84bb74b28e7e74670c583c007f487f}{calculate\+\_\+\+RR\+\_\+interval\+\_\+hr}} (float \mbox{\hyperlink{classECG_afd10756cc462e7a253f476e8aa4ace95}{SAMPLING\+\_\+\+RATE}})
+\begin{DoxyCompactList}\small\item\em Calculates the RR interval and heart rate. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classECG_a5099dc2ec4abc8d9e4ae9dfa68cf8a9e}{ECG\+\_\+filtering}} (Iir\+::\+RBJ\+::\+IIRNotch \&notch\+\_\+filter, Iir\+::\+Butterworth\+::\+Low\+Pass$<$ \mbox{\hyperlink{classECG_a4a13e96e2aa1c58af59ac1efb19f33c4}{filter\+\_\+order}} $>$ \&lowpass\+\_\+filter, Iir\+::\+Butterworth\+::\+High\+Pass$<$ \mbox{\hyperlink{classECG_a4a13e96e2aa1c58af59ac1efb19f33c4}{filter\+\_\+order}} $>$ \&highpass\+\_\+filter, float sample, float \mbox{\hyperlink{classECG_afd10756cc462e7a253f476e8aa4ace95}{SAMPLING\+\_\+\+RATE}})
+\begin{DoxyCompactList}\small\item\em Filters the \doxylink{classECG}{ECG} signal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classECG_a8d51af87f81836121fcf835d77d84f35}{calculate\+\_\+hrv}} (void)
+\begin{DoxyCompactList}\small\item\em Calculates the heart rate variability. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classECG_abd385ea600c2e8dd78af173849acaa2b}{empty\+\_\+values}} (void)
+\begin{DoxyCompactList}\small\item\em Empties the values in the \doxylink{classECG}{ECG} buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+boost\+::lockfree\+::spsc\+\_\+queue$<$ std\+::string, boost\+::lockfree\+::capacity$<$ 1024 $>$ $>$ \mbox{\hyperlink{classECG_a53de8b5497ae2eb0c4703a2216f3ca3c}{ecgtcpqueue}}
+\item 
+float \mbox{\hyperlink{classECG_a69a81ff4139e939e877bf8b7b03f9d4d}{circular\+Buffer}} \mbox{[}\mbox{\hyperlink{classECG_a65c08db0cd238db7a9a8c7477e5efcbf}{BUFFER\+\_\+\+SIZE}}\mbox{]} = \{0.\+0f\}
+\item 
+std\+::atomic$<$ bool $>$ \mbox{\hyperlink{classECG_a47dbcc4e9b5de1f0dca031de34c38b0c}{running}}
+\item 
+std\+::atomic$<$ int $>$ \mbox{\hyperlink{classECG_a363732cf08a125be6c24b664f9ba6e4b}{head\+Index}}
+\item 
+std\+::atomic$<$ bool $>$ \mbox{\hyperlink{classECG_aa98f63000c1572508a3cf48f1816848f}{buffer\+Full}}
+\item 
+std\+::atomic$<$ float $>$ \mbox{\hyperlink{classECG_a639c779bc093af0ed47ba1bd34d7b4e5}{mean}} = 0.\+0f
+\item 
+std\+::atomic$<$ float $>$ \mbox{\hyperlink{classECG_a41524454a35a4ea47d73d4adb6167348}{stdev}} = 0.\+0f
+\item 
+std\+::atomic$<$ float $>$ \mbox{\hyperlink{classECG_aa34b94e320b153be4d9aa908fc79bc79}{threshold}} = \mbox{\hyperlink{classECG_a639c779bc093af0ed47ba1bd34d7b4e5}{mean}} + 3 \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classECG_a41524454a35a4ea47d73d4adb6167348}{stdev}}
+\item 
+std\+::atomic$<$ float $>$ \mbox{\hyperlink{classECG_a2b74f73764d8e92d876fcf0ebd0918d1}{RR\+\_\+interval}} = 0.\+0f
+\item 
+std\+::atomic$<$ float $>$ \mbox{\hyperlink{classECG_a11d171c97b5de296a82d0a2fb6633d18}{heart\+\_\+rate}}
+\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{classECG_a0df3767d76ad46ea4aa456dfff909d1c}{detected\+\_\+peaks}}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classECG_a4d089ca68b1f52d4d48ebec4863ad0b8}{RR\+\_\+intervals}}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classECG_a9dbfde5ef7209054f7548764a4cf8fb2}{HRV}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const int \mbox{\hyperlink{classECG_a4a13e96e2aa1c58af59ac1efb19f33c4}{filter\+\_\+order}} = 4
+\item 
+static constexpr float \mbox{\hyperlink{classECG_abc04ef31f2ee2d9cf9f8576a659c8760}{cutoff\+\_\+frequency}}
+\item 
+static constexpr float \mbox{\hyperlink{classECG_af9b563623df6db86754552ccac428d73}{highpass\+\_\+cutoff\+\_\+frequency}}
+\item 
+static constexpr float \mbox{\hyperlink{classECG_adee40ac4de3b8b48d01211db63bde918}{lowpass\+\_\+cutoff\+\_\+frequency}}
+\item 
+static const int \mbox{\hyperlink{classECG_afd10756cc462e7a253f476e8aa4ace95}{SAMPLING\+\_\+\+RATE}} = 860.\+0f
+\item 
+static const int \mbox{\hyperlink{classECG_a65c08db0cd238db7a9a8c7477e5efcbf}{BUFFER\+\_\+\+SIZE}}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -44,9 +102,38 @@ Starts the \doxylink{classECG}{ECG} sensor.
 
 Destructor for the \doxylink{classECG}{ECG} sensor. 
 
+Here is the call graph for this function\+:
+% FIG 1
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classECG_a8d51af87f81836121fcf835d77d84f35}\label{classECG_a8d51af87f81836121fcf835d77d84f35} 
+\index{ECG@{ECG}!calculate\_hrv@{calculate\_hrv}}
+\index{calculate\_hrv@{calculate\_hrv}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{calculate\_hrv()}{calculate\_hrv()}}
+{\footnotesize\ttfamily void ECG\+::calculate\+\_\+hrv (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Calculates the heart rate variability. 
+
+\Hypertarget{classECG_a9c84bb74b28e7e74670c583c007f487f}\label{classECG_a9c84bb74b28e7e74670c583c007f487f} 
+\index{ECG@{ECG}!calculate\_RR\_interval\_hr@{calculate\_RR\_interval\_hr}}
+\index{calculate\_RR\_interval\_hr@{calculate\_RR\_interval\_hr}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{calculate\_RR\_interval\_hr()}{calculate\_RR\_interval\_hr()}}
+{\footnotesize\ttfamily void ECG\+::calculate\+\_\+\+RR\+\_\+interval\+\_\+hr (\begin{DoxyParamCaption}\item[{float}]{SAMPLING\+\_\+\+RATE }\end{DoxyParamCaption})}
+
+
+
+Calculates the RR interval and heart rate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em SAMPLING\+\_\+\+RATE} & The sampling rate of the \doxylink{classECG}{ECG} signal. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 2
 \Hypertarget{classECG_ab06157349c21c71d908f5d6180ea18d1}\label{classECG_ab06157349c21c71d908f5d6180ea18d1} 
 \index{ECG@{ECG}!display\_buffer@{display\_buffer}}
 \index{display\_buffer@{display\_buffer}!ECG@{ECG}}
@@ -57,6 +144,84 @@ Destructor for the \doxylink{classECG}{ECG} sensor.
 
 Displays the buffer. 
 
+\Hypertarget{classECG_a5099dc2ec4abc8d9e4ae9dfa68cf8a9e}\label{classECG_a5099dc2ec4abc8d9e4ae9dfa68cf8a9e} 
+\index{ECG@{ECG}!ECG\_filtering@{ECG\_filtering}}
+\index{ECG\_filtering@{ECG\_filtering}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{ECG\_filtering()}{ECG\_filtering()}}
+{\footnotesize\ttfamily float ECG\+::\+ECG\+\_\+filtering (\begin{DoxyParamCaption}\item[{Iir\+::\+RBJ\+::\+IIRNotch \&}]{notch\+\_\+filter,  }\item[{Iir\+::\+Butterworth\+::\+Low\+Pass$<$ \mbox{\hyperlink{classECG_a4a13e96e2aa1c58af59ac1efb19f33c4}{filter\+\_\+order}} $>$ \&}]{lowpass\+\_\+filter,  }\item[{Iir\+::\+Butterworth\+::\+High\+Pass$<$ \mbox{\hyperlink{classECG_a4a13e96e2aa1c58af59ac1efb19f33c4}{filter\+\_\+order}} $>$ \&}]{highpass\+\_\+filter,  }\item[{float}]{sample,  }\item[{float}]{SAMPLING\+\_\+\+RATE }\end{DoxyParamCaption})}
+
+
+
+Filters the \doxylink{classECG}{ECG} signal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em notch\+\_\+filter} & The notch filter. \\
+\hline
+{\em lowpass\+\_\+filter} & The low-\/pass filter. \\
+\hline
+{\em highpass\+\_\+filter} & The high-\/pass filter. \\
+\hline
+{\em sample} & The \doxylink{classECG}{ECG} sample. \\
+\hline
+{\em SAMPLING\+\_\+\+RATE} & The sampling rate of the \doxylink{classECG}{ECG} signal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The filtered \doxylink{classECG}{ECG} sample. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\Hypertarget{classECG_abd385ea600c2e8dd78af173849acaa2b}\label{classECG_abd385ea600c2e8dd78af173849acaa2b} 
+\index{ECG@{ECG}!empty\_values@{empty\_values}}
+\index{empty\_values@{empty\_values}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{empty\_values()}{empty\_values()}}
+{\footnotesize\ttfamily void ECG\+::empty\+\_\+values (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Empties the values in the \doxylink{classECG}{ECG} buffer. 
+
+Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{classECG_a3072af22c3d67e726ba583a1d5c3e585}\label{classECG_a3072af22c3d67e726ba583a1d5c3e585} 
+\index{ECG@{ECG}!recalculate\_mean@{recalculate\_mean}}
+\index{recalculate\_mean@{recalculate\_mean}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{recalculate\_mean()}{recalculate\_mean()}}
+{\footnotesize\ttfamily void ECG\+::recalculate\+\_\+mean (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Recalculates the mean of the \doxylink{classECG}{ECG} signal. 
+
+Here is the caller graph for this function\+:
+% FIG 6
+\Hypertarget{classECG_a84a83e0204600ca4a2c8b5d4c48ce34a}\label{classECG_a84a83e0204600ca4a2c8b5d4c48ce34a} 
+\index{ECG@{ECG}!recalculate\_stdev@{recalculate\_stdev}}
+\index{recalculate\_stdev@{recalculate\_stdev}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{recalculate\_stdev()}{recalculate\_stdev()}}
+{\footnotesize\ttfamily void ECG\+::recalculate\+\_\+stdev (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Recalculates the standard deviation of the \doxylink{classECG}{ECG} signal. 
+
+Here is the caller graph for this function\+:
+% FIG 7
+\Hypertarget{classECG_ac48d6aab420142578e31c622e98f51ba}\label{classECG_ac48d6aab420142578e31c622e98f51ba} 
+\index{ECG@{ECG}!recalculate\_threshold@{recalculate\_threshold}}
+\index{recalculate\_threshold@{recalculate\_threshold}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{recalculate\_threshold()}{recalculate\_threshold()}}
+{\footnotesize\ttfamily void ECG\+::recalculate\+\_\+threshold (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Recalculates the threshold for peak detection. 
+
+Here is the caller graph for this function\+:
+% FIG 8
 \Hypertarget{classECG_a54ef07ae8554eaabae9fd14a8c93abdf}\label{classECG_a54ef07ae8554eaabae9fd14a8c93abdf} 
 \index{ECG@{ECG}!start@{start}}
 \index{start@{start}!ECG@{ECG}}
@@ -73,7 +238,7 @@ Starts the \doxylink{classECG}{ECG} sensor.
 \hline
 \end{DoxyParams}
 Here is the call graph for this function\+:
-% FIG 1
+% FIG 9
 \Hypertarget{classECG_a00e642fe0cf0806ca18af138136aa025}\label{classECG_a00e642fe0cf0806ca18af138136aa025} 
 \index{ECG@{ECG}!stop@{stop}}
 \index{stop@{stop}!ECG@{ECG}}
@@ -83,6 +248,149 @@ Here is the call graph for this function\+:
 
 
 Stops the \doxylink{classECG}{ECG} sensor. 
+
+Here is the caller graph for this function\+:
+% FIG 10
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classECG_a65c08db0cd238db7a9a8c7477e5efcbf}\label{classECG_a65c08db0cd238db7a9a8c7477e5efcbf} 
+\index{ECG@{ECG}!BUFFER\_SIZE@{BUFFER\_SIZE}}
+\index{BUFFER\_SIZE@{BUFFER\_SIZE}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
+{\footnotesize\ttfamily const int ECG\+::\+BUFFER\+\_\+\+SIZE\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{classECG_afd10756cc462e7a253f476e8aa4ace95}{SAMPLING\_RATE}}\ *\ 4}
+
+\end{DoxyCode}
+\Hypertarget{classECG_aa98f63000c1572508a3cf48f1816848f}\label{classECG_aa98f63000c1572508a3cf48f1816848f} 
+\index{ECG@{ECG}!bufferFull@{bufferFull}}
+\index{bufferFull@{bufferFull}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{bufferFull}{bufferFull}}
+{\footnotesize\ttfamily std\+::atomic$<$bool$>$ ECG\+::buffer\+Full}
+
+\Hypertarget{classECG_a69a81ff4139e939e877bf8b7b03f9d4d}\label{classECG_a69a81ff4139e939e877bf8b7b03f9d4d} 
+\index{ECG@{ECG}!circularBuffer@{circularBuffer}}
+\index{circularBuffer@{circularBuffer}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{circularBuffer}{circularBuffer}}
+{\footnotesize\ttfamily float ECG\+::circular\+Buffer\mbox{[}\mbox{\hyperlink{classECG_a65c08db0cd238db7a9a8c7477e5efcbf}{BUFFER\+\_\+\+SIZE}}\mbox{]} = \{0.\+0f\}}
+
+\Hypertarget{classECG_abc04ef31f2ee2d9cf9f8576a659c8760}\label{classECG_abc04ef31f2ee2d9cf9f8576a659c8760} 
+\index{ECG@{ECG}!cutoff\_frequency@{cutoff\_frequency}}
+\index{cutoff\_frequency@{cutoff\_frequency}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{cutoff\_frequency}{cutoff\_frequency}}
+{\footnotesize\ttfamily constexpr float ECG\+::cutoff\+\_\+frequency\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \ \ 50.0f}
+
+\end{DoxyCode}
+\Hypertarget{classECG_a0df3767d76ad46ea4aa456dfff909d1c}\label{classECG_a0df3767d76ad46ea4aa456dfff909d1c} 
+\index{ECG@{ECG}!detected\_peaks@{detected\_peaks}}
+\index{detected\_peaks@{detected\_peaks}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{detected\_peaks}{detected\_peaks}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ ECG\+::detected\+\_\+peaks}
+
+\Hypertarget{classECG_a53de8b5497ae2eb0c4703a2216f3ca3c}\label{classECG_a53de8b5497ae2eb0c4703a2216f3ca3c} 
+\index{ECG@{ECG}!ecgtcpqueue@{ecgtcpqueue}}
+\index{ecgtcpqueue@{ecgtcpqueue}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{ecgtcpqueue}{ecgtcpqueue}}
+{\footnotesize\ttfamily boost\+::lockfree\+::spsc\+\_\+queue$<$std\+::string, boost\+::lockfree\+::capacity$<$1024$>$ $>$ ECG\+::ecgtcpqueue}
+
+\Hypertarget{classECG_a4a13e96e2aa1c58af59ac1efb19f33c4}\label{classECG_a4a13e96e2aa1c58af59ac1efb19f33c4} 
+\index{ECG@{ECG}!filter\_order@{filter\_order}}
+\index{filter\_order@{filter\_order}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{filter\_order}{filter\_order}}
+{\footnotesize\ttfamily const int ECG\+::filter\+\_\+order = 4\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{classECG_a363732cf08a125be6c24b664f9ba6e4b}\label{classECG_a363732cf08a125be6c24b664f9ba6e4b} 
+\index{ECG@{ECG}!headIndex@{headIndex}}
+\index{headIndex@{headIndex}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{headIndex}{headIndex}}
+{\footnotesize\ttfamily std\+::atomic$<$int$>$ ECG\+::head\+Index}
+
+\Hypertarget{classECG_a11d171c97b5de296a82d0a2fb6633d18}\label{classECG_a11d171c97b5de296a82d0a2fb6633d18} 
+\index{ECG@{ECG}!heart\_rate@{heart\_rate}}
+\index{heart\_rate@{heart\_rate}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{heart\_rate}{heart\_rate}}
+{\footnotesize\ttfamily std\+::atomic$<$float$>$ ECG\+::heart\+\_\+rate}
+
+\Hypertarget{classECG_af9b563623df6db86754552ccac428d73}\label{classECG_af9b563623df6db86754552ccac428d73} 
+\index{ECG@{ECG}!highpass\_cutoff\_frequency@{highpass\_cutoff\_frequency}}
+\index{highpass\_cutoff\_frequency@{highpass\_cutoff\_frequency}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{highpass\_cutoff\_frequency}{highpass\_cutoff\_frequency}}
+{\footnotesize\ttfamily constexpr float ECG\+::highpass\+\_\+cutoff\+\_\+frequency\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \ \ 0.1f}
+
+\end{DoxyCode}
+\Hypertarget{classECG_a9dbfde5ef7209054f7548764a4cf8fb2}\label{classECG_a9dbfde5ef7209054f7548764a4cf8fb2} 
+\index{ECG@{ECG}!HRV@{HRV}}
+\index{HRV@{HRV}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{HRV}{HRV}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ ECG\+::\+HRV}
+
+\Hypertarget{classECG_adee40ac4de3b8b48d01211db63bde918}\label{classECG_adee40ac4de3b8b48d01211db63bde918} 
+\index{ECG@{ECG}!lowpass\_cutoff\_frequency@{lowpass\_cutoff\_frequency}}
+\index{lowpass\_cutoff\_frequency@{lowpass\_cutoff\_frequency}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{lowpass\_cutoff\_frequency}{lowpass\_cutoff\_frequency}}
+{\footnotesize\ttfamily constexpr float ECG\+::lowpass\+\_\+cutoff\+\_\+frequency\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \ \ 100.0f}
+
+\end{DoxyCode}
+\Hypertarget{classECG_a639c779bc093af0ed47ba1bd34d7b4e5}\label{classECG_a639c779bc093af0ed47ba1bd34d7b4e5} 
+\index{ECG@{ECG}!mean@{mean}}
+\index{mean@{mean}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{mean}{mean}}
+{\footnotesize\ttfamily std\+::atomic$<$float$>$ ECG\+::mean = 0.\+0f}
+
+\Hypertarget{classECG_a2b74f73764d8e92d876fcf0ebd0918d1}\label{classECG_a2b74f73764d8e92d876fcf0ebd0918d1} 
+\index{ECG@{ECG}!RR\_interval@{RR\_interval}}
+\index{RR\_interval@{RR\_interval}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{RR\_interval}{RR\_interval}}
+{\footnotesize\ttfamily std\+::atomic$<$float$>$ ECG\+::\+RR\+\_\+interval = 0.\+0f}
+
+\Hypertarget{classECG_a4d089ca68b1f52d4d48ebec4863ad0b8}\label{classECG_a4d089ca68b1f52d4d48ebec4863ad0b8} 
+\index{ECG@{ECG}!RR\_intervals@{RR\_intervals}}
+\index{RR\_intervals@{RR\_intervals}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{RR\_intervals}{RR\_intervals}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ ECG\+::\+RR\+\_\+intervals}
+
+\Hypertarget{classECG_a47dbcc4e9b5de1f0dca031de34c38b0c}\label{classECG_a47dbcc4e9b5de1f0dca031de34c38b0c} 
+\index{ECG@{ECG}!running@{running}}
+\index{running@{running}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{running}{running}}
+{\footnotesize\ttfamily std\+::atomic$<$bool$>$ ECG\+::running}
+
+\Hypertarget{classECG_afd10756cc462e7a253f476e8aa4ace95}\label{classECG_afd10756cc462e7a253f476e8aa4ace95} 
+\index{ECG@{ECG}!SAMPLING\_RATE@{SAMPLING\_RATE}}
+\index{SAMPLING\_RATE@{SAMPLING\_RATE}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{SAMPLING\_RATE}{SAMPLING\_RATE}}
+{\footnotesize\ttfamily const int ECG\+::\+SAMPLING\+\_\+\+RATE = 860.\+0f\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{classECG_a41524454a35a4ea47d73d4adb6167348}\label{classECG_a41524454a35a4ea47d73d4adb6167348} 
+\index{ECG@{ECG}!stdev@{stdev}}
+\index{stdev@{stdev}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{stdev}{stdev}}
+{\footnotesize\ttfamily std\+::atomic$<$float$>$ ECG\+::stdev = 0.\+0f}
+
+\Hypertarget{classECG_aa34b94e320b153be4d9aa908fc79bc79}\label{classECG_aa34b94e320b153be4d9aa908fc79bc79} 
+\index{ECG@{ECG}!threshold@{threshold}}
+\index{threshold@{threshold}!ECG@{ECG}}
+\doxysubsubsection{\texorpdfstring{threshold}{threshold}}
+{\footnotesize\ttfamily std\+::atomic$<$float$>$ ECG\+::threshold = \mbox{\hyperlink{classECG_a639c779bc093af0ed47ba1bd34d7b4e5}{mean}} + 3 \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classECG_a41524454a35a4ea47d73d4adb6167348}{stdev}}}
 
 
 

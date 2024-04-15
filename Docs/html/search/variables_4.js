@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['flags_0',['flags',['../structi2c__msg.html#a4b3bc1a36147fedfbdf9a15cc6ae88d9',1,'i2c_msg']]]
+  ['ecgtcpqueue_0',['ecgtcpqueue',['../classECG.html#a53de8b5497ae2eb0c4703a2216f3ca3c',1,'ECG']]]
 ];

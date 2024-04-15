@@ -1,0 +1,21 @@
+\doxysection{Software/\+Firmware/project/ppg/include/\+Circular\+Delay/\+Circular\+Delay.hpp File Reference}
+\hypertarget{CircularDelay_8hpp}{}\label{CircularDelay_8hpp}\index{Software/Firmware/project/ppg/include/CircularDelay/CircularDelay.hpp@{Software/Firmware/project/ppg/include/CircularDelay/CircularDelay.hpp}}
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+Include dependency graph for Circular\+Delay.\+hpp\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classCircularDelay}{Circular\+Delay$<$ type, size $>$}}
+\begin{DoxyCompactList}\small\item\em A class that functions as a sample buffer. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classCircularDelay_1_1iterator}{Circular\+Delay$<$ type, size $>$\+::iterator}}
+\item 
+class \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{Circular\+Delay$<$ type, size $>$\+::const\+\_\+iterator}}
+\item 
+class \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{Circular\+Delay$<$ type, size $>$\+::reverse\+\_\+iterator}}
+\item 
+class \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{Circular\+Delay$<$ type, size $>$\+::const\+\_\+reverse\+\_\+iterator}}
+\end{DoxyCompactItemize}

@@ -1,25 +1,28 @@
 \doxysection{Software/\+Firmware/project/max30102/include/max30102.hpp File Reference}
 \hypertarget{max30102_8hpp}{}\label{max30102_8hpp}\index{Software/Firmware/project/max30102/include/max30102.hpp@{Software/Firmware/project/max30102/include/max30102.hpp}}
-
-
-\doxylink{classMAX30102}{MAX30102} class for reading data from the \doxylink{classMAX30102}{MAX30102} sensor.  
-
-
+{\ttfamily \#include $<$assert.\+h$>$}\newline
 {\ttfamily \#include $<$fcntl.\+h$>$}\newline
-{\ttfamily \#include $<$pigpio.\+h$>$}\newline
+{\ttfamily \#include $<$gpiod.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
 {\ttfamily \#include $<$unistd.\+h$>$}\newline
 {\ttfamily \#include $<$chrono$>$}\newline
 {\ttfamily \#include $<$cstdint$>$}\newline
 {\ttfamily \#include $<$cstring$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}i2c-\/dev.\+h"{}}\newline
 Include dependency graph for max30102.\+hpp\+:
 % FIG 0
 This graph shows which files directly or indirectly include this file\+:
 % FIG 1
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMAX30102settings}{MAX30102settings}}
 \item 
 class \mbox{\hyperlink{classMAX30102}{MAX30102}}
 \begin{DoxyCompactList}\small\item\em \doxylink{classMAX30102}{MAX30102} class for reading data from the \doxylink{classMAX30102}{MAX30102} sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -34,11 +37,6 @@ class \mbox{\hyperlink{classMAX30102}{MAX30102}}
 \item 
 \#define \mbox{\hyperlink{max30102_8hpp_a8d6f782ffe53d87f0fd0327d4b09352c}{STORAGE\+\_\+\+SIZE}}~4
 \end{DoxyCompactItemize}
-
-
-\doxysubsection{Detailed Description}
-\doxylink{classMAX30102}{MAX30102} class for reading data from the \doxylink{classMAX30102}{MAX30102} sensor. 
-
 
 
 \doxysubsection{Macro Definition Documentation}

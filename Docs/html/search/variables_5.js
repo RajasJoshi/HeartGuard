@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['i2c_5fbus_0',['i2c_bus',['../structADS1115settings.html#ae0f3b1d6ef8068fed5e580fd4d7123b3',1,'ADS1115settings']]],
-  ['initpigpio_1',['initPIGPIO',['../structADS1115settings.html#add939ea3e172fc3c52fe9e53b05a66e4',1,'ADS1115settings']]]
+  ['filter_5forder_0',['filter_order',['../classECG.html#a4a13e96e2aa1c58af59ac1efb19f33c4',1,'ECG']]],
+  ['flags_1',['flags',['../structi2c__msg.html#a4b3bc1a36147fedfbdf9a15cc6ae88d9',1,'i2c_msg']]]
 ];

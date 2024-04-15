@@ -137,8 +137,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a9c5013fdbef7376faec2df49d123e67e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f4f9b2d8b6f0ef724bd4e4a68b75245" id="r_a3f4f9b2d8b6f0ef724bd4e4a68b75245"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a17845a1a94f94bb7d2406dbe13bc560d">Input</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f4f9b2d8b6f0ef724bd4e4a68b75245">channel</a> = <a class="el" href="#a17845a1a94f94bb7d2406dbe13bc560daa087ea46f630c382cfbe6b9e74a93956">AIN0</a></td></tr>
 <tr class="separator:a3f4f9b2d8b6f0ef724bd4e4a68b75245"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add939ea3e172fc3c52fe9e53b05a66e4" id="r_add939ea3e172fc3c52fe9e53b05a66e4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add939ea3e172fc3c52fe9e53b05a66e4">initPIGPIO</a> = true</td></tr>
-<tr class="separator:add939ea3e172fc3c52fe9e53b05a66e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b764c1300798718106d83bf76bd2608" id="r_a5b764c1300798718106d83bf76bd2608"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b764c1300798718106d83bf76bd2608">drdy_chip</a> = 0</td></tr>
+<tr class="separator:a5b764c1300798718106d83bf76bd2608"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ec35347e84e5165a35191e670c05b79" id="r_a2ec35347e84e5165a35191e670c05b79"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ec35347e84e5165a35191e670c05b79">drdy_gpio</a> = <a class="el" href="ads1115_8hpp.html#a4d85f7302915fc8924b2c8baab73cf47">DEFAULT_ALERT_RDY_TO_GPIO</a></td></tr>
 <tr class="separator:a2ec35347e84e5165a35191e670c05b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -276,6 +276,21 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a5b764c1300798718106d83bf76bd2608" name="a5b764c1300798718106d83bf76bd2608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b764c1300798718106d83bf76bd2608">&#9670;&#160;</a></span>drdy_chip</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ADS1115settings::drdy_chip = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>GPIO Chip number which receives the Data Ready signal </p>
+
+</div>
+</div>
 <a id="a2ec35347e84e5165a35191e670c05b79" name="a2ec35347e84e5165a35191e670c05b79"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ec35347e84e5165a35191e670c05b79">&#9670;&#160;</a></span>drdy_gpio</h2>
 
@@ -303,21 +318,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>I2C bus used (99% always set to one) </p>
-
-</div>
-</div>
-<a id="add939ea3e172fc3c52fe9e53b05a66e4" name="add939ea3e172fc3c52fe9e53b05a66e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add939ea3e172fc3c52fe9e53b05a66e4">&#9670;&#160;</a></span>initPIGPIO</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ADS1115settings::initPIGPIO = true</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>If set to true the pigpio will be initialised </p>
 
 </div>
 </div>

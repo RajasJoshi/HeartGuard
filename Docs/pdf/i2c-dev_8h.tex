@@ -1,10 +1,12 @@
 \doxysection{Software/\+Firmware/project/max30102/include/i2c-\/dev.h File Reference}
 \hypertarget{i2c-dev_8h}{}\label{i2c-dev_8h}\index{Software/Firmware/project/max30102/include/i2c-\/dev.h@{Software/Firmware/project/max30102/include/i2c-\/dev.h}}
 {\ttfamily \#include $<$linux/types.\+h$>$}\newline
-{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
 {\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
 Include dependency graph for i2c-\/dev.h\+:
 % FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -19,7 +21,7 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_abe53ff15e0717ccbd1d4c656c09ee53a}{I2\+C\+\_\+\+M\+\_\+\+TEN}}~0x10    /\texorpdfstring{$\ast$}{*} we have a ten bit chip address       \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_abe53ff15e0717ccbd1d4c656c09ee53a}{I2\+C\+\_\+\+M\+\_\+\+TEN}}~0x10 /\texorpdfstring{$\ast$}{*} we have a ten bit chip address       \texorpdfstring{$\ast$}{*}/
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_adb8eddbb89e88c4fc0e44306fc878b85}{I2\+C\+\_\+\+M\+\_\+\+RD}}~0x01
 \item 
@@ -35,7 +37,7 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_a41ba50f5508feed338fe3181540e1894}{I2\+C\+\_\+\+FUNC\+\_\+10\+BIT\+\_\+\+ADDR}}~0x00000002
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_af023c6b90cc950f3673e98462ff52a59}{I2\+C\+\_\+\+FUNC\+\_\+\+PROTOCOL\+\_\+\+MANGLING}}~0x00000004 /\texorpdfstring{$\ast$}{*} I2\+C\+\_\+\+M\+\_\+\{REV\+\_\+\+DIR\+\_\+\+ADDR,NOSTART,..\} \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_af023c6b90cc950f3673e98462ff52a59}{I2\+C\+\_\+\+FUNC\+\_\+\+PROTOCOL\+\_\+\+MANGLING}}~  0x00000004 /\texorpdfstring{$\ast$}{*} I2\+C\+\_\+\+M\+\_\+\{REV\+\_\+\+DIR\+\_\+\+ADDR,NOSTART,..\} \texorpdfstring{$\ast$}{*}/
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_aef3b905e021dbe7aaf98da89c4648764}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+PEC}}~0x00000008
 \item 
@@ -61,25 +63,25 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_a1f3f845fc6c212f6d54848cc71e752ab}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+BLOCK\+\_\+\+DATA}}~0x02000000
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a1e2efae197b3bcf4adb79b45065da621}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+I2\+C\+\_\+\+BLOCK}}~0x04000000 /\texorpdfstring{$\ast$}{*} I2C-\/like block xfer  \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_a1e2efae197b3bcf4adb79b45065da621}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+I2\+C\+\_\+\+BLOCK}}~0x04000000  /\texorpdfstring{$\ast$}{*} I2C-\/like block xfer  \texorpdfstring{$\ast$}{*}/
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_a87990a457cb6785821f82eddd5bda85e}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+I2\+C\+\_\+\+BLOCK}}~0x08000000 /\texorpdfstring{$\ast$}{*} w/ 1-\/byte reg. addr. \texorpdfstring{$\ast$}{*}/
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a0e940355fb6532a740e57aece17c670c}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BYTE}}
+\#define \mbox{\hyperlink{i2c-dev_8h_a0e940355fb6532a740e57aece17c670c}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BYTE}}~  (\mbox{\hyperlink{i2c-dev_8h_a2aea3a65daa2b1734e85d5c63b9e9672}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+BYTE}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_a0a0e43b21d3085e3a00300f41ccf156d}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+BYTE}})
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a3d09bc1b4dfbf7336abf83e477419b90}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BYTE\+\_\+\+DATA}}
+\#define \mbox{\hyperlink{i2c-dev_8h_a3d09bc1b4dfbf7336abf83e477419b90}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BYTE\+\_\+\+DATA}}~  (\mbox{\hyperlink{i2c-dev_8h_a5645b268c2303289fdf043c3a035bf8d}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+BYTE\+\_\+\+DATA}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_ac4186861a5c7f01d45e1f4ecba20334c}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+BYTE\+\_\+\+DATA}})
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a1448936de71a0846193adbde34900948}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WORD\+\_\+\+DATA}}
+\#define \mbox{\hyperlink{i2c-dev_8h_a1448936de71a0846193adbde34900948}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WORD\+\_\+\+DATA}}~  (\mbox{\hyperlink{i2c-dev_8h_a1e313c48fbaba109e4b42b615c806459}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+WORD\+\_\+\+DATA}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_a485634a989b0ace55940b8235785fcc5}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+WORD\+\_\+\+DATA}})
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_aef52b94d71c11d2849c6f3ae62d0e29b}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+DATA}}
+\#define \mbox{\hyperlink{i2c-dev_8h_aef52b94d71c11d2849c6f3ae62d0e29b}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+DATA}}~  (\mbox{\hyperlink{i2c-dev_8h_a8a64d1f3b43e584549645386089fafe4}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+BLOCK\+\_\+\+DATA}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_a1f3f845fc6c212f6d54848cc71e752ab}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+BLOCK\+\_\+\+DATA}})
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_ad94ca1f256004b790c2feb762ff963e7}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK}}
+\#define \mbox{\hyperlink{i2c-dev_8h_ad94ca1f256004b790c2feb762ff963e7}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK}}~  (\mbox{\hyperlink{i2c-dev_8h_a1e2efae197b3bcf4adb79b45065da621}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+I2\+C\+\_\+\+BLOCK}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_a87990a457cb6785821f82eddd5bda85e}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+I2\+C\+\_\+\+BLOCK}})
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_a21b4983c1a932e11d566a9e11734e4a8}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+HWPEC\+\_\+\+CALC}}~\mbox{\hyperlink{i2c-dev_8h_aef3b905e021dbe7aaf98da89c4648764}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+PEC}}
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_ac2dd8b77e329bba4a3ca9cd275f9bf50}{I2\+C\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+MAX}}~32      /\texorpdfstring{$\ast$}{*} As specified in SMBus standard \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_ac2dd8b77e329bba4a3ca9cd275f9bf50}{I2\+C\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+MAX}}~32     /\texorpdfstring{$\ast$}{*} As specified in SMBus standard \texorpdfstring{$\ast$}{*}/
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a13045bd7a62d8d55acbcf174b7149cbf}{I2\+C\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK\+\_\+\+MAX}}~32      /\texorpdfstring{$\ast$}{*} Not specified but we use same structure \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_a13045bd7a62d8d55acbcf174b7149cbf}{I2\+C\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK\+\_\+\+MAX}}
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_a8f5482668eb7741ef21dd9c211d876c9}{I2\+C\+\_\+\+SMBUS\+\_\+\+READ}}~1
 \item 
@@ -99,27 +101,27 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_a36bcbcb9294695fddb8606a32cbedc9b}{I2\+C\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK\+\_\+\+BROKEN}}~6
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a187e1de23e9935885cdb94ee429a2eed}{I2\+C\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+PROC\+\_\+\+CALL}}~7           /\texorpdfstring{$\ast$}{*} SMBus 2.\+0 \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_a187e1de23e9935885cdb94ee429a2eed}{I2\+C\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+PROC\+\_\+\+CALL}}~7 /\texorpdfstring{$\ast$}{*} SMBus 2.\+0 \texorpdfstring{$\ast$}{*}/
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_aa5ecbb0ceaddcb905d68d366edfb026c}{I2\+C\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK\+\_\+\+DATA}}~8
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_ae8b7ab32459314e0c0162974f2ce22e1}{I2\+C\+\_\+\+RETRIES}}
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_afa3215f0aa766367f5d34bee80929152}{I2\+C\+\_\+\+TIMEOUT}}~0x0702  /\texorpdfstring{$\ast$}{*} set timeout in units of 10 ms \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_afa3215f0aa766367f5d34bee80929152}{I2\+C\+\_\+\+TIMEOUT}}~0x0702 /\texorpdfstring{$\ast$}{*} set timeout in units of 10 ms \texorpdfstring{$\ast$}{*}/
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_ab15137f7c592d05573de99f078516157}{I2\+C\+\_\+\+SLAVE}}~0x0703  /\texorpdfstring{$\ast$}{*} Use this slave address \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_ab15137f7c592d05573de99f078516157}{I2\+C\+\_\+\+SLAVE}}~0x0703 /\texorpdfstring{$\ast$}{*} Use this slave address \texorpdfstring{$\ast$}{*}/
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_afb1764d4b58fb542306c715ad6a28a42}{I2\+C\+\_\+\+SLAVE\+\_\+\+FORCE}}
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a2a0b1f3843e98977be7476579c851305}{I2\+C\+\_\+\+TENBIT}}~0x0704  /\texorpdfstring{$\ast$}{*} 0 for 7 bit addrs, != 0 for 10 bit \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_a2a0b1f3843e98977be7476579c851305}{I2\+C\+\_\+\+TENBIT}}~0x0704 /\texorpdfstring{$\ast$}{*} 0 for 7 bit addrs, != 0 for 10 bit \texorpdfstring{$\ast$}{*}/
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a4c2f02700f22d4f76c670966aed5079a}{I2\+C\+\_\+\+FUNCS}}~0x0705  /\texorpdfstring{$\ast$}{*} Get the adapter functionality mask \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_a4c2f02700f22d4f76c670966aed5079a}{I2\+C\+\_\+\+FUNCS}}~0x0705 /\texorpdfstring{$\ast$}{*} Get the adapter functionality mask \texorpdfstring{$\ast$}{*}/
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a7645f9831bcbbae2339fcff4d85691be}{I2\+C\+\_\+\+RDWR}}~0x0707  /\texorpdfstring{$\ast$}{*} Combined R/W transfer (one STOP only) \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_a7645f9831bcbbae2339fcff4d85691be}{I2\+C\+\_\+\+RDWR}}~0x0707 /\texorpdfstring{$\ast$}{*} Combined R/W transfer (one STOP only) \texorpdfstring{$\ast$}{*}/
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a2a72d7072db21c407f82e6e73854b38f}{I2\+C\+\_\+\+PEC}}~0x0708  /\texorpdfstring{$\ast$}{*} != 0 to use PEC with SMBus \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_a2a72d7072db21c407f82e6e73854b38f}{I2\+C\+\_\+\+PEC}}~0x0708   /\texorpdfstring{$\ast$}{*} != 0 to use PEC with SMBus \texorpdfstring{$\ast$}{*}/
 \item 
-\#define \mbox{\hyperlink{i2c-dev_8h_a4e9d483fb9eb1074646726ce518b1d4d}{I2\+C\+\_\+\+SMBUS}}~0x0720  /\texorpdfstring{$\ast$}{*} SMBus transfer \texorpdfstring{$\ast$}{*}/
+\#define \mbox{\hyperlink{i2c-dev_8h_a4e9d483fb9eb1074646726ce518b1d4d}{I2\+C\+\_\+\+SMBUS}}~0x0720 /\texorpdfstring{$\ast$}{*} SMBus transfer \texorpdfstring{$\ast$}{*}/
 \item 
 \#define \mbox{\hyperlink{i2c-dev_8h_a272399a0175400a2ebb55ff518a85012}{I2\+C\+\_\+\+RDRW\+\_\+\+IOCTL\+\_\+\+MAX\+\_\+\+MSGS}}~42
 \end{DoxyCompactItemize}
@@ -142,20 +144,14 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_PROTOCOL\_MANGLING@{I2C\_FUNC\_PROTOCOL\_MANGLING}}
 \index{I2C\_FUNC\_PROTOCOL\_MANGLING@{I2C\_FUNC\_PROTOCOL\_MANGLING}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_FUNC\_PROTOCOL\_MANGLING}{I2C\_FUNC\_PROTOCOL\_MANGLING}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+PROTOCOL\+\_\+\+MANGLING~0x00000004 /\texorpdfstring{$\ast$}{*} I2\+C\+\_\+\+M\+\_\+\{REV\+\_\+\+DIR\+\_\+\+ADDR,NOSTART,..\} \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+PROTOCOL\+\_\+\+MANGLING~  0x00000004 /\texorpdfstring{$\ast$}{*} I2\+C\+\_\+\+M\+\_\+\{REV\+\_\+\+DIR\+\_\+\+ADDR,NOSTART,..\} \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_aef52b94d71c11d2849c6f3ae62d0e29b}\label{i2c-dev_8h_aef52b94d71c11d2849c6f3ae62d0e29b} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_BLOCK\_DATA@{I2C\_FUNC\_SMBUS\_BLOCK\_DATA}}
 \index{I2C\_FUNC\_SMBUS\_BLOCK\_DATA@{I2C\_FUNC\_SMBUS\_BLOCK\_DATA}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_FUNC\_SMBUS\_BLOCK\_DATA}{I2C\_FUNC\_SMBUS\_BLOCK\_DATA}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+DATA}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+DATA~  (\mbox{\hyperlink{i2c-dev_8h_a8a64d1f3b43e584549645386089fafe4}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+BLOCK\+\_\+\+DATA}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_a1f3f845fc6c212f6d54848cc71e752ab}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+BLOCK\+\_\+\+DATA}})}
 
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{i2c-dev_8h_a8a64d1f3b43e584549645386089fafe4}{I2C\_FUNC\_SMBUS\_READ\_BLOCK\_DATA}}\ |\ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{i2c-dev_8h_a1f3f845fc6c212f6d54848cc71e752ab}{I2C\_FUNC\_SMBUS\_WRITE\_BLOCK\_DATA}})}
-
-\end{DoxyCode}
 \Hypertarget{i2c-dev_8h_ab98217e0ad04cb3068e159c2de8fd84d}\label{i2c-dev_8h_ab98217e0ad04cb3068e159c2de8fd84d} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_BLOCK\_PROC\_CALL@{I2C\_FUNC\_SMBUS\_BLOCK\_PROC\_CALL}}
 \index{I2C\_FUNC\_SMBUS\_BLOCK\_PROC\_CALL@{I2C\_FUNC\_SMBUS\_BLOCK\_PROC\_CALL}!i2c-\/dev.h@{i2c-\/dev.h}}
@@ -166,26 +162,14 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_BYTE@{I2C\_FUNC\_SMBUS\_BYTE}}
 \index{I2C\_FUNC\_SMBUS\_BYTE@{I2C\_FUNC\_SMBUS\_BYTE}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_FUNC\_SMBUS\_BYTE}{I2C\_FUNC\_SMBUS\_BYTE}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BYTE}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BYTE~  (\mbox{\hyperlink{i2c-dev_8h_a2aea3a65daa2b1734e85d5c63b9e9672}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+BYTE}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_a0a0e43b21d3085e3a00300f41ccf156d}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+BYTE}})}
 
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{i2c-dev_8h_a2aea3a65daa2b1734e85d5c63b9e9672}{I2C\_FUNC\_SMBUS\_READ\_BYTE}}\ |\ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{i2c-dev_8h_a0a0e43b21d3085e3a00300f41ccf156d}{I2C\_FUNC\_SMBUS\_WRITE\_BYTE}})}
-
-\end{DoxyCode}
 \Hypertarget{i2c-dev_8h_a3d09bc1b4dfbf7336abf83e477419b90}\label{i2c-dev_8h_a3d09bc1b4dfbf7336abf83e477419b90} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_BYTE\_DATA@{I2C\_FUNC\_SMBUS\_BYTE\_DATA}}
 \index{I2C\_FUNC\_SMBUS\_BYTE\_DATA@{I2C\_FUNC\_SMBUS\_BYTE\_DATA}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_FUNC\_SMBUS\_BYTE\_DATA}{I2C\_FUNC\_SMBUS\_BYTE\_DATA}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BYTE\+\_\+\+DATA}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+BYTE\+\_\+\+DATA~  (\mbox{\hyperlink{i2c-dev_8h_a5645b268c2303289fdf043c3a035bf8d}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+BYTE\+\_\+\+DATA}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_ac4186861a5c7f01d45e1f4ecba20334c}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+BYTE\+\_\+\+DATA}})}
 
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{i2c-dev_8h_a5645b268c2303289fdf043c3a035bf8d}{I2C\_FUNC\_SMBUS\_READ\_BYTE\_DATA}}\ |\ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{i2c-dev_8h_ac4186861a5c7f01d45e1f4ecba20334c}{I2C\_FUNC\_SMBUS\_WRITE\_BYTE\_DATA}})}
-
-\end{DoxyCode}
 \Hypertarget{i2c-dev_8h_a21b4983c1a932e11d566a9e11734e4a8}\label{i2c-dev_8h_a21b4983c1a932e11d566a9e11734e4a8} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_HWPEC\_CALC@{I2C\_FUNC\_SMBUS\_HWPEC\_CALC}}
 \index{I2C\_FUNC\_SMBUS\_HWPEC\_CALC@{I2C\_FUNC\_SMBUS\_HWPEC\_CALC}!i2c-\/dev.h@{i2c-\/dev.h}}
@@ -196,14 +180,8 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_I2C\_BLOCK@{I2C\_FUNC\_SMBUS\_I2C\_BLOCK}}
 \index{I2C\_FUNC\_SMBUS\_I2C\_BLOCK@{I2C\_FUNC\_SMBUS\_I2C\_BLOCK}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_FUNC\_SMBUS\_I2C\_BLOCK}{I2C\_FUNC\_SMBUS\_I2C\_BLOCK}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK~  (\mbox{\hyperlink{i2c-dev_8h_a1e2efae197b3bcf4adb79b45065da621}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+I2\+C\+\_\+\+BLOCK}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_a87990a457cb6785821f82eddd5bda85e}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+I2\+C\+\_\+\+BLOCK}})}
 
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{i2c-dev_8h_a1e2efae197b3bcf4adb79b45065da621}{I2C\_FUNC\_SMBUS\_READ\_I2C\_BLOCK}}\ |\ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{i2c-dev_8h_a87990a457cb6785821f82eddd5bda85e}{I2C\_FUNC\_SMBUS\_WRITE\_I2C\_BLOCK}})}
-
-\end{DoxyCode}
 \Hypertarget{i2c-dev_8h_aef3b905e021dbe7aaf98da89c4648764}\label{i2c-dev_8h_aef3b905e021dbe7aaf98da89c4648764} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_PEC@{I2C\_FUNC\_SMBUS\_PEC}}
 \index{I2C\_FUNC\_SMBUS\_PEC@{I2C\_FUNC\_SMBUS\_PEC}!i2c-\/dev.h@{i2c-\/dev.h}}
@@ -244,7 +222,7 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_READ\_I2C\_BLOCK@{I2C\_FUNC\_SMBUS\_READ\_I2C\_BLOCK}}
 \index{I2C\_FUNC\_SMBUS\_READ\_I2C\_BLOCK@{I2C\_FUNC\_SMBUS\_READ\_I2C\_BLOCK}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_FUNC\_SMBUS\_READ\_I2C\_BLOCK}{I2C\_FUNC\_SMBUS\_READ\_I2C\_BLOCK}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+I2\+C\+\_\+\+BLOCK~0x04000000 /\texorpdfstring{$\ast$}{*} I2C-\/like block xfer  \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+I2\+C\+\_\+\+BLOCK~0x04000000  /\texorpdfstring{$\ast$}{*} I2C-\/like block xfer  \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_a1e313c48fbaba109e4b42b615c806459}\label{i2c-dev_8h_a1e313c48fbaba109e4b42b615c806459} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_READ\_WORD\_DATA@{I2C\_FUNC\_SMBUS\_READ\_WORD\_DATA}}
@@ -256,14 +234,8 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_WORD\_DATA@{I2C\_FUNC\_SMBUS\_WORD\_DATA}}
 \index{I2C\_FUNC\_SMBUS\_WORD\_DATA@{I2C\_FUNC\_SMBUS\_WORD\_DATA}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_FUNC\_SMBUS\_WORD\_DATA}{I2C\_FUNC\_SMBUS\_WORD\_DATA}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WORD\+\_\+\+DATA}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WORD\+\_\+\+DATA~  (\mbox{\hyperlink{i2c-dev_8h_a1e313c48fbaba109e4b42b615c806459}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+READ\+\_\+\+WORD\+\_\+\+DATA}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{i2c-dev_8h_a485634a989b0ace55940b8235785fcc5}{I2\+C\+\_\+\+FUNC\+\_\+\+SMBUS\+\_\+\+WRITE\+\_\+\+WORD\+\_\+\+DATA}})}
 
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{i2c-dev_8h_a1e313c48fbaba109e4b42b615c806459}{I2C\_FUNC\_SMBUS\_READ\_WORD\_DATA}}\ |\ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{i2c-dev_8h_a485634a989b0ace55940b8235785fcc5}{I2C\_FUNC\_SMBUS\_WRITE\_WORD\_DATA}})}
-
-\end{DoxyCode}
 \Hypertarget{i2c-dev_8h_a1f3f845fc6c212f6d54848cc71e752ab}\label{i2c-dev_8h_a1f3f845fc6c212f6d54848cc71e752ab} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNC\_SMBUS\_WRITE\_BLOCK\_DATA@{I2C\_FUNC\_SMBUS\_WRITE\_BLOCK\_DATA}}
 \index{I2C\_FUNC\_SMBUS\_WRITE\_BLOCK\_DATA@{I2C\_FUNC\_SMBUS\_WRITE\_BLOCK\_DATA}!i2c-\/dev.h@{i2c-\/dev.h}}
@@ -298,7 +270,7 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_FUNCS@{I2C\_FUNCS}}
 \index{I2C\_FUNCS@{I2C\_FUNCS}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_FUNCS}{I2C\_FUNCS}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNCS~0x0705  /\texorpdfstring{$\ast$}{*} Get the adapter functionality mask \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+FUNCS~0x0705 /\texorpdfstring{$\ast$}{*} Get the adapter functionality mask \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_a0629c50bb05b4c037e726373da50755b}\label{i2c-dev_8h_a0629c50bb05b4c037e726373da50755b} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_M\_IGNORE\_NAK@{I2C\_M\_IGNORE\_NAK}}
@@ -334,13 +306,13 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_M\_TEN@{I2C\_M\_TEN}}
 \index{I2C\_M\_TEN@{I2C\_M\_TEN}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_M\_TEN}{I2C\_M\_TEN}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+M\+\_\+\+TEN~0x10    /\texorpdfstring{$\ast$}{*} we have a ten bit chip address       \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+M\+\_\+\+TEN~0x10 /\texorpdfstring{$\ast$}{*} we have a ten bit chip address       \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_a2a72d7072db21c407f82e6e73854b38f}\label{i2c-dev_8h_a2a72d7072db21c407f82e6e73854b38f} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_PEC@{I2C\_PEC}}
 \index{I2C\_PEC@{I2C\_PEC}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_PEC}{I2C\_PEC}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+PEC~0x0708  /\texorpdfstring{$\ast$}{*} != 0 to use PEC with SMBus \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+PEC~0x0708   /\texorpdfstring{$\ast$}{*} != 0 to use PEC with SMBus \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_a272399a0175400a2ebb55ff518a85012}\label{i2c-dev_8h_a272399a0175400a2ebb55ff518a85012} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_RDRW\_IOCTL\_MAX\_MSGS@{I2C\_RDRW\_IOCTL\_MAX\_MSGS}}
@@ -352,7 +324,7 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_RDWR@{I2C\_RDWR}}
 \index{I2C\_RDWR@{I2C\_RDWR}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_RDWR}{I2C\_RDWR}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+RDWR~0x0707  /\texorpdfstring{$\ast$}{*} Combined R/W transfer (one STOP only) \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+RDWR~0x0707 /\texorpdfstring{$\ast$}{*} Combined R/W transfer (one STOP only) \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_ae8b7ab32459314e0c0162974f2ce22e1}\label{i2c-dev_8h_ae8b7ab32459314e0c0162974f2ce22e1} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_RETRIES@{I2C\_RETRIES}}
@@ -362,15 +334,15 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0701\ \ \textcolor{comment}{/*\ number\ of\ times\ a\ device\ address\ should}}
-\DoxyCodeLine{\textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ be\ polled\ when\ not\ acknowledging\ */}}
+\DoxyCodeLine{\ \ 0x0701\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ number\ of\ times\ a\ device\ address\ should\ \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ be\ polled\ when\ not\ acknowledging\ */}}
 
 \end{DoxyCode}
 \Hypertarget{i2c-dev_8h_ab15137f7c592d05573de99f078516157}\label{i2c-dev_8h_ab15137f7c592d05573de99f078516157} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_SLAVE@{I2C\_SLAVE}}
 \index{I2C\_SLAVE@{I2C\_SLAVE}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_SLAVE}{I2C\_SLAVE}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SLAVE~0x0703  /\texorpdfstring{$\ast$}{*} Use this slave address \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SLAVE~0x0703 /\texorpdfstring{$\ast$}{*} Use this slave address \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_afb1764d4b58fb542306c715ad6a28a42}\label{i2c-dev_8h_afb1764d4b58fb542306c715ad6a28a42} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_SLAVE\_FORCE@{I2C\_SLAVE\_FORCE}}
@@ -380,15 +352,15 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0706\ \ \textcolor{comment}{/*\ Use\ this\ slave\ address,\ even\ if\ it}}
-\DoxyCodeLine{\textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\ already\ in\ use\ by\ a\ driver!\ */}}
+\DoxyCodeLine{\ \ 0x0706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Use\ this\ slave\ address,\ even\ if\ it\ \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\ already\ in\ use\ by\ a\ driver!\ */}}
 
 \end{DoxyCode}
 \Hypertarget{i2c-dev_8h_a4e9d483fb9eb1074646726ce518b1d4d}\label{i2c-dev_8h_a4e9d483fb9eb1074646726ce518b1d4d} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_SMBUS@{I2C\_SMBUS}}
 \index{I2C\_SMBUS@{I2C\_SMBUS}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_SMBUS}{I2C\_SMBUS}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SMBUS~0x0720  /\texorpdfstring{$\ast$}{*} SMBus transfer \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SMBUS~0x0720 /\texorpdfstring{$\ast$}{*} SMBus transfer \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_a0253f81d1f2732492c1a05dc41094d12}\label{i2c-dev_8h_a0253f81d1f2732492c1a05dc41094d12} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_SMBUS\_BLOCK\_DATA@{I2C\_SMBUS\_BLOCK\_DATA}}
@@ -400,13 +372,13 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_SMBUS\_BLOCK\_MAX@{I2C\_SMBUS\_BLOCK\_MAX}}
 \index{I2C\_SMBUS\_BLOCK\_MAX@{I2C\_SMBUS\_BLOCK\_MAX}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_SMBUS\_BLOCK\_MAX}{I2C\_SMBUS\_BLOCK\_MAX}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+MAX~32      /\texorpdfstring{$\ast$}{*} As specified in SMBus standard \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+MAX~32     /\texorpdfstring{$\ast$}{*} As specified in SMBus standard \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_a187e1de23e9935885cdb94ee429a2eed}\label{i2c-dev_8h_a187e1de23e9935885cdb94ee429a2eed} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_SMBUS\_BLOCK\_PROC\_CALL@{I2C\_SMBUS\_BLOCK\_PROC\_CALL}}
 \index{I2C\_SMBUS\_BLOCK\_PROC\_CALL@{I2C\_SMBUS\_BLOCK\_PROC\_CALL}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_SMBUS\_BLOCK\_PROC\_CALL}{I2C\_SMBUS\_BLOCK\_PROC\_CALL}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+PROC\+\_\+\+CALL~7           /\texorpdfstring{$\ast$}{*} SMBus 2.\+0 \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SMBUS\+\_\+\+BLOCK\+\_\+\+PROC\+\_\+\+CALL~7 /\texorpdfstring{$\ast$}{*} SMBus 2.\+0 \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_a8006fa66a9d9224959fb8337a365a12a}\label{i2c-dev_8h_a8006fa66a9d9224959fb8337a365a12a} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_SMBUS\_BYTE@{I2C\_SMBUS\_BYTE}}
@@ -436,8 +408,14 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_SMBUS\_I2C\_BLOCK\_MAX@{I2C\_SMBUS\_I2C\_BLOCK\_MAX}}
 \index{I2C\_SMBUS\_I2C\_BLOCK\_MAX@{I2C\_SMBUS\_I2C\_BLOCK\_MAX}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_SMBUS\_I2C\_BLOCK\_MAX}{I2C\_SMBUS\_I2C\_BLOCK\_MAX}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK\+\_\+\+MAX~32      /\texorpdfstring{$\ast$}{*} Not specified but we use same structure \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+SMBUS\+\_\+\+I2\+C\+\_\+\+BLOCK\+\_\+\+MAX}
 
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 32\ \textcolor{comment}{/*\ Not\ specified\ but\ we\ use\ same\ structure\ \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+
+\end{DoxyCode}
 \Hypertarget{i2c-dev_8h_a140bc92b58f10de5eb796ad71e8f0da2}\label{i2c-dev_8h_a140bc92b58f10de5eb796ad71e8f0da2} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_SMBUS\_PROC\_CALL@{I2C\_SMBUS\_PROC\_CALL}}
 \index{I2C\_SMBUS\_PROC\_CALL@{I2C\_SMBUS\_PROC\_CALL}!i2c-\/dev.h@{i2c-\/dev.h}}
@@ -472,11 +450,11 @@ struct \mbox{\hyperlink{structi2c__rdwr__ioctl__data}{i2c\+\_\+rdwr\+\_\+ioctl\+
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_TENBIT@{I2C\_TENBIT}}
 \index{I2C\_TENBIT@{I2C\_TENBIT}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_TENBIT}{I2C\_TENBIT}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+TENBIT~0x0704  /\texorpdfstring{$\ast$}{*} 0 for 7 bit addrs, != 0 for 10 bit \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+TENBIT~0x0704 /\texorpdfstring{$\ast$}{*} 0 for 7 bit addrs, != 0 for 10 bit \texorpdfstring{$\ast$}{*}/}
 
 \Hypertarget{i2c-dev_8h_afa3215f0aa766367f5d34bee80929152}\label{i2c-dev_8h_afa3215f0aa766367f5d34bee80929152} 
 \index{i2c-\/dev.h@{i2c-\/dev.h}!I2C\_TIMEOUT@{I2C\_TIMEOUT}}
 \index{I2C\_TIMEOUT@{I2C\_TIMEOUT}!i2c-\/dev.h@{i2c-\/dev.h}}
 \doxysubsubsection{\texorpdfstring{I2C\_TIMEOUT}{I2C\_TIMEOUT}}
-{\footnotesize\ttfamily \#define I2\+C\+\_\+\+TIMEOUT~0x0702  /\texorpdfstring{$\ast$}{*} set timeout in units of 10 ms \texorpdfstring{$\ast$}{*}/}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+TIMEOUT~0x0702 /\texorpdfstring{$\ast$}{*} set timeout in units of 10 ms \texorpdfstring{$\ast$}{*}/}
 

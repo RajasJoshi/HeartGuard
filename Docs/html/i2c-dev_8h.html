@@ -83,12 +83,17 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;linux/types.h&gt;</code><br />
-<code>#include &lt;sys/ioctl.h&gt;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
+<code>#include &lt;sys/ioctl.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for i2c-dev.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="i2c-dev_8h__incl.png" border="0" usemap="#aSoftware_2Firmware_2project_2max30102_2include_2i2c-dev_8h" alt=""/></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="i2c-dev_8h__dep__incl.png" border="0" usemap="#aSoftware_2Firmware_2project_2max30102_2include_2i2c-dev_8hdep" alt=""/></div>
 </div>
 </div>
 <p><a href="i2c-dev_8h_source.html">Go to the source code of this file.</a></p>
@@ -106,7 +111,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:abe53ff15e0717ccbd1d4c656c09ee53a" id="r_abe53ff15e0717ccbd1d4c656c09ee53a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe53ff15e0717ccbd1d4c656c09ee53a">I2C_M_TEN</a>&#160;&#160;&#160;0x10    /* we have a ten bit chip address       */</td></tr>
+<tr class="memitem:abe53ff15e0717ccbd1d4c656c09ee53a" id="r_abe53ff15e0717ccbd1d4c656c09ee53a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe53ff15e0717ccbd1d4c656c09ee53a">I2C_M_TEN</a>&#160;&#160;&#160;0x10 /* we have a ten bit chip address       */</td></tr>
 <tr class="separator:abe53ff15e0717ccbd1d4c656c09ee53a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb8eddbb89e88c4fc0e44306fc878b85" id="r_adb8eddbb89e88c4fc0e44306fc878b85"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb8eddbb89e88c4fc0e44306fc878b85">I2C_M_RD</a>&#160;&#160;&#160;0x01</td></tr>
 <tr class="separator:adb8eddbb89e88c4fc0e44306fc878b85"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,7 +127,7 @@ Macros</h2></td></tr>
 <tr class="separator:a57a8a5a73f12268825d31bec6184b915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41ba50f5508feed338fe3181540e1894" id="r_a41ba50f5508feed338fe3181540e1894"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41ba50f5508feed338fe3181540e1894">I2C_FUNC_10BIT_ADDR</a>&#160;&#160;&#160;0x00000002</td></tr>
 <tr class="separator:a41ba50f5508feed338fe3181540e1894"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af023c6b90cc950f3673e98462ff52a59" id="r_af023c6b90cc950f3673e98462ff52a59"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af023c6b90cc950f3673e98462ff52a59">I2C_FUNC_PROTOCOL_MANGLING</a>&#160;&#160;&#160;0x00000004 /* I2C_M_{REV_DIR_ADDR,NOSTART,..} */</td></tr>
+<tr class="memitem:af023c6b90cc950f3673e98462ff52a59" id="r_af023c6b90cc950f3673e98462ff52a59"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af023c6b90cc950f3673e98462ff52a59">I2C_FUNC_PROTOCOL_MANGLING</a>&#160;&#160;&#160;  0x00000004 /* I2C_M_{REV_DIR_ADDR,NOSTART,..} */</td></tr>
 <tr class="separator:af023c6b90cc950f3673e98462ff52a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef3b905e021dbe7aaf98da89c4648764" id="r_aef3b905e021dbe7aaf98da89c4648764"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef3b905e021dbe7aaf98da89c4648764">I2C_FUNC_SMBUS_PEC</a>&#160;&#160;&#160;0x00000008</td></tr>
 <tr class="separator:aef3b905e021dbe7aaf98da89c4648764"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,25 +153,25 @@ Macros</h2></td></tr>
 <tr class="separator:a8a64d1f3b43e584549645386089fafe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f3f845fc6c212f6d54848cc71e752ab" id="r_a1f3f845fc6c212f6d54848cc71e752ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f3f845fc6c212f6d54848cc71e752ab">I2C_FUNC_SMBUS_WRITE_BLOCK_DATA</a>&#160;&#160;&#160;0x02000000</td></tr>
 <tr class="separator:a1f3f845fc6c212f6d54848cc71e752ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e2efae197b3bcf4adb79b45065da621" id="r_a1e2efae197b3bcf4adb79b45065da621"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e2efae197b3bcf4adb79b45065da621">I2C_FUNC_SMBUS_READ_I2C_BLOCK</a>&#160;&#160;&#160;0x04000000 /* I2C-like block xfer  */</td></tr>
+<tr class="memitem:a1e2efae197b3bcf4adb79b45065da621" id="r_a1e2efae197b3bcf4adb79b45065da621"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e2efae197b3bcf4adb79b45065da621">I2C_FUNC_SMBUS_READ_I2C_BLOCK</a>&#160;&#160;&#160;0x04000000  /* I2C-like block xfer  */</td></tr>
 <tr class="separator:a1e2efae197b3bcf4adb79b45065da621"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87990a457cb6785821f82eddd5bda85e" id="r_a87990a457cb6785821f82eddd5bda85e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87990a457cb6785821f82eddd5bda85e">I2C_FUNC_SMBUS_WRITE_I2C_BLOCK</a>&#160;&#160;&#160;0x08000000 /* w/ 1-byte reg. addr. */</td></tr>
 <tr class="separator:a87990a457cb6785821f82eddd5bda85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e940355fb6532a740e57aece17c670c" id="r_a0e940355fb6532a740e57aece17c670c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e940355fb6532a740e57aece17c670c">I2C_FUNC_SMBUS_BYTE</a></td></tr>
+<tr class="memitem:a0e940355fb6532a740e57aece17c670c" id="r_a0e940355fb6532a740e57aece17c670c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e940355fb6532a740e57aece17c670c">I2C_FUNC_SMBUS_BYTE</a>&#160;&#160;&#160;  (<a class="el" href="#a2aea3a65daa2b1734e85d5c63b9e9672">I2C_FUNC_SMBUS_READ_BYTE</a> | <a class="el" href="#a0a0e43b21d3085e3a00300f41ccf156d">I2C_FUNC_SMBUS_WRITE_BYTE</a>)</td></tr>
 <tr class="separator:a0e940355fb6532a740e57aece17c670c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d09bc1b4dfbf7336abf83e477419b90" id="r_a3d09bc1b4dfbf7336abf83e477419b90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d09bc1b4dfbf7336abf83e477419b90">I2C_FUNC_SMBUS_BYTE_DATA</a></td></tr>
+<tr class="memitem:a3d09bc1b4dfbf7336abf83e477419b90" id="r_a3d09bc1b4dfbf7336abf83e477419b90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d09bc1b4dfbf7336abf83e477419b90">I2C_FUNC_SMBUS_BYTE_DATA</a>&#160;&#160;&#160;  (<a class="el" href="#a5645b268c2303289fdf043c3a035bf8d">I2C_FUNC_SMBUS_READ_BYTE_DATA</a> | <a class="el" href="#ac4186861a5c7f01d45e1f4ecba20334c">I2C_FUNC_SMBUS_WRITE_BYTE_DATA</a>)</td></tr>
 <tr class="separator:a3d09bc1b4dfbf7336abf83e477419b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1448936de71a0846193adbde34900948" id="r_a1448936de71a0846193adbde34900948"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1448936de71a0846193adbde34900948">I2C_FUNC_SMBUS_WORD_DATA</a></td></tr>
+<tr class="memitem:a1448936de71a0846193adbde34900948" id="r_a1448936de71a0846193adbde34900948"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1448936de71a0846193adbde34900948">I2C_FUNC_SMBUS_WORD_DATA</a>&#160;&#160;&#160;  (<a class="el" href="#a1e313c48fbaba109e4b42b615c806459">I2C_FUNC_SMBUS_READ_WORD_DATA</a> | <a class="el" href="#a485634a989b0ace55940b8235785fcc5">I2C_FUNC_SMBUS_WRITE_WORD_DATA</a>)</td></tr>
 <tr class="separator:a1448936de71a0846193adbde34900948"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef52b94d71c11d2849c6f3ae62d0e29b" id="r_aef52b94d71c11d2849c6f3ae62d0e29b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef52b94d71c11d2849c6f3ae62d0e29b">I2C_FUNC_SMBUS_BLOCK_DATA</a></td></tr>
+<tr class="memitem:aef52b94d71c11d2849c6f3ae62d0e29b" id="r_aef52b94d71c11d2849c6f3ae62d0e29b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef52b94d71c11d2849c6f3ae62d0e29b">I2C_FUNC_SMBUS_BLOCK_DATA</a>&#160;&#160;&#160;  (<a class="el" href="#a8a64d1f3b43e584549645386089fafe4">I2C_FUNC_SMBUS_READ_BLOCK_DATA</a> | <a class="el" href="#a1f3f845fc6c212f6d54848cc71e752ab">I2C_FUNC_SMBUS_WRITE_BLOCK_DATA</a>)</td></tr>
 <tr class="separator:aef52b94d71c11d2849c6f3ae62d0e29b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad94ca1f256004b790c2feb762ff963e7" id="r_ad94ca1f256004b790c2feb762ff963e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad94ca1f256004b790c2feb762ff963e7">I2C_FUNC_SMBUS_I2C_BLOCK</a></td></tr>
+<tr class="memitem:ad94ca1f256004b790c2feb762ff963e7" id="r_ad94ca1f256004b790c2feb762ff963e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad94ca1f256004b790c2feb762ff963e7">I2C_FUNC_SMBUS_I2C_BLOCK</a>&#160;&#160;&#160;  (<a class="el" href="#a1e2efae197b3bcf4adb79b45065da621">I2C_FUNC_SMBUS_READ_I2C_BLOCK</a> | <a class="el" href="#a87990a457cb6785821f82eddd5bda85e">I2C_FUNC_SMBUS_WRITE_I2C_BLOCK</a>)</td></tr>
 <tr class="separator:ad94ca1f256004b790c2feb762ff963e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21b4983c1a932e11d566a9e11734e4a8" id="r_a21b4983c1a932e11d566a9e11734e4a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21b4983c1a932e11d566a9e11734e4a8">I2C_FUNC_SMBUS_HWPEC_CALC</a>&#160;&#160;&#160;<a class="el" href="#aef3b905e021dbe7aaf98da89c4648764">I2C_FUNC_SMBUS_PEC</a></td></tr>
 <tr class="separator:a21b4983c1a932e11d566a9e11734e4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2dd8b77e329bba4a3ca9cd275f9bf50" id="r_ac2dd8b77e329bba4a3ca9cd275f9bf50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2dd8b77e329bba4a3ca9cd275f9bf50">I2C_SMBUS_BLOCK_MAX</a>&#160;&#160;&#160;32      /* As specified in SMBus standard */</td></tr>
+<tr class="memitem:ac2dd8b77e329bba4a3ca9cd275f9bf50" id="r_ac2dd8b77e329bba4a3ca9cd275f9bf50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2dd8b77e329bba4a3ca9cd275f9bf50">I2C_SMBUS_BLOCK_MAX</a>&#160;&#160;&#160;32     /* As specified in SMBus standard */</td></tr>
 <tr class="separator:ac2dd8b77e329bba4a3ca9cd275f9bf50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13045bd7a62d8d55acbcf174b7149cbf" id="r_a13045bd7a62d8d55acbcf174b7149cbf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13045bd7a62d8d55acbcf174b7149cbf">I2C_SMBUS_I2C_BLOCK_MAX</a>&#160;&#160;&#160;32      /* Not specified but we use same structure */</td></tr>
+<tr class="memitem:a13045bd7a62d8d55acbcf174b7149cbf" id="r_a13045bd7a62d8d55acbcf174b7149cbf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13045bd7a62d8d55acbcf174b7149cbf">I2C_SMBUS_I2C_BLOCK_MAX</a></td></tr>
 <tr class="separator:a13045bd7a62d8d55acbcf174b7149cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f5482668eb7741ef21dd9c211d876c9" id="r_a8f5482668eb7741ef21dd9c211d876c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f5482668eb7741ef21dd9c211d876c9">I2C_SMBUS_READ</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a8f5482668eb7741ef21dd9c211d876c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,27 +191,27 @@ Macros</h2></td></tr>
 <tr class="separator:a0253f81d1f2732492c1a05dc41094d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36bcbcb9294695fddb8606a32cbedc9b" id="r_a36bcbcb9294695fddb8606a32cbedc9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36bcbcb9294695fddb8606a32cbedc9b">I2C_SMBUS_I2C_BLOCK_BROKEN</a>&#160;&#160;&#160;6</td></tr>
 <tr class="separator:a36bcbcb9294695fddb8606a32cbedc9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a187e1de23e9935885cdb94ee429a2eed" id="r_a187e1de23e9935885cdb94ee429a2eed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a187e1de23e9935885cdb94ee429a2eed">I2C_SMBUS_BLOCK_PROC_CALL</a>&#160;&#160;&#160;7           /* SMBus 2.0 */</td></tr>
+<tr class="memitem:a187e1de23e9935885cdb94ee429a2eed" id="r_a187e1de23e9935885cdb94ee429a2eed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a187e1de23e9935885cdb94ee429a2eed">I2C_SMBUS_BLOCK_PROC_CALL</a>&#160;&#160;&#160;7 /* SMBus 2.0 */</td></tr>
 <tr class="separator:a187e1de23e9935885cdb94ee429a2eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5ecbb0ceaddcb905d68d366edfb026c" id="r_aa5ecbb0ceaddcb905d68d366edfb026c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5ecbb0ceaddcb905d68d366edfb026c">I2C_SMBUS_I2C_BLOCK_DATA</a>&#160;&#160;&#160;8</td></tr>
 <tr class="separator:aa5ecbb0ceaddcb905d68d366edfb026c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8b7ab32459314e0c0162974f2ce22e1" id="r_ae8b7ab32459314e0c0162974f2ce22e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8b7ab32459314e0c0162974f2ce22e1">I2C_RETRIES</a></td></tr>
 <tr class="separator:ae8b7ab32459314e0c0162974f2ce22e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa3215f0aa766367f5d34bee80929152" id="r_afa3215f0aa766367f5d34bee80929152"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa3215f0aa766367f5d34bee80929152">I2C_TIMEOUT</a>&#160;&#160;&#160;0x0702  /* set timeout in units of 10 ms */</td></tr>
+<tr class="memitem:afa3215f0aa766367f5d34bee80929152" id="r_afa3215f0aa766367f5d34bee80929152"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa3215f0aa766367f5d34bee80929152">I2C_TIMEOUT</a>&#160;&#160;&#160;0x0702 /* set timeout in units of 10 ms */</td></tr>
 <tr class="separator:afa3215f0aa766367f5d34bee80929152"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab15137f7c592d05573de99f078516157" id="r_ab15137f7c592d05573de99f078516157"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab15137f7c592d05573de99f078516157">I2C_SLAVE</a>&#160;&#160;&#160;0x0703  /* Use this slave address */</td></tr>
+<tr class="memitem:ab15137f7c592d05573de99f078516157" id="r_ab15137f7c592d05573de99f078516157"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab15137f7c592d05573de99f078516157">I2C_SLAVE</a>&#160;&#160;&#160;0x0703 /* Use this slave address */</td></tr>
 <tr class="separator:ab15137f7c592d05573de99f078516157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb1764d4b58fb542306c715ad6a28a42" id="r_afb1764d4b58fb542306c715ad6a28a42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb1764d4b58fb542306c715ad6a28a42">I2C_SLAVE_FORCE</a></td></tr>
 <tr class="separator:afb1764d4b58fb542306c715ad6a28a42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a0b1f3843e98977be7476579c851305" id="r_a2a0b1f3843e98977be7476579c851305"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a0b1f3843e98977be7476579c851305">I2C_TENBIT</a>&#160;&#160;&#160;0x0704  /* 0 for 7 bit addrs, != 0 for 10 bit */</td></tr>
+<tr class="memitem:a2a0b1f3843e98977be7476579c851305" id="r_a2a0b1f3843e98977be7476579c851305"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a0b1f3843e98977be7476579c851305">I2C_TENBIT</a>&#160;&#160;&#160;0x0704 /* 0 for 7 bit addrs, != 0 for 10 bit */</td></tr>
 <tr class="separator:a2a0b1f3843e98977be7476579c851305"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c2f02700f22d4f76c670966aed5079a" id="r_a4c2f02700f22d4f76c670966aed5079a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c2f02700f22d4f76c670966aed5079a">I2C_FUNCS</a>&#160;&#160;&#160;0x0705  /* Get the adapter functionality mask */</td></tr>
+<tr class="memitem:a4c2f02700f22d4f76c670966aed5079a" id="r_a4c2f02700f22d4f76c670966aed5079a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c2f02700f22d4f76c670966aed5079a">I2C_FUNCS</a>&#160;&#160;&#160;0x0705 /* Get the adapter functionality mask */</td></tr>
 <tr class="separator:a4c2f02700f22d4f76c670966aed5079a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7645f9831bcbbae2339fcff4d85691be" id="r_a7645f9831bcbbae2339fcff4d85691be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7645f9831bcbbae2339fcff4d85691be">I2C_RDWR</a>&#160;&#160;&#160;0x0707  /* Combined R/W transfer (one STOP only) */</td></tr>
+<tr class="memitem:a7645f9831bcbbae2339fcff4d85691be" id="r_a7645f9831bcbbae2339fcff4d85691be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7645f9831bcbbae2339fcff4d85691be">I2C_RDWR</a>&#160;&#160;&#160;0x0707 /* Combined R/W transfer (one STOP only) */</td></tr>
 <tr class="separator:a7645f9831bcbbae2339fcff4d85691be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a72d7072db21c407f82e6e73854b38f" id="r_a2a72d7072db21c407f82e6e73854b38f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a72d7072db21c407f82e6e73854b38f">I2C_PEC</a>&#160;&#160;&#160;0x0708  /* != 0 to use PEC with SMBus */</td></tr>
+<tr class="memitem:a2a72d7072db21c407f82e6e73854b38f" id="r_a2a72d7072db21c407f82e6e73854b38f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a72d7072db21c407f82e6e73854b38f">I2C_PEC</a>&#160;&#160;&#160;0x0708   /* != 0 to use PEC with SMBus */</td></tr>
 <tr class="separator:a2a72d7072db21c407f82e6e73854b38f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e9d483fb9eb1074646726ce518b1d4d" id="r_a4e9d483fb9eb1074646726ce518b1d4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e9d483fb9eb1074646726ce518b1d4d">I2C_SMBUS</a>&#160;&#160;&#160;0x0720  /* SMBus transfer */</td></tr>
+<tr class="memitem:a4e9d483fb9eb1074646726ce518b1d4d" id="r_a4e9d483fb9eb1074646726ce518b1d4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e9d483fb9eb1074646726ce518b1d4d">I2C_SMBUS</a>&#160;&#160;&#160;0x0720 /* SMBus transfer */</td></tr>
 <tr class="separator:a4e9d483fb9eb1074646726ce518b1d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a272399a0175400a2ebb55ff518a85012" id="r_a272399a0175400a2ebb55ff518a85012"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a272399a0175400a2ebb55ff518a85012">I2C_RDRW_IOCTL_MAX_MSGS</a>&#160;&#160;&#160;42</td></tr>
 <tr class="separator:a272399a0175400a2ebb55ff518a85012"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -247,7 +252,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_FUNC_PROTOCOL_MANGLING&#160;&#160;&#160;0x00000004 /* I2C_M_{REV_DIR_ADDR,NOSTART,..} */</td>
+          <td class="memname">#define I2C_FUNC_PROTOCOL_MANGLING&#160;&#160;&#160;  0x00000004 /* I2C_M_{REV_DIR_ADDR,NOSTART,..} */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -261,15 +266,11 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_FUNC_SMBUS_BLOCK_DATA</td>
+          <td class="memname">#define I2C_FUNC_SMBUS_BLOCK_DATA&#160;&#160;&#160;  (<a class="el" href="#a8a64d1f3b43e584549645386089fafe4">I2C_FUNC_SMBUS_READ_BLOCK_DATA</a> | <a class="el" href="#a1f3f845fc6c212f6d54848cc71e752ab">I2C_FUNC_SMBUS_WRITE_BLOCK_DATA</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                                   (<a class="code hl_define" href="#a8a64d1f3b43e584549645386089fafe4">I2C_FUNC_SMBUS_READ_BLOCK_DATA</a> | \</div>
-<div class="line">                                   <a class="code hl_define" href="#a1f3f845fc6c212f6d54848cc71e752ab">I2C_FUNC_SMBUS_WRITE_BLOCK_DATA</a>)</div>
-<div class="ttc" id="ai2c-dev_8h_html_a1f3f845fc6c212f6d54848cc71e752ab"><div class="ttname"><a href="#a1f3f845fc6c212f6d54848cc71e752ab">I2C_FUNC_SMBUS_WRITE_BLOCK_DATA</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_WRITE_BLOCK_DATA</div><div class="ttdef"><b>Definition</b> i2c-dev.h:66</div></div>
-<div class="ttc" id="ai2c-dev_8h_html_a8a64d1f3b43e584549645386089fafe4"><div class="ttname"><a href="#a8a64d1f3b43e584549645386089fafe4">I2C_FUNC_SMBUS_READ_BLOCK_DATA</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_READ_BLOCK_DATA</div><div class="ttdef"><b>Definition</b> i2c-dev.h:65</div></div>
-</div><!-- fragment -->
+
 </div>
 </div>
 <a id="ab98217e0ad04cb3068e159c2de8fd84d" name="ab98217e0ad04cb3068e159c2de8fd84d"></a>
@@ -293,15 +294,11 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_FUNC_SMBUS_BYTE</td>
+          <td class="memname">#define I2C_FUNC_SMBUS_BYTE&#160;&#160;&#160;  (<a class="el" href="#a2aea3a65daa2b1734e85d5c63b9e9672">I2C_FUNC_SMBUS_READ_BYTE</a> | <a class="el" href="#a0a0e43b21d3085e3a00300f41ccf156d">I2C_FUNC_SMBUS_WRITE_BYTE</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                             (<a class="code hl_define" href="#a2aea3a65daa2b1734e85d5c63b9e9672">I2C_FUNC_SMBUS_READ_BYTE</a> | \</div>
-<div class="line">                             <a class="code hl_define" href="#a0a0e43b21d3085e3a00300f41ccf156d">I2C_FUNC_SMBUS_WRITE_BYTE</a>)</div>
-<div class="ttc" id="ai2c-dev_8h_html_a0a0e43b21d3085e3a00300f41ccf156d"><div class="ttname"><a href="#a0a0e43b21d3085e3a00300f41ccf156d">I2C_FUNC_SMBUS_WRITE_BYTE</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_WRITE_BYTE</div><div class="ttdef"><b>Definition</b> i2c-dev.h:59</div></div>
-<div class="ttc" id="ai2c-dev_8h_html_a2aea3a65daa2b1734e85d5c63b9e9672"><div class="ttname"><a href="#a2aea3a65daa2b1734e85d5c63b9e9672">I2C_FUNC_SMBUS_READ_BYTE</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_READ_BYTE</div><div class="ttdef"><b>Definition</b> i2c-dev.h:58</div></div>
-</div><!-- fragment -->
+
 </div>
 </div>
 <a id="a3d09bc1b4dfbf7336abf83e477419b90" name="a3d09bc1b4dfbf7336abf83e477419b90"></a>
@@ -311,15 +308,11 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_FUNC_SMBUS_BYTE_DATA</td>
+          <td class="memname">#define I2C_FUNC_SMBUS_BYTE_DATA&#160;&#160;&#160;  (<a class="el" href="#a5645b268c2303289fdf043c3a035bf8d">I2C_FUNC_SMBUS_READ_BYTE_DATA</a> | <a class="el" href="#ac4186861a5c7f01d45e1f4ecba20334c">I2C_FUNC_SMBUS_WRITE_BYTE_DATA</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                                  (<a class="code hl_define" href="#a5645b268c2303289fdf043c3a035bf8d">I2C_FUNC_SMBUS_READ_BYTE_DATA</a> | \</div>
-<div class="line">                                  <a class="code hl_define" href="#ac4186861a5c7f01d45e1f4ecba20334c">I2C_FUNC_SMBUS_WRITE_BYTE_DATA</a>)</div>
-<div class="ttc" id="ai2c-dev_8h_html_a5645b268c2303289fdf043c3a035bf8d"><div class="ttname"><a href="#a5645b268c2303289fdf043c3a035bf8d">I2C_FUNC_SMBUS_READ_BYTE_DATA</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_READ_BYTE_DATA</div><div class="ttdef"><b>Definition</b> i2c-dev.h:60</div></div>
-<div class="ttc" id="ai2c-dev_8h_html_ac4186861a5c7f01d45e1f4ecba20334c"><div class="ttname"><a href="#ac4186861a5c7f01d45e1f4ecba20334c">I2C_FUNC_SMBUS_WRITE_BYTE_DATA</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_WRITE_BYTE_DATA</div><div class="ttdef"><b>Definition</b> i2c-dev.h:61</div></div>
-</div><!-- fragment -->
+
 </div>
 </div>
 <a id="a21b4983c1a932e11d566a9e11734e4a8" name="a21b4983c1a932e11d566a9e11734e4a8"></a>
@@ -343,15 +336,11 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_FUNC_SMBUS_I2C_BLOCK</td>
+          <td class="memname">#define I2C_FUNC_SMBUS_I2C_BLOCK&#160;&#160;&#160;  (<a class="el" href="#a1e2efae197b3bcf4adb79b45065da621">I2C_FUNC_SMBUS_READ_I2C_BLOCK</a> | <a class="el" href="#a87990a457cb6785821f82eddd5bda85e">I2C_FUNC_SMBUS_WRITE_I2C_BLOCK</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                                  (<a class="code hl_define" href="#a1e2efae197b3bcf4adb79b45065da621">I2C_FUNC_SMBUS_READ_I2C_BLOCK</a> | \</div>
-<div class="line">                                  <a class="code hl_define" href="#a87990a457cb6785821f82eddd5bda85e">I2C_FUNC_SMBUS_WRITE_I2C_BLOCK</a>)</div>
-<div class="ttc" id="ai2c-dev_8h_html_a1e2efae197b3bcf4adb79b45065da621"><div class="ttname"><a href="#a1e2efae197b3bcf4adb79b45065da621">I2C_FUNC_SMBUS_READ_I2C_BLOCK</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_READ_I2C_BLOCK</div><div class="ttdef"><b>Definition</b> i2c-dev.h:67</div></div>
-<div class="ttc" id="ai2c-dev_8h_html_a87990a457cb6785821f82eddd5bda85e"><div class="ttname"><a href="#a87990a457cb6785821f82eddd5bda85e">I2C_FUNC_SMBUS_WRITE_I2C_BLOCK</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_WRITE_I2C_BLOCK</div><div class="ttdef"><b>Definition</b> i2c-dev.h:68</div></div>
-</div><!-- fragment -->
+
 </div>
 </div>
 <a id="aef3b905e021dbe7aaf98da89c4648764" name="aef3b905e021dbe7aaf98da89c4648764"></a>
@@ -445,7 +434,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_FUNC_SMBUS_READ_I2C_BLOCK&#160;&#160;&#160;0x04000000 /* I2C-like block xfer  */</td>
+          <td class="memname">#define I2C_FUNC_SMBUS_READ_I2C_BLOCK&#160;&#160;&#160;0x04000000  /* I2C-like block xfer  */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -473,15 +462,11 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_FUNC_SMBUS_WORD_DATA</td>
+          <td class="memname">#define I2C_FUNC_SMBUS_WORD_DATA&#160;&#160;&#160;  (<a class="el" href="#a1e313c48fbaba109e4b42b615c806459">I2C_FUNC_SMBUS_READ_WORD_DATA</a> | <a class="el" href="#a485634a989b0ace55940b8235785fcc5">I2C_FUNC_SMBUS_WRITE_WORD_DATA</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                                  (<a class="code hl_define" href="#a1e313c48fbaba109e4b42b615c806459">I2C_FUNC_SMBUS_READ_WORD_DATA</a> | \</div>
-<div class="line">                                  <a class="code hl_define" href="#a485634a989b0ace55940b8235785fcc5">I2C_FUNC_SMBUS_WRITE_WORD_DATA</a>)</div>
-<div class="ttc" id="ai2c-dev_8h_html_a1e313c48fbaba109e4b42b615c806459"><div class="ttname"><a href="#a1e313c48fbaba109e4b42b615c806459">I2C_FUNC_SMBUS_READ_WORD_DATA</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_READ_WORD_DATA</div><div class="ttdef"><b>Definition</b> i2c-dev.h:62</div></div>
-<div class="ttc" id="ai2c-dev_8h_html_a485634a989b0ace55940b8235785fcc5"><div class="ttname"><a href="#a485634a989b0ace55940b8235785fcc5">I2C_FUNC_SMBUS_WRITE_WORD_DATA</a></div><div class="ttdeci">#define I2C_FUNC_SMBUS_WRITE_WORD_DATA</div><div class="ttdef"><b>Definition</b> i2c-dev.h:63</div></div>
-</div><!-- fragment -->
+
 </div>
 </div>
 <a id="a1f3f845fc6c212f6d54848cc71e752ab" name="a1f3f845fc6c212f6d54848cc71e752ab"></a>
@@ -561,7 +546,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_FUNCS&#160;&#160;&#160;0x0705  /* Get the adapter functionality mask */</td>
+          <td class="memname">#define I2C_FUNCS&#160;&#160;&#160;0x0705 /* Get the adapter functionality mask */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -645,7 +630,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_M_TEN&#160;&#160;&#160;0x10    /* we have a ten bit chip address       */</td>
+          <td class="memname">#define I2C_M_TEN&#160;&#160;&#160;0x10 /* we have a ten bit chip address       */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -659,7 +644,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_PEC&#160;&#160;&#160;0x0708  /* != 0 to use PEC with SMBus */</td>
+          <td class="memname">#define I2C_PEC&#160;&#160;&#160;0x0708   /* != 0 to use PEC with SMBus */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -687,7 +672,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_RDWR&#160;&#160;&#160;0x0707  /* Combined R/W transfer (one STOP only) */</td>
+          <td class="memname">#define I2C_RDWR&#160;&#160;&#160;0x0707 /* Combined R/W transfer (one STOP only) */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -705,8 +690,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                                   0x0701  <span class="comment">/* number of times a device address should</span></div>
-<div class="line"><span class="comment">                                   be polled when not acknowledging */</span></div>
+<b>Value:</b><div class="fragment"><div class="line">  0x0701                   <span class="comment">/* number of times a device address should \</span></div>
+<div class="line"><span class="comment">                              be polled when not acknowledging */</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -717,7 +702,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_SLAVE&#160;&#160;&#160;0x0703  /* Use this slave address */</td>
+          <td class="memname">#define I2C_SLAVE&#160;&#160;&#160;0x0703 /* Use this slave address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -735,8 +720,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                                   0x0706  <span class="comment">/* Use this slave address, even if it</span></div>
-<div class="line"><span class="comment">                                   is already in use by a driver! */</span></div>
+<b>Value:</b><div class="fragment"><div class="line">  0x0706                  <span class="comment">/* Use this slave address, even if it \</span></div>
+<div class="line"><span class="comment">                             is already in use by a driver! */</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -747,7 +732,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_SMBUS&#160;&#160;&#160;0x0720  /* SMBus transfer */</td>
+          <td class="memname">#define I2C_SMBUS&#160;&#160;&#160;0x0720 /* SMBus transfer */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -775,7 +760,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_SMBUS_BLOCK_MAX&#160;&#160;&#160;32      /* As specified in SMBus standard */</td>
+          <td class="memname">#define I2C_SMBUS_BLOCK_MAX&#160;&#160;&#160;32     /* As specified in SMBus standard */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -789,7 +774,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_SMBUS_BLOCK_PROC_CALL&#160;&#160;&#160;7           /* SMBus 2.0 */</td>
+          <td class="memname">#define I2C_SMBUS_BLOCK_PROC_CALL&#160;&#160;&#160;7 /* SMBus 2.0 */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -859,11 +844,13 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_SMBUS_I2C_BLOCK_MAX&#160;&#160;&#160;32      /* Not specified but we use same structure */</td>
+          <td class="memname">#define I2C_SMBUS_I2C_BLOCK_MAX</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">                                    32 <span class="comment">/* Not specified but we use same structure \</span></div>
+<div class="line"><span class="comment">                                    */</span></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a140bc92b58f10de5eb796ad71e8f0da2" name="a140bc92b58f10de5eb796ad71e8f0da2"></a>
@@ -943,7 +930,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_TENBIT&#160;&#160;&#160;0x0704  /* 0 for 7 bit addrs, != 0 for 10 bit */</td>
+          <td class="memname">#define I2C_TENBIT&#160;&#160;&#160;0x0704 /* 0 for 7 bit addrs, != 0 for 10 bit */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -957,7 +944,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_TIMEOUT&#160;&#160;&#160;0x0702  /* set timeout in units of 10 ms */</td>
+          <td class="memname">#define I2C_TIMEOUT&#160;&#160;&#160;0x0702 /* set timeout in units of 10 ms */</td>
         </tr>
       </table>
 </div><div class="memdoc">

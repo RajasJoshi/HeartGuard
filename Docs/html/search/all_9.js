@@ -2,7 +2,7 @@ var searchData=
 [
   ['i2c_2ddev_2eh_0',['i2c-dev.h',['../i2c-dev_8h.html',1,'']]],
   ['i2c_5fbuffer_5flength_1',['I2C_BUFFER_LENGTH',['../max30102_8hpp.html#aab040ced3ff06bdd71655d55a5f8db14',1,'max30102.hpp']]],
-  ['i2c_5fbus_2',['i2c_bus',['../structADS1115settings.html#ae0f3b1d6ef8068fed5e580fd4d7123b3',1,'ADS1115settings']]],
+  ['i2c_5fbus_2',['i2c_bus',['../structADS1115settings.html#ae0f3b1d6ef8068fed5e580fd4d7123b3',1,'ADS1115settings::i2c_bus'],['../structMAX30102settings.html#aad087bad5395946ad732eb5d8a5b8266',1,'MAX30102settings::i2c_bus']]],
   ['i2c_5ffunc_5f10bit_5faddr_3',['I2C_FUNC_10BIT_ADDR',['../i2c-dev_8h.html#a41ba50f5508feed338fe3181540e1894',1,'i2c-dev.h']]],
   ['i2c_5ffunc_5fi2c_4',['I2C_FUNC_I2C',['../i2c-dev_8h.html#a57a8a5a73f12268825d31bec6184b915',1,'i2c-dev.h']]],
   ['i2c_5ffunc_5fprotocol_5fmangling_5',['I2C_FUNC_PROTOCOL_MANGLING',['../i2c-dev_8h.html#af023c6b90cc950f3673e98462ff52a59',1,'i2c-dev.h']]],
@@ -60,10 +60,10 @@ var searchData=
   ['i2c_5ftenbit_57',['I2C_TENBIT',['../i2c-dev_8h.html#a2a0b1f3843e98977be7476579c851305',1,'i2c-dev.h']]],
   ['i2c_5ftimeout_58',['I2C_TIMEOUT',['../i2c-dev_8h.html#afa3215f0aa766367f5d34bee80929152',1,'i2c-dev.h']]],
   ['index_20page_59',['My Personal Index Page',['../index.html',1,'']]],
-  ['initpigpio_60',['initPIGPIO',['../structADS1115settings.html#add939ea3e172fc3c52fe9e53b05a66e4',1,'ADS1115settings']]],
-  ['input_61',['Input',['../structADS1115settings.html#a17845a1a94f94bb7d2406dbe13bc560d',1,'ADS1115settings']]],
-  ['installation_62',['Installation',['../index.html#install_sec',1,'']]],
-  ['interrupt_5fpin_63',['INTERRUPT_PIN',['../max30102_8hpp.html#a6516333f436e810b6855db75f3b3cbbc',1,'max30102.hpp']]],
-  ['introduction_64',['Introduction',['../index.html#intro_sec',1,'']]],
-  ['isr_5ftimeout_65',['ISR_TIMEOUT',['../ads1115_8hpp.html#aaa9b71fc04bd91a5cdf4030dd5fe6551',1,'ads1115.hpp']]]
+  ['input_60',['Input',['../structADS1115settings.html#a17845a1a94f94bb7d2406dbe13bc560d',1,'ADS1115settings']]],
+  ['installation_61',['Installation',['../index.html#install_sec',1,'']]],
+  ['interrupt_5fpin_62',['INTERRUPT_PIN',['../max30102_8hpp.html#a6516333f436e810b6855db75f3b3cbbc',1,'max30102.hpp']]],
+  ['introduction_63',['Introduction',['../index.html#intro_sec',1,'']]],
+  ['iterator_64',['iterator',['../classCircularDelay_1_1iterator.html',1,'CircularDelay&lt; type, size &gt;::iterator'],['../classCircularDelay_1_1iterator.html#a2673a257ba85ed9b44ccb91faab80ac3',1,'CircularDelay::iterator::iterator(const CircularDelay&lt; type, size &gt;::iterator &amp;it)']]],
+  ['iterator_5fcategory_65',['iterator_category',['../classCircularDelay_1_1iterator.html#ab2b9ce2101b4b534671f869d6abed24e',1,'CircularDelay::iterator::iterator_category'],['../classCircularDelay_1_1const__iterator.html#a69c8854551e0c2fdb82d46b8444fd627',1,'CircularDelay::const_iterator::iterator_category'],['../classCircularDelay_1_1reverse__iterator.html#a8cadbeea7a22353cf490897e019fde07',1,'CircularDelay::reverse_iterator::iterator_category'],['../classCircularDelay_1_1const__reverse__iterator.html#a93b80303acd8fef1c3bad3e72f9f0dcb',1,'CircularDelay::const_reverse_iterator::iterator_category']]]
 ];

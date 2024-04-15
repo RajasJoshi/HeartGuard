@@ -95,56 +95,45 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a631728e610c1c3eab45d2fc33e78dd50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="#a631728e610c1c3eab45d2fc33e78dd50" title="Construct a new MAX30102::MAX30102 object.">MAX30102::MAX30102</a> object.  <br /></td></tr>
 <tr class="separator:a631728e610c1c3eab45d2fc33e78dd50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6960834390229352e2b11c350ac68c08" id="r_a6960834390229352e2b11c350ac68c08"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6960834390229352e2b11c350ac68c08">~MAX30102</a> (void)</td></tr>
-<tr class="memdesc:a6960834390229352e2b11c350ac68c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> class.  <br /></td></tr>
+<tr class="memdesc:a6960834390229352e2b11c350ac68c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="#a631728e610c1c3eab45d2fc33e78dd50" title="Construct a new MAX30102::MAX30102 object.">MAX30102::MAX30102</a> object.  <br /></td></tr>
 <tr class="separator:a6960834390229352e2b11c350ac68c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab148e8492b5c8b5bc60b501ed84f3d46" id="r_ab148e8492b5c8b5bc60b501ed84f3d46"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab148e8492b5c8b5bc60b501ed84f3d46">begin</a> (uint8_t i2cAddr=<a class="el" href="max30102_8hpp.html#ad7327a848315960f1d8828a09316c6a9">MAX30102_ADDRESS</a>)</td></tr>
-<tr class="memdesc:ab148e8492b5c8b5bc60b501ed84f3d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes sensor.  <br /></td></tr>
-<tr class="separator:ab148e8492b5c8b5bc60b501ed84f3d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82a6fa3dc9fb7dd83e57582ccd0a0c06" id="r_a82a6fa3dc9fb7dd83e57582ccd0a0c06"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82a6fa3dc9fb7dd83e57582ccd0a0c06">safeCheck</a> (uint8_t maxTimeToCheck)</td></tr>
-<tr class="separator:a82a6fa3dc9fb7dd83e57582ccd0a0c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66e23eb885a4fe772fcc1e23f879b17f" id="r_a66e23eb885a4fe772fcc1e23f879b17f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66e23eb885a4fe772fcc1e23f879b17f">start</a> ()</td></tr>
+<tr class="memdesc:a66e23eb885a4fe772fcc1e23f879b17f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Worker thread that listens for data ready events.  <br /></td></tr>
+<tr class="separator:a66e23eb885a4fe772fcc1e23f879b17f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f8e9a4d56da2407fed721db9ee2d017" id="r_a9f8e9a4d56da2407fed721db9ee2d017"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f8e9a4d56da2407fed721db9ee2d017">stop</a> (void)</td></tr>
+<tr class="separator:a9f8e9a4d56da2407fed721db9ee2d017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a824883df0943c7accc013f05792e557d" id="r_a824883df0943c7accc013f05792e557d"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a824883df0943c7accc013f05792e557d">getRed</a> (void)</td></tr>
+<tr class="separator:a824883df0943c7accc013f05792e557d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad06cdfa399f91057cc2e8e7c872877e0" id="r_ad06cdfa399f91057cc2e8e7c872877e0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad06cdfa399f91057cc2e8e7c872877e0">getIR</a> (void)</td></tr>
+<tr class="separator:ad06cdfa399f91057cc2e8e7c872877e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6c07c546e397bd5d87292f434a0ee8c" id="r_ab6c07c546e397bd5d87292f434a0ee8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6c07c546e397bd5d87292f434a0ee8c">wakeUp</a> ()</td></tr>
-<tr class="memdesc:ab6c07c546e397bd5d87292f434a0ee8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wake up the sensor from sleep mode.  <br /></td></tr>
 <tr class="separator:ab6c07c546e397bd5d87292f434a0ee8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5c9b06bf3cf668e018bb81a17d5aa2f" id="r_ac5c9b06bf3cf668e018bb81a17d5aa2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5c9b06bf3cf668e018bb81a17d5aa2f">shutDown</a> ()</td></tr>
-<tr class="memdesc:ac5c9b06bf3cf668e018bb81a17d5aa2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put the sensor into sleep mode to save power.During this mode the sensor will continue to respond to I2C commands but will not update or take new readings, such as temperature.  <br /></td></tr>
+<tr class="memdesc:ac5c9b06bf3cf668e018bb81a17d5aa2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> into Standby Mode.  <br /></td></tr>
 <tr class="separator:ac5c9b06bf3cf668e018bb81a17d5aa2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad78ce89aa47f2c6e1a3cf07a6966c2c9" id="r_ad78ce89aa47f2c6e1a3cf07a6966c2c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad78ce89aa47f2c6e1a3cf07a6966c2c9">softReset</a> ()</td></tr>
-<tr class="memdesc:ad78ce89aa47f2c6e1a3cf07a6966c2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">All configuration, threshold, and data registers are reset to their power-on state through a power-on reset. The reset bit is cleared back to zero after reset finishes.  <br /></td></tr>
+<tr class="memdesc:ad78ce89aa47f2c6e1a3cf07a6966c2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wake the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> from Standby Mode.  <br /></td></tr>
 <tr class="separator:ad78ce89aa47f2c6e1a3cf07a6966c2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19cae8ee364f876cb34da812d5a657f2" id="r_a19cae8ee364f876cb34da812d5a657f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19cae8ee364f876cb34da812d5a657f2">setLEDMode</a> (uint8_t mode)</td></tr>
-<tr class="memdesc:a19cae8ee364f876cb34da812d5a657f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets which LEDs are used for sampling.  <br /></td></tr>
+<tr class="memdesc:a19cae8ee364f876cb34da812d5a657f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> into Operating Mode.  <br /></td></tr>
 <tr class="separator:a19cae8ee364f876cb34da812d5a657f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab936f8072cde5aaf5b0bd8b9ec9c0e2f" id="r_ab936f8072cde5aaf5b0bd8b9ec9c0e2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab936f8072cde5aaf5b0bd8b9ec9c0e2f">setADCRange</a> (uint8_t adcRange)</td></tr>
-<tr class="memdesc:ab936f8072cde5aaf5b0bd8b9ec9c0e2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the ADC range of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a>. Available ADC Range: 2048, 4096, 8192, 16384.  <br /></td></tr>
+<tr class="memdesc:ab936f8072cde5aaf5b0bd8b9ec9c0e2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ADC Range.  <br /></td></tr>
 <tr class="separator:ab936f8072cde5aaf5b0bd8b9ec9c0e2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78604b395ccf72fbd6366684aa99e646" id="r_a78604b395ccf72fbd6366684aa99e646"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78604b395ccf72fbd6366684aa99e646">setSampleRate</a> (uint8_t sampleRate)</td></tr>
-<tr class="memdesc:a78604b395ccf72fbd6366684aa99e646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the sample rate of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a>. Available Sample Rate: 50, 100, 200, 400, 800, 1000, 1600, 3200.  <br /></td></tr>
 <tr class="separator:a78604b395ccf72fbd6366684aa99e646"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab527d480ff83e3059157bb793244644" id="r_aab527d480ff83e3059157bb793244644"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab527d480ff83e3059157bb793244644">setPulseWidth</a> (uint8_t pulseWidth)</td></tr>
-<tr class="memdesc:aab527d480ff83e3059157bb793244644"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the pulse width of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a>. Available Pulse Width: 69, 118, 215, 411.  <br /></td></tr>
 <tr class="separator:aab527d480ff83e3059157bb793244644"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92936c050f8a49ba8da5bda2069dd1f6" id="r_a92936c050f8a49ba8da5bda2069dd1f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92936c050f8a49ba8da5bda2069dd1f6">setPulseAmplitudeRed</a> (uint8_t value)</td></tr>
-<tr class="memdesc:a92936c050f8a49ba8da5bda2069dd1f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets RED LED Pulse Amplitude.  <br /></td></tr>
 <tr class="separator:a92936c050f8a49ba8da5bda2069dd1f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80aad8301d5ca50a72e72c02f9c824c9" id="r_a80aad8301d5ca50a72e72c02f9c824c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80aad8301d5ca50a72e72c02f9c824c9">setPulseAmplitudeIR</a> (uint8_t value)</td></tr>
-<tr class="memdesc:a80aad8301d5ca50a72e72c02f9c824c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets IR LED Pulse Amplitude.  <br /></td></tr>
 <tr class="separator:a80aad8301d5ca50a72e72c02f9c824c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8" id="r_a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8">setPulseAmplitudeProximity</a> (uint8_t value)</td></tr>
-<tr class="memdesc:a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets Proximity LED Pulse Amplitude.  <br /></td></tr>
 <tr class="separator:a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fd727b3f253f1007750534d5f40b562" id="r_a5fd727b3f253f1007750534d5f40b562"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5fd727b3f253f1007750534d5f40b562">setProximityThreshold</a> (uint8_t thresMSB)</td></tr>
-<tr class="memdesc:a5fd727b3f253f1007750534d5f40b562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets Proximity Threshold.  <br /></td></tr>
-<tr class="separator:a5fd727b3f253f1007750534d5f40b562"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34426debd59ef446363a7af352bdbd8e" id="r_a34426debd59ef446363a7af352bdbd8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34426debd59ef446363a7af352bdbd8e">enableSlot</a> (uint8_t slotNumber, uint8_t device)</td></tr>
-<tr class="memdesc:a34426debd59ef446363a7af352bdbd8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable a specific slot.  <br /></td></tr>
 <tr class="separator:a34426debd59ef446363a7af352bdbd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07872942c5ee098cde2364b4d86ebec6" id="r_a07872942c5ee098cde2364b4d86ebec6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07872942c5ee098cde2364b4d86ebec6">disableSlots</a> (void)</td></tr>
-<tr class="memdesc:a07872942c5ee098cde2364b4d86ebec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable all slots.  <br /></td></tr>
 <tr class="separator:a07872942c5ee098cde2364b4d86ebec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a535f24c507d05409d99bf4311fdb535c" id="r_a535f24c507d05409d99bf4311fdb535c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a535f24c507d05409d99bf4311fdb535c">getINT1</a> (void)</td></tr>
-<tr class="separator:a535f24c507d05409d99bf4311fdb535c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9e1c521388e59c718a2ab4c219d8d34" id="r_af9e1c521388e59c718a2ab4c219d8d34"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9e1c521388e59c718a2ab4c219d8d34">getINT2</a> (void)</td></tr>
-<tr class="separator:af9e1c521388e59c718a2ab4c219d8d34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d436e6c3874f03fc32ca1412fbd8dfb" id="r_a4d436e6c3874f03fc32ca1412fbd8dfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d436e6c3874f03fc32ca1412fbd8dfb">enableAFULL</a> (void)</td></tr>
 <tr class="separator:a4d436e6c3874f03fc32ca1412fbd8dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec4831802832defb3f6453f27649f9fd" id="r_aec4831802832defb3f6453f27649f9fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec4831802832defb3f6453f27649f9fd">disableAFULL</a> (void)</td></tr>
@@ -153,45 +142,32 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2e9b9a516572433c2dec4a304acb67f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23ac69410cbbbd0479bc195205be492f" id="r_a23ac69410cbbbd0479bc195205be492f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23ac69410cbbbd0479bc195205be492f">disableDATARDY</a> (void)</td></tr>
 <tr class="separator:a23ac69410cbbbd0479bc195205be492f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5b452eb18fbe798c99f238f49f64fe9" id="r_ae5b452eb18fbe798c99f238f49f64fe9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5b452eb18fbe798c99f238f49f64fe9">enableALCOVF</a> (void)</td></tr>
+<tr class="separator:ae5b452eb18fbe798c99f238f49f64fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb2a88238a3041b599bdd84269ebbcca" id="r_aeb2a88238a3041b599bdd84269ebbcca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb2a88238a3041b599bdd84269ebbcca">disableALCOVF</a> (void)</td></tr>
+<tr class="separator:aeb2a88238a3041b599bdd84269ebbcca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae11f7b66a205c5e465668fa401427737" id="r_ae11f7b66a205c5e465668fa401427737"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae11f7b66a205c5e465668fa401427737">setFIFOAverage</a> (uint8_t samples)</td></tr>
-<tr class="memdesc:ae11f7b66a205c5e465668fa401427737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FIFO Almost Full value.  <br /></td></tr>
 <tr class="separator:ae11f7b66a205c5e465668fa401427737"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13354720f66fc1ec7d579bb3e765a96d" id="r_a13354720f66fc1ec7d579bb3e765a96d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13354720f66fc1ec7d579bb3e765a96d">enableFIFORollover</a> ()</td></tr>
-<tr class="memdesc:a13354720f66fc1ec7d579bb3e765a96d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FIFO Almost Full value.  <br /></td></tr>
 <tr class="separator:a13354720f66fc1ec7d579bb3e765a96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac45e805b747d6723f59e41cbd6b0c8e9" id="r_ac45e805b747d6723f59e41cbd6b0c8e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac45e805b747d6723f59e41cbd6b0c8e9">disableFIFORollover</a> ()</td></tr>
 <tr class="separator:ac45e805b747d6723f59e41cbd6b0c8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd8bade4eb3dbb809c364378f9017d25" id="r_abd8bade4eb3dbb809c364378f9017d25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd8bade4eb3dbb809c364378f9017d25">setFIFOAlmostFull</a> (uint8_t samples)</td></tr>
-<tr class="separator:abd8bade4eb3dbb809c364378f9017d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a023a175af4f01d54f24f632296f71775" id="r_a023a175af4f01d54f24f632296f71775"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a023a175af4f01d54f24f632296f71775">check</a> (void)</td></tr>
-<tr class="memdesc:a023a175af4f01d54f24f632296f71775"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if there is new data available.  <br /></td></tr>
 <tr class="separator:a023a175af4f01d54f24f632296f71775"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b147f6bf43019fe2fcaf8448657ad5a" id="r_a1b147f6bf43019fe2fcaf8448657ad5a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b147f6bf43019fe2fcaf8448657ad5a">available</a> (void)</td></tr>
-<tr class="separator:a1b147f6bf43019fe2fcaf8448657ad5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c3f09f90f952e44aa2d1d6456c0ea0e" id="r_a2c3f09f90f952e44aa2d1d6456c0ea0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c3f09f90f952e44aa2d1d6456c0ea0e">nextSample</a> (void)</td></tr>
-<tr class="separator:a2c3f09f90f952e44aa2d1d6456c0ea0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dd900a208752875bc47eaaa6de45c60" id="r_a2dd900a208752875bc47eaaa6de45c60"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2dd900a208752875bc47eaaa6de45c60">getFIFORed</a> (void)</td></tr>
 <tr class="separator:a2dd900a208752875bc47eaaa6de45c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04ae15b45111ff3345fba97f3e558885" id="r_a04ae15b45111ff3345fba97f3e558885"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04ae15b45111ff3345fba97f3e558885">getFIFOIR</a> (void)</td></tr>
 <tr class="separator:a04ae15b45111ff3345fba97f3e558885"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeaf1c7ea1764c7d0553386cabfb783e6" id="r_aeaf1c7ea1764c7d0553386cabfb783e6"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeaf1c7ea1764c7d0553386cabfb783e6">getWritePointer</a> (void)</td></tr>
-<tr class="memdesc:aeaf1c7ea1764c7d0553386cabfb783e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FIFO Almost Full value.  <br /></td></tr>
 <tr class="separator:aeaf1c7ea1764c7d0553386cabfb783e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99dd07d94cdca56a0116bd3bc40eeb66" id="r_a99dd07d94cdca56a0116bd3bc40eeb66"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99dd07d94cdca56a0116bd3bc40eeb66">getReadPointer</a> (void)</td></tr>
-<tr class="memdesc:a99dd07d94cdca56a0116bd3bc40eeb66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FIFO Almost Full value.  <br /></td></tr>
 <tr class="separator:a99dd07d94cdca56a0116bd3bc40eeb66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbac1a581d2acb9aeb9dbe12b2d83b00" id="r_afbac1a581d2acb9aeb9dbe12b2d83b00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbac1a581d2acb9aeb9dbe12b2d83b00">clearFIFO</a> (void)</td></tr>
-<tr class="memdesc:afbac1a581d2acb9aeb9dbe12b2d83b00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FIFO Almost Full value.  <br /></td></tr>
 <tr class="separator:afbac1a581d2acb9aeb9dbe12b2d83b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9864b29afe6f70f866e21f2c0b2a1df3" id="r_a9864b29afe6f70f866e21f2c0b2a1df3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9864b29afe6f70f866e21f2c0b2a1df3">getRevisionID</a> ()</td></tr>
-<tr class="memdesc:a9864b29afe6f70f866e21f2c0b2a1df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the revision ID of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> sensor.  <br /></td></tr>
-<tr class="separator:a9864b29afe6f70f866e21f2c0b2a1df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac17326fd1347d61dfbfd5ab76d039fb2" id="r_ac17326fd1347d61dfbfd5ab76d039fb2"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac17326fd1347d61dfbfd5ab76d039fb2">readPartID</a> ()</td></tr>
-<tr class="memdesc:ac17326fd1347d61dfbfd5ab76d039fb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the part ID of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> sensor.  <br /></td></tr>
 <tr class="separator:ac17326fd1347d61dfbfd5ab76d039fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac20a8b68fcf978b71f3fde1bb516dde8" id="r_ac20a8b68fcf978b71f3fde1bb516dde8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac20a8b68fcf978b71f3fde1bb516dde8">setup</a> (uint8_t powerLevel=0x1F, uint8_t sampleAverage=4, uint8_t ledMode=2, int sampleRate=400, int pulseWidth=411, int adcRange=4096)</td></tr>
-<tr class="memdesc:ac20a8b68fcf978b71f3fde1bb516dde8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the sensor with user selectable settings.  <br /></td></tr>
-<tr class="separator:ac20a8b68fcf978b71f3fde1bb516dde8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a916d8a9b186001202f81fb71f643b26a" id="r_a916d8a9b186001202f81fb71f643b26a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a916d8a9b186001202f81fb71f643b26a">setup</a> ()</td></tr>
+<tr class="separator:a916d8a9b186001202f81fb71f643b26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> class for reading data from the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> sensor. </p>
@@ -230,66 +206,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Destructor for the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> class. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Construct a new <a class="el" href="#a631728e610c1c3eab45d2fc33e78dd50" title="Construct a new MAX30102::MAX30102 object.">MAX30102::MAX30102</a> object. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classMAX30102_a6960834390229352e2b11c350ac68c08_cgraph.png" border="0" usemap="#aclassMAX30102_a6960834390229352e2b11c350ac68c08_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1b147f6bf43019fe2fcaf8448657ad5a" name="a1b147f6bf43019fe2fcaf8448657ad5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b147f6bf43019fe2fcaf8448657ad5a">&#9670;&#160;</a></span>available()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t MAX30102::available </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab148e8492b5c8b5bc60b501ed84f3d46" name="ab148e8492b5c8b5bc60b501ed84f3d46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab148e8492b5c8b5bc60b501ed84f3d46">&#9670;&#160;</a></span>begin()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int MAX30102::begin </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>i2cAddr</em><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="max30102_8hpp.html#ad7327a848315960f1d8828a09316c6a9">MAX30102_ADDRESS</a></span></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initializes sensor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i2cAddr</td><td>I2C address of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> sensor. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>int 0 if successful, -1 if failed to open I2C bus, -3 if part ID </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classMAX30102_ab148e8492b5c8b5bc60b501ed84f3d46_cgraph.png" border="0" usemap="#aclassMAX30102_ab148e8492b5c8b5bc60b501ed84f3d46_cgraph" alt=""/></div>
-</div>
-
-</div>
-</div>
 <a id="a023a175af4f01d54f24f632296f71775" name="a023a175af4f01d54f24f632296f71775"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a023a175af4f01d54f24f632296f71775">&#9670;&#160;</a></span>check()</h2>
 
@@ -304,15 +230,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Check if there is new data available. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if new data is available, false otherwise. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -335,15 +252,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Set the FIFO Almost Full value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">samples</td><td>The number of samples to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Resets all points to start in a known state. Recommended to clear FIFO before beginning a read. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -360,6 +269,24 @@ Here is the caller graph for this function:</div>
       <table class="memname">
         <tr>
           <td class="memname">void MAX30102::disableAFULL </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disable the A_FULL interrupt. </p>
+
+</div>
+</div>
+<a id="aeb2a88238a3041b599bdd84269ebbcca" name="aeb2a88238a3041b599bdd84269ebbcca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb2a88238a3041b599bdd84269ebbcca">&#9670;&#160;</a></span>disableALCOVF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MAX30102::disableALCOVF </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
@@ -383,6 +310,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Disable the PPG_RDY interrupt. </p>
 
 </div>
 </div>
@@ -395,11 +323,12 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void MAX30102::disableFIFORollover </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Disable roll over if FIFO over flows. </p>
 
 </div>
 </div>
@@ -417,15 +346,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Disable all slots. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Clears all slot assignments. </p>
 
 </div>
 </div>
@@ -443,10 +364,33 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Enable the A_FULL interrupt. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classMAX30102_a4d436e6c3874f03fc32ca1412fbd8dfb_icgraph.png" border="0" usemap="#aclassMAX30102_a4d436e6c3874f03fc32ca1412fbd8dfb_icgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="ae5b452eb18fbe798c99f238f49f64fe9" name="ae5b452eb18fbe798c99f238f49f64fe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5b452eb18fbe798c99f238f49f64fe9">&#9670;&#160;</a></span>enableALCOVF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MAX30102::enableALCOVF </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classMAX30102_ae5b452eb18fbe798c99f238f49f64fe9_icgraph.png" border="0" usemap="#aclassMAX30102_ae5b452eb18fbe798c99f238f49f64fe9_icgraph" alt=""/></div>
 </div>
 
 </div>
@@ -465,6 +409,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Enable the PPG_RDY interrupt. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -487,15 +432,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Set the FIFO Almost Full value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">samples</td><td>The number of samples to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Enable roll over if FIFO over flows. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -522,16 +459,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Enable a specific slot. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">slotNumber</td><td>The slot number to enable. </td></tr>
-    <tr><td class="paramname">device</td><td>The device to enable. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Given a slot number assign a thing to it. Devices are SLOT_RED_LED or SLOT_RED_PILOT (proximity) Assigning a SLOT_RED_LED will pulse LED Assigning a SLOT_RED_PILOT will ?? </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -576,37 +504,21 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a535f24c507d05409d99bf4311fdb535c" name="a535f24c507d05409d99bf4311fdb535c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a535f24c507d05409d99bf4311fdb535c">&#9670;&#160;</a></span>getINT1()</h2>
+<a id="ad06cdfa399f91057cc2e8e7c872877e0" name="ad06cdfa399f91057cc2e8e7c872877e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad06cdfa399f91057cc2e8e7c872877e0">&#9670;&#160;</a></span>getIR()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t MAX30102::getINT1 </td>
+          <td class="memname">uint32_t MAX30102::getIR </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="af9e1c521388e59c718a2ab4c219d8d34" name="af9e1c521388e59c718a2ab4c219d8d34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e1c521388e59c718a2ab4c219d8d34">&#9670;&#160;</a></span>getINT2()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t MAX30102::getINT2 </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Report the most recent IR value. </p>
 
 </div>
 </div>
@@ -624,15 +536,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Set the FIFO Almost Full value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">samples</td><td>The number of samples to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Read the FIFO Read Pointer. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -641,29 +545,21 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a9864b29afe6f70f866e21f2c0b2a1df3" name="a9864b29afe6f70f866e21f2c0b2a1df3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9864b29afe6f70f866e21f2c0b2a1df3">&#9670;&#160;</a></span>getRevisionID()</h2>
+<a id="a824883df0943c7accc013f05792e557d" name="a824883df0943c7accc013f05792e557d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a824883df0943c7accc013f05792e557d">&#9670;&#160;</a></span>getRed()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t MAX30102::getRevisionID </td>
+          <td class="memname">uint32_t MAX30102::getRed </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Get the revision ID of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> sensor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>uint8_t The revision ID. </dd></dl>
+<p>Report the most recent Red value. </p>
 
 </div>
 </div>
@@ -681,37 +577,12 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Set the FIFO Almost Full value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">samples</td><td>The number of samples to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Read the FIFO Write Pointer. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classMAX30102_aeaf1c7ea1764c7d0553386cabfb783e6_icgraph.png" border="0" usemap="#aclassMAX30102_aeaf1c7ea1764c7d0553386cabfb783e6_icgraph" alt=""/></div>
 </div>
-
-</div>
-</div>
-<a id="a2c3f09f90f952e44aa2d1d6456c0ea0e" name="a2c3f09f90f952e44aa2d1d6456c0ea0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c3f09f90f952e44aa2d1d6456c0ea0e">&#9670;&#160;</a></span>nextSample()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MAX30102::nextSample </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -729,37 +600,11 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Read the part ID of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> sensor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>uint8_t The part ID. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classMAX30102_ac17326fd1347d61dfbfd5ab76d039fb2_icgraph.png" border="0" usemap="#aclassMAX30102_ac17326fd1347d61dfbfd5ab76d039fb2_icgraph" alt=""/></div>
 </div>
-
-</div>
-</div>
-<a id="a82a6fa3dc9fb7dd83e57582ccd0a0c06" name="a82a6fa3dc9fb7dd83e57582ccd0a0c06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82a6fa3dc9fb7dd83e57582ccd0a0c06">&#9670;&#160;</a></span>safeCheck()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool MAX30102::safeCheck </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>maxTimeToCheck</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -778,36 +623,18 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the ADC range of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a>. Available ADC Range: 2048, 4096, 8192, 16384. </p>
+<p>Set the ADC Range. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">adcRange</td><td>The ADC range to set. </td></tr>
+    <tr><td class="paramname">adcRange</td><td>The ADC Range to set. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classMAX30102_ab936f8072cde5aaf5b0bd8b9ec9c0e2f_icgraph.png" border="0" usemap="#aclassMAX30102_ab936f8072cde5aaf5b0bd8b9ec9c0e2f_icgraph" alt=""/></div>
 </div>
-
-</div>
-</div>
-<a id="abd8bade4eb3dbb809c364378f9017d25" name="abd8bade4eb3dbb809c364378f9017d25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd8bade4eb3dbb809c364378f9017d25">&#9670;&#160;</a></span>setFIFOAlmostFull()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MAX30102::setFIFOAlmostFull </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>samples</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -825,15 +652,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Set the FIFO Almost Full value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">samples</td><td>The number of samples to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Sets sample average. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -857,50 +676,18 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Sets which LEDs are used for sampling. </p>
-<ul>
-<li>Red only</li>
-<li>Red+IR only</li>
-<li>Custom <dl class="params"><dt>Parameters</dt><dd>
+<p>Put the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> into Operating Mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mode</td><td>The mode to set. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
-</li>
-</ul>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classMAX30102_a19cae8ee364f876cb34da812d5a657f2_icgraph.png" border="0" usemap="#aclassMAX30102_a19cae8ee364f876cb34da812d5a657f2_icgraph" alt=""/></div>
 </div>
-
-</div>
-</div>
-<a id="a5fd727b3f253f1007750534d5f40b562" name="a5fd727b3f253f1007750534d5f40b562"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fd727b3f253f1007750534d5f40b562">&#9670;&#160;</a></span>setProximityThreshold()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MAX30102::setProximityThreshold </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>threshMSB</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets Proximity Threshold. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">threshMSB</td><td>The threshold to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -918,15 +705,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
 <p>Sets IR LED Pulse Amplitude. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">amplitude</td><td>The amplitude to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -944,20 +723,11 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void MAX30102::setPulseAmplitudeProximity </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>amplitude</em></span></td><td>)</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Sets Proximity LED Pulse Amplitude. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">amplitude</td><td>The amplitude to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -980,15 +750,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Sets RED LED Pulse Amplitude. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">amplitude</td><td>The amplitude to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Sets Red LED Pulse Amplitude. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1011,15 +773,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Sets the pulse width of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a>. Available Pulse Width: 69, 118, 215, 411. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pulseWidth</td><td>The pulse width to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Sets Pulse Width. Available Pulse Width: 69, 188, 215, 411 </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1042,15 +796,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Sets the sample rate of the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a>. Available Sample Rate: 50, 100, 200, 400, 800, 1000, 1600, 3200. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sampleRate</td><td>The sample rate to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Sets Sample Rate. Available Sample Rates: 50, 100, 200, 400, 800, 1000, 1600, 3200 </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1059,8 +805,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ac20a8b68fcf978b71f3fde1bb516dde8" name="ac20a8b68fcf978b71f3fde1bb516dde8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac20a8b68fcf978b71f3fde1bb516dde8">&#9670;&#160;</a></span>setup()</h2>
+<a id="a916d8a9b186001202f81fb71f643b26a" name="a916d8a9b186001202f81fb71f643b26a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a916d8a9b186001202f81fb71f643b26a">&#9670;&#160;</a></span>setup()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1068,53 +814,15 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void MAX30102::setup </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>powerLevel</em><span class="paramdefsep"> = </span><span class="paramdefval">0x1F</span>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>sampleAverage</em><span class="paramdefsep"> = </span><span class="paramdefval">4</span>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>ledMode</em><span class="paramdefsep"> = </span><span class="paramdefval">2</span>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sampleRate</em><span class="paramdefsep"> = </span><span class="paramdefval">400</span>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pulseWidth</em><span class="paramdefsep"> = </span><span class="paramdefval">411</span>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>adcRange</em><span class="paramdefsep"> = </span><span class="paramdefval">4096</span></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Setup the sensor with user selectable settings. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">powerLevel</td><td>The power level to set. </td></tr>
-    <tr><td class="paramname">sampleAverage</td><td>The sample average to set. </td></tr>
-    <tr><td class="paramname">ledMode</td><td>The LED mode to set. </td></tr>
-    <tr><td class="paramname">sampleRate</td><td>The sample rate to set. </td></tr>
-    <tr><td class="paramname">pulseWidth</td><td>The pulse width to set. </td></tr>
-    <tr><td class="paramname">adcRange</td><td>The ADC range to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classMAX30102_ac20a8b68fcf978b71f3fde1bb516dde8_cgraph.png" border="0" usemap="#aclassMAX30102_ac20a8b68fcf978b71f3fde1bb516dde8_cgraph" alt=""/></div>
+<div class="center"><img src="classMAX30102_a916d8a9b186001202f81fb71f643b26a_cgraph.png" border="0" usemap="#aclassMAX30102_a916d8a9b186001202f81fb71f643b26a_cgraph" alt=""/></div>
 </div>
 
 </div>
@@ -1134,14 +842,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Put the sensor into sleep mode to save power.During this mode the sensor will continue to respond to I2C commands but will not update or take new readings, such as temperature. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Put the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> into Standby Mode. </p>
 
 </div>
 </div>
@@ -1160,18 +861,57 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>All configuration, threshold, and data registers are reset to their power-on state through a power-on reset. The reset bit is cleared back to zero after reset finishes. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Wake the <a class="el" href="classMAX30102.html" title="MAX30102 class for reading data from the MAX30102 sensor.">MAX30102</a> from Standby Mode. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classMAX30102_ad78ce89aa47f2c6e1a3cf07a6966c2c9_icgraph.png" border="0" usemap="#aclassMAX30102_ad78ce89aa47f2c6e1a3cf07a6966c2c9_icgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="a66e23eb885a4fe772fcc1e23f879b17f" name="a66e23eb885a4fe772fcc1e23f879b17f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66e23eb885a4fe772fcc1e23f879b17f">&#9670;&#160;</a></span>start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MAX30102::start </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Worker thread that listens for data ready events. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classMAX30102_a66e23eb885a4fe772fcc1e23f879b17f_cgraph.png" border="0" usemap="#aclassMAX30102_a66e23eb885a4fe772fcc1e23f879b17f_cgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="a9f8e9a4d56da2407fed721db9ee2d017" name="a9f8e9a4d56da2407fed721db9ee2d017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f8e9a4d56da2407fed721db9ee2d017">&#9670;&#160;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MAX30102::stop </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classMAX30102_a9f8e9a4d56da2407fed721db9ee2d017_icgraph.png" border="0" usemap="#aclassMAX30102_a9f8e9a4d56da2407fed721db9ee2d017_icgraph" alt=""/></div>
 </div>
 
 </div>
@@ -1185,20 +925,11 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void MAX30102::wakeUp </td>
           <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Wake up the sensor from sleep mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
