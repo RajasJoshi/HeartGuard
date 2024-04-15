@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['page_0',['My Personal Index Page',['../index.html',1,'']]],
-  ['personal_20index_20page_1',['My Personal Index Page',['../index.html',1,'']]],
-  ['pga_2',['PGA',['../structADS1115settings.html#a831970032a15754ead970931dd25ac5f',1,'ADS1115settings']]],
-  ['pgagain_3',['pgaGain',['../structADS1115settings.html#a9c5013fdbef7376faec2df49d123e67e',1,'ADS1115settings']]],
-  ['pow_4',['pow',['../namespacetps.html#a4ba84c64ef7f752a77bd0adc41dc1900',1,'tps']]],
-  ['ppg_5',['PPG',['../classPPG.html',1,'PPG'],['../classPPG.html#a02b86dd957da5b310e2e3c76a36375ac',1,'PPG::PPG()']]],
-  ['ppg_2ecpp_6',['ppg.cpp',['../ppg_8cpp.html',1,'']]],
-  ['ppg_2ehpp_7',['ppg.hpp',['../ppg_8hpp.html',1,'']]],
-  ['ppg_5ftest_2ecpp_8',['ppg_test.cpp',['../ppg__test_8cpp.html',1,'']]],
-  ['ppgtcpqueue_9',['ppgtcpqueue',['../classPPG.html#a149309d37aa0ca61afaac500b74a170a',1,'PPG']]],
-  ['pulsewidth_10',['pulseWidth',['../structMAX30102settings.html#a64e80ce4ea0d62d7ee1782c250924b0e',1,'MAX30102settings']]],
-  ['push_11',['push',['../classCircularDelay.html#a0741f8e9b436b89620c56870457f22fa',1,'CircularDelay']]]
+  ['rbegin_0',['rbegin',['../classCircularDelay.html#a45b712d677523479439f9ece87e11054',1,'CircularDelay']]],
+  ['read_5fwrite_1',['read_write',['../structi2c__smbus__ioctl__data.html#a545643b68fb6ee6806aadc62f5c9a9b0',1,'i2c_smbus_ioctl_data']]],
+  ['readpartid_2',['readPartID',['../classMAX30102.html#ac17326fd1347d61dfbfd5ab76d039fb2',1,'MAX30102']]],
+  ['recalculate_5fmean_3',['recalculate_mean',['../classECG.html#a3072af22c3d67e726ba583a1d5c3e585',1,'ECG']]],
+  ['recalculate_5fstdev_4',['recalculate_stdev',['../classECG.html#a84a83e0204600ca4a2c8b5d4c48ce34a',1,'ECG']]],
+  ['recalculate_5fthreshold_5',['recalculate_threshold',['../classECG.html#ac48d6aab420142578e31c622e98f51ba',1,'ECG']]],
+  ['redpulseamplitude_6',['redPulseAmplitude',['../structMAX30102settings.html#a64ad988c8b69dc77e360c01117849440',1,'MAX30102settings']]],
+  ['rend_7',['rend',['../classCircularDelay.html#ab337ed5b15ecdfdfb26a2b45dc495695',1,'CircularDelay']]],
+  ['reverse_5fiterator_8',['reverse_iterator',['../classCircularDelay_1_1reverse__iterator.html',1,'CircularDelay&lt; type, size &gt;::reverse_iterator'],['../classCircularDelay_1_1reverse__iterator.html#a1a8a9dbdf9f48b930a4ea8a922c06770',1,'CircularDelay::reverse_iterator::reverse_iterator()']]],
+  ['rr_5finterval_9',['RR_interval',['../classECG.html#a2b74f73764d8e92d876fcf0ebd0918d1',1,'ECG']]],
+  ['rr_5fintervals_10',['RR_intervals',['../classECG.html#a4d089ca68b1f52d4d48ebec4863ad0b8',1,'ECG']]],
+  ['running_11',['running',['../classECG.html#a47dbcc4e9b5de1f0dca031de34c38b0c',1,'ECG']]]
 ];
