@@ -7,8 +7,9 @@ import signal
 HOST = "127.0.0.1"  # Standard loopback interface (localhost)
 PORT = 5000  # Port to listen on
 
-sample_rate = 100
-ecg_data = np.loadtxt("assets/ECG_1000Hz_7.dat")
+sample_rate = 860
+sample_period = 1 / 860
+ecg_data = np.loadtxt("assets/adam_ecg_raw.csv")
 
 
 def signal_handler(sig, frame):
@@ -34,4 +35,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             for value in ecg_data:
                 data = f"{str(value)}\n".encode()
                 conn.sendall(data)
-                time.sleep(0.01)
+                time.sleep(sample_period)

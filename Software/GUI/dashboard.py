@@ -94,7 +94,16 @@ app.layout = html.Div(
 # Shared data queue
 data_queue = queue.Queue()
 
+    
+        
+          
+    
 
+        
+        Expand All
+    
+    @@ -98,163 +33,140 @@
+  
 # Client connection function
 def connect_to_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -216,7 +225,6 @@ def update_spo2_graph(dark_mode):
 
 app.index_string = """<!DOCTYPE html>
 <html>
-
 <head>
     <title>HeartGuard Dashboard</title>
     {%metas%}
@@ -227,7 +235,6 @@ app.index_string = """<!DOCTYPE html>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/assets/styles.css">
 </head>
-
 <body>
     <script>
         window.addEventListener('load', function () {
@@ -238,15 +245,11 @@ app.index_string = """<!DOCTYPE html>
             }, 100);
         });
     </script>
-
     {%app_entry%}
-
     <div id="header">
     </div>
-
     <div id="content">
     </div>
-
     <footer>
         {%config%}
         {%scripts%}

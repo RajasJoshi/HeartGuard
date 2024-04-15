@@ -1,0 +1,257 @@
+\doxysection{Circular\+Delay.\+hpp}
+\hypertarget{CircularDelay_8hpp_source}{}\label{CircularDelay_8hpp_source}\index{Software/Firmware/project/ppg/include/CircularDelay/CircularDelay.hpp@{Software/Firmware/project/ppg/include/CircularDelay/CircularDelay.hpp}}
+\mbox{\hyperlink{CircularDelay_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ type,\ \textcolor{keywordtype}{size\_t}\ size>}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularDelay}{CircularDelay}}\ \{}
+\DoxyCodeLine{00032\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{classCircularDelay_adbff4303da3145a6ac1dc297b2ab5b96}{CircularDelay}}();}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularDelay_1_1iterator}{iterator}}\ \{}
+\DoxyCodeLine{00035\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{classCircularDelay_1_1iterator}{iterator}}\ \mbox{\hyperlink{classCircularDelay_1_1iterator_a0664fcbb593436b59076701c4fe5d462}{self\_type}};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{typedef}\ std::bidirectional\_iterator\_tag\ \mbox{\hyperlink{classCircularDelay_1_1iterator_ab2b9ce2101b4b534671f869d6abed24e}{iterator\_category}};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classCircularDelay_1_1iterator_aa38bad85ebc509a5e74a550c0db98146}{difference\_type}};}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator_a2673a257ba85ed9b44ccb91faab80ac3}{iterator}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1iterator}{CircularDelay<type,\ size>::iterator}}\&\ it)}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ :\ data\_(it.data\_),\ ptr\_(it.ptr\_)\ \{\}}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1iterator_a5ac62fe9f57baacbc551fd7bbcdfdd8c}{operator++}}()\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++ptr\_\ ==\ data\_\ +\ size\ +\ 1)\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ ptr\_\ =\ data\_;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1iterator_a346ea66456ae77e63748477c804d5a08}{operator++}}(\textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator}{self\_type}}\ ret\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ ++*\textcolor{keyword}{this};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1iterator_aa72942498988445804626b8ab43c3da8}{operator-\/-\/}}()\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\_\ ==\ data\_)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ ptr\_\ =\ data\_\ +\ size;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ -\/-\/ptr\_;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1iterator_ababb01d237c35cc4c04654add4835f1e}{operator-\/-\/}}(\textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator}{self\_type}}\ ret\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ -\/-\/*\textcolor{keyword}{this};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \ \ type\&\ \mbox{\hyperlink{classCircularDelay_1_1iterator_a53ed6c5075c57763dea3cc5f69f56558}{operator*}}()\ \{\ \textcolor{keywordflow}{return}\ *ptr\_;\ \}}
+\DoxyCodeLine{00066\ \ \ \ \ type*\ \mbox{\hyperlink{classCircularDelay_1_1iterator_a913a57ca92f07fd81cd03ad308dbacb9}{operator-\/>}}()\ \{\ \textcolor{keywordflow}{return}\ ptr\_;\ \}}
+\DoxyCodeLine{00067\ \ \ \ \ type\&\ \mbox{\hyperlink{classCircularDelay_1_1iterator_a1a7e1f5cd083a3132be2952dc3d4657e}{operator[]}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \textcolor{comment}{//\ Note\ that\ ptr\_\ -\/\ data\_\ is\ converting\ ptr\_\ to\ index\ value;}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ index\ +=\ ptr\_\ -\/\ data\_;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ size\ +\ 1)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ index\ -\/=\ size\ +\ 1;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data\_[index];}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCircularDelay_1_1iterator_ae37fc2deaa139e7b7c6125259ab5628c}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1iterator}{self\_type}}\&\ rhs)\ \{\ \textcolor{keywordflow}{return}\ ptr\_\ ==\ rhs.ptr\_;\ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCircularDelay_1_1iterator_a6339c1fb32cfb2e664a040bfc011a873}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1iterator}{self\_type}}\&\ rhs)\ \{\ \textcolor{keywordflow}{return}\ ptr\_\ !=\ rhs.ptr\_;\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator_a2673a257ba85ed9b44ccb91faab80ac3}{iterator}}(type*\ data,\ type*\ ptr)\ :\ data\_(data),\ ptr\_(ptr)\ \{\}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularDelay}{CircularDelay}};}
+\DoxyCodeLine{00081\ \ \ \ \ type*\ data\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00082\ \ \ \ \ type*\ ptr\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00083\ \ \ \};}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularDelay_1_1const__iterator}{const\_iterator}}\ \{}
+\DoxyCodeLine{00085\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{const\_iterator}}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a0884b1781f409c108f126cff56b27582}{self\_type}};}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{typedef}\ std::bidirectional\_iterator\_tag\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a69c8854551e0c2fdb82d46b8444fd627}{iterator\_category}};}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a10017e443f5b2450577b530807d2229d}{difference\_type}};}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a21fd85501937e995d7b7e3090021ec61}{const\_iterator}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{CircularDelay<type,\ size>::const\_iterator}}\&\ it)}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ :\ data\_(it.data\_),\ ptr\_(it.ptr\_)\ \{\}}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_ad4ccf8ebcdbcac8bb64d0b16aab70bfc}{operator++}}()\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++ptr\_\ ==\ data\_\ +\ size\ +\ 1)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ ptr\_\ =\ data\_;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a6529742681a283cb86d1de847e1a0bf2}{operator++}}(\textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{self\_type}}\ ret\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ ++*\textcolor{keyword}{this};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_aa2b07b398cacecbd41b88885b8946d94}{operator-\/-\/}}()\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\_\ ==\ data\_)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ ptr\_\ =\ data\_\ +\ size;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ -\/-\/ptr\_;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a3d7417f2d3d36f40b4369611b98668fd}{operator-\/-\/}}(\textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{self\_type}}\ ret\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ -\/-\/*\textcolor{keyword}{this};}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{const}\ type\&\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_ab07933e5e16256b30bca3a66e4ea0226}{operator*}}()\ \{\ \textcolor{keywordflow}{return}\ *ptr\_;\ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{const}\ type*\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a115db7d45660377fae385d1365fec578}{operator-\/>}}()\ \{\ \textcolor{keywordflow}{return}\ ptr\_;\ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{const}\ type\&\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a9b9d0f769c2f97902846733201abe818}{operator[]}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \textcolor{comment}{//\ Note\ that\ ptr\_\ -\/\ data\_\ is\ converting\ ptr\_\ to\ index\ value;}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ index\ +=\ ptr\_\ -\/\ data\_;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ size\ +\ 1)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ index\ -\/=\ size\ +\ 1;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data\_[index];}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a3c911d1bf815ec1ba3cf2a3ca46264e1}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{self\_type}}\&\ rhs)\ \{\ \textcolor{keywordflow}{return}\ ptr\_\ ==\ rhs.ptr\_;\ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a340fdcc69422b52b056eac91af791537}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1const__iterator}{self\_type}}\&\ rhs)\ \{\ \textcolor{keywordflow}{return}\ ptr\_\ !=\ rhs.ptr\_;\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__iterator_a21fd85501937e995d7b7e3090021ec61}{const\_iterator}}(type*\ data,\ type*\ ptr)\ :\ data\_(data),\ ptr\_(ptr)\ \{\}}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularDelay}{CircularDelay}};}
+\DoxyCodeLine{00131\ \ \ \ \ type*\ data\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00132\ \ \ \ \ type*\ ptr\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00133\ \ \ \};}
+\DoxyCodeLine{00134\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{reverse\_iterator}}\ \{}
+\DoxyCodeLine{00135\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{reverse\_iterator}}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_adea6e1a71f1906b4e33433e932a41728}{self\_type}};}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{typedef}\ std::bidirectional\_iterator\_tag\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a8cadbeea7a22353cf490897e019fde07}{iterator\_category}};}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a712e6ffcd99c6950cc19150f880fd03c}{difference\_type}};}
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a1a8a9dbdf9f48b930a4ea8a922c06770}{reverse\_iterator}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{CircularDelay<type,\ size>::reverse\_iterator}}\&\ it)}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ :\ data\_(it.data\_),\ ptr\_(it.ptr\_)\ \{\}}
+\DoxyCodeLine{00141\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a201c7bf46395e887738bf5bb1fc03ca6}{operator++}}()\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\_\ ==\ data\_)\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ ptr\_\ =\ data\_\ +\ size;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ -\/-\/ptr\_;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_af594e1909028e9d2b7f9b6ee21175688}{operator++}}(\textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{self\_type}}\ ret\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ ++*\textcolor{keyword}{this};}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a25ba7a505e7345d0500caa16138b505e}{operator-\/-\/}}()\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++ptr\_\ ==\ data\_\ +\ size\ +\ 1)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ ptr\_\ =\ data\_;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00159\ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_ae5b7fa1a6e4583e06ba92a6da053b9ed}{operator-\/-\/}}(\textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{self\_type}}\ ret\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ -\/-\/*\textcolor{keyword}{this};}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ type\&\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_adc2ba7520f9e2bee20034a52e113201f}{operator*}}()\ \{\ \textcolor{keywordflow}{return}\ *ptr\_;\ \}}
+\DoxyCodeLine{00166\ \ \ \ \ type*\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a845bce91737f672175533d284e0b9641}{operator-\/>}}()\ \{\ \textcolor{keywordflow}{return}\ ptr\_;\ \}}
+\DoxyCodeLine{00167\ \ \ \ \ type\&\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a9ebeaa3812788d98109255aa5c6a16ad}{operator[]}}(\textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ ptr\_\ to\ index\ value;}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ index\ =\ ptr\_\ -\/\ data\_\ -\/\ index;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ 0)\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ index\ +=\ size\ +\ 1;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data\_[index];}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a374bff53086d2e6f6a17e8408d744f9d}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{self\_type}}\&\ rhs)\ \{\ \textcolor{keywordflow}{return}\ ptr\_\ ==\ rhs.ptr\_;\ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a016a38b165eafc948d3308c795ce10e3}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{self\_type}}\&\ rhs)\ \{\ \textcolor{keywordflow}{return}\ ptr\_\ !=\ rhs.ptr\_;\ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00179\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator_a1a8a9dbdf9f48b930a4ea8a922c06770}{reverse\_iterator}}(type*\ data,\ type*\ ptr)\ :\ data\_(data),\ ptr\_(ptr)\ \{\}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularDelay}{CircularDelay}};}
+\DoxyCodeLine{00181\ \ \ \ \ type*\ data\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00182\ \ \ \ \ type*\ ptr\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00183\ \ \ \};}
+\DoxyCodeLine{00184\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{const\_reverse\_iterator}}\ \{}
+\DoxyCodeLine{00185\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{const\_reverse\_iterator}}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a30377f93d5150e091333729e11161676}{self\_type}};}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{typedef}\ std::bidirectional\_iterator\_tag\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a93b80303acd8fef1c3bad3e72f9f0dcb}{iterator\_category}};}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a42cf98641a7c171058c9eee0ebe8e581}{difference\_type}};}
+\DoxyCodeLine{00189\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_ac1d14b2632952a220489a3dd85e58caf}{const\_reverse\_iterator}}(}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{CircularDelay<type,\ size>::const\_reverse\_iterator}}\&\ it)}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ :\ data\_(it.data\_),\ ptr\_(it.ptr\_)\ \{\}}
+\DoxyCodeLine{00192\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a68919552ba977bf210737e7131767b3a}{operator++}}()\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\_\ ==\ data\_)\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ ptr\_\ =\ data\_\ +\ size;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ -\/-\/ptr\_;}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00199\ \ \ \ \ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_ad038e882e80a16b08b1b5151409a6e3e}{operator++}}(\textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{self\_type}}\ ret\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ ++*\textcolor{keyword}{this};}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a6f82e7abf956de4b507016b8d18dd3df}{operator-\/-\/}}()\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++ptr\_\ ==\ data\_\ +\ size\ +\ 1)\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ ptr\_\ =\ data\_;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00210\ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{self\_type}}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a47251a4c887ab542c24d6da8babe8efd}{operator-\/-\/}}(\textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{self\_type}}\ ret\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ -\/-\/*\textcolor{keyword}{this};}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00215\ \ \ \ \ \}}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keyword}{const}\ type\&\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a31ed5e37097b0aab39c6328e3bb429b7}{operator*}}()\ \{\ \textcolor{keywordflow}{return}\ *ptr\_;\ \}}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{const}\ type*\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a413fb36149a9f143c69e01c8dac47a0d}{operator-\/>}}()\ \{\ \textcolor{keywordflow}{return}\ ptr\_;\ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{const}\ type\&\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a414ddd41ceda571cbb7bbda50c16b454}{operator[]}}(\textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ ptr\_\ to\ index\ value;}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ index\ =\ ptr\_\ -\/\ data\_\ -\/\ index;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ 0)\ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ index\ +=\ size\ +\ 1;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data\_[index];}
+\DoxyCodeLine{00225\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a7f7b0cf32639716dace3da9dae631ee5}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{self\_type}}\&\ rhs)\ \{\ \textcolor{keywordflow}{return}\ ptr\_\ ==\ rhs.ptr\_;\ \}}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_a23f5329c479f8f17cb1c24527ba44632}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator}{self\_type}}\&\ rhs)\ \{\ \textcolor{keywordflow}{return}\ ptr\_\ !=\ rhs.ptr\_;\ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00230\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1const__reverse__iterator_ac1d14b2632952a220489a3dd85e58caf}{const\_reverse\_iterator}}(type*\ data,\ type*\ ptr)\ :\ data\_(data),\ ptr\_(ptr)\ \{\}}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularDelay}{CircularDelay}};}
+\DoxyCodeLine{00232\ \ \ \ \ type*\ data\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00233\ \ \ \ \ type*\ ptr\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00234\ \ \ \};}
+\DoxyCodeLine{00235\ \ \ type\ \mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(type\ input);}
+\DoxyCodeLine{00236\ \ \ type\ \mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{get}}(\textcolor{keywordtype}{size\_t}\ delay);}
+\DoxyCodeLine{00237\ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator}{iterator}}\ \mbox{\hyperlink{classCircularDelay_aa40f6c12296cd5a557b573d7decde8eb}{end}}()\ \{\ \textcolor{keywordflow}{return}\ setIterator;\ \}}
+\DoxyCodeLine{00238\ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator}{iterator}}\ \mbox{\hyperlink{classCircularDelay_ae8fedbd231b8e1b99b5a7bb321e4421c}{begin}}()\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1iterator}{iterator}}\ it(setIterator);}
+\DoxyCodeLine{00240\ \ \ \ \ ++it;}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordflow}{return}\ it;}
+\DoxyCodeLine{00242\ \ \ \}}
+\DoxyCodeLine{00243\ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{reverse\_iterator}}\ \mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{reverse\_iterator}}(data,\ setIterator.ptr\_);\ \}}
+\DoxyCodeLine{00244\ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{reverse\_iterator}}\ \mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}()\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{reverse\_iterator}}\ it(data,\ setIterator.ptr\_);}
+\DoxyCodeLine{00246\ \ \ \ \ ++it;}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{return}\ it;}
+\DoxyCodeLine{00248\ \ \ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00251\ \ \ type\ data[size\ +\ 1];}
+\DoxyCodeLine{00252\ \ \ iterator\ setIterator\ =\ iterator(data,\ data);}
+\DoxyCodeLine{00253\ \};}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00261\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ type,\ \textcolor{keywordtype}{size\_t}\ size>}
+\DoxyCodeLine{00262\ \mbox{\hyperlink{classCircularDelay_adbff4303da3145a6ac1dc297b2ab5b96}{CircularDelay<type,\ size>::CircularDelay}}()\ \{}
+\DoxyCodeLine{00263\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ size\ +\ 1;\ ++i)\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ data[i]\ =\ 0;}
+\DoxyCodeLine{00265\ \ \ \}}
+\DoxyCodeLine{00266\ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00278\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ type,\ \textcolor{keywordtype}{size\_t}\ size>}
+\DoxyCodeLine{00279\ type\ \mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{CircularDelay<type,\ size>::push}}(type\ input)\ \{}
+\DoxyCodeLine{00280\ \ \ *setIterator\ =\ input;}
+\DoxyCodeLine{00281\ \ \ setIterator++;}
+\DoxyCodeLine{00282\ \ \ \textcolor{keywordflow}{return}\ input;}
+\DoxyCodeLine{00283\ \}}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00296\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ type,\ \textcolor{keywordtype}{size\_t}\ size>}
+\DoxyCodeLine{00297\ type\ \mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{CircularDelay<type,\ size>::get}}(\textcolor{keywordtype}{size\_t}\ delay)\ \{}
+\DoxyCodeLine{00298\ \ \ \textcolor{keywordflow}{if}\ (delay\ >=\ size\ +\ 1)}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{throw}(}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ std::domain\_error(\textcolor{stringliteral}{"{}Tried\ to\ get\ a\ value\ that\ is\ longer\ ago\ than\ the\ "{}}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}size\ of\ a\ CircularDelay."{}}));}
+\DoxyCodeLine{00302\ \ \ \mbox{\hyperlink{classCircularDelay_1_1reverse__iterator}{reverse\_iterator}}\ itRBegin(\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}());}
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordflow}{return}\ itRBegin[delay];}
+\DoxyCodeLine{00304\ \}}
+
+\end{DoxyCode}

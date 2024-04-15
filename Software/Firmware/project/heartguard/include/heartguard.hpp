@@ -16,7 +16,7 @@
 #define HEARTGUARD_HPP
 
 #include <fcntl.h>
-#include <pigpio.h>
+#include <gpiod.h>
 #include <signal.h>
 #include <stdio.h>
 #include <sys/file.h>  // flock
@@ -37,10 +37,12 @@
 #include <mutex>
 #include <thread>
 
+#include "Iir.h"
 #include "ads1115.hpp"
 #include "ecg.hpp"
 #include "max30102.hpp"
-#include "Iir.h"
+#include "ppg.hpp"
+#include "tcpserver.hpp"
 // Add your function declarations, classes, etc. here
 
 #endif  // HEARTGUARD_HPP

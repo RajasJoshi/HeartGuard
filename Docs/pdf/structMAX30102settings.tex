@@ -1,0 +1,104 @@
+\doxysection{MAX30102settings Struct Reference}
+\hypertarget{structMAX30102settings}{}\label{structMAX30102settings}\index{MAX30102settings@{MAX30102settings}}
+
+
+{\ttfamily \#include $<$max30102.\+hpp$>$}
+
+
+
+Collaboration diagram for MAX30102settings\+:
+% FIG 0
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structMAX30102settings_aad087bad5395946ad732eb5d8a5b8266}{i2c\+\_\+bus}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structMAX30102settings_aaf506ca8ee555e0be6e50bd6bcefb462}{address}} = \mbox{\hyperlink{max30102_8hpp_ad7327a848315960f1d8828a09316c6a9}{MAX30102\+\_\+\+ADDRESS}}
+\item 
+int \mbox{\hyperlink{structMAX30102settings_aa21690d8c7a8d8f65a4f40d3ca1b81df}{drdy\+\_\+chip}} = 0
+\item 
+int \mbox{\hyperlink{structMAX30102settings_a49b14f906cfc7ed88f6de8639459e8e5}{drdy\+\_\+gpio}} = \mbox{\hyperlink{max30102_8hpp_a6516333f436e810b6855db75f3b3cbbc}{INTERRUPT\+\_\+\+PIN}}
+\item 
+int \mbox{\hyperlink{structMAX30102settings_a43df059424a7c3ed2d513d1d0f53cd05}{led\+Mode}} = 2
+\item 
+int \mbox{\hyperlink{structMAX30102settings_afd8a466de7dd19afa0927f287e4664c4}{number\+Of\+Samples}} = 4
+\item 
+int \mbox{\hyperlink{structMAX30102settings_a7ba8aa2fdb5cf1604ffae6f91a486c53}{sample\+Rate}} = 400
+\item 
+int \mbox{\hyperlink{structMAX30102settings_a64e80ce4ea0d62d7ee1782c250924b0e}{pulse\+Width}} = 411
+\item 
+int \mbox{\hyperlink{structMAX30102settings_a6ee92fa3ca4ccb901473916f0746320d}{adc\+Range}} = 4096
+\item 
+int \mbox{\hyperlink{structMAX30102settings_a64ad988c8b69dc77e360c01117849440}{red\+Pulse\+Amplitude}} = 0x1F
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classADS1115}{ADS1115} initial settings when starting the device. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structMAX30102settings_a6ee92fa3ca4ccb901473916f0746320d}\label{structMAX30102settings_a6ee92fa3ca4ccb901473916f0746320d} 
+\index{MAX30102settings@{MAX30102settings}!adcRange@{adcRange}}
+\index{adcRange@{adcRange}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{adcRange}{adcRange}}
+{\footnotesize\ttfamily int MAX30102settings\+::adc\+Range = 4096}
+
+\Hypertarget{structMAX30102settings_aaf506ca8ee555e0be6e50bd6bcefb462}\label{structMAX30102settings_aaf506ca8ee555e0be6e50bd6bcefb462} 
+\index{MAX30102settings@{MAX30102settings}!address@{address}}
+\index{address@{address}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{address}{address}}
+{\footnotesize\ttfamily uint8\+\_\+t MAX30102settings\+::address = \mbox{\hyperlink{max30102_8hpp_ad7327a848315960f1d8828a09316c6a9}{MAX30102\+\_\+\+ADDRESS}}}
+
+I2C address of the ads1115 \Hypertarget{structMAX30102settings_aa21690d8c7a8d8f65a4f40d3ca1b81df}\label{structMAX30102settings_aa21690d8c7a8d8f65a4f40d3ca1b81df} 
+\index{MAX30102settings@{MAX30102settings}!drdy\_chip@{drdy\_chip}}
+\index{drdy\_chip@{drdy\_chip}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{drdy\_chip}{drdy\_chip}}
+{\footnotesize\ttfamily int MAX30102settings\+::drdy\+\_\+chip = 0}
+
+GPIO Chip number which receives the Data Ready signal \Hypertarget{structMAX30102settings_a49b14f906cfc7ed88f6de8639459e8e5}\label{structMAX30102settings_a49b14f906cfc7ed88f6de8639459e8e5} 
+\index{MAX30102settings@{MAX30102settings}!drdy\_gpio@{drdy\_gpio}}
+\index{drdy\_gpio@{drdy\_gpio}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{drdy\_gpio}{drdy\_gpio}}
+{\footnotesize\ttfamily int MAX30102settings\+::drdy\+\_\+gpio = \mbox{\hyperlink{max30102_8hpp_a6516333f436e810b6855db75f3b3cbbc}{INTERRUPT\+\_\+\+PIN}}}
+
+GPIO pin connected to ALERT/\+RDY \Hypertarget{structMAX30102settings_aad087bad5395946ad732eb5d8a5b8266}\label{structMAX30102settings_aad087bad5395946ad732eb5d8a5b8266} 
+\index{MAX30102settings@{MAX30102settings}!i2c\_bus@{i2c\_bus}}
+\index{i2c\_bus@{i2c\_bus}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{i2c\_bus}{i2c\_bus}}
+{\footnotesize\ttfamily int MAX30102settings\+::i2c\+\_\+bus = 0}
+
+I2C bus used \Hypertarget{structMAX30102settings_a43df059424a7c3ed2d513d1d0f53cd05}\label{structMAX30102settings_a43df059424a7c3ed2d513d1d0f53cd05} 
+\index{MAX30102settings@{MAX30102settings}!ledMode@{ledMode}}
+\index{ledMode@{ledMode}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{ledMode}{ledMode}}
+{\footnotesize\ttfamily int MAX30102settings\+::led\+Mode = 2}
+
+\Hypertarget{structMAX30102settings_afd8a466de7dd19afa0927f287e4664c4}\label{structMAX30102settings_afd8a466de7dd19afa0927f287e4664c4} 
+\index{MAX30102settings@{MAX30102settings}!numberOfSamples@{numberOfSamples}}
+\index{numberOfSamples@{numberOfSamples}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{numberOfSamples}{numberOfSamples}}
+{\footnotesize\ttfamily int MAX30102settings\+::number\+Of\+Samples = 4}
+
+\Hypertarget{structMAX30102settings_a64e80ce4ea0d62d7ee1782c250924b0e}\label{structMAX30102settings_a64e80ce4ea0d62d7ee1782c250924b0e} 
+\index{MAX30102settings@{MAX30102settings}!pulseWidth@{pulseWidth}}
+\index{pulseWidth@{pulseWidth}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{pulseWidth}{pulseWidth}}
+{\footnotesize\ttfamily int MAX30102settings\+::pulse\+Width = 411}
+
+\Hypertarget{structMAX30102settings_a64ad988c8b69dc77e360c01117849440}\label{structMAX30102settings_a64ad988c8b69dc77e360c01117849440} 
+\index{MAX30102settings@{MAX30102settings}!redPulseAmplitude@{redPulseAmplitude}}
+\index{redPulseAmplitude@{redPulseAmplitude}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{redPulseAmplitude}{redPulseAmplitude}}
+{\footnotesize\ttfamily int MAX30102settings\+::red\+Pulse\+Amplitude = 0x1F}
+
+\Hypertarget{structMAX30102settings_a7ba8aa2fdb5cf1604ffae6f91a486c53}\label{structMAX30102settings_a7ba8aa2fdb5cf1604ffae6f91a486c53} 
+\index{MAX30102settings@{MAX30102settings}!sampleRate@{sampleRate}}
+\index{sampleRate@{sampleRate}!MAX30102settings@{MAX30102settings}}
+\doxysubsubsection{\texorpdfstring{sampleRate}{sampleRate}}
+{\footnotesize\ttfamily int MAX30102settings\+::sample\+Rate = 400}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Software/\+Firmware/project/max30102/include/\mbox{\hyperlink{max30102_8hpp}{max30102.\+hpp}}\end{DoxyCompactItemize}

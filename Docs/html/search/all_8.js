@@ -1,9 +1,14 @@
 var searchData=
 [
-  ['i2c_5fbuffer_5flength_52',['I2C_BUFFER_LENGTH',['../max30102_8hpp.html#aab040ced3ff06bdd71655d55a5f8db14',1,'max30102.hpp']]],
-  ['i2c_5fbus_53',['i2c_bus',['../structADS1115settings.html#ae0f3b1d6ef8068fed5e580fd4d7123b3',1,'ADS1115settings']]],
-  ['initpigpio_54',['initPIGPIO',['../structADS1115settings.html#add939ea3e172fc3c52fe9e53b05a66e4',1,'ADS1115settings']]],
-  ['input_55',['Input',['../structADS1115settings.html#a17845a1a94f94bb7d2406dbe13bc560d',1,'ADS1115settings']]],
-  ['interrupt_5fpin_56',['INTERRUPT_PIN',['../max30102_8hpp.html#a6516333f436e810b6855db75f3b3cbbc',1,'max30102.hpp']]],
-  ['isr_5ftimeout_57',['ISR_TIMEOUT',['../ads1115_8hpp.html#aaa9b71fc04bd91a5cdf4030dd5fe6551',1,'ads1115.hpp']]]
+  ['hassample_0',['hasSample',['../classADS1115.html#a816bec5812a59878dfe26cafae05dc68',1,'ADS1115']]],
+  ['headindex_1',['headIndex',['../classECG.html#a363732cf08a125be6c24b664f9ba6e4b',1,'ECG']]],
+  ['heart_5frate_2',['heart_rate',['../classECG.html#a11d171c97b5de296a82d0a2fb6633d18',1,'ECG']]],
+  ['heartguard_2ecpp_3',['heartguard.cpp',['../heartguard_8cpp.html',1,'']]],
+  ['heartguard_2ehpp_4',['heartguard.hpp',['../heartguard_8hpp.html',1,'']]],
+  ['heartguard_5ftest_2ecpp_5',['heartguard_test.cpp',['../heartguard__test_8cpp.html',1,'']]],
+  ['highpass_5fcutoff_5ffrequency_6',['highpass_cutoff_frequency',['../classECG.html#af9b563623df6db86754552ccac428d73',1,'ECG']]],
+  ['highpassfilter_7',['HighPassFilter',['../classHighPassFilter.html',1,'HighPassFilter'],['../classHighPassFilter.html#aca0a5f910709607950b2a87ea32f2400',1,'HighPassFilter::HighPassFilter()']]],
+  ['highpassfilter3_8',['HighPassFilter3',['../classHighPassFilter3.html',1,'HighPassFilter3'],['../classHighPassFilter3.html#af088f9f3664bf05b39104d682ae80ea1',1,'HighPassFilter3::HighPassFilter3()']]],
+  ['hpf_9',['hpf',['../ppg_8cpp.html#a6f35e3e346a56f25425b116e780c877e',1,'ppg.cpp']]],
+  ['hrv_10',['HRV',['../classECG.html#a9dbfde5ef7209054f7548764a4cf8fb2',1,'ECG']]]
 ];
