@@ -7,7 +7,7 @@
  * https://github.com/berndporr/iir1
  *
  * See Documentation.txt for contact information, notes, and bibliography.
- * 
+ *
  * -----------------------------------------------------------------
  *
  * License: MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -36,33 +36,33 @@
 #ifndef IIR1_BUTTERWORTH_H
 #define IIR1_BUTTERWORTH_H
 
-#include "Common.h"
 #include "Cascade.h"
+#include "Common.h"
 #include "PoleFilter.h"
 #include "State.h"
 
 namespace Iir {
 
 /**
- * Filters with Butterworth response characteristics. The filter order is usually set
- * via the template parameter which reserves the correct space and is then automatically
- * passed to the setup function. Optionally one can also provde the filter
- * order at setup time to force a lower order than the default one.
+ * Filters with Butterworth response characteristics. The filter order is
+ *usually set via the template parameter which reserves the correct space and is
+ *then automatically passed to the setup function. Optionally one can also
+ *provde the filter order at setup time to force a lower order than the default
+ *one.
  **/
 namespace Butterworth {
 
 /**
  * Analogue lowpass prototypes (s-plane)
  **/
-class IIR_EXPORT AnalogLowPass : public LayoutBase
-{
-public:
-	AnalogLowPass ();
+class IIR_EXPORT AnalogLowPass : public LayoutBase {
+ public:
+  AnalogLowPass();
 
-	void design (const int numPoles);
+  void design(const int numPoles);
 
-private:
-	int m_numPoles = 0;
+ private:
+  int m_numPoles = 0;
 };
 
 //------------------------------------------------------------------------------
@@ -70,66 +70,46 @@ private:
 /**
  * Analogue low shelf prototypes (s-plane)
  **/
-class IIR_EXPORT AnalogLowShelf : public LayoutBase
-{
-public:
-	AnalogLowShelf ();
-	
-	void design (int numPoles, double gainDb);
+class IIR_EXPORT AnalogLowShelf : public LayoutBase {
+ public:
+  AnalogLowShelf();
 
-private:
-	int m_numPoles = 0;
-	double m_gainDb = 0.0;
+  void design(int numPoles, double gainDb);
+
+ private:
+  int m_numPoles = 0;
+  double m_gainDb = 0.0;
 };
 
 //------------------------------------------------------------------------------
 
-struct IIR_EXPORT LowPassBase : PoleFilterBase <AnalogLowPass>
-{
-	void setup (int order,
-		    double cutoffFrequency);
+struct IIR_EXPORT LowPassBase : PoleFilterBase<AnalogLowPass> {
+  void setup(int order, double cutoffFrequency);
 };
 
-struct IIR_EXPORT HighPassBase : PoleFilterBase <AnalogLowPass>
-{
-	void setup (int order,
-		    double cutoffFrequency);
+struct IIR_EXPORT HighPassBase : PoleFilterBase<AnalogLowPass> {
+  void setup(int order, double cutoffFrequency);
 };
 
-struct IIR_EXPORT BandPassBase : PoleFilterBase <AnalogLowPass>
-{
-	void setup (int order,
-		    double centerFrequency,
-		    double widthFrequency);
+struct IIR_EXPORT BandPassBase : PoleFilterBase<AnalogLowPass> {
+  void setup(int order, double centerFrequency, double widthFrequency);
 };
 
-struct IIR_EXPORT BandStopBase : PoleFilterBase <AnalogLowPass>
-{
-	void setup (int order,
-		    double centerFrequency,
-		    double widthFrequency);
+struct IIR_EXPORT BandStopBase : PoleFilterBase<AnalogLowPass> {
+  void setup(int order, double centerFrequency, double widthFrequency);
 };
 
-struct IIR_EXPORT LowShelfBase : PoleFilterBase <AnalogLowShelf>
-{
-	void setup (int order,
-		    double cutoffFrequency,
-		    double gainDb);
+struct IIR_EXPORT LowShelfBase : PoleFilterBase<AnalogLowShelf> {
+  void setup(int order, double cutoffFrequency, double gainDb);
 };
 
-struct IIR_EXPORT HighShelfBase : PoleFilterBase <AnalogLowShelf>
-{
-	void setup (int order,
-		    double cutoffFrequency,
-		    double gainDb);
+struct IIR_EXPORT HighShelfBase : PoleFilterBase<AnalogLowShelf> {
+  void setup(int order, double cutoffFrequency, double gainDb);
 };
 
-struct IIR_EXPORT BandShelfBase : PoleFilterBase <AnalogLowShelf>
-{
-	void setup (int order,
-		    double centerFrequency,
-		    double widthFrequency,
-		    double gainDb);
+struct IIR_EXPORT BandShelfBase : PoleFilterBase<AnalogLowShelf> {
+  void setup(int order, double centerFrequency, double widthFrequency,
+             double gainDb);
 };
 
 //------------------------------------------------------------------------------
@@ -138,115 +118,94 @@ struct IIR_EXPORT BandShelfBase : PoleFilterBase <AnalogLowShelf>
 // Filters for the user
 //
 
-/** 
+/**
  * Butterworth Lowpass filter.
  * \param FilterOrder Reserves memory for a filter of the order FilterOrder
  * \param StateType The filter topology: DirectFormI, DirectFormII, ...
  */
-template <int FilterOrder = DEFAULT_FILTER_ORDER, class StateType = DEFAULT_STATE>
-struct LowPass : PoleFilter <LowPassBase, StateType, FilterOrder>
-{
-	/**
-	 * Calculates the coefficients
-         * \param sampleRate Sampling rate
-         * \param cutoffFrequency Cutoff
-         **/
-	void setup (double sampleRate,
-		    double cutoffFrequency) {
-		LowPassBase::setup (FilterOrder,
-				    cutoffFrequency / sampleRate);
-	}
+template <int FilterOrder = DEFAULT_FILTER_ORDER,
+          class StateType = DEFAULT_STATE>
+struct LowPass : PoleFilter<LowPassBase, StateType, FilterOrder> {
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param cutoffFrequency Cutoff
+   **/
+  void setup(double sampleRate, double cutoffFrequency) {
+    LowPassBase::setup(FilterOrder, cutoffFrequency / sampleRate);
+  }
 
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param sampleRate Sampling rate
-         * \param cutoffFrequency Cutoff
-         **/
-	void setup (int reqOrder,
-		    double sampleRate,
-		    double cutoffFrequency) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		LowPassBase::setup (reqOrder,
-				    cutoffFrequency / sampleRate);
-	}
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param sampleRate Sampling rate \param cutoffFrequency Cutoff
+   **/
+  void setup(int reqOrder, double sampleRate, double cutoffFrequency) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    LowPassBase::setup(reqOrder, cutoffFrequency / sampleRate);
+  }
 
-	
-	/**
-	 * Calculates the coefficients
-         * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
-         **/
-	void setupN(double cutoffFrequency) {
-		LowPassBase::setup (FilterOrder,
-				    cutoffFrequency);
-	}
+  /**
+   * Calculates the coefficients
+   * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
+   **/
+  void setupN(double cutoffFrequency) {
+    LowPassBase::setup(FilterOrder, cutoffFrequency);
+  }
 
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
-         **/
-	void setupN(int reqOrder,
-		    double cutoffFrequency) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		LowPassBase::setup (reqOrder,
-				    cutoffFrequency);
-	}
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param cutoffFrequency Normalised cutoff frequency (0..1/2)
+   **/
+  void setupN(int reqOrder, double cutoffFrequency) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    LowPassBase::setup(reqOrder, cutoffFrequency);
+  }
 };
 
-/** 
- * Butterworth Highpass filter. 
+/**
+ * Butterworth Highpass filter.
  * \param FilterOrder Reserves memory for a filter of the order FilterOrder
  * \param StateType The filter topology: DirectFormI, DirectFormII, ...
  */
-template <int FilterOrder = DEFAULT_FILTER_ORDER, class StateType = DEFAULT_STATE>
-struct HighPass : PoleFilter <HighPassBase, StateType, FilterOrder>
-{
+template <int FilterOrder = DEFAULT_FILTER_ORDER,
+          class StateType = DEFAULT_STATE>
+struct HighPass : PoleFilter<HighPassBase, StateType, FilterOrder> {
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param sampleRate Sampling rate \param cutoffFrequency Cutoff
+   *frequency
+   **/
+  void setup(double sampleRate, double cutoffFrequency) {
+    HighPassBase::setup(FilterOrder, cutoffFrequency / sampleRate);
+  }
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param sampleRate Sampling rate \param cutoffFrequency Cutoff frequency
+   **/
+  void setup(int reqOrder, double sampleRate, double cutoffFrequency) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    HighPassBase::setup(reqOrder, cutoffFrequency / sampleRate);
+  }
 
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param sampleRate Sampling rate
-         * \param cutoffFrequency Cutoff frequency
-         **/
-	void setup (double sampleRate,
-		    double cutoffFrequency) {
-		HighPassBase::setup (FilterOrder,
-				     cutoffFrequency / sampleRate);
-	}
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param sampleRate Sampling rate
-         * \param cutoffFrequency Cutoff frequency
-         **/
-	void setup (int reqOrder,
-		    double sampleRate,
-		    double cutoffFrequency) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		HighPassBase::setup (reqOrder,
-				     cutoffFrequency / sampleRate);
-	}
-
-
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
-         **/
-	void setupN(double cutoffFrequency) {
-		HighPassBase::setup (FilterOrder,
-				     cutoffFrequency);
-	}
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
-         **/
-	void setupN(int reqOrder,
-		    double cutoffFrequency) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		HighPassBase::setup (reqOrder,
-				     cutoffFrequency);
-	}
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param cutoffFrequency Normalised cutoff frequency (0..1/2)
+   **/
+  void setupN(double cutoffFrequency) {
+    HighPassBase::setup(FilterOrder, cutoffFrequency);
+  }
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param cutoffFrequency Normalised cutoff frequency (0..1/2)
+   **/
+  void setupN(int reqOrder, double cutoffFrequency) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    HighPassBase::setup(reqOrder, cutoffFrequency);
+  }
 };
 
 /**
@@ -254,139 +213,105 @@ struct HighPass : PoleFilter <HighPassBase, StateType, FilterOrder>
  * \param FilterOrder  Reserves memory for a filter of the order FilterOrder
  * \param StateType The filter topology: DirectFormI, DirectFormII, ...
  */
-template <int FilterOrder = DEFAULT_FILTER_ORDER, class StateType = DEFAULT_STATE>
-struct BandPass : PoleFilter <BandPassBase, StateType, FilterOrder, FilterOrder*2>
-{
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param sampleRate Sampling rate
-         * \param centerFrequency Centre frequency of the bandpass
-         * \param widthFrequency Width of the bandpass
-         **/
-	void setup (double sampleRate,
-		    double centerFrequency,
-		    double widthFrequency) {
-		BandPassBase::setup(FilterOrder,
-				    centerFrequency / sampleRate,
-				    widthFrequency / sampleRate);
-	}
+template <int FilterOrder = DEFAULT_FILTER_ORDER,
+          class StateType = DEFAULT_STATE>
+struct BandPass
+    : PoleFilter<BandPassBase, StateType, FilterOrder, FilterOrder * 2> {
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param sampleRate Sampling rate \param centerFrequency Centre
+   *frequency of the bandpass \param widthFrequency Width of the bandpass
+   **/
+  void setup(double sampleRate, double centerFrequency, double widthFrequency) {
+    BandPassBase::setup(FilterOrder, centerFrequency / sampleRate,
+                        widthFrequency / sampleRate);
+  }
 
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param sampleRate Sampling rate
-         * \param centerFrequency Centre frequency of the bandpass
-         * \param widthFrequency Width of the bandpass
-         **/
-	void setup (int reqOrder,
-		    double sampleRate,
-		    double centerFrequency,
-		    double widthFrequency) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		BandPassBase::setup(reqOrder,
-				    centerFrequency / sampleRate,
-				    widthFrequency / sampleRate);
-	}
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param sampleRate Sampling rate \param centerFrequency Centre frequency
+   *of the bandpass \param widthFrequency Width of the bandpass
+   **/
+  void setup(int reqOrder, double sampleRate, double centerFrequency,
+             double widthFrequency) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    BandPassBase::setup(reqOrder, centerFrequency / sampleRate,
+                        widthFrequency / sampleRate);
+  }
 
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param centerFrequency Normalised centre frequency (0..1/2) of
+   *the bandpass \param widthFrequency Width of the bandpass in normalised freq
+   **/
+  void setupN(double centerFrequency, double widthFrequency) {
+    BandPassBase::setup(FilterOrder, centerFrequency, widthFrequency);
+  }
 
-
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param centerFrequency Normalised centre frequency (0..1/2) of the bandpass
-         * \param widthFrequency Width of the bandpass in normalised freq
-         **/
-	void setupN(double centerFrequency,
-		    double widthFrequency) {
-		BandPassBase::setup(FilterOrder,
-				    centerFrequency,
-				    widthFrequency);
-	}
-
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param centerFrequency Normalised centre frequency (0..1/2) of the bandpass
-         * \param widthFrequency Width of the bandpass in normalised freq
-         **/
-	void setupN(int reqOrder,
-		    double centerFrequency,
-		    double widthFrequency) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		BandPassBase::setup(reqOrder,
-				    centerFrequency,
-				    widthFrequency);
-	}
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param centerFrequency Normalised centre frequency (0..1/2) of the
+   *bandpass \param widthFrequency Width of the bandpass in normalised freq
+   **/
+  void setupN(int reqOrder, double centerFrequency, double widthFrequency) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    BandPassBase::setup(reqOrder, centerFrequency, widthFrequency);
+  }
 };
-
 
 /**
  * Butterworth Bandstop filter.
  * \param FilterOrder Reserves memory for a filter of the order FilterOrder
  * \param StateType The filter topology: DirectFormI, DirectFormII, ...
  */
-template <int FilterOrder = DEFAULT_FILTER_ORDER, class StateType = DEFAULT_STATE>
-struct BandStop : PoleFilter <BandStopBase, StateType, FilterOrder, FilterOrder*2>
-{
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param sampleRate Sampling rate
-         * \param centerFrequency Centre frequency of the bandstop
-         * \param widthFrequency Width of the bandstop
-         **/
-	void setup (double sampleRate,
-		    double centerFrequency,
-		    double widthFrequency) {
-		BandStopBase::setup (FilterOrder,
-				     centerFrequency / sampleRate,
-				     widthFrequency / sampleRate);
-	}
+template <int FilterOrder = DEFAULT_FILTER_ORDER,
+          class StateType = DEFAULT_STATE>
+struct BandStop
+    : PoleFilter<BandStopBase, StateType, FilterOrder, FilterOrder * 2> {
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param sampleRate Sampling rate \param centerFrequency Centre
+   *frequency of the bandstop \param widthFrequency Width of the bandstop
+   **/
+  void setup(double sampleRate, double centerFrequency, double widthFrequency) {
+    BandStopBase::setup(FilterOrder, centerFrequency / sampleRate,
+                        widthFrequency / sampleRate);
+  }
 
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param sampleRate Sampling rate
-         * \param centerFrequency Centre frequency of the bandstop
-         * \param widthFrequency Width of the bandstop
-         **/
-	void setupN(int reqOrder,
-		    double sampleRate,
-		    double centerFrequency,
-		    double widthFrequency) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		BandStopBase::setup (reqOrder,
-				     centerFrequency / sampleRate,
-				     widthFrequency / sampleRate);
-	}
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param sampleRate Sampling rate \param centerFrequency Centre frequency
+   *of the bandstop \param widthFrequency Width of the bandstop
+   **/
+  void setupN(int reqOrder, double sampleRate, double centerFrequency,
+              double widthFrequency) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    BandStopBase::setup(reqOrder, centerFrequency / sampleRate,
+                        widthFrequency / sampleRate);
+  }
 
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param centerFrequency Normalised centre frequency (0..1/2) of
+   *the bandstop \param widthFrequency Normalised width of the bandstop
+   **/
+  void setupN(double centerFrequency, double widthFrequency) {
+    BandStopBase::setup(FilterOrder, centerFrequency, widthFrequency);
+  }
 
-
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param centerFrequency Normalised centre frequency (0..1/2) of the bandstop
-         * \param widthFrequency Normalised width of the bandstop
-         **/
-	void setupN(double centerFrequency,
-		    double widthFrequency) {
-		BandStopBase::setup (FilterOrder,
-				     centerFrequency,
-				     widthFrequency);
-	}
-
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param centerFrequency Normalised centre frequency (0..1/2) of the bandstop
-         * \param widthFrequency Normalised width of the bandstop
-         **/
-	void setupN(int reqOrder,
-		    double centerFrequency,
-		    double widthFrequency) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		BandStopBase::setup (reqOrder,
-				     centerFrequency,
-				     widthFrequency);
-	}
-
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param centerFrequency Normalised centre frequency (0..1/2) of the
+   *bandstop \param widthFrequency Normalised width of the bandstop
+   **/
+  void setupN(int reqOrder, double centerFrequency, double widthFrequency) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    BandStopBase::setup(reqOrder, centerFrequency, widthFrequency);
+  }
 };
 
 /**
@@ -395,72 +320,50 @@ struct BandStop : PoleFilter <BandStopBase, StateType, FilterOrder, FilterOrder*
  * \param FilterOrder Reserves memory for a filter of the order FilterOrder
  * \param StateType The filter topology: DirectFormI, DirectFormII, ...
  **/
-template <int FilterOrder = DEFAULT_FILTER_ORDER, class StateType = DEFAULT_STATE>
-struct LowShelf : PoleFilter <LowShelfBase, StateType, FilterOrder>
-{
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param sampleRate Sampling rate
-         * \param cutoffFrequency Cutoff
-         * \param gainDb Gain in dB of the filter in the passband
-         **/
-	void setup (double sampleRate,
-		    double cutoffFrequency,
-		    double gainDb) {
-		LowShelfBase::setup (FilterOrder,
-				     cutoffFrequency / sampleRate,
-				     gainDb);
-	}
+template <int FilterOrder = DEFAULT_FILTER_ORDER,
+          class StateType = DEFAULT_STATE>
+struct LowShelf : PoleFilter<LowShelfBase, StateType, FilterOrder> {
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param sampleRate Sampling rate \param cutoffFrequency Cutoff
+   * \param gainDb Gain in dB of the filter in the passband
+   **/
+  void setup(double sampleRate, double cutoffFrequency, double gainDb) {
+    LowShelfBase::setup(FilterOrder, cutoffFrequency / sampleRate, gainDb);
+  }
 
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param sampleRate Sampling rate
-         * \param cutoffFrequency Cutoff
-         * \param gainDb Gain in dB of the filter in the passband
-         **/
-	void setup (int reqOrder,
-		    double sampleRate,
-		    double cutoffFrequency,
-		    double gainDb) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		LowShelfBase::setup (reqOrder,
-				     cutoffFrequency / sampleRate,
-				     gainDb);
-	}
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param sampleRate Sampling rate \param cutoffFrequency Cutoff \param
+   *gainDb Gain in dB of the filter in the passband
+   **/
+  void setup(int reqOrder, double sampleRate, double cutoffFrequency,
+             double gainDb) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    LowShelfBase::setup(reqOrder, cutoffFrequency / sampleRate, gainDb);
+  }
 
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param cutoffFrequency Normalised cutoff frequency (0..1/2)
+   * \param gainDb Gain in dB of the filter in the passband
+   **/
+  void setupN(double cutoffFrequency, double gainDb) {
+    LowShelfBase::setup(FilterOrder, cutoffFrequency, gainDb);
+  }
 
-
-
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
-         * \param gainDb Gain in dB of the filter in the passband
-         **/
-	void setupN(double cutoffFrequency,
-		    double gainDb) {
-		LowShelfBase::setup (FilterOrder,
-				     cutoffFrequency,
-				     gainDb);
-	}
-
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
-         * \param gainDb Gain in dB of the filter in the passband
-         **/
-	void setupN(int reqOrder,
-		    double cutoffFrequency,
-		    double gainDb) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		LowShelfBase::setup (reqOrder,
-				     cutoffFrequency,
-				     gainDb);
-	}
-
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param cutoffFrequency Normalised cutoff frequency (0..1/2) \param
+   *gainDb Gain in dB of the filter in the passband
+   **/
+  void setupN(int reqOrder, double cutoffFrequency, double gainDb) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    LowShelfBase::setup(reqOrder, cutoffFrequency, gainDb);
+  }
 };
-
 
 /**
  * Butterworth high shelf filter. Above the cutoff the filter has
@@ -468,156 +371,113 @@ struct LowShelf : PoleFilter <LowShelfBase, StateType, FilterOrder>
  * \param FilterOrder Reserves memory for a filter of the order FilterOrder
  * \param StateType The filter topology: DirectFormI, DirectFormII, ...
  **/
-template <int FilterOrder = DEFAULT_FILTER_ORDER, class StateType = DEFAULT_STATE>
-struct HighShelf : PoleFilter <HighShelfBase, StateType, FilterOrder>
-{
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param sampleRate Sampling rate
-         * \param cutoffFrequency Cutoff
-         * \param gainDb Gain in dB of the filter in the passband
-         **/
-	void setup (double sampleRate,
-		    double cutoffFrequency,
-		    double gainDb) {
-		HighShelfBase::setup (FilterOrder,
-				      cutoffFrequency / sampleRate,
-				      gainDb);
-	}
+template <int FilterOrder = DEFAULT_FILTER_ORDER,
+          class StateType = DEFAULT_STATE>
+struct HighShelf : PoleFilter<HighShelfBase, StateType, FilterOrder> {
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param sampleRate Sampling rate \param cutoffFrequency Cutoff
+   * \param gainDb Gain in dB of the filter in the passband
+   **/
+  void setup(double sampleRate, double cutoffFrequency, double gainDb) {
+    HighShelfBase::setup(FilterOrder, cutoffFrequency / sampleRate, gainDb);
+  }
 
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param sampleRate Sampling rate
-         * \param cutoffFrequency Cutoff
-         * \param gainDb Gain in dB of the filter in the passband
-         **/
-	void setup (int reqOrder,
-		    double sampleRate,
-		    double cutoffFrequency,
-		    double gainDb) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		HighShelfBase::setup (reqOrder,
-				      cutoffFrequency / sampleRate,
-				      gainDb);
-	}
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param sampleRate Sampling rate \param cutoffFrequency Cutoff \param
+   *gainDb Gain in dB of the filter in the passband
+   **/
+  void setup(int reqOrder, double sampleRate, double cutoffFrequency,
+             double gainDb) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    HighShelfBase::setup(reqOrder, cutoffFrequency / sampleRate, gainDb);
+  }
 
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param cutoffFrequency Normalised cutoff frequency (0..1/2)
+   * \param gainDb Gain in dB of the filter in the passband
+   **/
+  void setupN(double cutoffFrequency, double gainDb) {
+    HighShelfBase::setup(FilterOrder, cutoffFrequency, gainDb);
+  }
 
-
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
-         * \param gainDb Gain in dB of the filter in the passband
-         **/
-	void setupN(double cutoffFrequency,
-		    double gainDb) {
-		HighShelfBase::setup (FilterOrder,
-				      cutoffFrequency,
-				      gainDb);
-	}
-
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
-         * \param gainDb Gain in dB of the filter in the passband
-         **/
-	void setupN(int reqOrder,
-		    double cutoffFrequency,
-		    double gainDb) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		HighShelfBase::setup (reqOrder,
-				      cutoffFrequency,
-				      gainDb);
-	}
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param cutoffFrequency Normalised cutoff frequency (0..1/2) \param
+   *gainDb Gain in dB of the filter in the passband
+   **/
+  void setupN(int reqOrder, double cutoffFrequency, double gainDb) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    HighShelfBase::setup(reqOrder, cutoffFrequency, gainDb);
+  }
 };
-
 
 /**
- * Butterworth Bandshelf filter: it is a bandpass filter which amplifies at a specified
- * gain in dB the frequencies in the passband.
- * \param FilterOrder Reserves memory for a filter of the order FilterOrder
- * \param StateType The filter topology: DirectFormI, DirectFormII, ...
+ * Butterworth Bandshelf filter: it is a bandpass filter which amplifies at a
+ * specified gain in dB the frequencies in the passband. \param FilterOrder
+ * Reserves memory for a filter of the order FilterOrder \param StateType The
+ * filter topology: DirectFormI, DirectFormII, ...
  */
-template <int FilterOrder = DEFAULT_FILTER_ORDER, class StateType = DEFAULT_STATE>
-struct BandShelf : PoleFilter <BandShelfBase, StateType, FilterOrder, FilterOrder*2>
-{
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param sampleRate Sampling rate
-         * \param centerFrequency Centre frequency of the passband
-         * \param widthFrequency Width of the passband
-         * \param gainDb The gain in the passband
-         **/
-	void setup (double sampleRate,
-		    double centerFrequency,
-		    double widthFrequency,
-		    double gainDb) {
-		BandShelfBase::setup (FilterOrder,
-				      centerFrequency / sampleRate,
-				      widthFrequency / sampleRate,
-				      gainDb);
-	}
-	
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param sampleRate Sampling rate
-         * \param centerFrequency Centre frequency of the passband
-         * \param widthFrequency Width of the passband
-         * \param gainDb The gain in the passband
-         **/
-	void setup (int reqOrder,
-		    double sampleRate,
-		    double centerFrequency,
-		    double widthFrequency,
-		    double gainDb) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		BandShelfBase::setup (reqOrder,
-				      centerFrequency / sampleRate,
-				      widthFrequency / sampleRate,
-				      gainDb);
-	}
+template <int FilterOrder = DEFAULT_FILTER_ORDER,
+          class StateType = DEFAULT_STATE>
+struct BandShelf
+    : PoleFilter<BandShelfBase, StateType, FilterOrder, FilterOrder * 2> {
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param sampleRate Sampling rate \param centerFrequency Centre
+   *frequency of the passband \param widthFrequency Width of the passband \param
+   *gainDb The gain in the passband
+   **/
+  void setup(double sampleRate, double centerFrequency, double widthFrequency,
+             double gainDb) {
+    BandShelfBase::setup(FilterOrder, centerFrequency / sampleRate,
+                         widthFrequency / sampleRate, gainDb);
+  }
 
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param sampleRate Sampling rate \param centerFrequency Centre frequency
+   *of the passband \param widthFrequency Width of the passband \param gainDb
+   *The gain in the passband
+   **/
+  void setup(int reqOrder, double sampleRate, double centerFrequency,
+             double widthFrequency, double gainDb) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    BandShelfBase::setup(reqOrder, centerFrequency / sampleRate,
+                         widthFrequency / sampleRate, gainDb);
+  }
 
+  /**
+   * Calculates the coefficients with the filter order provided by the
+   *instantiation \param centerFrequency Normalised centre frequency (0..1/2) of
+   *the passband \param widthFrequency Width of the passband \param gainDb The
+   *gain in the passband
+   **/
+  void setupN(double centerFrequency, double widthFrequency, double gainDb) {
+    BandShelfBase::setup(FilterOrder, centerFrequency, widthFrequency, gainDb);
+  }
 
-	/**
-	 * Calculates the coefficients with the filter order provided by the instantiation
-         * \param centerFrequency Normalised centre frequency (0..1/2) of the passband
-         * \param widthFrequency Width of the passband
-         * \param gainDb The gain in the passband
-         **/
-	void setupN(double centerFrequency,
-		    double widthFrequency,
-		    double gainDb) {
-		BandShelfBase::setup (FilterOrder,
-				      centerFrequency,
-				      widthFrequency,
-				      gainDb);
-	}
-	
-	/**
-	 * Calculates the coefficients
-         * \param reqOrder The actual order which can be less than the instantiated one
-         * \param centerFrequency Normalised centre frequency (0..1/2) of the passband
-         * \param widthFrequency Width of the passband
-         * \param gainDb The gain in the passband
-         **/
-	void setupN(int reqOrder,
-		    double centerFrequency,
-		    double widthFrequency,
-		    double gainDb) {
-		if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
-		BandShelfBase::setup (reqOrder,
-				      centerFrequency,
-				      widthFrequency,
-				      gainDb);
-	}
+  /**
+   * Calculates the coefficients
+   * \param reqOrder The actual order which can be less than the instantiated
+   *one \param centerFrequency Normalised centre frequency (0..1/2) of the
+   *passband \param widthFrequency Width of the passband \param gainDb The gain
+   *in the passband
+   **/
+  void setupN(int reqOrder, double centerFrequency, double widthFrequency,
+              double gainDb) {
+    if (reqOrder > FilterOrder) throw_invalid_argument(orderTooHigh);
+    BandShelfBase::setup(reqOrder, centerFrequency, widthFrequency, gainDb);
+  }
 };
 
-}
+}  // namespace Butterworth
 
-}
+}  // namespace Iir
 
 #endif
-

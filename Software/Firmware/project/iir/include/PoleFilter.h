@@ -7,7 +7,7 @@
  * https://github.com/berndporr/iir1
  *
  * See Documentation.cpp for contact information, notes, and bibliography.
- * 
+ *
  * -----------------------------------------------------------------
  *
  * License: MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -36,9 +36,9 @@
 #ifndef IIR1_POLEFILTER_H
 #define IIR1_POLEFILTER_H
 
+#include "Cascade.h"
 #include "Common.h"
 #include "MathSupplement.h"
-#include "Cascade.h"
 #include "State.h"
 
 // Purely for debugging...
@@ -59,87 +59,76 @@ namespace Iir {
 /**
  * Factored implementations to reduce template instantiations
  **/
-	class IIR_EXPORT PoleFilterBase2 : public Cascade
-	{
-	public:
-		// This gets the poles/zeros directly from the digital
-		// prototype. It is used to double check the correctness
-		// of the recovery of pole/zeros from biquad coefficients.
-		//
-		// It can also be used to accelerate the interpolation
-		// of pole/zeros for parameter modulation, since a pole
-		// filter already has them calculated
+class IIR_EXPORT PoleFilterBase2 : public Cascade {
+ public:
+  // This gets the poles/zeros directly from the digital
+  // prototype. It is used to double check the correctness
+  // of the recovery of pole/zeros from biquad coefficients.
+  //
+  // It can also be used to accelerate the interpolation
+  // of pole/zeros for parameter modulation, since a pole
+  // filter already has them calculated
 
-		PoleFilterBase2() = default;
+  PoleFilterBase2() = default;
 
-		std::vector<PoleZeroPair> getPoleZeros () const
-		{
-			std::vector<PoleZeroPair> vpz;
-			const int pairs = (m_digitalProto.getNumPoles () + 1) / 2;
-			for (int i = 0; i < pairs; ++i)
-				vpz.push_back (m_digitalProto[i]);
-			return vpz;
-		}
-	
-	protected:
-		LayoutBase m_digitalProto = {};
-	};
+  std::vector<PoleZeroPair> getPoleZeros() const {
+    std::vector<PoleZeroPair> vpz;
+    const int pairs = (m_digitalProto.getNumPoles() + 1) / 2;
+    for (int i = 0; i < pairs; ++i) vpz.push_back(m_digitalProto[i]);
+    return vpz;
+  }
 
+ protected:
+  LayoutBase m_digitalProto = {};
+};
 
 /**
  * Serves a container to hold the analog prototype
  * and the digital pole/zero layout.
  **/
-	template <class AnalogPrototype>
-	class PoleFilterBase : public PoleFilterBase2
-	{
-	protected:
-		void setPrototypeStorage (const LayoutBase& analogStorage,
-					  const LayoutBase& digitalStorage)
-		{
-			m_analogProto.setStorage (analogStorage);
-			m_digitalProto = digitalStorage;
-		}
-		
-	protected:
-		AnalogPrototype m_analogProto = {};
-	};
+template <class AnalogPrototype>
+class PoleFilterBase : public PoleFilterBase2 {
+ protected:
+  void setPrototypeStorage(const LayoutBase& analogStorage,
+                           const LayoutBase& digitalStorage) {
+    m_analogProto.setStorage(analogStorage);
+    m_digitalProto = digitalStorage;
+  }
+
+ protected:
+  AnalogPrototype m_analogProto = {};
+};
 
 //------------------------------------------------------------------------------
 
 /**
  * Storage for pole filters
  **/
-	template <class BaseClass,
-		  class StateType,
-		  int MaxAnalogPoles,
-		  int MaxDigitalPoles = MaxAnalogPoles>
-	struct PoleFilter : BaseClass
-		, CascadeStages <(MaxDigitalPoles + 1) / 2 , StateType>
-	{
-	public:
-		PoleFilter ()
-			{
-				// This glues together the factored base classes
-				// with the templatized storage classes.
-				BaseClass::setCascadeStorage (this->getCascadeStorage());
-				BaseClass::setPrototypeStorage (m_analogStorage, m_digitalStorage);
-				CascadeStages<(MaxDigitalPoles + 1) / 2 , StateType>::reset();
-			}
-		
-		PoleFilter(const PoleFilter&) = default;
-		
-		PoleFilter& operator=(const PoleFilter&)
-			{
-				// Reset the filter state when copied for now
-				CascadeStages<(MaxDigitalPoles + 1) / 2 , StateType>::reset();
-				return *this;
-			}
-		
-	private:
-		Layout <MaxAnalogPoles> m_analogStorage = {};
-		Layout <MaxDigitalPoles> m_digitalStorage = {};
-	};
+template <class BaseClass, class StateType, int MaxAnalogPoles,
+          int MaxDigitalPoles = MaxAnalogPoles>
+struct PoleFilter : BaseClass,
+                    CascadeStages<(MaxDigitalPoles + 1) / 2, StateType> {
+ public:
+  PoleFilter() {
+    // This glues together the factored base classes
+    // with the templatized storage classes.
+    BaseClass::setCascadeStorage(this->getCascadeStorage());
+    BaseClass::setPrototypeStorage(m_analogStorage, m_digitalStorage);
+    CascadeStages<(MaxDigitalPoles + 1) / 2, StateType>::reset();
+  }
+
+  PoleFilter(const PoleFilter&) = default;
+
+  PoleFilter& operator=(const PoleFilter&) {
+    // Reset the filter state when copied for now
+    CascadeStages<(MaxDigitalPoles + 1) / 2, StateType>::reset();
+    return *this;
+  }
+
+ private:
+  Layout<MaxAnalogPoles> m_analogStorage = {};
+  Layout<MaxDigitalPoles> m_digitalStorage = {};
+};
 
 //------------------------------------------------------------------------------
 
@@ -154,91 +143,78 @@ namespace Iir {
  *
  **/
 
-/** 
- * low pass to low pass 
+/**
+ * low pass to low pass
  **/
-	class IIR_EXPORT LowPassTransform
-	{
-	public:
-	LowPassTransform (double fc,
-			  LayoutBase& digital,
-			  LayoutBase const& analog);
+class IIR_EXPORT LowPassTransform {
+ public:
+  LowPassTransform(double fc, LayoutBase& digital, LayoutBase const& analog);
 
-	private:
-	complex_t transform (complex_t c);
+ private:
+  complex_t transform(complex_t c);
 
-	double f = 0.0;
-	};
+  double f = 0.0;
+};
 
 //------------------------------------------------------------------------------
 
 /**
  * low pass to high pass
  **/
-	class IIR_EXPORT HighPassTransform
-	{
-	public:
-	HighPassTransform (double fc,
-			   LayoutBase& digital,
-			   LayoutBase const& analog);
+class IIR_EXPORT HighPassTransform {
+ public:
+  HighPassTransform(double fc, LayoutBase& digital, LayoutBase const& analog);
 
-	private:
-	complex_t transform (complex_t c);
+ private:
+  complex_t transform(complex_t c);
 
-	double f = 0.0;
-	};
+  double f = 0.0;
+};
 
 //------------------------------------------------------------------------------
 
 /**
  * low pass to band pass transform
  **/
-	class IIR_EXPORT BandPassTransform
-	{
+class IIR_EXPORT BandPassTransform {
+ public:
+  BandPassTransform(double fc, double fw, LayoutBase& digital,
+                    LayoutBase const& analog);
 
-	public:
-	BandPassTransform (double fc,
-			   double fw,
-			   LayoutBase& digital,
-			   LayoutBase const& analog);
+ private:
+  ComplexPair transform(complex_t c);
 
-	private:
-	ComplexPair transform (complex_t c);
-
-	double wc = 0.0;
-	double wc2 = 0.0;
-	double a = 0.0;
-	double b = 0.0;
-	double a2 = 0.0;
-	double b2 = 0.0;
-	double ab = 0.0;
-	double ab_2 = 0.0;
-	};
+  double wc = 0.0;
+  double wc2 = 0.0;
+  double a = 0.0;
+  double b = 0.0;
+  double a2 = 0.0;
+  double b2 = 0.0;
+  double ab = 0.0;
+  double ab_2 = 0.0;
+};
 
 //------------------------------------------------------------------------------
 
-/** 
+/**
  * low pass to band stop transform
  **/
-	class IIR_EXPORT BandStopTransform
-	{
-	public:
-	BandStopTransform (double fc,
-			   double fw,
-			   LayoutBase& digital,
-			   LayoutBase const& analog);
+class IIR_EXPORT BandStopTransform {
+ public:
+  BandStopTransform(double fc, double fw, LayoutBase& digital,
+                    LayoutBase const& analog);
 
-	private:
-	ComplexPair transform (complex_t c);
+ private:
+  ComplexPair transform(complex_t c);
 
-	double wc = 0.0;
-	double wc2 = 0.0;
-	double a = 0.0;
-	double b = 0.0;
-	double a2 = 0.0;
-	double b2 = 0.0;
-	};
+  double wc = 0.0;
+  double wc2 = 0.0;
+  double a = 0.0;
+  double b = 0.0;
+  double a2 = 0.0;
+  double b2 = 0.0;
+};
 
-}
+}  // namespace Iir
 
 #endif

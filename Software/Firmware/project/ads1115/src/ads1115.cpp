@@ -166,7 +166,7 @@ int ADS1115::i2c_readConversion() {
  * @param v The sample value.
  */
 void ADS1115::hasSample(float v) {
-    while (!ads115queue.push(v)) {
+  while (!ads115queue.push(v)) {
     std::this_thread::yield();  // Yield if queue is full
   }
 }

@@ -7,7 +7,7 @@
  * https://github.com/berndporr/iir1
  *
  * See Documentation.txt for contact information, notes, and bibliography.
- * 
+ *
  * -----------------------------------------------------------------
  *
  * License: MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -33,34 +33,28 @@
  * THE SOFTWARE.
  **/
 
-#include "Common.h"
 #include "Custom.h"
+
+#include "Common.h"
 
 namespace Iir {
 
 namespace Custom {
 
-void OnePole::setup (double scale,
-                     double pole,
-                     double zero)
-{
-  setOnePole (pole, zero);
-  applyScale (scale);
+void OnePole::setup(double scale, double pole, double zero) {
+  setOnePole(pole, zero);
+  applyScale(scale);
 }
 
-void TwoPole::setup (double scale,
-                     double poleRho,
-                     double poleTheta,
-                     double zeroRho,
-                     double zeroTheta)
-{
-  complex_t pole = std::polar (poleRho, poleTheta);
-  complex_t zero = std::polar (zeroRho, zeroTheta);
+void TwoPole::setup(double scale, double poleRho, double poleTheta,
+                    double zeroRho, double zeroTheta) {
+  complex_t pole = std::polar(poleRho, poleTheta);
+  complex_t zero = std::polar(zeroRho, zeroTheta);
 
-  setTwoPole (pole, zero, std::conj(pole), std::conj(zero));
-  applyScale (scale);
+  setTwoPole(pole, zero, std::conj(pole), std::conj(zero));
+  applyScale(scale);
 }
 
-}
+}  // namespace Custom
 
-}
+}  // namespace Iir

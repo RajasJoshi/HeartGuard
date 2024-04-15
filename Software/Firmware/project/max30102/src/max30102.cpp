@@ -8,40 +8,42 @@ MAX30102::MAX30102() {
   // Constructor
 }
 
+/**
+ * @brief Construct a new MAX30102::MAX30102 object
+ *
+ */
 MAX30102::~MAX30102() {
   // Destructor
   stop();
 }
 
 /**
- * Initializes sensor.
- * Returns negative number on failure.
- * Returns sensor revision on success.
+ * @brief Worker thread that listens for data ready events.
+ *
  */
 int MAX30102::start() {
-  // [TODO] Set I2C Speed.
-  const char *devName = "/dev/i2c-0";
-
   // Open the I2C bus
-  int fd = open(devName, O_RDWR);
-  if (fd == -1) {
-    return -1;
+  char gpioFilename[20];
+  snprintf(gpioFilename, 19, "/dev/i2c-%d", settings.i2c_bus);
+  fdDRDY = open(gpioFilename, O_RDWR);
+  if (fdDRDY < 0) {
+    char i2copen[] = "Could not open I2C.\n";
   }
 
-  if (ioctl(fd, I2C_SLAVE, MAX30102_ADDRESS) < 0) {
+  if (ioctl(fdDRDY, I2C_SLAVE, settings.address) < 0) {
     return -2;
   }
 
-  _i2c = fd;
-  _i2caddr = MAX30102_ADDRESS;
+  _i2c = fdDRDY;
+  _i2caddr = settings.address;
 
   // Check if part id matches.
   if (readPartID() != MAX30102_EXPECTEDPARTID) {
     return -3;
   }
 
-  chipDRDY = gpiod_chip_open_by_number(drdy_chip);
-  lineDRDY = gpiod_chip_get_line(chipDRDY, drdy_gpio);
+  chipDRDY = gpiod_chip_open_by_number(settings.drdy_chip);
+  lineDRDY = gpiod_chip_get_line(chipDRDY, settings.drdy_gpio);
 
   int ret = gpiod_line_request_falling_edge_events(lineDRDY, "Consumer");
   if (ret < 0) {
@@ -55,28 +57,35 @@ int MAX30102::start() {
 
   thr = std::thread(&MAX30102::worker, this);
 
-  return i2c_smbus_read_byte_data(fd, REG_REVISIONID);
+  return i2c_smbus_read_byte_data(_i2c, REG_REVISIONID);
 }
 
 // INterrupt configuration //
 
-uint8_t MAX30102::getINT1(void) {
-  return (i2c_smbus_read_byte_data(_i2c, REG_INTSTAT1));
-}
-uint8_t MAX30102::getINT2(void) {
-  return (i2c_smbus_read_byte_data(_i2c, REG_INTSTAT2));
-}
-
+/**
+ * Enable the A_FULL interrupt.
+ */
 void MAX30102::enableAFULL(void) {
   bitMask(REG_INTENABLE1, MASK_INT_A_FULL, INT_A_FULL_ENABLE);
 }
+
+/**
+ * Disable the A_FULL interrupt.
+ */
 void MAX30102::disableAFULL(void) {
   bitMask(REG_INTENABLE1, MASK_INT_A_FULL, INT_A_FULL_DISABLE);
 }
 
+/**
+ * Enable the PPG_RDY interrupt.
+ */
 void MAX30102::enableDATARDY(void) {
   bitMask(REG_INTENABLE1, MASK_INT_DATA_RDY, INT_DATA_RDY_ENABLE);
 }
+
+/**
+ * Disable the PPG_RDY interrupt.
+ */
 void MAX30102::disableDATARDY(void) {
   bitMask(REG_INTENABLE1, MASK_INT_DATA_RDY, INT_DATA_RDY_DISABLE);
 }
@@ -91,23 +100,14 @@ void MAX30102::disableALCOVF(void) {
 // Mode configuration //
 
 /**
- * Pull sensor out of low power mode.
- */
-void MAX30102::wakeUp(void) { bitMask(REG_MODECONFIG, MASK_SHUTDOWN, WAKEUP); }
-
-/**
- * Put sensor into low power mode.
- * During this mode the sensor will continue to respond to I2C commands
- * but will not update or take new readings, such as temperature.
+ * @brief Put the MAX30102 into Standby Mode.
  */
 void MAX30102::shutDown(void) {
   bitMask(REG_MODECONFIG, MASK_SHUTDOWN, SHUTDOWN);
 }
 
 /**
- * All configuration, threshold, and data registers are reset
- * to their power-on state through a power-on reset.
- * The reset bit is cleared back to zero after reset finishes.
+ * @brief Wake the MAX30102 from Standby Mode.
  */
 void MAX30102::softReset(void) {
   bitMask(REG_MODECONFIG, MASK_RESET, RESET);
@@ -125,18 +125,16 @@ void MAX30102::softReset(void) {
 }
 
 /**
- * Sets which LEDs are used for sampling.
- * - Red only
- * - Red+IR only
- * - Custom
+ * @brief Put the MAX30102 into Operating Mode.
+ * @param mode The mode to set.
  */
 void MAX30102::setLEDMode(uint8_t mode) {
   bitMask(REG_MODECONFIG, MASK_LEDMODE, mode);
 }
 
 /**
- * Sets ADC Range.
- * Available ADC Range: 2048, 4096, 8192, 16384
+ * @brief Set the ADC Range.
+ * @param adcRange The ADC Range to set.
  */
 void MAX30102::setADCRange(uint8_t adcRange) {
   bitMask(REG_PARTICLECONFIG, MASK_ADCRANGE, adcRange);
@@ -177,22 +175,12 @@ void MAX30102::setPulseAmplitudeProximity(uint8_t amplitude) {
 }
 
 /**
- * Set the IR ADC count that will trigger the beginning of particle-sensing
- * mode. The threshMSB signifies only the 8 most significant-bits of the ADC
- * count.
- */
-void MAX30102::setProximityThreshold(uint8_t threshMSB) {
-  i2c_smbus_write_byte_data(_i2c, REG_PROXINTTHRESH, threshMSB);
-}
-
-/**
  * Given a slot number assign a thing to it.
  * Devices are SLOT_RED_LED or SLOT_RED_PILOT (proximity)
  * Assigning a SLOT_RED_LED will pulse LED
  * Assigning a SLOT_RED_PILOT will ??
  */
 void MAX30102::enableSlot(uint8_t slotNumber, uint8_t device) {
-  uint8_t originalContents;
   switch (slotNumber) {
     case (1):
       bitMask(REG_MULTILEDCONFIG1, MASK_SLOT1, device);
@@ -254,14 +242,6 @@ void MAX30102::disableFIFORollover(void) {
 }
 
 /**
- * Sets number of samples to trigger the almost full interrupt.
- * Power on deafult is 32 samples.
- */
-void MAX30102::setFIFOAlmostFull(uint8_t numberOfSamples) {
-  bitMask(REG_FIFOCONFIG, MASK_A_FULL, numberOfSamples);
-}
-
-/**
  * Read the FIFO Write Pointer.
  */
 uint8_t MAX30102::getWritePointer(void) {
@@ -283,13 +263,11 @@ uint8_t MAX30102::readPartID() {
 
 // Setup the Sensor
 void MAX30102::setup() {
-  uint8_t ledMode = 2;
-
   // Reset all configuration, threshold, and data registers to POR values
   softReset();
 
   // The chip will average multiple samples of same type together if you wish
-  setFIFOAverage(SAMPLEAVG_4);
+  setFIFOAverage(settings.numberOfSamples);
 
   // Allow FIFO to wrap/roll over
 
@@ -301,19 +279,19 @@ void MAX30102::setup() {
   enableDATARDY();
 
   // Mode Configuration //
-  setLEDMode(LEDMODE_REDIRONLY);
+  setLEDMode(settings.ledMode);
 
   activeLEDs = 2;  // used to control how many bytes to read from FIFO buffer
 
   // Particle Sensing Configuration //
-  setADCRange(ADCRANGE_2048);
-  setSampleRate(SAMPLERATE_400);
-  setPulseWidth(PULSEWIDTH_411);  // 18 bit resolution
+  setADCRange(settings.adcRange);
+  setSampleRate(settings.sampleRate);
+  setPulseWidth(settings.pulseWidth);  // 18 bit resolution
 
   // LED Pulse Amplitude Configuration //
-  setPulseAmplitudeRed(0x1F);
-  setPulseAmplitudeIR(0x1F);
-  setPulseAmplitudeProximity(0x1F);
+  setPulseAmplitudeRed(settings.redPulseAmplitude);
+  setPulseAmplitudeIR(settings.redPulseAmplitude);
+  setPulseAmplitudeProximity(settings.redPulseAmplitude);
 
   // Multi-LED Mode Configuration //
   enableSlot(1, SLOT_RED_LED);
@@ -324,15 +302,6 @@ void MAX30102::setup() {
 }
 
 // Data Collection //
-
-/**
- * Returns the number of samples available.
- */
-uint8_t MAX30102::available(void) {
-  int8_t numberOfSamples = sense.head - sense.tail;
-  if (numberOfSamples < 0) numberOfSamples += STORAGE_SIZE;
-  return (numberOfSamples);
-}
 
 /**
  * Report the most recent Red value.
@@ -377,10 +346,10 @@ uint16_t MAX30102::check(void) {
     while (bytesLeftToRead > 0) {
       int toGet = bytesLeftToRead;
       if (toGet > I2C_BUFFER_LENGTH) {
-        // If toGet is 32, this is bad because we read 6 bytes (RED+IR * 3 = 6)
-        // at a time. 32 % 6 = 2 left over. We don't want to request 32 bytes,
-        // we want to request 30. 32 % 9 (Red+IR+GREEN) = 5 left over. We want
-        // to request 27.
+        // If toGet is 32, this is bad because we read 6 bytes (RED+IR * 3 =
+        // 6) at a time. 32 % 6 = 2 left over. We don't want to request 32
+        // bytes, we want to request 30. 32 % 9 (Red+IR+GREEN) = 5 left over.
+        // We want to request 27.
 
         // Trim toGet to be a multiple of the samples we need to read.
         toGet = I2C_BUFFER_LENGTH - (I2C_BUFFER_LENGTH % (activeLEDs * 3));

@@ -7,7 +7,7 @@
  * https://github.com/berndporr/iir1
  *
  * See Documentation.cpp for contact information, notes, and bibliography.
- * 
+ *
  * -----------------------------------------------------------------
  *
  * License: MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -36,58 +36,51 @@
 #ifndef IIR1_MATHSUPPLEMENT_H
 #define IIR1_MATHSUPPLEMENT_H
 
+#include <complex>
+
 #include "Common.h"
 
-#include<complex>
-
 #ifdef _MSC_VER
- // Under Unix these have already default instantiations but not under Vis Studio
+// Under Unix these have already default instantiations but not under Vis Studio
 template class IIR_EXPORT std::complex<double>;
 template class IIR_EXPORT std::complex<float>;
 #endif
 
 namespace Iir {
 
-const double doublePi	=3.1415926535897932384626433832795028841971;
-const double doublePi_2	=1.5707963267948966192313216916397514420986;
-const double doubleLn2  =0.69314718055994530941723212145818;
-const double doubleLn10	=2.3025850929940456840179914546844;
+const double doublePi = 3.1415926535897932384626433832795028841971;
+const double doublePi_2 = 1.5707963267948966192313216916397514420986;
+const double doubleLn2 = 0.69314718055994530941723212145818;
+const double doubleLn10 = 2.3025850929940456840179914546844;
 
 typedef std::complex<double> complex_t;
 typedef std::pair<complex_t, complex_t> complex_pair_t;
 
-inline const complex_t infinity()
-{
-  return complex_t (std::numeric_limits<double>::infinity());
+inline const complex_t infinity() {
+  return complex_t(std::numeric_limits<double>::infinity());
 }
 
 template <typename Ty, typename To>
-inline std::complex<Ty> addmul (const std::complex<Ty>& c,
-                                Ty v,
-                                const std::complex<To>& c1)
-{
-  return std::complex <Ty> (
-    c.real() + v * c1.real(), c.imag() + v * c1.imag());
+inline std::complex<Ty> addmul(const std::complex<Ty>& c, Ty v,
+                               const std::complex<To>& c1) {
+  return std::complex<Ty>(c.real() + v * c1.real(), c.imag() + v * c1.imag());
 }
 
 template <typename Ty>
-inline Ty asinh (Ty x)
-{
-  return log (x + std::sqrt (x * x + 1 ));
+inline Ty asinh(Ty x) {
+  return log(x + std::sqrt(x * x + 1));
 }
 
 template <typename Ty>
-inline bool is_nan (Ty v)
-{
+inline bool is_nan(Ty v) {
   return !(v == v);
 }
 
 template <>
-inline bool is_nan<complex_t> (complex_t v)
-{
-  return Iir::is_nan (v.real()) || Iir::is_nan (v.imag());
+inline bool is_nan<complex_t>(complex_t v) {
+  return Iir::is_nan(v.real()) || Iir::is_nan(v.imag());
 }
 
-}
+}  // namespace Iir
 
 #endif

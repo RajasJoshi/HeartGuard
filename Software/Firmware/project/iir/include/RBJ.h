@@ -7,7 +7,7 @@
  * https://github.com/berndporr/iir1
  *
  * See Documentation.cpp for contact information, notes, and bibliography.
- * 
+ *
  * -----------------------------------------------------------------
  *
  * License: MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -36,8 +36,8 @@
 #ifndef IIR1_RBJ_H
 #define IIR1_RBJ_H
 
-#include "Common.h"
 #include "Biquad.h"
+#include "Common.h"
 #include "State.h"
 
 namespace Iir {
@@ -47,318 +47,270 @@ namespace Iir {
  *
  * http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt
  *
- * These are all 2nd order filters which are tuned with the Q (or Quality factor).
- * The Q factor causes a resonance at the cutoff frequency. The higher the Q
- * factor the higher the responance. If 0.5 < Q < 1/sqrt(2) then there is no resonance peak.
- * Above 1/sqrt(2) the peak becomes more and more pronounced. For bandpass and stopband
- * the Q factor is replaced by the width of the filter. The higher Q the more narrow
- * the bandwidth of the notch or bandpass.
+ * These are all 2nd order filters which are tuned with the Q (or Quality
+ *factor). The Q factor causes a resonance at the cutoff frequency. The higher
+ *the Q factor the higher the responance. If 0.5 < Q < 1/sqrt(2) then there is
+ *no resonance peak. Above 1/sqrt(2) the peak becomes more and more pronounced.
+ *For bandpass and stopband the Q factor is replaced by the width of the filter.
+ *The higher Q the more narrow the bandwidth of the notch or bandpass.
  *
  **/
 
-#define ONESQRT2 (1/sqrt(2))
-	
+#define ONESQRT2 (1 / sqrt(2))
+
 namespace RBJ {
 
-	/** 
-         * The base class of all RBJ filters
-         **/
-	struct IIR_EXPORT RBJbase : Biquad
-	{
-	public:
-		/// filter operation
-		template <typename Sample>
-			inline Sample filter(Sample s) {
-			return static_cast<Sample>(state.filter((double)s,*this));
-		}
-		/// resets the delay lines to zero
-		void reset() {
-			state.reset();
-		}
-		/// gets the delay lines (=state) of the filter
-		const DirectFormI& getState() {
-			return state;
-		}
-	private:
-		DirectFormI state = {};
-	};
+/**
+ * The base class of all RBJ filters
+ **/
+struct IIR_EXPORT RBJbase : Biquad {
+ public:
+  /// filter operation
+  template <typename Sample>
+  inline Sample filter(Sample s) {
+    return static_cast<Sample>(state.filter((double)s, *this));
+  }
+  /// resets the delay lines to zero
+  void reset() { state.reset(); }
+  /// gets the delay lines (=state) of the filter
+  const DirectFormI& getState() { return state; }
 
-	/**
-         * Lowpass.
-         **/
-	struct IIR_EXPORT LowPass : RBJbase
-	{
-		/**
-                 * Calculates the coefficients
-                 * \param cutoffFrequency Normalised cutoff frequency
-                 * \param q Q factor determines the resonance peak at the cutoff.
-                 **/
-		void setupN(double cutoffFrequency,
-			    double q = ONESQRT2);
-		
-		/**
-                 * Calculates the coefficients
-                 * \param sampleRate Sampling rate
-                 * \param cutoffFrequency Cutoff frequency
-                 * \param q Q factor determines the resonance peak at the cutoff.
-                 **/
-		void setup(double sampleRate,
-			   double cutoffFrequency,
-			   double q = ONESQRT2) {
-			setupN(cutoffFrequency / sampleRate, q);
-		}
-	};
+ private:
+  DirectFormI state = {};
+};
 
-	/**
-         * Highpass.
-         **/
-	struct IIR_EXPORT HighPass : RBJbase
-	{
-		/**
-                 * Calculates the coefficients
-                 * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
-                 * \param q Q factor determines the resonance peak at the cutoff.
-                 **/
-		void setupN(double cutoffFrequency,
-			    double q = ONESQRT2);
-		/**
-                 * Calculates the coefficients
-                 * \param sampleRate Sampling rate
-                 * \param cutoffFrequency Cutoff frequency
-                 * \param q Q factor determines the resonance peak at the cutoff.
-                 **/
-		void setup (double sampleRate,
-			    double cutoffFrequency,
-			    double q = ONESQRT2) {
-			setupN(cutoffFrequency / sampleRate, q);
-		}
-	};
+/**
+ * Lowpass.
+ **/
+struct IIR_EXPORT LowPass : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param cutoffFrequency Normalised cutoff frequency
+   * \param q Q factor determines the resonance peak at the cutoff.
+   **/
+  void setupN(double cutoffFrequency, double q = ONESQRT2);
 
-	/**
-         * Bandpass with constant skirt gain
-         **/
-	struct IIR_EXPORT BandPass1 : RBJbase
-	{
-		/**
-                 * Calculates the coefficients
-                 * \param centerFrequency Center frequency of the bandpass
-                 * \param bandWidth Bandwidth in octaves
-                 **/
-		void setupN(double centerFrequency,
-			    double bandWidth);
-		/**
-                 * Calculates the coefficients
-                 * \param sampleRate Sampling rate
-                 * \param centerFrequency Center frequency of the bandpass
-                 * \param bandWidth Bandwidth in octaves
-                 **/
-		void setup (double sampleRate,
-			    double centerFrequency,
-			    double bandWidth) {
-			setupN(centerFrequency / sampleRate, bandWidth);
-		}
-	};
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param cutoffFrequency Cutoff frequency
+   * \param q Q factor determines the resonance peak at the cutoff.
+   **/
+  void setup(double sampleRate, double cutoffFrequency, double q = ONESQRT2) {
+    setupN(cutoffFrequency / sampleRate, q);
+  }
+};
 
-	/**
-         * Bandpass with constant 0 dB peak gain
-         **/
-	struct IIR_EXPORT BandPass2 : RBJbase
-	{
-		/**
-                 * Calculates the coefficients
-                 * \param centerFrequency Normalised centre frequency of the bandpass
-                 * \param bandWidth Bandwidth in octaves
-                 **/
-		void setupN(double centerFrequency,
-			    double bandWidth);
-		/**
-                 * Calculates the coefficients
-                 * \param sampleRate Sampling rate
-                 * \param centerFrequency Center frequency of the bandpass
-                 * \param bandWidth Bandwidth in octaves
-                 **/
-		void setup (double sampleRate,
-			    double centerFrequency,
-			    double bandWidth) {
-			setupN(centerFrequency / sampleRate, bandWidth);
-		}
-	};
+/**
+ * Highpass.
+ **/
+struct IIR_EXPORT HighPass : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param cutoffFrequency Normalised cutoff frequency (0..1/2)
+   * \param q Q factor determines the resonance peak at the cutoff.
+   **/
+  void setupN(double cutoffFrequency, double q = ONESQRT2);
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param cutoffFrequency Cutoff frequency
+   * \param q Q factor determines the resonance peak at the cutoff.
+   **/
+  void setup(double sampleRate, double cutoffFrequency, double q = ONESQRT2) {
+    setupN(cutoffFrequency / sampleRate, q);
+  }
+};
 
-	/**
-         * Bandstop filter. Warning: the bandwidth might not be accurate
-         * for narrow notches.
-         **/
-	struct IIR_EXPORT BandStop : RBJbase
-	{
-		/**
-                 * Calculates the coefficients
-                 * \param centerFrequency Normalised Centre frequency of the bandstop
-                 * \param bandWidth Bandwidth in octaves
-                 **/
-		void setupN(double centerFrequency,
-			    double bandWidth);
-		/**
-                 * Calculates the coefficients
-                 * \param sampleRate Sampling rate
-                 * \param centerFrequency Center frequency of the bandstop
-                 * \param bandWidth Bandwidth in octaves
-                 **/
-		void setup (double sampleRate,
-			    double centerFrequency,
-			    double bandWidth) {
-			setupN(centerFrequency / sampleRate, bandWidth);
-		}
-	};
+/**
+ * Bandpass with constant skirt gain
+ **/
+struct IIR_EXPORT BandPass1 : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param centerFrequency Center frequency of the bandpass
+   * \param bandWidth Bandwidth in octaves
+   **/
+  void setupN(double centerFrequency, double bandWidth);
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param centerFrequency Center frequency of the bandpass
+   * \param bandWidth Bandwidth in octaves
+   **/
+  void setup(double sampleRate, double centerFrequency, double bandWidth) {
+    setupN(centerFrequency / sampleRate, bandWidth);
+  }
+};
 
-	/**
-         * Bandstop with Q factor: the higher the Q factor the more narrow is
-         * the notch. 
-         * However, a narrow notch has a long impulse response ( = ringing)
-         * and numerical problems might prevent perfect damping. Practical values
-         * of the Q factor are about Q = 10 to 20. In terms of the design
-         * the Q factor defines the radius of the
-         * poles as r = exp(- pi*(centerFrequency/sampleRate)/q_factor) whereas
-         * the angles of the poles/zeros define the bandstop frequency. The higher
-         * Q the closer r moves towards the unit circle.
-         **/
-	struct IIR_EXPORT IIRNotch : RBJbase
-	{
-		/**
-                 * Calculates the coefficients
-                 * \param centerFrequency Normalised centre frequency of the notch
-                 * \param q_factor Q factor of the notch (1 to ~20)
-                 **/
-		void setupN(double centerFrequency,
-			    double q_factor = 10);
-		/**
-                 * Calculates the coefficients
-                 * \param sampleRate Sampling rate
-                 * \param centerFrequency Center frequency of the notch
-                 * \param q_factor Q factor of the notch (1 to ~20)
-                 **/
-		void setup (double sampleRate,
-			    double centerFrequency,
-			    double q_factor = 10) {
-			setupN(centerFrequency / sampleRate, q_factor);
-		}
-	};
+/**
+ * Bandpass with constant 0 dB peak gain
+ **/
+struct IIR_EXPORT BandPass2 : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param centerFrequency Normalised centre frequency of the bandpass
+   * \param bandWidth Bandwidth in octaves
+   **/
+  void setupN(double centerFrequency, double bandWidth);
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param centerFrequency Center frequency of the bandpass
+   * \param bandWidth Bandwidth in octaves
+   **/
+  void setup(double sampleRate, double centerFrequency, double bandWidth) {
+    setupN(centerFrequency / sampleRate, bandWidth);
+  }
+};
 
-	/**
-         * Low shelf: 0db in the stopband and gainDb in the passband.
-         **/
-	struct IIR_EXPORT LowShelf : RBJbase
-	{
-		/**
-		 * Calculates the coefficients
-		 * \param cutoffFrequency Normalised cutoff frequency
-		 * \param gainDb Gain in the passband
-                 * \param shelfSlope Slope between stop/passband. 1 = as steep as it can.
-		 **/
-		void setupN(double cutoffFrequency,
-			    double gainDb,
-			    double shelfSlope = 1);
-		/**
-		 * Calculates the coefficients
-		 * \param sampleRate Sampling rate
-		 * \param cutoffFrequency Cutoff frequency
-		 * \param gainDb Gain in the passband
-                 * \param shelfSlope Slope between stop/passband. 1 = as steep as it can.
-		 **/
-		void setup (double sampleRate,
-			    double cutoffFrequency,
-			    double gainDb,
-			    double shelfSlope = 1) {
-			setupN(	cutoffFrequency / sampleRate, gainDb, shelfSlope);
-		}
-	};
+/**
+ * Bandstop filter. Warning: the bandwidth might not be accurate
+ * for narrow notches.
+ **/
+struct IIR_EXPORT BandStop : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param centerFrequency Normalised Centre frequency of the bandstop
+   * \param bandWidth Bandwidth in octaves
+   **/
+  void setupN(double centerFrequency, double bandWidth);
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param centerFrequency Center frequency of the bandstop
+   * \param bandWidth Bandwidth in octaves
+   **/
+  void setup(double sampleRate, double centerFrequency, double bandWidth) {
+    setupN(centerFrequency / sampleRate, bandWidth);
+  }
+};
 
-	/**
-         * High shelf: 0db in the stopband and gainDb in the passband.
-         **/
-	struct IIR_EXPORT HighShelf : RBJbase
-	{
-		/**
-		 * Calculates the coefficients
-		 * \param cutoffFrequency Normalised cutoff frequency
-		 * \param gainDb Gain in the passband
-                 * \param shelfSlope Slope between stop/passband. 1 = as steep as it can.
-		 **/
-		void setupN(double cutoffFrequency,
-			    double gainDb,
-			    double shelfSlope = 1);
-		/**
-		 * Calculates the coefficients
-		 * \param sampleRate Sampling rate
-		 * \param cutoffFrequency Cutoff frequency
-		 * \param gainDb Gain in the passband
-                 * \param shelfSlope Slope between stop/passband. 1 = as steep as it can.
-		 **/
-		void setup (double sampleRate,
-			    double cutoffFrequency,
-			    double gainDb,
-			    double shelfSlope = 1) {
-			setupN(	cutoffFrequency / sampleRate, gainDb, shelfSlope);
-		}
-	};
+/**
+ * Bandstop with Q factor: the higher the Q factor the more narrow is
+ * the notch.
+ * However, a narrow notch has a long impulse response ( = ringing)
+ * and numerical problems might prevent perfect damping. Practical values
+ * of the Q factor are about Q = 10 to 20. In terms of the design
+ * the Q factor defines the radius of the
+ * poles as r = exp(- pi*(centerFrequency/sampleRate)/q_factor) whereas
+ * the angles of the poles/zeros define the bandstop frequency. The higher
+ * Q the closer r moves towards the unit circle.
+ **/
+struct IIR_EXPORT IIRNotch : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param centerFrequency Normalised centre frequency of the notch
+   * \param q_factor Q factor of the notch (1 to ~20)
+   **/
+  void setupN(double centerFrequency, double q_factor = 10);
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param centerFrequency Center frequency of the notch
+   * \param q_factor Q factor of the notch (1 to ~20)
+   **/
+  void setup(double sampleRate, double centerFrequency, double q_factor = 10) {
+    setupN(centerFrequency / sampleRate, q_factor);
+  }
+};
 
-	/**
-         * Band shelf: 0db in the stopband and gainDb in the passband.
-         **/
-	struct IIR_EXPORT BandShelf : RBJbase
-	{
-		/**
-		 * Calculates the coefficients
-		 * \param centerFrequency Normalised centre frequency
-		 * \param gainDb Gain in the passband
-                 * \param bandWidth Bandwidth in octaves
-		 **/
-		void setupN(double centerFrequency,
-			    double gainDb,
-			    double bandWidth);
-		/**
-		 * Calculates the coefficients
-		 * \param sampleRate Sampling rate
-		 * \param centerFrequency frequency
-		 * \param gainDb Gain in the passband
-                 * \param bandWidth Bandwidth in octaves
-		 **/
-		void setup (double sampleRate,
-			    double centerFrequency,
-			    double gainDb,
-			    double bandWidth) {
-			setupN(centerFrequency / sampleRate, gainDb, bandWidth);
-		}
-	};
+/**
+ * Low shelf: 0db in the stopband and gainDb in the passband.
+ **/
+struct IIR_EXPORT LowShelf : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param cutoffFrequency Normalised cutoff frequency
+   * \param gainDb Gain in the passband
+   * \param shelfSlope Slope between stop/passband. 1 = as steep as it can.
+   **/
+  void setupN(double cutoffFrequency, double gainDb, double shelfSlope = 1);
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param cutoffFrequency Cutoff frequency
+   * \param gainDb Gain in the passband
+   * \param shelfSlope Slope between stop/passband. 1 = as steep as it can.
+   **/
+  void setup(double sampleRate, double cutoffFrequency, double gainDb,
+             double shelfSlope = 1) {
+    setupN(cutoffFrequency / sampleRate, gainDb, shelfSlope);
+  }
+};
 
-	/**
-	 * Allpass filter
-	 **/
-	struct IIR_EXPORT AllPass : RBJbase
-	{
-		/**
-		 * Calculates the coefficients
-		 * \param phaseFrequency Normalised frequency where the phase flips
-		 * \param q Q-factor
-		 **/
-		void setupN(double phaseFrequency,
-			    double q  = ONESQRT2);
-		
-		/**
-		 * Calculates the coefficients
-		 * \param sampleRate Sampling rate
-		 * \param phaseFrequency Frequency where the phase flips
-		 * \param q Q-factor
-		 **/
-		void setup (double sampleRate,
-			    double phaseFrequency,
-			    double q  = ONESQRT2) {
-			setupN(	phaseFrequency / sampleRate, q);
-		}
-	};
-	
-}
+/**
+ * High shelf: 0db in the stopband and gainDb in the passband.
+ **/
+struct IIR_EXPORT HighShelf : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param cutoffFrequency Normalised cutoff frequency
+   * \param gainDb Gain in the passband
+   * \param shelfSlope Slope between stop/passband. 1 = as steep as it can.
+   **/
+  void setupN(double cutoffFrequency, double gainDb, double shelfSlope = 1);
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param cutoffFrequency Cutoff frequency
+   * \param gainDb Gain in the passband
+   * \param shelfSlope Slope between stop/passband. 1 = as steep as it can.
+   **/
+  void setup(double sampleRate, double cutoffFrequency, double gainDb,
+             double shelfSlope = 1) {
+    setupN(cutoffFrequency / sampleRate, gainDb, shelfSlope);
+  }
+};
 
-}
+/**
+ * Band shelf: 0db in the stopband and gainDb in the passband.
+ **/
+struct IIR_EXPORT BandShelf : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param centerFrequency Normalised centre frequency
+   * \param gainDb Gain in the passband
+   * \param bandWidth Bandwidth in octaves
+   **/
+  void setupN(double centerFrequency, double gainDb, double bandWidth);
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param centerFrequency frequency
+   * \param gainDb Gain in the passband
+   * \param bandWidth Bandwidth in octaves
+   **/
+  void setup(double sampleRate, double centerFrequency, double gainDb,
+             double bandWidth) {
+    setupN(centerFrequency / sampleRate, gainDb, bandWidth);
+  }
+};
 
+/**
+ * Allpass filter
+ **/
+struct IIR_EXPORT AllPass : RBJbase {
+  /**
+   * Calculates the coefficients
+   * \param phaseFrequency Normalised frequency where the phase flips
+   * \param q Q-factor
+   **/
+  void setupN(double phaseFrequency, double q = ONESQRT2);
+
+  /**
+   * Calculates the coefficients
+   * \param sampleRate Sampling rate
+   * \param phaseFrequency Frequency where the phase flips
+   * \param q Q-factor
+   **/
+  void setup(double sampleRate, double phaseFrequency, double q = ONESQRT2) {
+    setupN(phaseFrequency / sampleRate, q);
+  }
+};
+
+}  // namespace RBJ
+
+}  // namespace Iir
 
 #endif

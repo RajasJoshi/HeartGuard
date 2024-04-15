@@ -7,7 +7,7 @@
  * https://github.com/berndporr/iir1
  *
  * See Documentation.cpp for contact information, notes, and bibliography.
- * 
+ *
  * -----------------------------------------------------------------
  *
  * License: MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -33,8 +33,9 @@
  * THE SOFTWARE.
  **/
 
-#include "Common.h"
 #include "Cascade.h"
+
+#include "Common.h"
 
 static const char maxFError[] = "The normalised frequency needs to be =< 0.5.";
 static const char minFError[] = "The normalised frequency needs to be >= 0.";
@@ -42,83 +43,69 @@ static const char minFError[] = "The normalised frequency needs to be >= 0.";
 #include <iostream>
 namespace Iir {
 
-	void Cascade::setCascadeStorage (const Storage& storage)
-	{
-		m_numStages = 0; // fixme
-		m_maxStages = storage.maxStages;
-		m_stageArray = storage.stageArray;
-	}
-
-	complex_t Cascade::response (double normalizedFrequency) const
-	{
-		if (normalizedFrequency > 0.5) throw_invalid_argument(maxFError);
-		if (normalizedFrequency < 0.0) throw_invalid_argument(minFError);
-		double w = 2 * doublePi * normalizedFrequency;
-		const complex_t czn1 = std::polar (1., -w);
-		const complex_t czn2 = std::polar (1., -2 * w);
-		complex_t ch (1);
-		complex_t cbot (1);
-
-		const Biquad* stage = m_stageArray;
-		for (int i = m_numStages; --i >=0; ++stage)
-		{
-			complex_t cb (1);
-			complex_t ct    (stage->getB0()/stage->getA0());
-			ct = addmul (ct, stage->getB1()/stage->getA0(), czn1);
-			ct = addmul (ct, stage->getB2()/stage->getA0(), czn2);
-			cb = addmul (cb, stage->getA1()/stage->getA0(), czn1);
-			cb = addmul (cb, stage->getA2()/stage->getA0(), czn2);
-			ch   *= ct;
-			cbot *= cb;
-		}
-
-		return ch / cbot;
-	}
-
-	std::vector<PoleZeroPair> Cascade::getPoleZeros () const
-	{
-		std::vector<PoleZeroPair> vpz;
-		vpz.reserve ((unsigned long)m_numStages);
-
-		const Biquad* stage = m_stageArray;
-		for (int i = m_numStages; --i >=0;)
-		{
-			BiquadPoleState bps (*stage++);
-			vpz.push_back (bps);
-		}
-
-		return vpz;
-	}
-
-	void Cascade::applyScale (double scale)
-	{
-		if (m_numStages < 1) return;
-		m_stageArray->applyScale (scale);
-	}
-
-
-	void Cascade::setLayout (const LayoutBase& proto)
-	{
-		const int numPoles = proto.getNumPoles();
-		m_numStages = (numPoles + 1)/ 2;
-		if (m_numStages > m_maxStages)
-			throw_invalid_argument("Number of stages is larger than the max stages.");
-
-		Biquad* stage = m_stageArray;
-		for (int i = 0; i < m_maxStages; ++i, ++stage)
-			stage->setIdentity();
-  
-		stage = m_stageArray;
-		for (int i = 0; i < m_numStages; ++i, ++stage)
-			stage->setPoleZeroPair (proto[i]);
-  
-		applyScale (proto.getNormalGain() /
-			    std::abs (response (proto.getNormalW() / (2 * doublePi))));
-	}
-
-
-
-
-
+void Cascade::setCascadeStorage(const Storage& storage) {
+  m_numStages = 0;  // fixme
+  m_maxStages = storage.maxStages;
+  m_stageArray = storage.stageArray;
 }
 
+complex_t Cascade::response(double normalizedFrequency) const {
+  if (normalizedFrequency > 0.5) throw_invalid_argument(maxFError);
+  if (normalizedFrequency < 0.0) throw_invalid_argument(minFError);
+  double w = 2 * doublePi * normalizedFrequency;
+  const complex_t czn1 = std::polar(1., -w);
+  const complex_t czn2 = std::polar(1., -2 * w);
+  complex_t ch(1);
+  complex_t cbot(1);
+
+  const Biquad* stage = m_stageArray;
+  for (int i = m_numStages; --i >= 0; ++stage) {
+    complex_t cb(1);
+    complex_t ct(stage->getB0() / stage->getA0());
+    ct = addmul(ct, stage->getB1() / stage->getA0(), czn1);
+    ct = addmul(ct, stage->getB2() / stage->getA0(), czn2);
+    cb = addmul(cb, stage->getA1() / stage->getA0(), czn1);
+    cb = addmul(cb, stage->getA2() / stage->getA0(), czn2);
+    ch *= ct;
+    cbot *= cb;
+  }
+
+  return ch / cbot;
+}
+
+std::vector<PoleZeroPair> Cascade::getPoleZeros() const {
+  std::vector<PoleZeroPair> vpz;
+  vpz.reserve((unsigned long)m_numStages);
+
+  const Biquad* stage = m_stageArray;
+  for (int i = m_numStages; --i >= 0;) {
+    BiquadPoleState bps(*stage++);
+    vpz.push_back(bps);
+  }
+
+  return vpz;
+}
+
+void Cascade::applyScale(double scale) {
+  if (m_numStages < 1) return;
+  m_stageArray->applyScale(scale);
+}
+
+void Cascade::setLayout(const LayoutBase& proto) {
+  const int numPoles = proto.getNumPoles();
+  m_numStages = (numPoles + 1) / 2;
+  if (m_numStages > m_maxStages)
+    throw_invalid_argument("Number of stages is larger than the max stages.");
+
+  Biquad* stage = m_stageArray;
+  for (int i = 0; i < m_maxStages; ++i, ++stage) stage->setIdentity();
+
+  stage = m_stageArray;
+  for (int i = 0; i < m_numStages; ++i, ++stage)
+    stage->setPoleZeroPair(proto[i]);
+
+  applyScale(proto.getNormalGain() /
+             std::abs(response(proto.getNormalW() / (2 * doublePi))));
+}
+
+}  // namespace Iir

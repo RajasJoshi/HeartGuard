@@ -7,7 +7,7 @@
  * https://github.com/berndporr/iir1
  *
  * See Documentation.cpp for contact information, notes, and bibliography.
- * 
+ *
  * -----------------------------------------------------------------
  *
  * License: MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -41,15 +41,15 @@
 //
 
 #ifdef _MSC_VER
-#  pragma warning (disable: 4100)
-#  ifndef _CRT_SECURE_NO_WARNINGS
-#    define _CRT_SECURE_NO_WARNINGS
-#  endif
+#pragma warning(disable : 4100)
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 #endif
 
 // This exports the classes/structures to the windows DLL
 #if defined(_WIN32) && defined(iir_EXPORTS)
-#define IIR_EXPORT __declspec( dllexport )
+#define IIR_EXPORT __declspec(dllexport)
 #else
 #define IIR_EXPORT
 #endif
@@ -61,29 +61,29 @@
 #include <cmath>
 #include <complex>
 #include <cstring>
-#include <string>
 #include <limits>
+#include <stdexcept>  // for invalid_argument
+#include <string>
 #include <vector>
-#include <stdexcept> // for invalid_argument
 
-static const char orderTooHigh[] = "Requested order is too high. Provide a higher order for the template.";
+static const char orderTooHigh[] =
+    "Requested order is too high. Provide a higher order for the template.";
 
 #define DEFAULT_FILTER_ORDER 4
 
 /**
- * @brief Throw invalid argument exception if exceptions are enabled, otherwise abort.
+ * @brief Throw invalid argument exception if exceptions are enabled, otherwise
+ * abort.
  *
  * @param msg Error message
  */
 inline void throw_invalid_argument(const char* msg) {
-
 #ifndef IIR1_NO_EXCEPTIONS
-    throw std::invalid_argument(msg);
+  throw std::invalid_argument(msg);
 #else
-    (void) msg; // Discard parameter
-    abort();
+  (void)msg;  // Discard parameter
+  abort();
 #endif
-
 }
 
 #endif

@@ -7,7 +7,8 @@ TcpServer::TcpServer() {}
 
 /**
  * @brief Starts the ECG sensor.
- * @param ads_ptr Pointer to the ecg object.
+ * @param ecg_ptr Pointer to the ECG sensor.
+ * @param ppg_ptr Pointer to the PPG sensor.
  */
 void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr,
                       std::unique_ptr<PPG>& ppg_ptr) {
@@ -20,6 +21,9 @@ void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr,
                         std::ref(ppg_ptr->ppgtcpqueue));
 }
 
+/**
+ * @brief Sets up the tcp socket for communication.
+ */
 void TcpServer::setupSocket() {
   // Create the server socket
   server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -55,7 +59,7 @@ void TcpServer::setupSocket() {
 }
 
 /**
- * @brief Destructor for the ECG sensor.
+ * @brief Destructor.
  */
 TcpServer::~TcpServer() {
   if (server_socket >= 0) {
