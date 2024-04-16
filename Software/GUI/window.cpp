@@ -86,8 +86,19 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     setLayout(hLayout);
 
-    // a fake data sample every 10ms
-    heartqt.startms(10);
+    // Initialize TCP Client
+    tcpClient = new QTcpSocket(this);
+
+    // Connect to server (replace with your actual server details)
+    tcpClient->connectToHost("10.0.0.25", 5000); 
+
+    // Connect signals and slots (we'll add these slots next)
+    connect(tcpClient, &QTcpSocket::connected, this, &Window::handleConnected);
+    connect(tcpClient, &QTcpSocket::readyRead, this, &Window::handleDataReceived);
+    connect(tcpClient, &QTcpSocket::errorOccurred, this, &Window::handleSocketError);
+
+    //     // a fake data sample every 10ms
+    // heartqt.startms(10);
     // Screen refresh every 40ms
     startTimer(40);
 }
@@ -172,4 +183,23 @@ void Window::timerEvent( QTimerEvent * )
     plot2->replot();
     plot3->replot();
     update();
+}
+
+void Window::handleConnected() {
+    qDebug() << "Connected to server!";
+    // You might want to update UI elements or take other actions on successful connection
+}
+
+void Window::handleDataReceived() {
+    QByteArray data = tcpClient->readAll();
+    std::string strData = data.toStdString();
+    qDebug() << "Data received:" << data;
+    hasData(strData);
+
+    // Process the received data by integrating it into your 'hasData' function
+}
+
+void Window::handleSocketError(QAbstractSocket::SocketError error) {
+    qDebug() << "Error:" << tcpClient->errorString();
+    // Handle connection errors appropriately
 }

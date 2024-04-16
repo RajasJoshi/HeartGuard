@@ -17,7 +17,6 @@ find_package(Qt5 COMPONENTS Network Widgets REQUIRED)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_executable(qwt-example
-  tcpclient.cpp
   window.cpp
   main.cpp
 )

@@ -10,7 +10,9 @@
 #include <cmath>
 #include <fstream>
 #include "CppTimer.h"
-#include "tcpclient.hpp"
+#include <QTcpSocket>
+#include <QHostAddress>
+#include <QApplication>
 
 class Window : public QWidget
 {
@@ -34,7 +36,15 @@ public:
 protected:
     void timerEvent(QTimerEvent *event) override;
 
+private slots: 
+    void handleConnected();
+    void handleDataReceived();
+    void handleSocketError(QAbstractSocket::SocketError error);
+
 private:
+
+    QTcpSocket *tcpClient; // Our TCP Client
+    
     static constexpr int plotDataSize = 4000;
 
     QPushButton *button;
