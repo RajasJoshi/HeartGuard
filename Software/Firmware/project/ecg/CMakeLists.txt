@@ -69,6 +69,8 @@ target_include_directories(ecg_test
     ${TARGET_INCLUDE_FOLDER}
     ${Boost_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/../ads1115/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../ppg/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../max30102/include
 
     # Any other extra include required
 )

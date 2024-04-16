@@ -95,7 +95,7 @@ void ECG::calculate_RR_interval_hr(float SAMPLING_RATE) {
   }
   if (detected_peaks.size() > 1) {
     float average_time_between_peaks = 0.0f;
-    for (int i = 1; i <= static_cast<int>(detected_peaks.size()); i++) {
+    for (int i = 1; i <= static_cast<int>(detected_peaks.size()) - 1; i++) {
       int time_between_peaks =
           (detected_peaks[i] - detected_peaks[i - 1] + BUFFER_SIZE) %
           BUFFER_SIZE;
