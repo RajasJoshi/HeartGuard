@@ -19,9 +19,6 @@ class PPG {
   void start(std::unique_ptr<MAX30102>& max30102_ptr);  // Start the PPG sensor
   void stop(void);                                      // Stop the PPG sensor
 
-  boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<1024>>
-      ppgtcpqueue;
-
   const int static BPM_BUFFER_SIZE = 100;
   int32_t bpmBuffer[BPM_BUFFER_SIZE];
   int nextBPMBufferIndex = 0;
@@ -29,20 +26,20 @@ class PPG {
   const int static SPO2_BUFFER_SIZE = 100;
   int32_t spo2Buffer[SPO2_BUFFER_SIZE];
   int nextspo2BufferIndex = 0;
+  int latestIRBPM;
+  int averageIRBPM;
+  int latestRedSpO2;
+  int averageRedSpO2;
+  int latestIRValue;
+  int latestRedValue;
 
  private:
   bool running = false;  // Indicates if the PPG sensor is running
-
-
 
   std::chrono::time_point<std::chrono::system_clock> timeLastLoopRan;
   // IR Data
   std::chrono::time_point<std::chrono::system_clock> timeLastIRHeartBeat;
   int32_t irLastValue;
-  int latestIRBPM;
-  int averageIRBPM;
-  int latestRedSpO2;
-  int averageRedSpO2;
 
   // For Peak Detection
   int32_t localMaxima;

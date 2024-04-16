@@ -9,7 +9,8 @@ ECG::ECG() {}
  * @brief Starts the ECG sensor.
  * @param ads_ptr Pointer to the ADS1115 object.
  */
-void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
+void ECG::start(std::unique_ptr<ADS1115>& ads_ptr,
+                std::unique_ptr<PPG>& ppg_ptr) {
   running = true;  // Add this line
   const ADS1115settings& settings = ads_ptr->getADS1115settings();
   const float SAMPLING_RATE = settings.getSamplingRate();
@@ -36,7 +37,11 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
                                value, SAMPLING_RATE);
       std::string message = "ecg," + std::to_string(value) + "," +
                             std::to_string(fs) + "," +
-                            std::to_string(heart_rate) + "#";
+                            std::to_string(heart_rate) + "," +
+                            std::to_string(ppg_ptr->latestIRBPM) + "," +
+                            std::to_string(ppg_ptr->latestRedSpO2) + "," +
+                            std::to_string(ppg_ptr->latestIRValue) + "," +
+                            std::to_string(ppg_ptr->latestRedValue) + "#";
       while (!ecgtcpqueue.push(message)) {
         std::this_thread::yield();  // Yield if queue is full}
       }

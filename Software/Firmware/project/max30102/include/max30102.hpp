@@ -222,10 +222,10 @@ class MAX30102 {
 
   void worker() {
     while (running) {
-      const struct timespec ts = {1, 0};
-      gpiod_line_event_wait(lineDRDY, &ts);
-      struct gpiod_line_event event;
-      gpiod_line_event_read(lineDRDY, &event);
+      // const struct timespec ts = {1, 0};
+      // gpiod_line_event_wait(lineDRDY, &ts);
+      // struct gpiod_line_event event;
+      // gpiod_line_event_read(lineDRDY, &event);
       dataReady();
     }
   }
