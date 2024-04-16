@@ -6,6 +6,9 @@ Window::Window(QWidget *parent) : QWidget(parent)
 {
     heartqt.window = this;
 
+    //Create status bar
+    statusBar = new QStatusBar(this);
+
     // set up the initial plot data for the first graph
     for( int index=0; index<plotDataSize; ++index )
     {
@@ -26,6 +29,16 @@ Window::Window(QWidget *parent) : QWidget(parent)
         xData3[index] = index;
         yData3[index] = 0;
     }
+
+    bpm = 0;
+    spo2 = 0;
+    ir = 0;
+    red = 0;
+
+    QString message = "BPM: " + QString::number(bpm) + " SpO2: " + QString::number(spo2) + " IR: " + QString::number(ir) + " Red: " + QString::number(red);
+
+    // Add a message to the status bar
+    statusBar->showMessage(message);
 
     // create curves for the three graphs
     curve1 = new QwtPlotCurve;
@@ -77,14 +90,20 @@ Window::Window(QWidget *parent) : QWidget(parent)
     vLayout4 = new QVBoxLayout();
     vLayout4->addWidget(plot3);
 
+    vLayout5 = new QVBoxLayout();
+    vLayout5->addWidget(statusBar);
+
     // plot the graphs below button
     hLayout = new QVBoxLayout();
     hLayout->addLayout(vLayout1);
     hLayout->addLayout(vLayout2);
     hLayout->addLayout(vLayout3);
     hLayout->addLayout(vLayout4);
+    hLayout->addLayout(vLayout5);
 
     setLayout(hLayout);
+
+    
 
     // Initialize TCP Client
     tcpClient = new QTcpSocket(this);
@@ -128,6 +147,11 @@ void Window::reset() {
         xData3[index] = index;
         yData3[index] = 0;
     }
+
+    bpm = 0;
+    spo2 = 0;
+    ir = 0;
+    red = 0;
 }
 
 // add the new input to the plots
@@ -138,6 +162,7 @@ void Window::hasData(std::string& received) {
     std::move( yData2, yData2 + plotDataSize - 1, yData2 + 1 );
     std::move( yData3, yData3 + plotDataSize - 1, yData3 + 1 );
     
+    std::cout << "Received: " << received << std::endl;
 
     // Create a stringstream from the input string
     std::istringstream iss(received);
@@ -146,17 +171,10 @@ void Window::hasData(std::string& received) {
 
     std::vector<std::string> result;
 
-    while (std::getline(iss, segment, '#')) {
+    while (std::getline(iss, segment, ',')) {
 
-        // Create another stringstream for further splitting by single quote
-        std::istringstream subIss(segment);
-        std::string subSegment;
-
-        // Split segment by single quote to get sub-parts
-        while (std::getline(subIss, subSegment, ',')) {
-            if (!subSegment.empty()) {
-                result.push_back(subSegment);
-            }
+        if (!segment.empty()){
+            result.push_back(segment);
         }
     }
     // Update the first graph data
@@ -165,6 +183,10 @@ void Window::hasData(std::string& received) {
     yData2[0] = std::stod(result[2]);
     // Update the third graph data (example)
     yData3[0] = std::stod(result[3]);
+    bpm = std::stod(result[4]);
+    spo2 = std::stod(result[5]);
+    ir = std::stod(result[6]);
+    red = std::stod(result[7]);
     mtx.unlock();
 }
 

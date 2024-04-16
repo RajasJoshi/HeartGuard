@@ -2,10 +2,13 @@
 #define WINDOW_H
 
 #include <QWidget>
+#include <QString>
+#include <QStatusBar>
 #include <QBoxLayout>
 #include <QPushButton>
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
+#include <iostream>
 #include <mutex>
 #include <cmath>
 #include <fstream>
@@ -23,8 +26,6 @@ class Window : public QWidget
         Window* window = nullptr;
         int count = 0;
         void timerEvent() {
-            std::string received = "ecg,0.0056,0.14234,85#ppg,82,12";
-            window->hasData(received);
             ++count;
         }
     };
@@ -43,6 +44,8 @@ private slots:
 
 private:
 
+    QStatusBar *statusBar;
+
     QTcpSocket *tcpClient; // Our TCP Client
     
     static constexpr int plotDataSize = 4000;
@@ -59,6 +62,7 @@ private:
     QVBoxLayout *vLayout2; // Layout for the second graph
     QVBoxLayout *vLayout3; // Layout for the third graph
     QVBoxLayout *vLayout4; // Layout for the third graph
+    QVBoxLayout *vLayout5; // Layout for the message
     
     QVBoxLayout *hLayout; // Overall layout
 
@@ -70,6 +74,10 @@ private:
     double yData2[plotDataSize];
     double xData3[plotDataSize]; // Data array for the third graph
     double yData3[plotDataSize];
+    double bpm;
+    double spo2;
+    double ir;
+    double red;
 
     void reset();
     void hasData(std::string& received);
