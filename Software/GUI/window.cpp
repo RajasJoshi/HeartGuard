@@ -1,16 +1,8 @@
 #include "window.h"
+#include <sstream>
+#include <vector>
 
-struct HeartLite {
-    std::string ecgname;
-    double ecg_unfiltered;
-    double ecg_filtered;
-    double ecg_heartrate;
-    std::string ppgname;
-    double ppgbpm;
-    double ppgspo2;
-};
-
-Window::Window() : QWidget(parent), tcpSocket(new QTcpSocket(this))
+Window::Window(QWidget *parent) : QWidget(parent) 
 {
     heartqt.window = this;
 
@@ -98,12 +90,6 @@ Window::Window() : QWidget(parent), tcpSocket(new QTcpSocket(this))
     heartqt.startms(10);
     // Screen refresh every 40ms
     startTimer(40);
-
-    // Connect readyRead() signal of tcpSocket to onSocketReadyRead() slot
-    connect(tcpSocket, &QTcpSocket::readyRead, this, &Window::onSocketReadyRead);
-
-    // Connect to the server
-    tcpSocket->connectToHost("192.168.1.215", 5000);
 }
 
 Window::~Window() {
@@ -134,7 +120,7 @@ void Window::reset() {
 }
 
 // add the new input to the plots
-void Window::hasData(String received) {
+void Window::hasData(std::string& received) {
     mtx.lock();
     // Move the existing data for all three graphs
     std::move( yData1, yData1 + plotDataSize - 1, yData1 + 1 );
@@ -145,14 +131,11 @@ void Window::hasData(String received) {
     // Create a stringstream from the input string
     std::istringstream iss(received);
 
-    // Vector to hold parsed HeartLite objects
-    std::vector<HeartLite> heart;
+    std::string segment;
 
-    std::vector<std::string> segment;
-
+    std::vector<std::string> result;
 
     while (std::getline(iss, segment, '#')) {
-        std::vector<std::string> subResult;
 
         // Create another stringstream for further splitting by single quote
         std::istringstream subIss(segment);
@@ -166,11 +149,11 @@ void Window::hasData(String received) {
         }
     }
     // Update the first graph data
-    yData1[0] = result[1];
+    yData1[0] = std::stod(result[1]);
     // Update the second graph data (example)
-    yData2[0] = result[2];
+    yData2[0] = std::stod(result[2]);
     // Update the third graph data (example)
-    yData3[0] = result[3];
+    yData3[0] = std::stod(result[3]);
     mtx.unlock();
 }
 
@@ -189,17 +172,4 @@ void Window::timerEvent( QTimerEvent * )
     plot2->replot();
     plot3->replot();
     update();
-}
-
-//tcpsocket
-void Window::onSocketReadyRead()
-{
-    while (tcpSocket->bytesAvailable() > 0) {
-        QByteArray data = tcpSocket->readAll();
-        if (!data.isEmpty()) {
-            // Assuming data received is a string
-            QString receivedString = QString::fromUtf8(data); // Convert QByteArray to QString
-            hasData(receivedString); // Process the received string
-        }
-    }
 }

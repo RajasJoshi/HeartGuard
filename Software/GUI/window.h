@@ -6,30 +6,30 @@
 #include <QPushButton>
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
-#include <QTcpSocket>
 #include <mutex>
 #include <cmath>
+#include <fstream>
 #include "CppTimer.h"
+#include "tcpclient.hpp"
 
 class Window : public QWidget
 {
     Q_OBJECT
 
     class HeartGuardQt : public CppTimer {
-        static constexpr double gain = 7.5;
     public:
         Window* window = nullptr;
         int count = 0;
         void timerEvent() {
-            double inVal = gain * sin(M_PI * count / 50.0);
-            window->hasData(inVal);
+            std::string received = "ecg,0.0056,0.14234,85#ppg,82,12";
+            window->hasData(received);
             ++count;
         }
     };
 
 public:
-    Window();
-    ~Window();
+    Window(QWidget *parent = 0);
+    virtual ~Window();
 
 protected:
     void timerEvent(QTimerEvent *event) override;
@@ -62,9 +62,7 @@ private:
     double yData3[plotDataSize];
 
     void reset();
-    void hasData(double inVal);
-
-    QTcpSocket *tcpSocket; // TCP socket for network communication
+    void hasData(std::string& received);
 
     std::mutex mtx;
 };
