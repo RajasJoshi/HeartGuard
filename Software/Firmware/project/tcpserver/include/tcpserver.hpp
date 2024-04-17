@@ -28,8 +28,8 @@ class TcpServer {
   struct sockaddr_in address;
   const int port = 5000;          // Example port number
   bool socket_connected = false;  // Flag to track connection status
-  bool running = false;            // Flag to track if the server is running
-  void setupSocket(void);  // Function to set up the socket
+  bool running = false;           // Flag to track if the server is running
+  void setupSocket(void);         // Function to set up the socket
 };
 
 #endif  // TCPSERVER_HPP

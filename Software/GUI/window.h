@@ -21,11 +21,13 @@ class Window : public QWidget
 {
     Q_OBJECT
 
-    class HeartGuardQt : public CppTimer {
+    class HeartGuardQt : public CppTimer
+    {
     public:
-        Window* window = nullptr;
+        Window *window = nullptr;
         int count = 0;
-        void timerEvent() {
+        void timerEvent()
+        {
             ++count;
         }
     };
@@ -37,23 +39,22 @@ public:
 protected:
     void timerEvent(QTimerEvent *event) override;
 
-private slots: 
+private slots:
     void handleConnected();
     void handleDataReceived();
     void handleSocketError(QAbstractSocket::SocketError error);
 
 private:
-
     QStatusBar *statusBar;
 
     QTcpSocket *tcpClient; // Our TCP Client
-    
+
     static constexpr int plotDataSize = 4000;
 
     QPushButton *button;
-    QwtPlot *plot1; // Plot for the first graph
-    QwtPlot *plot2; // Plot for the second graph
-    QwtPlot *plot3; // Plot for the third graph
+    QwtPlot *plot1;       // Plot for the first graph
+    QwtPlot *plot2;       // Plot for the second graph
+    QwtPlot *plot3;       // Plot for the third graph
     QwtPlotCurve *curve1; // Curve for the first graph
     QwtPlotCurve *curve2; // Curve for the second graph
     QwtPlotCurve *curve3; // Curve for the third graph
@@ -63,7 +64,7 @@ private:
     QVBoxLayout *vLayout3; // Layout for the third graph
     QVBoxLayout *vLayout4; // Layout for the third graph
     QVBoxLayout *vLayout5; // Layout for the message
-    
+
     QVBoxLayout *hLayout; // Overall layout
 
     HeartGuardQt heartqt;
@@ -80,7 +81,7 @@ private:
     double red;
 
     void reset();
-    void hasData(std::string& received);
+    void hasData(std::string &received);
 
     std::mutex mtx;
 };

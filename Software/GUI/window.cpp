@@ -6,29 +6,29 @@
 const int UPDATE_INTERVAL_MS = 50;
 std::queue<std::string> messageQueue;
 
-Window::Window(QWidget *parent) : QWidget(parent) 
+Window::Window(QWidget *parent) : QWidget(parent)
 {
     heartqt.window = this;
 
-    //Create status bar
+    // Create status bar
     statusBar = new QStatusBar(this);
 
     // set up the initial plot data for the first graph
-    for( int index=0; index<plotDataSize; ++index )
+    for (int index = 0; index < plotDataSize; ++index)
     {
         xData1[index] = index;
         yData1[index] = 0;
     }
 
     // set up the initial plot data for the second graph
-    for( int index=0; index<plotDataSize; ++index )
+    for (int index = 0; index < plotDataSize; ++index)
     {
         xData2[index] = index;
         yData2[index] = 0;
     }
 
     // set up the initial plot data for the third graph
-    for( int index=0; index<plotDataSize; ++index )
+    for (int index = 0; index < plotDataSize; ++index)
     {
         xData3[index] = index;
         yData3[index] = 0;
@@ -66,32 +66,30 @@ Window::Window(QWidget *parent) : QWidget(parent)
     curve3->setSamples(xData3, yData3, plotDataSize);
     curve3->attach(plot3);
 
-
     QPen bluePen(Qt::green);
 
     curve1->setPen(bluePen);
     curve2->setPen(bluePen);
     curve3->setPen(bluePen);
 
-
-    plot1->setAxisScale(QwtPlot::yLeft,0,5);
-    plot1->setAxisScale(QwtPlot::xBottom,0,UPDATE_INTERVAL_MS / 250);
+    plot1->setAxisScale(QwtPlot::yLeft, 0, 5);
+    plot1->setAxisScale(QwtPlot::xBottom, 0, UPDATE_INTERVAL_MS / 250);
     plot1->replot();
     plot1->show();
 
-    plot2->setAxisScale(QwtPlot::yLeft,-2,3);
-    plot2->setAxisScale(QwtPlot::xBottom,0,UPDATE_INTERVAL_MS / 250);
+    plot2->setAxisScale(QwtPlot::yLeft, -2, 3);
+    plot2->setAxisScale(QwtPlot::xBottom, 0, UPDATE_INTERVAL_MS / 250);
     plot2->replot();
     plot2->show();
 
-    plot3->setAxisScale(QwtPlot::yLeft,20,250);
-    plot3->setAxisScale(QwtPlot::xBottom,0,UPDATE_INTERVAL_MS / 250);
+    plot3->setAxisScale(QwtPlot::yLeft, 20, 250);
+    plot3->setAxisScale(QwtPlot::xBottom, 0, UPDATE_INTERVAL_MS / 250);
     plot3->replot();
     plot3->show();
 
     button = new QPushButton("Reset");
     // see https://doc.qt.io/qt-5/signalsandslots-syntaxes.html
-    connect(button,&QPushButton::clicked,this,&Window::reset);
+    connect(button, &QPushButton::clicked, this, &Window::reset);
 
     // set up the layout
     vLayout1 = new QVBoxLayout();
@@ -133,14 +131,11 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     this->setStyleSheet(styleSheet);
 
-
-    
-
     // Initialize TCP Client
     tcpClient = new QTcpSocket(this);
 
     // Connect to server (replace with your actual server details)
-    tcpClient->connectToHost("10.0.0.21", 5000); 
+    tcpClient->connectToHost("10.0.0.21", 5000);
 
     // Connect signals and slots (we'll add these slots next)
     connect(tcpClient, &QTcpSocket::connected, this, &Window::handleConnected);
@@ -153,27 +148,29 @@ Window::Window(QWidget *parent) : QWidget(parent)
     startTimer(UPDATE_INTERVAL_MS);
 }
 
-Window::~Window() {
+Window::~Window()
+{
     heartqt.stop();
 }
 
-void Window::reset() {
+void Window::reset()
+{
     // set up the initial plot data for the first graph
-    for( int index=0; index<plotDataSize; ++index )
+    for (int index = 0; index < plotDataSize; ++index)
     {
         xData1[index] = index;
         yData1[index] = 0;
     }
 
     // set up the initial plot data for the second graph
-    for( int index=0; index<plotDataSize; ++index )
+    for (int index = 0; index < plotDataSize; ++index)
     {
         xData2[index] = index;
         yData2[index] = 0;
     }
 
     // set up the initial plot data for the third graph
-    for( int index=0; index<plotDataSize; ++index )
+    for (int index = 0; index < plotDataSize; ++index)
     {
         xData3[index] = index;
         yData3[index] = 0;
@@ -185,8 +182,8 @@ void Window::reset() {
     red = 0;
 }
 
-
-void Window::hasData(std::string& received) {
+void Window::hasData(std::string &received)
+{
     mtx.lock();
 
     const int downSampleRate = 2;
@@ -195,67 +192,67 @@ void Window::hasData(std::string& received) {
     std::istringstream iss(received);
     std::string message;
 
-
     std::vector<std::string> result;
 
-
-    while (std::getline(iss, message, '#')) {
-        if (!message.empty()) {
-            if (messageCount % downSampleRate == 0) {
+    while (std::getline(iss, message, '#'))
+    {
+        if (!message.empty())
+        {
+            if (messageCount % downSampleRate == 0)
+            {
                 messageQueue.push(message);
             }
         }
     }
 
-    if (!messageQueue.empty()) {
-            std::string messageToProcess = messageQueue.front();
-            messageQueue.pop();
-            std::istringstream segmentStream(messageToProcess);
-            std::string token;
-            std::vector<std::string> tokens;
-            std::cout << "Message: " << messageToProcess << "\n";
+    if (!messageQueue.empty())
+    {
+        std::string messageToProcess = messageQueue.front();
+        messageQueue.pop();
+        std::istringstream segmentStream(messageToProcess);
+        std::string token;
+        std::vector<std::string> tokens;
+        std::cout << "Message: " << messageToProcess << "\n";
 
-            
-            while (std::getline(segmentStream, token, ',')) {
-                tokens.push_back(token);
-            }
-
-            if (tokens.size() == 8) {
-                for (const std::string& subToken : tokens) {
-                    result.push_back(subToken);
-                }
-            }else{
-                result = {"0","0","0","0","0","0","0","0"};
-            }
-            tokens.clear();
-
-            // Move the existing data for all three graphs
-            std::move( yData1, yData1 + plotDataSize - 1, yData1 + 1 );
-            std::move( yData2, yData2 + plotDataSize - 1, yData2 + 1 );
-            std::move( yData3, yData3 + plotDataSize - 1, yData3 + 1 );
-    
-
-            // Update the first graph data
-            yData1[0] = std::stod(result[1]);
-            // Update the second graph data (example)
-            yData2[0] = std::stod(result[2]);
-            // Update the third graph data (example)
-            yData3[0] = std::stod(result[3]);
-            bpm = std::stod(result[4]);
-            spo2 = std::stod(result[5]);
-            ir = std::stod(result[6]);
-            red = std::stod(result[7]);
+        while (std::getline(segmentStream, token, ','))
+        {
+            tokens.push_back(token);
         }
-    mtx.unlock();
 
+        if (tokens.size() == 8)
+        {
+            for (const std::string &subToken : tokens)
+            {
+                result.push_back(subToken);
+            }
+        }
+        else
+        {
+            result = {"0", "0", "0", "0", "0", "0", "0", "0"};
+        }
+        tokens.clear();
+
+        // Move the existing data for all three graphs
+        std::move(yData1, yData1 + plotDataSize - 1, yData1 + 1);
+        std::move(yData2, yData2 + plotDataSize - 1, yData2 + 1);
+        std::move(yData3, yData3 + plotDataSize - 1, yData3 + 1);
+
+        // Update the first graph data
+        yData1[0] = std::stod(result[1]);
+        // Update the second graph data (example)
+        yData2[0] = std::stod(result[2]);
+        // Update the third graph data (example)
+        yData3[0] = std::stod(result[3]);
+        bpm = std::stod(result[4]);
+        spo2 = std::stod(result[5]);
+        ir = std::stod(result[6]);
+        red = std::stod(result[7]);
+    }
+    mtx.unlock();
 }
 
-
-
-
-
 // screen refresh
-void Window::timerEvent( QTimerEvent * )
+void Window::timerEvent(QTimerEvent *)
 {
     mtx.lock();
     // Update the first graph
@@ -269,21 +266,21 @@ void Window::timerEvent( QTimerEvent * )
     plot2->replot();
     plot3->replot();
     update();
-    QString message = "BPM: " + QString::number(bpm) + 
-                    " SpO2: " + QString::number(spo2) + 
-                    " IR: " + QString::number(ir) + 
-                    " Red: " + QString::number(red);
+    QString message = "BPM: " + QString::number(bpm) +
+                      " SpO2: " + QString::number(spo2) +
+                      " IR: " + QString::number(ir) +
+                      " Red: " + QString::number(red);
     statusBar->showMessage(message);
-
-    
 }
 
-void Window::handleConnected() {
+void Window::handleConnected()
+{
     qDebug() << "Connected to server!";
     // You might want to update UI elements or take other actions on successful connection
 }
 
-void Window::handleDataReceived() {
+void Window::handleDataReceived()
+{
     QByteArray data = tcpClient->readAll();
     std::string strData = data.toStdString();
     qDebug() << "Data received:" << data;
@@ -292,7 +289,8 @@ void Window::handleDataReceived() {
     // Process the received data by integrating it into your 'hasData' function
 }
 
-void Window::handleSocketError(QAbstractSocket::SocketError error) {
+void Window::handleSocketError(QAbstractSocket::SocketError error)
+{
     qDebug() << "Error:" << tcpClient->errorString();
     // Handle connection errors appropriately
 }

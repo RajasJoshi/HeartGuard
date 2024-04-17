@@ -34,7 +34,6 @@
 #include "Iir.h"
 #include "ads1115.hpp"
 #include "ecg.hpp"
-#include "HeartRate.h"
 #include "max30102.hpp"
 #include "ppg.hpp"
 #include "tcpserver.hpp"

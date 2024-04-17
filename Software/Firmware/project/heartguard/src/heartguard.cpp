@@ -7,7 +7,6 @@ static std::atomic<bool> gpio_pins_ready{
     false};  ///< Indicates if the GPIO pins are ready.
 static std::unique_ptr<ADS1115> hgads1115;       ///< ADS1115 sensor.
 static std::unique_ptr<MAX30102> hgmax30102;     ///< MAX30102 sensor.
-static std::unique_ptr<PPG> hgppg;               ///< PPG processing>
 static std::unique_ptr<ECG> hgecg;               ///< ECG sensor.
 static std::unique_ptr<PPG> hgppg;               ///< GPIO pins.
 static std::unique_ptr<TcpServer> hgtcpserver;   ///< TCP server.
@@ -98,28 +97,11 @@ int main(int argc, char* argv[]) {
     ecgThread = std::make_unique<std::thread>([]() {
       try {
         hgecg = std::make_unique<ECG>();
-        hgecg->start(hgads1115,hgppg);
+        hgecg->start(hgads1115, hgppg);
       } catch (const std::exception& e) {
         std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
       } catch (...) {
         std::cerr << "Caught unknown exception in ecgThread\n";
-      }
-    });
-
-    ppgThread = std::make_unique<std::thread>([]() {
-      try {
-        hgppg = std::make_unique<PPG>(hgmax30102);
-        cout << "Starting..." << endl;
-        hgppg.begin();
-        cout << "Began heart rate calculation..." << endl;
-        while (1) {
-          cout << "IR Heart Rate- Latest:" << hgppg.getLatestIRHeartRate() << ", SAFE:" << hgppg.getSafeIRHeartRate();
-          cout << ", Temperature: " << hgppg.getLatestTemperatureF() << endl;
-        }
-      } catch (const std::exception& e) {
-        std::cerr << "Exception in ppgThread: " << e.what() << std::endl;
-      } catch (...) {
-        std::cerr << "Caught unknown exception in ppgThread\n";
       }
     });
 

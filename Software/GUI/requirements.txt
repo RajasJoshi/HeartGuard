@@ -1,5 +1,0 @@
-numpy==1.26.4
-PyQt6==6.6.1
-PyQt6_sip==13.6.0
-pyqtgraph==0.13.4
-qt_material==2.14

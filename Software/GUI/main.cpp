@@ -1,6 +1,5 @@
 #include "window.h"
 
-
 // Main program
 int main(int argc, char *argv[])
 {
@@ -12,5 +11,4 @@ int main(int argc, char *argv[])
 
 	// execute the application
 	return app.exec();
-	
 }
