@@ -1,8 +1,10 @@
 #include "window.h"
 #include <sstream>
 #include <vector>
+#include <queue>
 
-const int UPDATE_INTERVAL_MS = 40;
+const int UPDATE_INTERVAL_MS = 50;
+std::queue<std::string> messageQueue;
 
 Window::Window(QWidget *parent) : QWidget(parent) 
 {
@@ -72,12 +74,12 @@ Window::Window(QWidget *parent) : QWidget(parent)
     curve3->setPen(bluePen);
 
 
-    plot1->setAxisScale(QwtPlot::yLeft,-5,5);
+    plot1->setAxisScale(QwtPlot::yLeft,0,5);
     plot1->setAxisScale(QwtPlot::xBottom,0,UPDATE_INTERVAL_MS / 250);
     plot1->replot();
     plot1->show();
 
-    plot2->setAxisScale(QwtPlot::yLeft,-5,5);
+    plot2->setAxisScale(QwtPlot::yLeft,-2,3);
     plot2->setAxisScale(QwtPlot::xBottom,0,UPDATE_INTERVAL_MS / 250);
     plot2->replot();
     plot2->show();
@@ -186,30 +188,37 @@ void Window::reset() {
 
 void Window::hasData(std::string& received) {
     mtx.lock();
-    // Move the existing data for all three graphs
-    std::move( yData1, yData1 + plotDataSize - 1, yData1 + 1 );
-    std::move( yData2, yData2 + plotDataSize - 1, yData2 + 1 );
-    std::move( yData3, yData3 + plotDataSize - 1, yData3 + 1 );
-    
 
+    const int downSampleRate = 2;
+    int messageCount = 0;
     // Create a stringstream from the input string
     std::istringstream iss(received);
     std::string message;
+
 
     std::vector<std::string> result;
 
 
     while (std::getline(iss, message, '#')) {
         if (!message.empty()) {
-            std::istringstream segmentStream(message);
+            if (messageCount % downSampleRate == 0) {
+                messageQueue.push(message);
+            }
+        }
+    }
+
+    if (!messageQueue.empty()) {
+            std::string messageToProcess = messageQueue.front();
+            messageQueue.pop();
+            std::istringstream segmentStream(messageToProcess);
             std::string token;
             std::vector<std::string> tokens;
-            std::cout << "Message: " << message << "\n";
+            std::cout << "Message: " << messageToProcess << "\n";
 
+            
             while (std::getline(segmentStream, token, ',')) {
                 tokens.push_back(token);
             }
-            std::cout << "Tokens: " << tokens.size() << "\n";
 
             if (tokens.size() == 8) {
                 for (const std::string& subToken : tokens) {
@@ -219,22 +228,31 @@ void Window::hasData(std::string& received) {
                 result = {"0","0","0","0","0","0","0","0"};
             }
             tokens.clear();
+
+            // Move the existing data for all three graphs
+            std::move( yData1, yData1 + plotDataSize - 1, yData1 + 1 );
+            std::move( yData2, yData2 + plotDataSize - 1, yData2 + 1 );
+            std::move( yData3, yData3 + plotDataSize - 1, yData3 + 1 );
+    
+
+            // Update the first graph data
+            yData1[0] = std::stod(result[1]);
+            // Update the second graph data (example)
+            yData2[0] = std::stod(result[2]);
+            // Update the third graph data (example)
+            yData3[0] = std::stod(result[3]);
+            bpm = std::stod(result[4]);
+            spo2 = std::stod(result[5]);
+            ir = std::stod(result[6]);
+            red = std::stod(result[7]);
         }
-    }
-
-
-    // Update the first graph data
-    yData1[0] = std::stod(result[1]);
-    // Update the second graph data (example)
-    yData2[0] = std::stod(result[2]);
-    // Update the third graph data (example)
-    yData3[0] = std::stod(result[3]);
-    bpm = std::stod(result[4]);
-    spo2 = std::stod(result[5]);
-    ir = std::stod(result[6]);
-    red = std::stod(result[7]);
     mtx.unlock();
+
 }
+
+
+
+
 
 // screen refresh
 void Window::timerEvent( QTimerEvent * )
