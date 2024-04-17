@@ -301,7 +301,8 @@ class HighPassFilter3 : public DigitalFilter<double> {
     return y.push(yc[0] * y0);
     // return y.push(yc[0] * (
     // 		x.get(0) * xc[0] + x.get(1) * xc[1] + x.get(2) * xc[2] +
-    // x.get(3) * xc[3] - 		y.get(0) * yc[1] - y.get(1) * yc[2] - y.get(2) * yc[3]
+    // x.get(3) * xc[3] - 		y.get(0) * yc[1] - y.get(1) * yc[2] -
+    // y.get(2) * yc[3]
     // 	)
     // );
   }

@@ -10,7 +10,5 @@ digraph "Software/Firmware/project/tcpserver/include"
   dir_32d2fd107f33d0b424ea31a3278e2bd5 [label="include", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_32d2fd107f33d0b424ea31a3278e2bd5.html",tooltip=""];
   }
   dir_2bee69849a4f5579481b2253a42a2741 [label="ecg", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_2bee69849a4f5579481b2253a42a2741.html",tooltip=""];
-  dir_b0bf7c56bb40bf9d82fb811d7dc25f65 [label="ppg", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_b0bf7c56bb40bf9d82fb811d7dc25f65.html",tooltip=""];
   dir_32d2fd107f33d0b424ea31a3278e2bd5->dir_2bee69849a4f5579481b2253a42a2741 [headlabel="1", labeldistance=1.5 headhref="dir_000010_000002.html" href="dir_000010_000002.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_32d2fd107f33d0b424ea31a3278e2bd5->dir_b0bf7c56bb40bf9d82fb811d7dc25f65 [headlabel="1", labeldistance=1.5 headhref="dir_000010_000012.html" href="dir_000010_000012.html" color="steelblue1" fontcolor="steelblue1"];
 }

@@ -9,17 +9,18 @@
 
 #include "Iir.h"
 #include "ads1115.hpp"
+#include "ppg.hpp"
 
 class ECG {
  public:
-  ECG();                                          // Constructor
-  ~ECG();                                         // Destructor
-  void start(std::unique_ptr<ADS1115>& ads_ptr);  // Start the ECG sensor
-  void stop(void);                                // Stop the ECG sensor
-  void display_buffer(void);                      // Display the buffer
+  ECG();   // Constructor
+  ~ECG();  // Destructor
+  void start(std::unique_ptr<ADS1115>& ads_ptr,
+             std::unique_ptr<PPG>& ppg_ptr);  // Start the ECG sensor
+  void stop(void);                            // Stop the ECG sensor
+  void display_buffer(void);                  // Display the buffer
   boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<1024>>
       ecgtcpqueue;
-
 
   // infinite impulse response library filter params
   static const int filter_order = 4;  // 4th order filter
@@ -60,7 +61,8 @@ class ECG {
                       float sample, float SAMPLING_RATE);
   void calculate_hrv(void);
   void empty_values(void);
-private:
+
+ private:
 };
 
 #endif  // ECG_HPP

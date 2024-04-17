@@ -8,5 +8,6 @@ var searchData=
   ['enabledatardy_5',['enableDATARDY',['../classMAX30102.html#a2e9b9a516572433c2dec4a304acb67f7',1,'MAX30102']]],
   ['enablefiforollover_6',['enableFIFORollover',['../classMAX30102.html#a13354720f66fc1ec7d579bb3e765a96d',1,'MAX30102']]],
   ['enableslot_7',['enableSlot',['../classMAX30102.html#a34426debd59ef446363a7af352bdbd8e',1,'MAX30102']]],
-  ['end_8',['end',['../classCircularDelay.html#aa40f6c12296cd5a557b573d7decde8eb',1,'CircularDelay']]]
+  ['end_8',['end',['../classCircularDelay.html#aa40f6c12296cd5a557b573d7decde8eb',1,'CircularDelay']]],
+  ['errorbar_9',['errorbar',['../namespacematplotlibcpp.html#a44ccb9a7b34bc240b8cc8b3095dd8537',1,'matplotlibcpp']]]
 ];

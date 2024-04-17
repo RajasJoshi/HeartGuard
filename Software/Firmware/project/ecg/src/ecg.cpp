@@ -9,7 +9,8 @@ ECG::ECG() {}
  * @brief Starts the ECG sensor.
  * @param ads_ptr Pointer to the ADS1115 object.
  */
-void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
+void ECG::start(std::unique_ptr<ADS1115>& ads_ptr,
+                std::unique_ptr<PPG>& ppg_ptr) {
   running = true;  // Add this line
   const ADS1115settings& settings = ads_ptr->getADS1115settings();
   const float SAMPLING_RATE = settings.getSamplingRate();
@@ -36,7 +37,11 @@ void ECG::start(std::unique_ptr<ADS1115>& ads_ptr) {
                                value, SAMPLING_RATE);
       std::string message = "ecg," + std::to_string(value) + "," +
                             std::to_string(fs) + "," +
-                            std::to_string(heart_rate) + "#";
+                            std::to_string(heart_rate) + "," +
+                            std::to_string(ppg_ptr->latestIRBPM) + "," +
+                            std::to_string(ppg_ptr->latestRedSpO2) + "," +
+                            std::to_string(ppg_ptr->latestIRValue) + "," +
+                            std::to_string(ppg_ptr->latestRedValue) + "#";
       while (!ecgtcpqueue.push(message)) {
         std::this_thread::yield();  // Yield if queue is full}
       }
@@ -90,7 +95,7 @@ void ECG::calculate_RR_interval_hr(float SAMPLING_RATE) {
   }
   if (detected_peaks.size() > 1) {
     float average_time_between_peaks = 0.0f;
-    for (int i = 1; i <= static_cast<int>(detected_peaks.size()); i++) {
+    for (int i = 1; i <= static_cast<int>(detected_peaks.size()) - 1; i++) {
       int time_between_peaks =
           (detected_peaks[i] - detected_peaks[i - 1] + BUFFER_SIZE) %
           BUFFER_SIZE;

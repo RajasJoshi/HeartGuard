@@ -6,7 +6,6 @@
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Heartguard: Software/Firmware/project/ppg/include/ppg.hpp Source File</title>
-<link rel="icon" href="banner.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -106,63 +105,65 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classPPG.html#ab7db470ea433fe3b1ec2b0ee648e723f">start</a>(std::unique_ptr&lt;MAX30102&gt;&amp; max30102_ptr);  <span class="comment">// Start the PPG sensor</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classPPG.html#af198c57799484bc8c59a47c863e51823">stop</a>(<span class="keywordtype">void</span>);                                      <span class="comment">// Stop the PPG sensor</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  boost::lockfree::spsc_queue&lt;std::string, boost::lockfree::capacity&lt;1024&gt;&gt;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classPPG.html#a149309d37aa0ca61afaac500b74a170a">   23</a></span>      <a class="code hl_variable" href="classPPG.html#a149309d37aa0ca61afaac500b74a170a">ppgtcpqueue</a>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classPPG.html#a47255dcd674c7aee47b7d98145e0bf92">   25</a></span>  <span class="keyword">const</span> <span class="keywordtype">int</span> <span class="keyword">static</span> <a class="code hl_variable" href="classPPG.html#a47255dcd674c7aee47b7d98145e0bf92">BPM_BUFFER_SIZE</a> = 100;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classPPG.html#a6c20f6c3cd0928367015e7ffb6e1a1ee">   26</a></span>  int32_t <a class="code hl_variable" href="classPPG.html#a6c20f6c3cd0928367015e7ffb6e1a1ee">bpmBuffer</a>[<a class="code hl_variable" href="classPPG.html#a47255dcd674c7aee47b7d98145e0bf92">BPM_BUFFER_SIZE</a>];</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classPPG.html#a2819db6111e861731870e5ce4406e472">   27</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#a2819db6111e861731870e5ce4406e472">nextBPMBufferIndex</a> = 0;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classPPG.html#ac7389ddc8862b1de0cff4a9e41fbe9e1">   29</a></span>  <span class="keyword">const</span> <span class="keywordtype">int</span> <span class="keyword">static</span> <a class="code hl_variable" href="classPPG.html#ac7389ddc8862b1de0cff4a9e41fbe9e1">SPO2_BUFFER_SIZE</a> = 100;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classPPG.html#a5db3e4221b911bc82dd69c115922f671">   30</a></span>  int32_t <a class="code hl_variable" href="classPPG.html#a5db3e4221b911bc82dd69c115922f671">spo2Buffer</a>[<a class="code hl_variable" href="classPPG.html#ac7389ddc8862b1de0cff4a9e41fbe9e1">SPO2_BUFFER_SIZE</a>];</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classPPG.html#ad3c9cc7d7b145d58bc9e8efa5367890d">   31</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#ad3c9cc7d7b145d58bc9e8efa5367890d">nextspo2BufferIndex</a> = 0;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keywordtype">bool</span> running = <span class="keyword">false</span>;  <span class="comment">// Indicates if the PPG sensor is running</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classPPG.html#a47255dcd674c7aee47b7d98145e0bf92">   22</a></span>  <span class="keyword">const</span> <span class="keywordtype">int</span> <span class="keyword">static</span> <a class="code hl_variable" href="classPPG.html#a47255dcd674c7aee47b7d98145e0bf92">BPM_BUFFER_SIZE</a> = 100;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classPPG.html#a6c20f6c3cd0928367015e7ffb6e1a1ee">   23</a></span>  int32_t <a class="code hl_variable" href="classPPG.html#a6c20f6c3cd0928367015e7ffb6e1a1ee">bpmBuffer</a>[<a class="code hl_variable" href="classPPG.html#a47255dcd674c7aee47b7d98145e0bf92">BPM_BUFFER_SIZE</a>];</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classPPG.html#a2819db6111e861731870e5ce4406e472">   24</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#a2819db6111e861731870e5ce4406e472">nextBPMBufferIndex</a> = 0;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classPPG.html#ac7389ddc8862b1de0cff4a9e41fbe9e1">   26</a></span>  <span class="keyword">const</span> <span class="keywordtype">int</span> <span class="keyword">static</span> <a class="code hl_variable" href="classPPG.html#ac7389ddc8862b1de0cff4a9e41fbe9e1">SPO2_BUFFER_SIZE</a> = 100;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classPPG.html#a5db3e4221b911bc82dd69c115922f671">   27</a></span>  int32_t <a class="code hl_variable" href="classPPG.html#a5db3e4221b911bc82dd69c115922f671">spo2Buffer</a>[<a class="code hl_variable" href="classPPG.html#ac7389ddc8862b1de0cff4a9e41fbe9e1">SPO2_BUFFER_SIZE</a>];</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classPPG.html#ad3c9cc7d7b145d58bc9e8efa5367890d">   28</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#ad3c9cc7d7b145d58bc9e8efa5367890d">nextspo2BufferIndex</a> = 0;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classPPG.html#aff9708b8b3ad437555ca6b31a2edfd29">   29</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#aff9708b8b3ad437555ca6b31a2edfd29">latestIRBPM</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classPPG.html#a7571699a1590a38d63a4d7f2034ca861">   30</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#a7571699a1590a38d63a4d7f2034ca861">averageIRBPM</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classPPG.html#a0aa10c79a619051acdb4f3c24fc6edb0">   31</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#a0aa10c79a619051acdb4f3c24fc6edb0">latestRedSpO2</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classPPG.html#aecaa14046cda5c69519031bc5a121c42">   32</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#aecaa14046cda5c69519031bc5a121c42">averageRedSpO2</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classPPG.html#a4a9451c82b5dcb1792c007308099491f">   33</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#a4a9451c82b5dcb1792c007308099491f">latestIRValue</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classPPG.html#a0d0532513c2abc1dcef049d374a89bcb">   34</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classPPG.html#a0d0532513c2abc1dcef049d374a89bcb">latestRedValue</a>;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  std::chrono::time_point&lt;std::chrono::system_clock&gt; timeLastLoopRan;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <span class="comment">// IR Data</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  std::chrono::time_point&lt;std::chrono::system_clock&gt; timeLastIRHeartBeat;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  int32_t irLastValue;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keywordtype">int</span> latestIRBPM;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keywordtype">int</span> averageIRBPM;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keywordtype">int</span> latestRedSpO2;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keywordtype">int</span> averageRedSpO2;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="comment">// For Peak Detection</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  int32_t localMaxima;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  int32_t localMinima;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keyword">const</span> <span class="keyword">static</span> int8_t PAST_PEAKS_SIZE = 2;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  int32_t pastMaximas[PAST_PEAKS_SIZE];</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  int32_t pastMinimas[PAST_PEAKS_SIZE];</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordtype">bool</span> crest = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keywordtype">bool</span> trough = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  uint8_t dataBeenIncreasing = 0;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  uint8_t nextPastPeaksIndex = 0;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keywordtype">void</span> PPG_filtering(std::unique_ptr&lt;MAX30102&gt;&amp; ppgmax30102_ptr);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keywordtype">void</span> resetCalculations();</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keywordtype">bool</span> peakDetect(int32_t data);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keywordtype">void</span> loopThread(std::unique_ptr&lt;MAX30102&gt;&amp; ppgmax30102_ptr);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keywordtype">bool</span> running = <span class="keyword">false</span>;  <span class="comment">// Indicates if the PPG sensor is running</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  std::chrono::time_point&lt;std::chrono::system_clock&gt; timeLastLoopRan;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="comment">// IR Data</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  std::chrono::time_point&lt;std::chrono::system_clock&gt; timeLastIRHeartBeat;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  int32_t irLastValue;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="comment">// For Peak Detection</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  int32_t localMaxima;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  int32_t localMinima;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">const</span> <span class="keyword">static</span> int8_t PAST_PEAKS_SIZE = 2;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  int32_t pastMaximas[PAST_PEAKS_SIZE];</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  int32_t pastMinimas[PAST_PEAKS_SIZE];</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keywordtype">bool</span> crest = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="keywordtype">bool</span> trough = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  uint8_t dataBeenIncreasing = 0;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  uint8_t nextPastPeaksIndex = 0;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keywordtype">void</span> PPG_filtering(std::unique_ptr&lt;MAX30102&gt;&amp; ppgmax30102_ptr);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keywordtype">void</span> resetCalculations();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keywordtype">bool</span> peakDetect(int32_t data);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keywordtype">void</span> loopThread(std::unique_ptr&lt;MAX30102&gt;&amp; ppgmax30102_ptr);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};</div>
 </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif  </span><span class="comment">// PPG_HPP</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif  </span><span class="comment">// PPG_HPP</span></div>
 <div class="ttc" id="aDigitalFilters_8h_html"><div class="ttname"><a href="DigitalFilters_8h.html">DigitalFilters.h</a></div></div>
 <div class="ttc" id="aclassPPG_html"><div class="ttname"><a href="classPPG.html">PPG</a></div><div class="ttdef"><b>Definition</b> ppg.hpp:15</div></div>
 <div class="ttc" id="aclassPPG_html_a02b86dd957da5b310e2e3c76a36375ac"><div class="ttname"><a href="classPPG.html#a02b86dd957da5b310e2e3c76a36375ac">PPG::PPG</a></div><div class="ttdeci">PPG(void)</div><div class="ttdoc">Starts the PPG sensor.</div><div class="ttdef"><b>Definition</b> ppg.cpp:6</div></div>
-<div class="ttc" id="aclassPPG_html_a149309d37aa0ca61afaac500b74a170a"><div class="ttname"><a href="classPPG.html#a149309d37aa0ca61afaac500b74a170a">PPG::ppgtcpqueue</a></div><div class="ttdeci">boost::lockfree::spsc_queue&lt; std::string, boost::lockfree::capacity&lt; 1024 &gt; &gt; ppgtcpqueue</div><div class="ttdef"><b>Definition</b> ppg.hpp:23</div></div>
-<div class="ttc" id="aclassPPG_html_a2819db6111e861731870e5ce4406e472"><div class="ttname"><a href="classPPG.html#a2819db6111e861731870e5ce4406e472">PPG::nextBPMBufferIndex</a></div><div class="ttdeci">int nextBPMBufferIndex</div><div class="ttdef"><b>Definition</b> ppg.hpp:27</div></div>
-<div class="ttc" id="aclassPPG_html_a47255dcd674c7aee47b7d98145e0bf92"><div class="ttname"><a href="classPPG.html#a47255dcd674c7aee47b7d98145e0bf92">PPG::BPM_BUFFER_SIZE</a></div><div class="ttdeci">const static int BPM_BUFFER_SIZE</div><div class="ttdef"><b>Definition</b> ppg.hpp:25</div></div>
-<div class="ttc" id="aclassPPG_html_a5db3e4221b911bc82dd69c115922f671"><div class="ttname"><a href="classPPG.html#a5db3e4221b911bc82dd69c115922f671">PPG::spo2Buffer</a></div><div class="ttdeci">int32_t spo2Buffer[SPO2_BUFFER_SIZE]</div><div class="ttdef"><b>Definition</b> ppg.hpp:30</div></div>
-<div class="ttc" id="aclassPPG_html_a6c20f6c3cd0928367015e7ffb6e1a1ee"><div class="ttname"><a href="classPPG.html#a6c20f6c3cd0928367015e7ffb6e1a1ee">PPG::bpmBuffer</a></div><div class="ttdeci">int32_t bpmBuffer[BPM_BUFFER_SIZE]</div><div class="ttdef"><b>Definition</b> ppg.hpp:26</div></div>
+<div class="ttc" id="aclassPPG_html_a0aa10c79a619051acdb4f3c24fc6edb0"><div class="ttname"><a href="classPPG.html#a0aa10c79a619051acdb4f3c24fc6edb0">PPG::latestRedSpO2</a></div><div class="ttdeci">int latestRedSpO2</div><div class="ttdef"><b>Definition</b> ppg.hpp:31</div></div>
+<div class="ttc" id="aclassPPG_html_a0d0532513c2abc1dcef049d374a89bcb"><div class="ttname"><a href="classPPG.html#a0d0532513c2abc1dcef049d374a89bcb">PPG::latestRedValue</a></div><div class="ttdeci">int latestRedValue</div><div class="ttdef"><b>Definition</b> ppg.hpp:34</div></div>
+<div class="ttc" id="aclassPPG_html_a2819db6111e861731870e5ce4406e472"><div class="ttname"><a href="classPPG.html#a2819db6111e861731870e5ce4406e472">PPG::nextBPMBufferIndex</a></div><div class="ttdeci">int nextBPMBufferIndex</div><div class="ttdef"><b>Definition</b> ppg.hpp:24</div></div>
+<div class="ttc" id="aclassPPG_html_a47255dcd674c7aee47b7d98145e0bf92"><div class="ttname"><a href="classPPG.html#a47255dcd674c7aee47b7d98145e0bf92">PPG::BPM_BUFFER_SIZE</a></div><div class="ttdeci">const static int BPM_BUFFER_SIZE</div><div class="ttdef"><b>Definition</b> ppg.hpp:22</div></div>
+<div class="ttc" id="aclassPPG_html_a4a9451c82b5dcb1792c007308099491f"><div class="ttname"><a href="classPPG.html#a4a9451c82b5dcb1792c007308099491f">PPG::latestIRValue</a></div><div class="ttdeci">int latestIRValue</div><div class="ttdef"><b>Definition</b> ppg.hpp:33</div></div>
+<div class="ttc" id="aclassPPG_html_a5db3e4221b911bc82dd69c115922f671"><div class="ttname"><a href="classPPG.html#a5db3e4221b911bc82dd69c115922f671">PPG::spo2Buffer</a></div><div class="ttdeci">int32_t spo2Buffer[SPO2_BUFFER_SIZE]</div><div class="ttdef"><b>Definition</b> ppg.hpp:27</div></div>
+<div class="ttc" id="aclassPPG_html_a6c20f6c3cd0928367015e7ffb6e1a1ee"><div class="ttname"><a href="classPPG.html#a6c20f6c3cd0928367015e7ffb6e1a1ee">PPG::bpmBuffer</a></div><div class="ttdeci">int32_t bpmBuffer[BPM_BUFFER_SIZE]</div><div class="ttdef"><b>Definition</b> ppg.hpp:23</div></div>
+<div class="ttc" id="aclassPPG_html_a7571699a1590a38d63a4d7f2034ca861"><div class="ttname"><a href="classPPG.html#a7571699a1590a38d63a4d7f2034ca861">PPG::averageIRBPM</a></div><div class="ttdeci">int averageIRBPM</div><div class="ttdef"><b>Definition</b> ppg.hpp:30</div></div>
 <div class="ttc" id="aclassPPG_html_ab7db470ea433fe3b1ec2b0ee648e723f"><div class="ttname"><a href="classPPG.html#ab7db470ea433fe3b1ec2b0ee648e723f">PPG::start</a></div><div class="ttdeci">void start(std::unique_ptr&lt; MAX30102 &gt; &amp;max30102_ptr)</div><div class="ttdoc">Starts the PPG sensor.</div><div class="ttdef"><b>Definition</b> ppg.cpp:12</div></div>
-<div class="ttc" id="aclassPPG_html_ac7389ddc8862b1de0cff4a9e41fbe9e1"><div class="ttname"><a href="classPPG.html#ac7389ddc8862b1de0cff4a9e41fbe9e1">PPG::SPO2_BUFFER_SIZE</a></div><div class="ttdeci">const static int SPO2_BUFFER_SIZE</div><div class="ttdef"><b>Definition</b> ppg.hpp:29</div></div>
-<div class="ttc" id="aclassPPG_html_ad3c9cc7d7b145d58bc9e8efa5367890d"><div class="ttname"><a href="classPPG.html#ad3c9cc7d7b145d58bc9e8efa5367890d">PPG::nextspo2BufferIndex</a></div><div class="ttdeci">int nextspo2BufferIndex</div><div class="ttdef"><b>Definition</b> ppg.hpp:31</div></div>
-<div class="ttc" id="aclassPPG_html_af198c57799484bc8c59a47c863e51823"><div class="ttname"><a href="classPPG.html#af198c57799484bc8c59a47c863e51823">PPG::stop</a></div><div class="ttdeci">void stop(void)</div><div class="ttdoc">Stops the PPG sensor.</div><div class="ttdef"><b>Definition</b> ppg.cpp:190</div></div>
-<div class="ttc" id="aclassPPG_html_afdc212505516715cd5bca0e92899e43b"><div class="ttname"><a href="classPPG.html#afdc212505516715cd5bca0e92899e43b">PPG::~PPG</a></div><div class="ttdeci">~PPG(void)</div><div class="ttdoc">Destructor for the PPG sensor.</div><div class="ttdef"><b>Definition</b> ppg.cpp:198</div></div>
+<div class="ttc" id="aclassPPG_html_ac7389ddc8862b1de0cff4a9e41fbe9e1"><div class="ttname"><a href="classPPG.html#ac7389ddc8862b1de0cff4a9e41fbe9e1">PPG::SPO2_BUFFER_SIZE</a></div><div class="ttdeci">const static int SPO2_BUFFER_SIZE</div><div class="ttdef"><b>Definition</b> ppg.hpp:26</div></div>
+<div class="ttc" id="aclassPPG_html_ad3c9cc7d7b145d58bc9e8efa5367890d"><div class="ttname"><a href="classPPG.html#ad3c9cc7d7b145d58bc9e8efa5367890d">PPG::nextspo2BufferIndex</a></div><div class="ttdeci">int nextspo2BufferIndex</div><div class="ttdef"><b>Definition</b> ppg.hpp:28</div></div>
+<div class="ttc" id="aclassPPG_html_aecaa14046cda5c69519031bc5a121c42"><div class="ttname"><a href="classPPG.html#aecaa14046cda5c69519031bc5a121c42">PPG::averageRedSpO2</a></div><div class="ttdeci">int averageRedSpO2</div><div class="ttdef"><b>Definition</b> ppg.hpp:32</div></div>
+<div class="ttc" id="aclassPPG_html_af198c57799484bc8c59a47c863e51823"><div class="ttname"><a href="classPPG.html#af198c57799484bc8c59a47c863e51823">PPG::stop</a></div><div class="ttdeci">void stop(void)</div><div class="ttdoc">Stops the PPG sensor.</div><div class="ttdef"><b>Definition</b> ppg.cpp:184</div></div>
+<div class="ttc" id="aclassPPG_html_afdc212505516715cd5bca0e92899e43b"><div class="ttname"><a href="classPPG.html#afdc212505516715cd5bca0e92899e43b">PPG::~PPG</a></div><div class="ttdeci">~PPG(void)</div><div class="ttdoc">Destructor for the PPG sensor.</div><div class="ttdef"><b>Definition</b> ppg.cpp:192</div></div>
+<div class="ttc" id="aclassPPG_html_aff9708b8b3ad437555ca6b31a2edfd29"><div class="ttname"><a href="classPPG.html#aff9708b8b3ad437555ca6b31a2edfd29">PPG::latestIRBPM</a></div><div class="ttdeci">int latestIRBPM</div><div class="ttdef"><b>Definition</b> ppg.hpp:29</div></div>
 <div class="ttc" id="amax30102_8hpp_html"><div class="ttname"><a href="max30102_8hpp.html">max30102.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

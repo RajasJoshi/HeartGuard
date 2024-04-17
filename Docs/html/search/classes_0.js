@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['ads1115_0',['ADS1115',['../classADS1115.html',1,'']]],
-  ['ads1115settings_1',['ADS1115settings',['../structADS1115settings.html',1,'']]]
+  ['_5finterpreter_0',['_interpreter',['../structmatplotlibcpp_1_1detail_1_1__interpreter.html',1,'matplotlibcpp::detail']]]
 ];

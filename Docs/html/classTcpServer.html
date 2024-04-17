@@ -6,7 +6,6 @@
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Heartguard: TcpServer Class Reference</title>
-<link rel="icon" href="banner.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,11 +91,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abc977059ef61f1c42f5fda1bc5945ab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the <a class="el" href="classECG.html">ECG</a> sensor.  <br /></td></tr>
 <tr class="separator:abc977059ef61f1c42f5fda1bc5945ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a728a9e31c53cf86887f1f6149b1c46dd" id="r_a728a9e31c53cf86887f1f6149b1c46dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a728a9e31c53cf86887f1f6149b1c46dd">~TcpServer</a> ()</td></tr>
-<tr class="memdesc:a728a9e31c53cf86887f1f6149b1c46dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <br /></td></tr>
+<tr class="memdesc:a728a9e31c53cf86887f1f6149b1c46dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the <a class="el" href="classECG.html">ECG</a> sensor.  <br /></td></tr>
 <tr class="separator:a728a9e31c53cf86887f1f6149b1c46dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9a5a1e64efecd74924cdf31c2a76d3b" id="r_ac9a5a1e64efecd74924cdf31c2a76d3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9a5a1e64efecd74924cdf31c2a76d3b">start</a> (std::unique_ptr&lt; <a class="el" href="classECG.html">ECG</a> &gt; &amp;ecg_ptr, std::unique_ptr&lt; <a class="el" href="classPPG.html">PPG</a> &gt; &amp;ppg_ptr)</td></tr>
-<tr class="memdesc:ac9a5a1e64efecd74924cdf31c2a76d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the <a class="el" href="classECG.html">ECG</a> sensor.  <br /></td></tr>
-<tr class="separator:ac9a5a1e64efecd74924cdf31c2a76d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a152a942201e124a1cdc47dec5b4e4783" id="r_a152a942201e124a1cdc47dec5b4e4783"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a152a942201e124a1cdc47dec5b4e4783">start</a> (std::unique_ptr&lt; <a class="el" href="classECG.html">ECG</a> &gt; &amp;ecg_ptr)</td></tr>
+<tr class="memdesc:a152a942201e124a1cdc47dec5b4e4783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the <a class="el" href="classECG.html">ECG</a> sensor.  <br /></td></tr>
+<tr class="separator:a152a942201e124a1cdc47dec5b4e4783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2d8aaf6ff561bbdc5ceec712d8a3920" id="r_aa2d8aaf6ff561bbdc5ceec712d8a3920"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2d8aaf6ff561bbdc5ceec712d8a3920">stop</a> (void)</td></tr>
+<tr class="memdesc:aa2d8aaf6ff561bbdc5ceec712d8a3920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the Tcp Server.  <br /></td></tr>
+<tr class="separator:aa2d8aaf6ff561bbdc5ceec712d8a3920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e2b39a8e585450fd992279c49ddf177" id="r_a8e2b39a8e585450fd992279c49ddf177"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e2b39a8e585450fd992279c49ddf177">send_data</a> (void)</td></tr>
+<tr class="separator:a8e2b39a8e585450fd992279c49ddf177"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abc977059ef61f1c42f5fda1bc5945ab0" name="abc977059ef61f1c42f5fda1bc5945ab0"></a>
@@ -133,13 +137,35 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Destructor. </p>
+<p>Destructor for the <a class="el" href="classECG.html">ECG</a> sensor. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classTcpServer_a728a9e31c53cf86887f1f6149b1c46dd_cgraph.png" border="0" usemap="#aclassTcpServer_a728a9e31c53cf86887f1f6149b1c46dd_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac9a5a1e64efecd74924cdf31c2a76d3b" name="ac9a5a1e64efecd74924cdf31c2a76d3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9a5a1e64efecd74924cdf31c2a76d3b">&#9670;&#160;</a></span>start()</h2>
+<a id="a8e2b39a8e585450fd992279c49ddf177" name="a8e2b39a8e585450fd992279c49ddf177"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e2b39a8e585450fd992279c49ddf177">&#9670;&#160;</a></span>send_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TcpServer::send_data </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a152a942201e124a1cdc47dec5b4e4783" name="a152a942201e124a1cdc47dec5b4e4783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a152a942201e124a1cdc47dec5b4e4783">&#9670;&#160;</a></span>start()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,12 +173,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void TcpServer::start </td>
           <td>(</td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classECG.html">ECG</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>ecg_ptr</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classECG.html">ECG</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>ecg_ptr</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classPPG.html">PPG</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>ppg_ptr</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -160,11 +182,34 @@ Public Member Functions</h2></td></tr>
 <p>Starts the <a class="el" href="classECG.html">ECG</a> sensor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ecg_ptr</td><td>Pointer to the <a class="el" href="classECG.html">ECG</a> sensor. </td></tr>
-    <tr><td class="paramname">ppg_ptr</td><td>Pointer to the <a class="el" href="classPPG.html">PPG</a> sensor. </td></tr>
+    <tr><td class="paramname">ads_ptr</td><td>Pointer to the ecg object. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aa2d8aaf6ff561bbdc5ceec712d8a3920" name="aa2d8aaf6ff561bbdc5ceec712d8a3920"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2d8aaf6ff561bbdc5ceec712d8a3920">&#9670;&#160;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TcpServer::stop </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stops the Tcp Server. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classTcpServer_aa2d8aaf6ff561bbdc5ceec712d8a3920_icgraph.png" border="0" usemap="#aclassTcpServer_aa2d8aaf6ff561bbdc5ceec712d8a3920_icgraph" alt=""/></div>
+</div>
 
 </div>
 </div>

@@ -3,27 +3,32 @@
 /**
  * @brief Starts the ECG sensor.
  */
-TcpServer::TcpServer() {}
+TcpServer::TcpServer() { running = true; }
 
 /**
  * @brief Starts the ECG sensor.
- * @param ecg_ptr Pointer to the ECG sensor.
- * @param ppg_ptr Pointer to the PPG sensor.
+ * @param ads_ptr Pointer to the ecg object.
  */
-void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr,
-                      std::unique_ptr<PPG>& ppg_ptr) {
+void TcpServer::start(std::unique_ptr<ECG>& ecg_ptr) {
   setupSocket();
 
-  // Create and start worker threads
-  worker1 = std::thread(TcpServer::workerThreadFunc, this,
-                        std::ref(ecg_ptr->ecgtcpqueue));
-  worker2 = std::thread(TcpServer::workerThreadFunc, this,
-                        std::ref(ppg_ptr->ppgtcpqueue));
+  while (running) {
+    std::string message;
+    if (!ecg_ptr->ecgtcpqueue.pop(message)) {
+      std::this_thread::yield();
+    } else {
+      std::cout << "Message: " << message << std::endl;
+      if (socket_connected) {
+        if (send(client_socket, message.c_str(), message.length(), 0) < 0) {
+          std::cerr << "Error sending data" << std::endl;
+          socket_connected = false;  // Handle connection issue
+          // Potentially attempt to re-establish connection
+        }
+      }
+    }
+  }
 }
 
-/**
- * @brief Sets up the tcp socket for communication.
- */
 void TcpServer::setupSocket() {
   // Create the server socket
   server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -59,9 +64,11 @@ void TcpServer::setupSocket() {
 }
 
 /**
- * @brief Destructor.
+ * @brief Stops the Tcp Server.
  */
-TcpServer::~TcpServer() {
+void TcpServer::stop() {
+  running = false;
+
   if (server_socket >= 0) {
     if (close(server_socket) == -1) {
       std::cerr << "Error closing server socket: " << strerror(errno)
@@ -80,8 +87,9 @@ TcpServer::~TcpServer() {
       std::cout << "Client socket closed" << std::endl;
     }
   }
-
-  // Join the worker threads
-  if (worker1.joinable()) worker1.join();
-  if (worker2.joinable()) worker2.join();
 }
+
+/**
+ * @brief Destructor for the ECG sensor.
+ */
+TcpServer::~TcpServer() { stop(); }

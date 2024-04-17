@@ -1,0 +1,939 @@
+\doxysection{matplotlibcpp Namespace Reference}
+\hypertarget{namespacematplotlibcpp}{}\label{namespacematplotlibcpp}\index{matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacematplotlibcpp_1_1detail}{detail}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classmatplotlibcpp_1_1Plot}{Plot}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a7c176020a3312c69b4af6fa80113e53b}{backend}} (const std\+::string \&name)
+\item 
+bool \mbox{\hyperlink{namespacematplotlibcpp_a4854fc237468144bd46809ea7ce8f2a0}{annotate}} (std\+::string annotation, double x, double y)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a06ac86c6fecaa5a9b3fb566bc31d6a3b}{plot}} (const std\+::vector$<$ Numeric $>$ \&x, const std\+::vector$<$ Numeric $>$ \&y, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_aaabbbb79cc3e3dd5a2e061704c32bc10}{plot\+\_\+surface}} (const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&x, const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&y, const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&z, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=std\+::map$<$ std\+::string, std\+::string $>$(), const long fig\+\_\+number=0)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_a0638f54cec7e104c8a2aae0e60bc01f4}{contour}} (const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&x, const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&y, const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&z, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_aaa119f4ed3c64b3de7db1e08a2aa1ddd}{spy}} (const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&x, const double markersize=-\/1, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_a107bbc57e93a929c75baf1c60a712d8b}{plot3}} (const std\+::vector$<$ Numeric $>$ \&x, const std\+::vector$<$ Numeric $>$ \&y, const std\+::vector$<$ Numeric $>$ \&z, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=std\+::map$<$ std\+::string, std\+::string $>$(), const long fig\+\_\+number=0)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_ae3c91bdfbe011133346dcc4f31ec5932}{stem}} (const std\+::vector$<$ Numeric $>$ \&x, const std\+::vector$<$ Numeric $>$ \&y, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a00a57926330764f8490142b3ce06bd2e}{fill}} (const std\+::vector$<$ Numeric $>$ \&x, const std\+::vector$<$ Numeric $>$ \&y, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a928fb4c83f29554b1b37aeea7af9bb73}{fill\+\_\+between}} (const std\+::vector$<$ Numeric $>$ \&x, const std\+::vector$<$ Numeric $>$ \&y1, const std\+::vector$<$ Numeric $>$ \&y2, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a5da5568ee4a63f144e4541c6c84ed0ce}{arrow}} (Numeric x, Numeric y, Numeric end\+\_\+x, Numeric end\+\_\+y, const std\+::string \&fc="{}r"{}, const std\+::string ec="{}k"{}, Numeric head\+\_\+length=0.\+25, Numeric head\+\_\+width=0.\+1625)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_aeaf80309ad11083ec57bd6b246f6e4dc}{hist}} (const std\+::vector$<$ Numeric $>$ \&y, long bins=10, std\+::string color="{}b"{}, double alpha=1.\+0, bool cumulative=false)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a4cc9d207ab565df55b663b264be9ce72}{imshow}} (const unsigned char \texorpdfstring{$\ast$}{*}ptr, const int rows, const int columns, const int colors, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\}, Py\+Object \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out=nullptr)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a61bc8aab0ceca9c4df59dbbccc8ffb3f}{imshow}} (const float \texorpdfstring{$\ast$}{*}ptr, const int rows, const int columns, const int colors, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\}, Py\+Object \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out=nullptr)
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a1f9102b1c7b0be41471bc65c20f38b95}{scatter}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const double s=1.\+0, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY , typename Numeric\+Colors $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a3df1b1d037e54f3ae5d1d7c89342099a}{scatter\+\_\+colored}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::vector$<$ Numeric\+Colors $>$ \&colors, const double s=1.\+0, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY , typename NumericZ $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a57af9838664a40f0d7aabd3b184ec860}{scatter}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::vector$<$ NumericZ $>$ \&z, const double s=1.\+0, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\}, const long fig\+\_\+number=0)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_aa20e464f2c76edfb057997407a6f3fc4}{boxplot}} (const std\+::vector$<$ std\+::vector$<$ Numeric $>$ $>$ \&data, const std\+::vector$<$ std\+::string $>$ \&labels=\{\}, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a97d82f6044902f9120a16f55bfcbf7a0}{boxplot}} (const std\+::vector$<$ Numeric $>$ \&data, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a74ced83539862d0a6456935b507e9864}{bar}} (const std\+::vector$<$ Numeric $>$ \&x, const std\+::vector$<$ Numeric $>$ \&y, std\+::string ec="{}black"{}, std\+::string ls="{}-\/"{}, double lw=1.\+0, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a61e468c9ffbf0eb5f85bbe69d9f5ecd2}{bar}} (const std\+::vector$<$ Numeric $>$ \&y, std\+::string ec="{}black"{}, std\+::string ls="{}-\/"{}, double lw=1.\+0, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_ac31a739708c4c000f0787e1e6838ac13}{barh}} (const std\+::vector$<$ Numeric $>$ \&x, const std\+::vector$<$ Numeric $>$ \&y, std\+::string ec="{}black"{}, std\+::string ls="{}-\/"{}, double lw=1.\+0, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+bool \mbox{\hyperlink{namespacematplotlibcpp_a80475bf6042c6ded104aad3e05e12d47}{subplots\+\_\+adjust}} (const std\+::map$<$ std\+::string, double $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a2851ef02b92b32ee7d3dd8f8fd065ae3}{named\+\_\+hist}} (std\+::string label, const std\+::vector$<$ Numeric $>$ \&y, long bins=10, std\+::string color="{}b"{}, double alpha=1.\+0)
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a19804a8cbd413b15c8d07848d7a5890e}{plot}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::string \&s="{}"{})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY , typename NumericZ $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a9b436f92bc261d6d938c60e626e13be9}{contour}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::vector$<$ NumericZ $>$ \&z, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY , typename NumericU , typename NumericW $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_aeb9566045d6e782203d5a1a3fb28d953}{quiver}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::vector$<$ NumericU $>$ \&u, const std\+::vector$<$ NumericW $>$ \&w, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY , typename NumericZ , typename NumericU , typename NumericW , typename NumericV $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_aeaa87240dc7927a34cd7f1fb5d1d1267}{quiver}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::vector$<$ NumericZ $>$ \&z, const std\+::vector$<$ NumericU $>$ \&u, const std\+::vector$<$ NumericW $>$ \&w, const std\+::vector$<$ NumericV $>$ \&v, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a02a1939d1d0b7b61878bd7cf2d8cd7f3}{stem}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::string \&s="{}"{})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_ad25d4429577dbdd8c087a0ba6869840b}{semilogx}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::string \&s="{}"{})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a4dce9b4c1c16c1dab0cffd11588d4db8}{semilogy}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::string \&s="{}"{})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a6cfa8cba00f52a2c4614fa7a8a0bcd2b}{loglog}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::string \&s="{}"{})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a44ccb9a7b34bc240b8cc8b3095dd8537}{errorbar}} (const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::vector$<$ NumericX $>$ \&yerr, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a6461c03041d9947a0e3b3593b5b72c95}{named\+\_\+plot}} (const std\+::string \&name, const std\+::vector$<$ Numeric $>$ \&y, const std\+::string \&format="{}"{})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a9147bd13de56cbe3e3dfbb61713c144c}{named\+\_\+plot}} (const std\+::string \&name, const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::string \&format="{}"{})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_ae32c097d32b89445a995727d05446843}{named\+\_\+semilogx}} (const std\+::string \&name, const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::string \&format="{}"{})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a529c059f3fca364b9fcb3b2e09cce36b}{named\+\_\+semilogy}} (const std\+::string \&name, const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::string \&format="{}"{})
+\item 
+{\footnotesize template$<$typename NumericX , typename NumericY $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a9482856fd165f21001420e712d0d2312}{named\+\_\+loglog}} (const std\+::string \&name, const std\+::vector$<$ NumericX $>$ \&x, const std\+::vector$<$ NumericY $>$ \&y, const std\+::string \&format="{}"{})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a92c59dd37fb3f355514d88e364ddfde9}{plot}} (const std\+::vector$<$ Numeric $>$ \&y, const std\+::string \&format="{}"{})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a3917f5113dcefbf8f6dc1f04e8196ca1}{plot}} (const std\+::vector$<$ Numeric $>$ \&y, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a40ac4e0d416fad21899637dcf8d281c6}{stem}} (const std\+::vector$<$ Numeric $>$ \&y, const std\+::string \&format="{}"{})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_ad765633aecb8e1000c8ee64783d47dd7}{text}} (Numeric x, Numeric y, const std\+::string \&s="{}"{})
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a9ecea5f5240b0840556926e8c172952c}{colorbar}} (Py\+Object \texorpdfstring{$\ast$}{*}mappable=NULL, const std\+::map$<$ std\+::string, float $>$ \&keywords=\{\})
+\item 
+long \mbox{\hyperlink{namespacematplotlibcpp_a34e6ea8c8ee6779fe909ecac2ef945c8}{figure}} (long number=-\/1)
+\item 
+bool \mbox{\hyperlink{namespacematplotlibcpp_a63173b57d788807c1c6860dbc7961e40}{fignum\+\_\+exists}} (long number)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a91e91bcdcfc7632a917830bfe3f71ca3}{figure\+\_\+size}} (size\+\_\+t w, size\+\_\+t h)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a916bb5a9dc5f6a24877cc027bf4ee624}{legend}} ()
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_af1bd4fb8c531bd4e9b0c0a2c6fa4d69b}{legend}} (const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_abed6306bfaf492081ded0df72c366e4e}{set\+\_\+aspect}} (Numeric ratio)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a2fc05d3a606ce68e7a72c9e4ed7f3556}{set\+\_\+aspect\+\_\+equal}} ()
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_a4645651772918e2dad7d36d9eeaeaefa}{ylim}} (Numeric left, Numeric right)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_a712cd34472b3687668048899bee4cdbf}{xlim}} (Numeric left, Numeric right)
+\item 
+std\+::array$<$ double, 2 $>$ \mbox{\hyperlink{namespacematplotlibcpp_a12ac5a7fc96a03d27b3249fc6a54974f}{xlim}} ()
+\item 
+std\+::array$<$ double, 2 $>$ \mbox{\hyperlink{namespacematplotlibcpp_a7a90e7d9dda953455e23c296906c093a}{ylim}} ()
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_acd5a42a3079f5459cdf66292ebd6bcf9}{xticks}} (const std\+::vector$<$ Numeric $>$ \&ticks, const std\+::vector$<$ std\+::string $>$ \&labels=\{\}, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_a2f48d08907cd16a6310191719c51a4d8}{xticks}} (const std\+::vector$<$ Numeric $>$ \&ticks, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_ab934ebc4f4f6be6f5f9679f15c0f6f11}{yticks}} (const std\+::vector$<$ Numeric $>$ \&ticks, const std\+::vector$<$ std\+::string $>$ \&labels=\{\}, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_a6111e7efdb413c79258daeb584c6c715}{yticks}} (const std\+::vector$<$ Numeric $>$ \&ticks, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_a468096a42e46d0a26e8a237ffb24caca}{margins}} (Numeric margin)
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_ac4907337da083bf670acecc6624cf244}{margins}} (Numeric margin\+\_\+x, Numeric margin\+\_\+y)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a6479afec926d90fdf3309cf2a88db030}{tick\+\_\+params}} (const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords, const std\+::string \mbox{\hyperlink{namespacematplotlibcpp_aab5287e30ebd90df0f5614d8da0f5291}{axis}}="{}both"{})
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a78f4b6d50e52d1782d52df692232f4e1}{subplot}} (long nrows, long ncols, long plot\+\_\+number)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_abaecdb14580aa8c7945f35bcffd7fa02}{subplot2grid}} (long nrows, long ncols, long rowid=0, long colid=0, long rowspan=1, long colspan=1)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a6de552522cdfa4d42e1ab11364f34a18}{title}} (const std\+::string \&titlestr, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a6975063d8a58339a374bc7d33e568090}{suptitle}} (const std\+::string \&suptitlestr, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_aab5287e30ebd90df0f5614d8da0f5291}{axis}} (const std\+::string \&axisstr)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_aad674397c3890c8454edbd6363b1564e}{axhline}} (double y, double xmin=0., double xmax=1., const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=std\+::map$<$ std\+::string, std\+::string $>$())
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a74882742dd5b2fa53cce6c2d4f5bbc2c}{axvline}} (double x, double ymin=0., double ymax=1., const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=std\+::map$<$ std\+::string, std\+::string $>$())
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_aa895bc53f99e3630b8c0adb41880b485}{axvspan}} (double xmin, double xmax, double ymin=0., double ymax=1., const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=std\+::map$<$ std\+::string, std\+::string $>$())
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a93e96cce1779c757a9ac754639c80878}{xlabel}} (const std\+::string \&str, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_adaa29542f05e1acb0850b7e4619a9359}{ylabel}} (const std\+::string \&str, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_abdd4b60ee0322034c59aa77bf4a8a0bc}{set\+\_\+zlabel}} (const std\+::string \&str, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_ae0bbf80e73099a91df28e4fb871b166a}{grid}} (bool flag)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_ac7b2ae71a81811dfb69bcef95ee8390d}{show}} (const bool block=true)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a62aaaf872c41a9d1b71add44c0cc0447}{close}} ()
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_aca0fdbeae2fd86ab7291661f154f83ff}{xkcd}} ()
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_acd9fc5bb7916c735390c2056214b12be}{draw}} ()
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\void \mbox{\hyperlink{namespacematplotlibcpp_aa5bc4092c9e2acbb2c6ec4efd024cf2f}{pause}} (Numeric interval)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_ad0a8762f877a67f0253b1cb316ca55bc}{save}} (const std\+::string \&filename, const int dpi=0)
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a2ecd6145f724318bc69330df7044bb5b}{rcparams}} (const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_adea4113b0ff7f393e18f1a99eb7e1718}{clf}} ()
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_aa3ccefcc977791fc66c1cff63d589d00}{cla}} ()
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a9bddb5276ddc48f4ff9c2b36b98db71a}{ion}} ()
+\item 
+std\+::vector$<$ std\+::array$<$ double, 2 $>$ $>$ \mbox{\hyperlink{namespacematplotlibcpp_a0012ea4e42a80e34bea65dcfefc4b2ee}{ginput}} (const int num\+Clicks=1, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords=\{\})
+\item 
+void \mbox{\hyperlink{namespacematplotlibcpp_a14e2b6e595e057f553ef7b14ddcda82a}{tight\+\_\+layout}} ()
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a90ba2143110bba254f163102a6ab450b}{plot}} ()
+\item 
+{\footnotesize template$<$typename A , typename B , typename... Args$>$ }\\bool \mbox{\hyperlink{namespacematplotlibcpp_a961b7390cd3b4148651519f164c1af14}{plot}} (const A \&a, const B \&b, const std\+::string \&format, Args... args)
+\item 
+bool \mbox{\hyperlink{namespacematplotlibcpp_aff32a9a7a3507d867dab947db66d7352}{plot}} (const std\+::vector$<$ double $>$ \&x, const std\+::vector$<$ double $>$ \&y, const std\+::string \&format="{}"{})
+\item 
+bool \mbox{\hyperlink{namespacematplotlibcpp_acb7bb4d6d924fcc734b4fa35ba48e682}{plot}} (const std\+::vector$<$ double $>$ \&y, const std\+::string \&format="{}"{})
+\item 
+bool \mbox{\hyperlink{namespacematplotlibcpp_ac13e292d39d50cc4c0d02dac8fa2927f}{plot}} (const std\+::vector$<$ double $>$ \&x, const std\+::vector$<$ double $>$ \&y, const std\+::map$<$ std\+::string, std\+::string $>$ \&keywords)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacematplotlibcpp_a4854fc237468144bd46809ea7ce8f2a0}\label{namespacematplotlibcpp_a4854fc237468144bd46809ea7ce8f2a0} 
+\index{matplotlibcpp@{matplotlibcpp}!annotate@{annotate}}
+\index{annotate@{annotate}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{annotate()}{annotate()}}
+{\footnotesize\ttfamily bool matplotlibcpp\+::annotate (\begin{DoxyParamCaption}\item[{std\+::string}]{annotation,  }\item[{double}]{x,  }\item[{double}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 0
+\Hypertarget{namespacematplotlibcpp_a5da5568ee4a63f144e4541c6c84ed0ce}\label{namespacematplotlibcpp_a5da5568ee4a63f144e4541c6c84ed0ce} 
+\index{matplotlibcpp@{matplotlibcpp}!arrow@{arrow}}
+\index{arrow@{arrow}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{arrow()}{arrow()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::arrow (\begin{DoxyParamCaption}\item[{Numeric}]{x,  }\item[{Numeric}]{y,  }\item[{Numeric}]{end\+\_\+x,  }\item[{Numeric}]{end\+\_\+y,  }\item[{const std\+::string \&}]{fc = {\ttfamily "{}r"{}},  }\item[{const std\+::string}]{ec = {\ttfamily "{}k"{}},  }\item[{Numeric}]{head\+\_\+length = {\ttfamily 0.25},  }\item[{Numeric}]{head\+\_\+width = {\ttfamily 0.1625} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{namespacematplotlibcpp_aad674397c3890c8454edbd6363b1564e}\label{namespacematplotlibcpp_aad674397c3890c8454edbd6363b1564e} 
+\index{matplotlibcpp@{matplotlibcpp}!axhline@{axhline}}
+\index{axhline@{axhline}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{axhline()}{axhline()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::axhline (\begin{DoxyParamCaption}\item[{double}]{y,  }\item[{double}]{xmin = {\ttfamily 0.},  }\item[{double}]{xmax = {\ttfamily 1.},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily std\+:\+:map$<$std\+:\+:string,~std\+:\+:string$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{namespacematplotlibcpp_aab5287e30ebd90df0f5614d8da0f5291}\label{namespacematplotlibcpp_aab5287e30ebd90df0f5614d8da0f5291} 
+\index{matplotlibcpp@{matplotlibcpp}!axis@{axis}}
+\index{axis@{axis}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{axis()}{axis()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::axis (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{axisstr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\Hypertarget{namespacematplotlibcpp_a74882742dd5b2fa53cce6c2d4f5bbc2c}\label{namespacematplotlibcpp_a74882742dd5b2fa53cce6c2d4f5bbc2c} 
+\index{matplotlibcpp@{matplotlibcpp}!axvline@{axvline}}
+\index{axvline@{axvline}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{axvline()}{axvline()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::axvline (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{ymin = {\ttfamily 0.},  }\item[{double}]{ymax = {\ttfamily 1.},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily std\+:\+:map$<$std\+:\+:string,~std\+:\+:string$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 5
+\Hypertarget{namespacematplotlibcpp_aa895bc53f99e3630b8c0adb41880b485}\label{namespacematplotlibcpp_aa895bc53f99e3630b8c0adb41880b485} 
+\index{matplotlibcpp@{matplotlibcpp}!axvspan@{axvspan}}
+\index{axvspan@{axvspan}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{axvspan()}{axvspan()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::axvspan (\begin{DoxyParamCaption}\item[{double}]{xmin,  }\item[{double}]{xmax,  }\item[{double}]{ymin = {\ttfamily 0.},  }\item[{double}]{ymax = {\ttfamily 1.},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily std\+:\+:map$<$std\+:\+:string,~std\+:\+:string$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 6
+\Hypertarget{namespacematplotlibcpp_a7c176020a3312c69b4af6fa80113e53b}\label{namespacematplotlibcpp_a7c176020a3312c69b4af6fa80113e53b} 
+\index{matplotlibcpp@{matplotlibcpp}!backend@{backend}}
+\index{backend@{backend}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{backend()}{backend()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::backend (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Select the backend
+
+{\bfseries{NOTE\+:}} This must be called before the first plot command to have any effect.
+
+Mainly useful to select the non-\/interactive \textquotesingle{}Agg\textquotesingle{} backend when running matplotlibcpp in headless mode, for example on a machine with no display.
+
+See also\+: \href{https://matplotlib.org/2.0.2/api/matplotlib_configuration_api.html\#matplotlib.use}{\texttt{ https\+://matplotlib.\+org/2.\+0.\+2/api/matplotlib\+\_\+configuration\+\_\+api.\+html\#matplotlib.\+use}} \Hypertarget{namespacematplotlibcpp_a74ced83539862d0a6456935b507e9864}\label{namespacematplotlibcpp_a74ced83539862d0a6456935b507e9864} 
+\index{matplotlibcpp@{matplotlibcpp}!bar@{bar}}
+\index{bar@{bar}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{bar()}{bar()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::bar (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{x,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{std\+::string}]{ec = {\ttfamily "{}black"{}},  }\item[{std\+::string}]{ls = {\ttfamily "{}-\/"{}},  }\item[{double}]{lw = {\ttfamily 1.0},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_a61e468c9ffbf0eb5f85bbe69d9f5ecd2}\label{namespacematplotlibcpp_a61e468c9ffbf0eb5f85bbe69d9f5ecd2} 
+\index{matplotlibcpp@{matplotlibcpp}!bar@{bar}}
+\index{bar@{bar}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{bar()}{bar()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::bar (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{std\+::string}]{ec = {\ttfamily "{}black"{}},  }\item[{std\+::string}]{ls = {\ttfamily "{}-\/"{}},  }\item[{double}]{lw = {\ttfamily 1.0},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_ac31a739708c4c000f0787e1e6838ac13}\label{namespacematplotlibcpp_ac31a739708c4c000f0787e1e6838ac13} 
+\index{matplotlibcpp@{matplotlibcpp}!barh@{barh}}
+\index{barh@{barh}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{barh()}{barh()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::barh (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{x,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{std\+::string}]{ec = {\ttfamily "{}black"{}},  }\item[{std\+::string}]{ls = {\ttfamily "{}-\/"{}},  }\item[{double}]{lw = {\ttfamily 1.0},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_a97d82f6044902f9120a16f55bfcbf7a0}\label{namespacematplotlibcpp_a97d82f6044902f9120a16f55bfcbf7a0} 
+\index{matplotlibcpp@{matplotlibcpp}!boxplot@{boxplot}}
+\index{boxplot@{boxplot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{boxplot()}{boxplot()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::boxplot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{data,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_aa20e464f2c76edfb057997407a6f3fc4}\label{namespacematplotlibcpp_aa20e464f2c76edfb057997407a6f3fc4} 
+\index{matplotlibcpp@{matplotlibcpp}!boxplot@{boxplot}}
+\index{boxplot@{boxplot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{boxplot()}{boxplot()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::boxplot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ Numeric $>$ $>$ \&}]{data,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{labels = {\ttfamily \{\}},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_aa3ccefcc977791fc66c1cff63d589d00}\label{namespacematplotlibcpp_aa3ccefcc977791fc66c1cff63d589d00} 
+\index{matplotlibcpp@{matplotlibcpp}!cla@{cla}}
+\index{cla@{cla}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{cla()}{cla()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::cla (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 7
+\Hypertarget{namespacematplotlibcpp_adea4113b0ff7f393e18f1a99eb7e1718}\label{namespacematplotlibcpp_adea4113b0ff7f393e18f1a99eb7e1718} 
+\index{matplotlibcpp@{matplotlibcpp}!clf@{clf}}
+\index{clf@{clf}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{clf()}{clf()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::clf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\Hypertarget{namespacematplotlibcpp_a62aaaf872c41a9d1b71add44c0cc0447}\label{namespacematplotlibcpp_a62aaaf872c41a9d1b71add44c0cc0447} 
+\index{matplotlibcpp@{matplotlibcpp}!close@{close}}
+\index{close@{close}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 10
+\Hypertarget{namespacematplotlibcpp_a9ecea5f5240b0840556926e8c172952c}\label{namespacematplotlibcpp_a9ecea5f5240b0840556926e8c172952c} 
+\index{matplotlibcpp@{matplotlibcpp}!colorbar@{colorbar}}
+\index{colorbar@{colorbar}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{colorbar()}{colorbar()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::colorbar (\begin{DoxyParamCaption}\item[{Py\+Object \texorpdfstring{$\ast$}{*}}]{mappable = {\ttfamily NULL},  }\item[{const std\+::map$<$ std\+::string, float $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_a9b436f92bc261d6d938c60e626e13be9}\label{namespacematplotlibcpp_a9b436f92bc261d6d938c60e626e13be9} 
+\index{matplotlibcpp@{matplotlibcpp}!contour@{contour}}
+\index{contour@{contour}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{contour()}{contour()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY , typename NumericZ $>$ \\
+bool matplotlibcpp\+::contour (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::vector$<$ NumericZ $>$ \&}]{z,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_a0638f54cec7e104c8a2aae0e60bc01f4}\label{namespacematplotlibcpp_a0638f54cec7e104c8a2aae0e60bc01f4} 
+\index{matplotlibcpp@{matplotlibcpp}!contour@{contour}}
+\index{contour@{contour}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{contour()}{contour()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::contour (\begin{DoxyParamCaption}\item[{const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&}]{x,  }\item[{const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&}]{y,  }\item[{const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&}]{z,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_acd9fc5bb7916c735390c2056214b12be}\label{namespacematplotlibcpp_acd9fc5bb7916c735390c2056214b12be} 
+\index{matplotlibcpp@{matplotlibcpp}!draw@{draw}}
+\index{draw@{draw}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 11
+\Hypertarget{namespacematplotlibcpp_a44ccb9a7b34bc240b8cc8b3095dd8537}\label{namespacematplotlibcpp_a44ccb9a7b34bc240b8cc8b3095dd8537} 
+\index{matplotlibcpp@{matplotlibcpp}!errorbar@{errorbar}}
+\index{errorbar@{errorbar}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{errorbar()}{errorbar()}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::errorbar (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::vector$<$ NumericX $>$ \&}]{yerr,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_a63173b57d788807c1c6860dbc7961e40}\label{namespacematplotlibcpp_a63173b57d788807c1c6860dbc7961e40} 
+\index{matplotlibcpp@{matplotlibcpp}!fignum\_exists@{fignum\_exists}}
+\index{fignum\_exists@{fignum\_exists}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{fignum\_exists()}{fignum\_exists()}}
+{\footnotesize\ttfamily bool matplotlibcpp\+::fignum\+\_\+exists (\begin{DoxyParamCaption}\item[{long}]{number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 12
+\Hypertarget{namespacematplotlibcpp_a34e6ea8c8ee6779fe909ecac2ef945c8}\label{namespacematplotlibcpp_a34e6ea8c8ee6779fe909ecac2ef945c8} 
+\index{matplotlibcpp@{matplotlibcpp}!figure@{figure}}
+\index{figure@{figure}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{figure()}{figure()}}
+{\footnotesize\ttfamily long matplotlibcpp\+::figure (\begin{DoxyParamCaption}\item[{long}]{number = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 13
+\Hypertarget{namespacematplotlibcpp_a91e91bcdcfc7632a917830bfe3f71ca3}\label{namespacematplotlibcpp_a91e91bcdcfc7632a917830bfe3f71ca3} 
+\index{matplotlibcpp@{matplotlibcpp}!figure\_size@{figure\_size}}
+\index{figure\_size@{figure\_size}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{figure\_size()}{figure\_size()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::figure\+\_\+size (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{w,  }\item[{size\+\_\+t}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 14
+\Hypertarget{namespacematplotlibcpp_a00a57926330764f8490142b3ce06bd2e}\label{namespacematplotlibcpp_a00a57926330764f8490142b3ce06bd2e} 
+\index{matplotlibcpp@{matplotlibcpp}!fill@{fill}}
+\index{fill@{fill}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{fill()}{fill()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::fill (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{x,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 15
+\Hypertarget{namespacematplotlibcpp_a928fb4c83f29554b1b37aeea7af9bb73}\label{namespacematplotlibcpp_a928fb4c83f29554b1b37aeea7af9bb73} 
+\index{matplotlibcpp@{matplotlibcpp}!fill\_between@{fill\_between}}
+\index{fill\_between@{fill\_between}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{fill\_between()}{fill\_between()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::fill\+\_\+between (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{x,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y1,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y2,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 16
+\Hypertarget{namespacematplotlibcpp_a0012ea4e42a80e34bea65dcfefc4b2ee}\label{namespacematplotlibcpp_a0012ea4e42a80e34bea65dcfefc4b2ee} 
+\index{matplotlibcpp@{matplotlibcpp}!ginput@{ginput}}
+\index{ginput@{ginput}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{ginput()}{ginput()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::array$<$ double, 2 $>$ $>$ matplotlibcpp\+::ginput (\begin{DoxyParamCaption}\item[{const int}]{num\+Clicks = {\ttfamily 1},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_ae0bbf80e73099a91df28e4fb871b166a}\label{namespacematplotlibcpp_ae0bbf80e73099a91df28e4fb871b166a} 
+\index{matplotlibcpp@{matplotlibcpp}!grid@{grid}}
+\index{grid@{grid}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{grid()}{grid()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::grid (\begin{DoxyParamCaption}\item[{bool}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 17
+\Hypertarget{namespacematplotlibcpp_aeaf80309ad11083ec57bd6b246f6e4dc}\label{namespacematplotlibcpp_aeaf80309ad11083ec57bd6b246f6e4dc} 
+\index{matplotlibcpp@{matplotlibcpp}!hist@{hist}}
+\index{hist@{hist}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{hist()}{hist()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::hist (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{long}]{bins = {\ttfamily 10},  }\item[{std\+::string}]{color = {\ttfamily "{}b"{}},  }\item[{double}]{alpha = {\ttfamily 1.0},  }\item[{bool}]{cumulative = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 18
+\Hypertarget{namespacematplotlibcpp_a61bc8aab0ceca9c4df59dbbccc8ffb3f}\label{namespacematplotlibcpp_a61bc8aab0ceca9c4df59dbbccc8ffb3f} 
+\index{matplotlibcpp@{matplotlibcpp}!imshow@{imshow}}
+\index{imshow@{imshow}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{imshow()}{imshow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void matplotlibcpp\+::imshow (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{ptr,  }\item[{const int}]{rows,  }\item[{const int}]{columns,  }\item[{const int}]{colors,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}},  }\item[{Py\+Object \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_a4cc9d207ab565df55b663b264be9ce72}\label{namespacematplotlibcpp_a4cc9d207ab565df55b663b264be9ce72} 
+\index{matplotlibcpp@{matplotlibcpp}!imshow@{imshow}}
+\index{imshow@{imshow}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{imshow()}{imshow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void matplotlibcpp\+::imshow (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{ptr,  }\item[{const int}]{rows,  }\item[{const int}]{columns,  }\item[{const int}]{colors,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}},  }\item[{Py\+Object \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_a9bddb5276ddc48f4ff9c2b36b98db71a}\label{namespacematplotlibcpp_a9bddb5276ddc48f4ff9c2b36b98db71a} 
+\index{matplotlibcpp@{matplotlibcpp}!ion@{ion}}
+\index{ion@{ion}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{ion()}{ion()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::ion (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 19
+\Hypertarget{namespacematplotlibcpp_a916bb5a9dc5f6a24877cc027bf4ee624}\label{namespacematplotlibcpp_a916bb5a9dc5f6a24877cc027bf4ee624} 
+\index{matplotlibcpp@{matplotlibcpp}!legend@{legend}}
+\index{legend@{legend}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{legend()}{legend()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void matplotlibcpp\+::legend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 20
+\Hypertarget{namespacematplotlibcpp_af1bd4fb8c531bd4e9b0c0a2c6fa4d69b}\label{namespacematplotlibcpp_af1bd4fb8c531bd4e9b0c0a2c6fa4d69b} 
+\index{matplotlibcpp@{matplotlibcpp}!legend@{legend}}
+\index{legend@{legend}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{legend()}{legend()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void matplotlibcpp\+::legend (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 21
+\Hypertarget{namespacematplotlibcpp_a6cfa8cba00f52a2c4614fa7a8a0bcd2b}\label{namespacematplotlibcpp_a6cfa8cba00f52a2c4614fa7a8a0bcd2b} 
+\index{matplotlibcpp@{matplotlibcpp}!loglog@{loglog}}
+\index{loglog@{loglog}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{loglog()}{loglog()}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::loglog (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::string \&}]{s = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 22
+\Hypertarget{namespacematplotlibcpp_a468096a42e46d0a26e8a237ffb24caca}\label{namespacematplotlibcpp_a468096a42e46d0a26e8a237ffb24caca} 
+\index{matplotlibcpp@{matplotlibcpp}!margins@{margins}}
+\index{margins@{margins}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{margins()}{margins()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::margins (\begin{DoxyParamCaption}\item[{Numeric}]{margin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 23
+\Hypertarget{namespacematplotlibcpp_ac4907337da083bf670acecc6624cf244}\label{namespacematplotlibcpp_ac4907337da083bf670acecc6624cf244} 
+\index{matplotlibcpp@{matplotlibcpp}!margins@{margins}}
+\index{margins@{margins}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{margins()}{margins()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::margins (\begin{DoxyParamCaption}\item[{Numeric}]{margin\+\_\+x,  }\item[{Numeric}]{margin\+\_\+y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 24
+\Hypertarget{namespacematplotlibcpp_a2851ef02b92b32ee7d3dd8f8fd065ae3}\label{namespacematplotlibcpp_a2851ef02b92b32ee7d3dd8f8fd065ae3} 
+\index{matplotlibcpp@{matplotlibcpp}!named\_hist@{named\_hist}}
+\index{named\_hist@{named\_hist}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{named\_hist()}{named\_hist()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::named\+\_\+hist (\begin{DoxyParamCaption}\item[{std\+::string}]{label,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{long}]{bins = {\ttfamily 10},  }\item[{std\+::string}]{color = {\ttfamily "{}b"{}},  }\item[{double}]{alpha = {\ttfamily 1.0} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 25
+\Hypertarget{namespacematplotlibcpp_a9482856fd165f21001420e712d0d2312}\label{namespacematplotlibcpp_a9482856fd165f21001420e712d0d2312} 
+\index{matplotlibcpp@{matplotlibcpp}!named\_loglog@{named\_loglog}}
+\index{named\_loglog@{named\_loglog}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{named\_loglog()}{named\_loglog()}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::named\+\_\+loglog (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::string \&}]{format = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 26
+\Hypertarget{namespacematplotlibcpp_a6461c03041d9947a0e3b3593b5b72c95}\label{namespacematplotlibcpp_a6461c03041d9947a0e3b3593b5b72c95} 
+\index{matplotlibcpp@{matplotlibcpp}!named\_plot@{named\_plot}}
+\index{named\_plot@{named\_plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{named\_plot()}{named\_plot()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::named\+\_\+plot (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{const std\+::string \&}]{format = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 27
+\Hypertarget{namespacematplotlibcpp_a9147bd13de56cbe3e3dfbb61713c144c}\label{namespacematplotlibcpp_a9147bd13de56cbe3e3dfbb61713c144c} 
+\index{matplotlibcpp@{matplotlibcpp}!named\_plot@{named\_plot}}
+\index{named\_plot@{named\_plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{named\_plot()}{named\_plot()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::named\+\_\+plot (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::string \&}]{format = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 28
+\Hypertarget{namespacematplotlibcpp_ae32c097d32b89445a995727d05446843}\label{namespacematplotlibcpp_ae32c097d32b89445a995727d05446843} 
+\index{matplotlibcpp@{matplotlibcpp}!named\_semilogx@{named\_semilogx}}
+\index{named\_semilogx@{named\_semilogx}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{named\_semilogx()}{named\_semilogx()}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::named\+\_\+semilogx (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::string \&}]{format = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 29
+\Hypertarget{namespacematplotlibcpp_a529c059f3fca364b9fcb3b2e09cce36b}\label{namespacematplotlibcpp_a529c059f3fca364b9fcb3b2e09cce36b} 
+\index{matplotlibcpp@{matplotlibcpp}!named\_semilogy@{named\_semilogy}}
+\index{named\_semilogy@{named\_semilogy}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{named\_semilogy()}{named\_semilogy()}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::named\+\_\+semilogy (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::string \&}]{format = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 30
+\Hypertarget{namespacematplotlibcpp_aa5bc4092c9e2acbb2c6ec4efd024cf2f}\label{namespacematplotlibcpp_aa5bc4092c9e2acbb2c6ec4efd024cf2f} 
+\index{matplotlibcpp@{matplotlibcpp}!pause@{pause}}
+\index{pause@{pause}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{pause()}{pause()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::pause (\begin{DoxyParamCaption}\item[{Numeric}]{interval }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 31
+Here is the caller graph for this function\+:
+% FIG 32
+\Hypertarget{namespacematplotlibcpp_a90ba2143110bba254f163102a6ab450b}\label{namespacematplotlibcpp_a90ba2143110bba254f163102a6ab450b} 
+\index{matplotlibcpp@{matplotlibcpp}!plot@{plot}}
+\index{plot@{plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}\hspace{0.1cm}{\footnotesize\ttfamily [1/9]}}
+{\footnotesize\ttfamily template$<$typename... Args$>$ \\
+bool matplotlibcpp\+::plot (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 33
+\Hypertarget{namespacematplotlibcpp_a961b7390cd3b4148651519f164c1af14}\label{namespacematplotlibcpp_a961b7390cd3b4148651519f164c1af14} 
+\index{matplotlibcpp@{matplotlibcpp}!plot@{plot}}
+\index{plot@{plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}\hspace{0.1cm}{\footnotesize\ttfamily [2/9]}}
+{\footnotesize\ttfamily template$<$typename A , typename B , typename... Args$>$ \\
+bool matplotlibcpp\+::plot (\begin{DoxyParamCaption}\item[{const A \&}]{a,  }\item[{const B \&}]{b,  }\item[{const std\+::string \&}]{format,  }\item[{Args...}]{args }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 34
+\Hypertarget{namespacematplotlibcpp_ac13e292d39d50cc4c0d02dac8fa2927f}\label{namespacematplotlibcpp_ac13e292d39d50cc4c0d02dac8fa2927f} 
+\index{matplotlibcpp@{matplotlibcpp}!plot@{plot}}
+\index{plot@{plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}\hspace{0.1cm}{\footnotesize\ttfamily [3/9]}}
+{\footnotesize\ttfamily bool matplotlibcpp\+::plot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{x,  }\item[{const std\+::vector$<$ double $>$ \&}]{y,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_aff32a9a7a3507d867dab947db66d7352}\label{namespacematplotlibcpp_aff32a9a7a3507d867dab947db66d7352} 
+\index{matplotlibcpp@{matplotlibcpp}!plot@{plot}}
+\index{plot@{plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}\hspace{0.1cm}{\footnotesize\ttfamily [4/9]}}
+{\footnotesize\ttfamily bool matplotlibcpp\+::plot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{x,  }\item[{const std\+::vector$<$ double $>$ \&}]{y,  }\item[{const std\+::string \&}]{format = {\ttfamily "{}"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_acb7bb4d6d924fcc734b4fa35ba48e682}\label{namespacematplotlibcpp_acb7bb4d6d924fcc734b4fa35ba48e682} 
+\index{matplotlibcpp@{matplotlibcpp}!plot@{plot}}
+\index{plot@{plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}\hspace{0.1cm}{\footnotesize\ttfamily [5/9]}}
+{\footnotesize\ttfamily bool matplotlibcpp\+::plot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{y,  }\item[{const std\+::string \&}]{format = {\ttfamily "{}"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_a06ac86c6fecaa5a9b3fb566bc31d6a3b}\label{namespacematplotlibcpp_a06ac86c6fecaa5a9b3fb566bc31d6a3b} 
+\index{matplotlibcpp@{matplotlibcpp}!plot@{plot}}
+\index{plot@{plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}\hspace{0.1cm}{\footnotesize\ttfamily [6/9]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::plot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{x,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords }\end{DoxyParamCaption})}
+
+\doxylink{classmatplotlibcpp_1_1Plot}{Plot} a line through the given x and y data points..
+
+See\+: \href{https://matplotlib.org/3.2.1/api/_as_gen/matplotlib.pyplot.plot.html}{\texttt{ https\+://matplotlib.\+org/3.\+2.\+1/api/\+\_\+as\+\_\+gen/matplotlib.\+pyplot.\+plot.\+html}} Here is the call graph for this function\+:
+% FIG 35
+\Hypertarget{namespacematplotlibcpp_a3917f5113dcefbf8f6dc1f04e8196ca1}\label{namespacematplotlibcpp_a3917f5113dcefbf8f6dc1f04e8196ca1} 
+\index{matplotlibcpp@{matplotlibcpp}!plot@{plot}}
+\index{plot@{plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}\hspace{0.1cm}{\footnotesize\ttfamily [7/9]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::plot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 36
+\Hypertarget{namespacematplotlibcpp_a92c59dd37fb3f355514d88e364ddfde9}\label{namespacematplotlibcpp_a92c59dd37fb3f355514d88e364ddfde9} 
+\index{matplotlibcpp@{matplotlibcpp}!plot@{plot}}
+\index{plot@{plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}\hspace{0.1cm}{\footnotesize\ttfamily [8/9]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::plot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{const std\+::string \&}]{format = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 37
+\Hypertarget{namespacematplotlibcpp_a19804a8cbd413b15c8d07848d7a5890e}\label{namespacematplotlibcpp_a19804a8cbd413b15c8d07848d7a5890e} 
+\index{matplotlibcpp@{matplotlibcpp}!plot@{plot}}
+\index{plot@{plot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}\hspace{0.1cm}{\footnotesize\ttfamily [9/9]}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::plot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::string \&}]{s = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 38
+\Hypertarget{namespacematplotlibcpp_a107bbc57e93a929c75baf1c60a712d8b}\label{namespacematplotlibcpp_a107bbc57e93a929c75baf1c60a712d8b} 
+\index{matplotlibcpp@{matplotlibcpp}!plot3@{plot3}}
+\index{plot3@{plot3}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot3()}{plot3()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::plot3 (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{x,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{z,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily std\+:\+:map$<$std\+:\+:string,~std\+:\+:string$>$()},  }\item[{const long}]{fig\+\_\+number = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 39
+Here is the caller graph for this function\+:
+% FIG 40
+\Hypertarget{namespacematplotlibcpp_aaabbbb79cc3e3dd5a2e061704c32bc10}\label{namespacematplotlibcpp_aaabbbb79cc3e3dd5a2e061704c32bc10} 
+\index{matplotlibcpp@{matplotlibcpp}!plot\_surface@{plot\_surface}}
+\index{plot\_surface@{plot\_surface}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{plot\_surface()}{plot\_surface()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::plot\+\_\+surface (\begin{DoxyParamCaption}\item[{const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&}]{x,  }\item[{const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&}]{y,  }\item[{const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&}]{z,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily std\+:\+:map$<$std\+:\+:string,~std\+:\+:string$>$()},  }\item[{const long}]{fig\+\_\+number = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 41
+Here is the caller graph for this function\+:
+% FIG 42
+\Hypertarget{namespacematplotlibcpp_aeb9566045d6e782203d5a1a3fb28d953}\label{namespacematplotlibcpp_aeb9566045d6e782203d5a1a3fb28d953} 
+\index{matplotlibcpp@{matplotlibcpp}!quiver@{quiver}}
+\index{quiver@{quiver}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{quiver()}{quiver()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY , typename NumericU , typename NumericW $>$ \\
+bool matplotlibcpp\+::quiver (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::vector$<$ NumericU $>$ \&}]{u,  }\item[{const std\+::vector$<$ NumericW $>$ \&}]{w,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_aeaa87240dc7927a34cd7f1fb5d1d1267}\label{namespacematplotlibcpp_aeaa87240dc7927a34cd7f1fb5d1d1267} 
+\index{matplotlibcpp@{matplotlibcpp}!quiver@{quiver}}
+\index{quiver@{quiver}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{quiver()}{quiver()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY , typename NumericZ , typename NumericU , typename NumericW , typename NumericV $>$ \\
+bool matplotlibcpp\+::quiver (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::vector$<$ NumericZ $>$ \&}]{z,  }\item[{const std\+::vector$<$ NumericU $>$ \&}]{u,  }\item[{const std\+::vector$<$ NumericW $>$ \&}]{w,  }\item[{const std\+::vector$<$ NumericV $>$ \&}]{v,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_a2ecd6145f724318bc69330df7044bb5b}\label{namespacematplotlibcpp_a2ecd6145f724318bc69330df7044bb5b} 
+\index{matplotlibcpp@{matplotlibcpp}!rcparams@{rcparams}}
+\index{rcparams@{rcparams}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{rcparams()}{rcparams()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::rcparams (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_ad0a8762f877a67f0253b1cb316ca55bc}\label{namespacematplotlibcpp_ad0a8762f877a67f0253b1cb316ca55bc} 
+\index{matplotlibcpp@{matplotlibcpp}!save@{save}}
+\index{save@{save}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::save (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename,  }\item[{const int}]{dpi = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 43
+Here is the caller graph for this function\+:
+% FIG 44
+\Hypertarget{namespacematplotlibcpp_a1f9102b1c7b0be41471bc65c20f38b95}\label{namespacematplotlibcpp_a1f9102b1c7b0be41471bc65c20f38b95} 
+\index{matplotlibcpp@{matplotlibcpp}!scatter@{scatter}}
+\index{scatter@{scatter}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{scatter()}{scatter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::scatter (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const double}]{s = {\ttfamily 1.0},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_a57af9838664a40f0d7aabd3b184ec860}\label{namespacematplotlibcpp_a57af9838664a40f0d7aabd3b184ec860} 
+\index{matplotlibcpp@{matplotlibcpp}!scatter@{scatter}}
+\index{scatter@{scatter}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{scatter()}{scatter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY , typename NumericZ $>$ \\
+bool matplotlibcpp\+::scatter (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::vector$<$ NumericZ $>$ \&}]{z,  }\item[{const double}]{s = {\ttfamily 1.0},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}},  }\item[{const long}]{fig\+\_\+number = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_a3df1b1d037e54f3ae5d1d7c89342099a}\label{namespacematplotlibcpp_a3df1b1d037e54f3ae5d1d7c89342099a} 
+\index{matplotlibcpp@{matplotlibcpp}!scatter\_colored@{scatter\_colored}}
+\index{scatter\_colored@{scatter\_colored}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{scatter\_colored()}{scatter\_colored()}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY , typename Numeric\+Colors $>$ \\
+bool matplotlibcpp\+::scatter\+\_\+colored (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::vector$<$ Numeric\+Colors $>$ \&}]{colors,  }\item[{const double}]{s = {\ttfamily 1.0},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_ad25d4429577dbdd8c087a0ba6869840b}\label{namespacematplotlibcpp_ad25d4429577dbdd8c087a0ba6869840b} 
+\index{matplotlibcpp@{matplotlibcpp}!semilogx@{semilogx}}
+\index{semilogx@{semilogx}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{semilogx()}{semilogx()}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::semilogx (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::string \&}]{s = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 45
+\Hypertarget{namespacematplotlibcpp_a4dce9b4c1c16c1dab0cffd11588d4db8}\label{namespacematplotlibcpp_a4dce9b4c1c16c1dab0cffd11588d4db8} 
+\index{matplotlibcpp@{matplotlibcpp}!semilogy@{semilogy}}
+\index{semilogy@{semilogy}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{semilogy()}{semilogy()}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::semilogy (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::string \&}]{s = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 46
+\Hypertarget{namespacematplotlibcpp_abed6306bfaf492081ded0df72c366e4e}\label{namespacematplotlibcpp_abed6306bfaf492081ded0df72c366e4e} 
+\index{matplotlibcpp@{matplotlibcpp}!set\_aspect@{set\_aspect}}
+\index{set\_aspect@{set\_aspect}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{set\_aspect()}{set\_aspect()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::set\+\_\+aspect (\begin{DoxyParamCaption}\item[{Numeric}]{ratio }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 47
+Here is the caller graph for this function\+:
+% FIG 48
+\Hypertarget{namespacematplotlibcpp_a2fc05d3a606ce68e7a72c9e4ed7f3556}\label{namespacematplotlibcpp_a2fc05d3a606ce68e7a72c9e4ed7f3556} 
+\index{matplotlibcpp@{matplotlibcpp}!set\_aspect\_equal@{set\_aspect\_equal}}
+\index{set\_aspect\_equal@{set\_aspect\_equal}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{set\_aspect\_equal()}{set\_aspect\_equal()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::set\+\_\+aspect\+\_\+equal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 49
+\Hypertarget{namespacematplotlibcpp_abdd4b60ee0322034c59aa77bf4a8a0bc}\label{namespacematplotlibcpp_abdd4b60ee0322034c59aa77bf4a8a0bc} 
+\index{matplotlibcpp@{matplotlibcpp}!set\_zlabel@{set\_zlabel}}
+\index{set\_zlabel@{set\_zlabel}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{set\_zlabel()}{set\_zlabel()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::set\+\_\+zlabel (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_ac7b2ae71a81811dfb69bcef95ee8390d}\label{namespacematplotlibcpp_ac7b2ae71a81811dfb69bcef95ee8390d} 
+\index{matplotlibcpp@{matplotlibcpp}!show@{show}}
+\index{show@{show}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{show()}{show()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::show (\begin{DoxyParamCaption}\item[{const bool}]{block = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 50
+\Hypertarget{namespacematplotlibcpp_aaa119f4ed3c64b3de7db1e08a2aa1ddd}\label{namespacematplotlibcpp_aaa119f4ed3c64b3de7db1e08a2aa1ddd} 
+\index{matplotlibcpp@{matplotlibcpp}!spy@{spy}}
+\index{spy@{spy}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{spy()}{spy()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::spy (\begin{DoxyParamCaption}\item[{const std\+::vector$<$\+::std\+::vector$<$ Numeric $>$ $>$ \&}]{x,  }\item[{const double}]{markersize = {\ttfamily -\/1},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacematplotlibcpp_ae3c91bdfbe011133346dcc4f31ec5932}\label{namespacematplotlibcpp_ae3c91bdfbe011133346dcc4f31ec5932} 
+\index{matplotlibcpp@{matplotlibcpp}!stem@{stem}}
+\index{stem@{stem}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{stem()}{stem()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::stem (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{x,  }\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 51
+Here is the caller graph for this function\+:
+% FIG 52
+\Hypertarget{namespacematplotlibcpp_a40ac4e0d416fad21899637dcf8d281c6}\label{namespacematplotlibcpp_a40ac4e0d416fad21899637dcf8d281c6} 
+\index{matplotlibcpp@{matplotlibcpp}!stem@{stem}}
+\index{stem@{stem}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{stem()}{stem()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool matplotlibcpp\+::stem (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{y,  }\item[{const std\+::string \&}]{format = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 53
+\Hypertarget{namespacematplotlibcpp_a02a1939d1d0b7b61878bd7cf2d8cd7f3}\label{namespacematplotlibcpp_a02a1939d1d0b7b61878bd7cf2d8cd7f3} 
+\index{matplotlibcpp@{matplotlibcpp}!stem@{stem}}
+\index{stem@{stem}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{stem()}{stem()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename NumericX , typename NumericY $>$ \\
+bool matplotlibcpp\+::stem (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ NumericX $>$ \&}]{x,  }\item[{const std\+::vector$<$ NumericY $>$ \&}]{y,  }\item[{const std\+::string \&}]{s = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 54
+\Hypertarget{namespacematplotlibcpp_a78f4b6d50e52d1782d52df692232f4e1}\label{namespacematplotlibcpp_a78f4b6d50e52d1782d52df692232f4e1} 
+\index{matplotlibcpp@{matplotlibcpp}!subplot@{subplot}}
+\index{subplot@{subplot}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{subplot()}{subplot()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::subplot (\begin{DoxyParamCaption}\item[{long}]{nrows,  }\item[{long}]{ncols,  }\item[{long}]{plot\+\_\+number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 55
+\Hypertarget{namespacematplotlibcpp_abaecdb14580aa8c7945f35bcffd7fa02}\label{namespacematplotlibcpp_abaecdb14580aa8c7945f35bcffd7fa02} 
+\index{matplotlibcpp@{matplotlibcpp}!subplot2grid@{subplot2grid}}
+\index{subplot2grid@{subplot2grid}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{subplot2grid()}{subplot2grid()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::subplot2grid (\begin{DoxyParamCaption}\item[{long}]{nrows,  }\item[{long}]{ncols,  }\item[{long}]{rowid = {\ttfamily 0},  }\item[{long}]{colid = {\ttfamily 0},  }\item[{long}]{rowspan = {\ttfamily 1},  }\item[{long}]{colspan = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 56
+\Hypertarget{namespacematplotlibcpp_a80475bf6042c6ded104aad3e05e12d47}\label{namespacematplotlibcpp_a80475bf6042c6ded104aad3e05e12d47} 
+\index{matplotlibcpp@{matplotlibcpp}!subplots\_adjust@{subplots\_adjust}}
+\index{subplots\_adjust@{subplots\_adjust}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{subplots\_adjust()}{subplots\_adjust()}}
+{\footnotesize\ttfamily bool matplotlibcpp\+::subplots\+\_\+adjust (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::string, double $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_a6975063d8a58339a374bc7d33e568090}\label{namespacematplotlibcpp_a6975063d8a58339a374bc7d33e568090} 
+\index{matplotlibcpp@{matplotlibcpp}!suptitle@{suptitle}}
+\index{suptitle@{suptitle}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{suptitle()}{suptitle()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::suptitle (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{suptitlestr,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespacematplotlibcpp_ad765633aecb8e1000c8ee64783d47dd7}\label{namespacematplotlibcpp_ad765633aecb8e1000c8ee64783d47dd7} 
+\index{matplotlibcpp@{matplotlibcpp}!text@{text}}
+\index{text@{text}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{text()}{text()}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::text (\begin{DoxyParamCaption}\item[{Numeric}]{x,  }\item[{Numeric}]{y,  }\item[{const std\+::string \&}]{s = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 57
+\Hypertarget{namespacematplotlibcpp_a6479afec926d90fdf3309cf2a88db030}\label{namespacematplotlibcpp_a6479afec926d90fdf3309cf2a88db030} 
+\index{matplotlibcpp@{matplotlibcpp}!tick\_params@{tick\_params}}
+\index{tick\_params@{tick\_params}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{tick\_params()}{tick\_params()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::tick\+\_\+params (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords,  }\item[{const std\+::string}]{axis = {\ttfamily "{}both"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 58
+\Hypertarget{namespacematplotlibcpp_a14e2b6e595e057f553ef7b14ddcda82a}\label{namespacematplotlibcpp_a14e2b6e595e057f553ef7b14ddcda82a} 
+\index{matplotlibcpp@{matplotlibcpp}!tight\_layout@{tight\_layout}}
+\index{tight\_layout@{tight\_layout}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{tight\_layout()}{tight\_layout()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::tight\+\_\+layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 59
+\Hypertarget{namespacematplotlibcpp_a6de552522cdfa4d42e1ab11364f34a18}\label{namespacematplotlibcpp_a6de552522cdfa4d42e1ab11364f34a18} 
+\index{matplotlibcpp@{matplotlibcpp}!title@{title}}
+\index{title@{title}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{title()}{title()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::title (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{titlestr,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:
+% FIG 60
+\Hypertarget{namespacematplotlibcpp_aca0fdbeae2fd86ab7291661f154f83ff}\label{namespacematplotlibcpp_aca0fdbeae2fd86ab7291661f154f83ff} 
+\index{matplotlibcpp@{matplotlibcpp}!xkcd@{xkcd}}
+\index{xkcd@{xkcd}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{xkcd()}{xkcd()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::xkcd (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 61
+\Hypertarget{namespacematplotlibcpp_a93e96cce1779c757a9ac754639c80878}\label{namespacematplotlibcpp_a93e96cce1779c757a9ac754639c80878} 
+\index{matplotlibcpp@{matplotlibcpp}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{xlabel()}{xlabel()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::xlabel (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:
+% FIG 62
+\Hypertarget{namespacematplotlibcpp_a12ac5a7fc96a03d27b3249fc6a54974f}\label{namespacematplotlibcpp_a12ac5a7fc96a03d27b3249fc6a54974f} 
+\index{matplotlibcpp@{matplotlibcpp}!xlim@{xlim}}
+\index{xlim@{xlim}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{xlim()}{xlim()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::array$<$ double, 2 $>$ matplotlibcpp\+::xlim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 63
+\Hypertarget{namespacematplotlibcpp_a712cd34472b3687668048899bee4cdbf}\label{namespacematplotlibcpp_a712cd34472b3687668048899bee4cdbf} 
+\index{matplotlibcpp@{matplotlibcpp}!xlim@{xlim}}
+\index{xlim@{xlim}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{xlim()}{xlim()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::xlim (\begin{DoxyParamCaption}\item[{Numeric}]{left,  }\item[{Numeric}]{right }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 64
+\Hypertarget{namespacematplotlibcpp_a2f48d08907cd16a6310191719c51a4d8}\label{namespacematplotlibcpp_a2f48d08907cd16a6310191719c51a4d8} 
+\index{matplotlibcpp@{matplotlibcpp}!xticks@{xticks}}
+\index{xticks@{xticks}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{xticks()}{xticks()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::xticks (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{ticks,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 65
+\Hypertarget{namespacematplotlibcpp_acd5a42a3079f5459cdf66292ebd6bcf9}\label{namespacematplotlibcpp_acd5a42a3079f5459cdf66292ebd6bcf9} 
+\index{matplotlibcpp@{matplotlibcpp}!xticks@{xticks}}
+\index{xticks@{xticks}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{xticks()}{xticks()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::xticks (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{ticks,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{labels = {\ttfamily \{\}},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:
+% FIG 66
+\Hypertarget{namespacematplotlibcpp_adaa29542f05e1acb0850b7e4619a9359}\label{namespacematplotlibcpp_adaa29542f05e1acb0850b7e4619a9359} 
+\index{matplotlibcpp@{matplotlibcpp}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{ylabel()}{ylabel()}}
+{\footnotesize\ttfamily void matplotlibcpp\+::ylabel (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:
+% FIG 67
+\Hypertarget{namespacematplotlibcpp_a7a90e7d9dda953455e23c296906c093a}\label{namespacematplotlibcpp_a7a90e7d9dda953455e23c296906c093a} 
+\index{matplotlibcpp@{matplotlibcpp}!ylim@{ylim}}
+\index{ylim@{ylim}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{ylim()}{ylim()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::array$<$ double, 2 $>$ matplotlibcpp\+::ylim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 68
+\Hypertarget{namespacematplotlibcpp_a4645651772918e2dad7d36d9eeaeaefa}\label{namespacematplotlibcpp_a4645651772918e2dad7d36d9eeaeaefa} 
+\index{matplotlibcpp@{matplotlibcpp}!ylim@{ylim}}
+\index{ylim@{ylim}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{ylim()}{ylim()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::ylim (\begin{DoxyParamCaption}\item[{Numeric}]{left,  }\item[{Numeric}]{right }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 69
+\Hypertarget{namespacematplotlibcpp_a6111e7efdb413c79258daeb584c6c715}\label{namespacematplotlibcpp_a6111e7efdb413c79258daeb584c6c715} 
+\index{matplotlibcpp@{matplotlibcpp}!yticks@{yticks}}
+\index{yticks@{yticks}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{yticks()}{yticks()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::yticks (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{ticks,  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+% FIG 70
+\Hypertarget{namespacematplotlibcpp_ab934ebc4f4f6be6f5f9679f15c0f6f11}\label{namespacematplotlibcpp_ab934ebc4f4f6be6f5f9679f15c0f6f11} 
+\index{matplotlibcpp@{matplotlibcpp}!yticks@{yticks}}
+\index{yticks@{yticks}!matplotlibcpp@{matplotlibcpp}}
+\doxysubsubsection{\texorpdfstring{yticks()}{yticks()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+void matplotlibcpp\+::yticks (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Numeric $>$ \&}]{ticks,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{labels = {\ttfamily \{\}},  }\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{keywords = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:
+% FIG 71

@@ -10,5 +10,7 @@ digraph "Software/Firmware/project/ecg/include"
   dir_960faa4f3fc034285cca4edf246f21ab [label="include", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_960faa4f3fc034285cca4edf246f21ab.html",tooltip=""];
   }
   dir_970d6700fad0eea1fd73061d0f7b3c90 [label="ads1115", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_970d6700fad0eea1fd73061d0f7b3c90.html",tooltip=""];
+  dir_b0bf7c56bb40bf9d82fb811d7dc25f65 [label="ppg", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_b0bf7c56bb40bf9d82fb811d7dc25f65.html",tooltip=""];
   dir_960faa4f3fc034285cca4edf246f21ab->dir_970d6700fad0eea1fd73061d0f7b3c90 [headlabel="1", labeldistance=1.5 headhref="dir_000006_000000.html" href="dir_000006_000000.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_960faa4f3fc034285cca4edf246f21ab->dir_b0bf7c56bb40bf9d82fb811d7dc25f65 [headlabel="1", labeldistance=1.5 headhref="dir_000006_000012.html" href="dir_000006_000012.html" color="steelblue1" fontcolor="steelblue1"];
 }

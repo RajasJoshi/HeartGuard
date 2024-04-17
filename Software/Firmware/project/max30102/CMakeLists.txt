@@ -4,9 +4,20 @@
 #####################################
 # Define Target Information
 #####################################
+
+set(PYTHON_EXECUTABLE "/usr/bin/python3")
+
+# Find Python
+find_package(Python REQUIRED COMPONENTS Interpreter Development)
+
+# Set the path to the NumPy installation directory
+set(NumPy_DIR "/usr/lib/python3/dist-packages/numpy/core/include/")
+
 set(TARGET_NAME max30102)
 set(TARGET_INCLUDE_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(TARGET_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/max30102.cpp)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${Python_INCLUDE_DIRS} ${NumPy_DIR})
 
 #####################################
 # Support IDE Visualization
@@ -54,6 +65,13 @@ add_executable(
   max30102_test
   test/max30102_test.cpp
 )
+
+# Add your source files
+add_executable(visual src/visualize.cpp)
+
+# Link any necessary libraries
+target_link_libraries(visual PRIVATE Python::Python)
+
 target_link_libraries(
   max30102_test
   GTest::gtest_main

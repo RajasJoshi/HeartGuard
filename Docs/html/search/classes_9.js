@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['reverse_5fiterator_0',['reverse_iterator',['../classCircularDelay_1_1reverse__iterator.html',1,'CircularDelay']]]
+  ['max30102_0',['MAX30102',['../classMAX30102.html',1,'']]],
+  ['max30102settings_1',['MAX30102settings',['../structMAX30102settings.html',1,'']]],
+  ['movingavaragefilter_2',['MovingAvarageFilter',['../classMovingAvarageFilter.html',1,'']]]
 ];

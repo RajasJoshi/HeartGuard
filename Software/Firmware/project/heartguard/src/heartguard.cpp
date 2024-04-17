@@ -97,7 +97,7 @@ int main(int argc, char* argv[]) {
     ecgThread = std::make_unique<std::thread>([]() {
       try {
         hgecg = std::make_unique<ECG>();
-        hgecg->start(hgads1115);
+        hgecg->start(hgads1115, hgppg);
       } catch (const std::exception& e) {
         std::cerr << "Exception in ecgThread: " << e.what() << std::endl;
       } catch (...) {
@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
     tcpServerThread = std::make_unique<std::thread>([]() {
       try {
         hgtcpserver = std::make_unique<TcpServer>();
-        hgtcpserver->start(hgecg, hgppg);
+        hgtcpserver->start(hgecg);
 
       } catch (const std::exception& e) {
         std::cerr << "Exception in tcpServerThread: " << e.what() << std::endl;

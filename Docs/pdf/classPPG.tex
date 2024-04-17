@@ -22,8 +22,6 @@ void \mbox{\hyperlink{classPPG_af198c57799484bc8c59a47c863e51823}{stop}} (void)
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-boost\+::lockfree\+::spsc\+\_\+queue$<$ std\+::string, boost\+::lockfree\+::capacity$<$ 1024 $>$ $>$ \mbox{\hyperlink{classPPG_a149309d37aa0ca61afaac500b74a170a}{ppgtcpqueue}}
-\item 
 int32\+\_\+t \mbox{\hyperlink{classPPG_a6c20f6c3cd0928367015e7ffb6e1a1ee}{bpm\+Buffer}} \mbox{[}\mbox{\hyperlink{classPPG_a47255dcd674c7aee47b7d98145e0bf92}{BPM\+\_\+\+BUFFER\+\_\+\+SIZE}}\mbox{]}
 \item 
 int \mbox{\hyperlink{classPPG_a2819db6111e861731870e5ce4406e472}{next\+BPMBuffer\+Index}} = 0
@@ -31,6 +29,18 @@ int \mbox{\hyperlink{classPPG_a2819db6111e861731870e5ce4406e472}{next\+BPMBuffer
 int32\+\_\+t \mbox{\hyperlink{classPPG_a5db3e4221b911bc82dd69c115922f671}{spo2\+Buffer}} \mbox{[}\mbox{\hyperlink{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}{SPO2\+\_\+\+BUFFER\+\_\+\+SIZE}}\mbox{]}
 \item 
 int \mbox{\hyperlink{classPPG_ad3c9cc7d7b145d58bc9e8efa5367890d}{nextspo2\+Buffer\+Index}} = 0
+\item 
+int \mbox{\hyperlink{classPPG_aff9708b8b3ad437555ca6b31a2edfd29}{latest\+IRBPM}}
+\item 
+int \mbox{\hyperlink{classPPG_a7571699a1590a38d63a4d7f2034ca861}{average\+IRBPM}}
+\item 
+int \mbox{\hyperlink{classPPG_a0aa10c79a619051acdb4f3c24fc6edb0}{latest\+Red\+Sp\+O2}}
+\item 
+int \mbox{\hyperlink{classPPG_aecaa14046cda5c69519031bc5a121c42}{average\+Red\+Sp\+O2}}
+\item 
+int \mbox{\hyperlink{classPPG_a4a9451c82b5dcb1792c007308099491f}{latest\+IRValue}}
+\item 
+int \mbox{\hyperlink{classPPG_a0d0532513c2abc1dcef049d374a89bcb}{latest\+Red\+Value}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
@@ -97,6 +107,18 @@ Here is the caller graph for this function\+:
 
 
 \doxysubsection{Member Data Documentation}
+\Hypertarget{classPPG_a7571699a1590a38d63a4d7f2034ca861}\label{classPPG_a7571699a1590a38d63a4d7f2034ca861} 
+\index{PPG@{PPG}!averageIRBPM@{averageIRBPM}}
+\index{averageIRBPM@{averageIRBPM}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{averageIRBPM}{averageIRBPM}}
+{\footnotesize\ttfamily int PPG\+::average\+IRBPM}
+
+\Hypertarget{classPPG_aecaa14046cda5c69519031bc5a121c42}\label{classPPG_aecaa14046cda5c69519031bc5a121c42} 
+\index{PPG@{PPG}!averageRedSpO2@{averageRedSpO2}}
+\index{averageRedSpO2@{averageRedSpO2}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{averageRedSpO2}{averageRedSpO2}}
+{\footnotesize\ttfamily int PPG\+::average\+Red\+Sp\+O2}
+
 \Hypertarget{classPPG_a47255dcd674c7aee47b7d98145e0bf92}\label{classPPG_a47255dcd674c7aee47b7d98145e0bf92} 
 \index{PPG@{PPG}!BPM\_BUFFER\_SIZE@{BPM\_BUFFER\_SIZE}}
 \index{BPM\_BUFFER\_SIZE@{BPM\_BUFFER\_SIZE}!PPG@{PPG}}
@@ -109,6 +131,30 @@ Here is the caller graph for this function\+:
 \doxysubsubsection{\texorpdfstring{bpmBuffer}{bpmBuffer}}
 {\footnotesize\ttfamily int32\+\_\+t PPG\+::bpm\+Buffer\mbox{[}\mbox{\hyperlink{classPPG_a47255dcd674c7aee47b7d98145e0bf92}{BPM\+\_\+\+BUFFER\+\_\+\+SIZE}}\mbox{]}}
 
+\Hypertarget{classPPG_aff9708b8b3ad437555ca6b31a2edfd29}\label{classPPG_aff9708b8b3ad437555ca6b31a2edfd29} 
+\index{PPG@{PPG}!latestIRBPM@{latestIRBPM}}
+\index{latestIRBPM@{latestIRBPM}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{latestIRBPM}{latestIRBPM}}
+{\footnotesize\ttfamily int PPG\+::latest\+IRBPM}
+
+\Hypertarget{classPPG_a4a9451c82b5dcb1792c007308099491f}\label{classPPG_a4a9451c82b5dcb1792c007308099491f} 
+\index{PPG@{PPG}!latestIRValue@{latestIRValue}}
+\index{latestIRValue@{latestIRValue}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{latestIRValue}{latestIRValue}}
+{\footnotesize\ttfamily int PPG\+::latest\+IRValue}
+
+\Hypertarget{classPPG_a0aa10c79a619051acdb4f3c24fc6edb0}\label{classPPG_a0aa10c79a619051acdb4f3c24fc6edb0} 
+\index{PPG@{PPG}!latestRedSpO2@{latestRedSpO2}}
+\index{latestRedSpO2@{latestRedSpO2}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{latestRedSpO2}{latestRedSpO2}}
+{\footnotesize\ttfamily int PPG\+::latest\+Red\+Sp\+O2}
+
+\Hypertarget{classPPG_a0d0532513c2abc1dcef049d374a89bcb}\label{classPPG_a0d0532513c2abc1dcef049d374a89bcb} 
+\index{PPG@{PPG}!latestRedValue@{latestRedValue}}
+\index{latestRedValue@{latestRedValue}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{latestRedValue}{latestRedValue}}
+{\footnotesize\ttfamily int PPG\+::latest\+Red\+Value}
+
 \Hypertarget{classPPG_a2819db6111e861731870e5ce4406e472}\label{classPPG_a2819db6111e861731870e5ce4406e472} 
 \index{PPG@{PPG}!nextBPMBufferIndex@{nextBPMBufferIndex}}
 \index{nextBPMBufferIndex@{nextBPMBufferIndex}!PPG@{PPG}}
@@ -120,12 +166,6 @@ Here is the caller graph for this function\+:
 \index{nextspo2BufferIndex@{nextspo2BufferIndex}!PPG@{PPG}}
 \doxysubsubsection{\texorpdfstring{nextspo2BufferIndex}{nextspo2BufferIndex}}
 {\footnotesize\ttfamily int PPG\+::nextspo2\+Buffer\+Index = 0}
-
-\Hypertarget{classPPG_a149309d37aa0ca61afaac500b74a170a}\label{classPPG_a149309d37aa0ca61afaac500b74a170a} 
-\index{PPG@{PPG}!ppgtcpqueue@{ppgtcpqueue}}
-\index{ppgtcpqueue@{ppgtcpqueue}!PPG@{PPG}}
-\doxysubsubsection{\texorpdfstring{ppgtcpqueue}{ppgtcpqueue}}
-{\footnotesize\ttfamily boost\+::lockfree\+::spsc\+\_\+queue$<$std\+::string, boost\+::lockfree\+::capacity$<$1024$>$ $>$ PPG\+::ppgtcpqueue}
 
 \Hypertarget{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}\label{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1} 
 \index{PPG@{PPG}!SPO2\_BUFFER\_SIZE@{SPO2\_BUFFER\_SIZE}}

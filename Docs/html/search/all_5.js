@@ -1,18 +1,17 @@
 var searchData=
 [
-  ['filter_5forder_0',['filter_order',['../classECG.html#a4a13e96e2aa1c58af59ac1efb19f33c4',1,'ECG']]],
-  ['flags_1',['flags',['../structi2c__msg.html#a4b3bc1a36147fedfbdf9a15cc6ae88d9',1,'i2c_msg']]],
-  ['fs128hz_2',['FS128HZ',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357a3265d07f32b61328f3ded165f8cb8fbc',1,'ADS1115settings']]],
-  ['fs16hz_3',['FS16HZ',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357a2f16253b2ddb36688da0d2c9d6c37e73',1,'ADS1115settings']]],
-  ['fs250hz_4',['FS250HZ',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357a6a05f905cc2f142d9855ae13a925e296',1,'ADS1115settings']]],
-  ['fs32hz_5',['FS32HZ',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357afc33391b2dd7bb507a840155c6cfbd95',1,'ADS1115settings']]],
-  ['fs475hz_6',['FS475HZ',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357a7fea2393497d03736ca6bf96b3ae55b2',1,'ADS1115settings']]],
-  ['fs64hz_7',['FS64HZ',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357aaa99d6e592baaa5d271f24908249c0a7',1,'ADS1115settings']]],
-  ['fs860hz_8',['FS860HZ',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357a84398c434b3b9427990fafb9fae98093',1,'ADS1115settings']]],
-  ['fs8hz_9',['FS8HZ',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357a571876b8fe1fcbf0ca6d5f7c22a86ec1',1,'ADS1115settings']]],
-  ['fsr0_5f256_10',['FSR0_256',['../structADS1115settings.html#a831970032a15754ead970931dd25ac5fa66050b0b2dfa108d0fe262c156ee12dc',1,'ADS1115settings']]],
-  ['fsr0_5f512_11',['FSR0_512',['../structADS1115settings.html#a831970032a15754ead970931dd25ac5faa52ee8e28cfbc6882b5fb52fcfaf049b',1,'ADS1115settings']]],
-  ['fsr1_5f024_12',['FSR1_024',['../structADS1115settings.html#a831970032a15754ead970931dd25ac5fa54314fc0ed922c14c11f8a62beec0fe4',1,'ADS1115settings']]],
-  ['fsr2_5f048_13',['FSR2_048',['../structADS1115settings.html#a831970032a15754ead970931dd25ac5fa219c056740c23deafea320ee522d56cf',1,'ADS1115settings']]],
-  ['fsr4_5f096_14',['FSR4_096',['../structADS1115settings.html#a831970032a15754ead970931dd25ac5fa13011d12b8c1151818f20d57bee93047',1,'ADS1115settings']]]
+  ['ecg_0',['ECG',['../classECG.html',1,'ECG'],['../classECG.html#a9a7243ed1f05e13be33ce5e4a743b05d',1,'ECG::ECG()']]],
+  ['ecg_2ecpp_1',['ecg.cpp',['../ecg_8cpp.html',1,'']]],
+  ['ecg_2ehpp_2',['ecg.hpp',['../ecg_8hpp.html',1,'']]],
+  ['ecg_5ffiltering_3',['ECG_filtering',['../classECG.html#a5099dc2ec4abc8d9e4ae9dfa68cf8a9e',1,'ECG']]],
+  ['ecg_5ftest_2ecpp_4',['ecg_test.cpp',['../ecg__test_8cpp.html',1,'']]],
+  ['ecgtcpqueue_5',['ecgtcpqueue',['../classECG.html#a53de8b5497ae2eb0c4703a2216f3ca3c',1,'ECG']]],
+  ['empty_5fvalues_6',['empty_values',['../classECG.html#abd385ea600c2e8dd78af173849acaa2b',1,'ECG']]],
+  ['enableafull_7',['enableAFULL',['../classMAX30102.html#a4d436e6c3874f03fc32ca1412fbd8dfb',1,'MAX30102']]],
+  ['enablealcovf_8',['enableALCOVF',['../classMAX30102.html#ae5b452eb18fbe798c99f238f49f64fe9',1,'MAX30102']]],
+  ['enabledatardy_9',['enableDATARDY',['../classMAX30102.html#a2e9b9a516572433c2dec4a304acb67f7',1,'MAX30102']]],
+  ['enablefiforollover_10',['enableFIFORollover',['../classMAX30102.html#a13354720f66fc1ec7d579bb3e765a96d',1,'MAX30102']]],
+  ['enableslot_11',['enableSlot',['../classMAX30102.html#a34426debd59ef446363a7af352bdbd8e',1,'MAX30102']]],
+  ['end_12',['end',['../classCircularDelay.html#aa40f6c12296cd5a557b573d7decde8eb',1,'CircularDelay']]],
+  ['errorbar_13',['errorbar',['../namespacematplotlibcpp.html#a44ccb9a7b34bc240b8cc8b3095dd8537',1,'matplotlibcpp']]]
 ];

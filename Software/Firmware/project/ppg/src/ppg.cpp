@@ -34,12 +34,6 @@ void PPG::loopThread(
 
     std::this_thread::sleep_for(
         std::chrono::milliseconds(1000));  // sleep for 100 milliseconds
-
-    std::string message = "ppg," + std::to_string(latestIRBPM) + "," +
-                          std::to_string(latestRedSpO2);
-    while (!ppgtcpqueue.push(message)) {
-      std::this_thread::yield();  // Yield if queue is full}
-    }
   }
 }
 
@@ -51,8 +45,8 @@ HighPassFilter hpf(0.08, M_PI);
  */
 void PPG::PPG_filtering(std::unique_ptr<MAX30102>& ppgmax30102_ptr) {
   auto timeCurrent = std::chrono::system_clock::now();
-  uint32_t irValue = ppgmax30102_ptr->getIR();
-  uint32_t redValue = ppgmax30102_ptr->getRed();
+  latestIRValue = ppgmax30102_ptr->getIR();
+  latestRedValue = ppgmax30102_ptr->getRed();
 
   // Let's get the number of miliseconds passed since we last ran the loop.
   int loopDelta = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -63,7 +57,7 @@ void PPG::PPG_filtering(std::unique_ptr<MAX30102>& ppgmax30102_ptr) {
   timeLastLoopRan = timeCurrent;
 
   // Check whether finger is on sensor->
-  if (irValue < 100000) {
+  if (latestIRValue < 100000) {
     // Finger is not on sensor->
     // Clear all calculations and exit out of loop.
     resetCalculations();
@@ -72,8 +66,8 @@ void PPG::PPG_filtering(std::unique_ptr<MAX30102>& ppgmax30102_ptr) {
 
   // Calculate the IR heart rate //
 
-  int32_t filteredIRValue = static_cast<int32_t>(irValue);
-  int32_t filteredRedValue = static_cast<int32_t>(redValue);
+  int32_t filteredIRValue = static_cast<int32_t>(latestIRValue);
+  int32_t filteredRedValue = static_cast<int32_t>(latestRedValue);
   filteredIRValue = lpf.update(filteredIRValue);
   filteredIRValue = hpf.update(filteredIRValue);
   filteredRedValue = lpf.update(filteredRedValue);

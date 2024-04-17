@@ -15,5 +15,5 @@ digraph "Software/Firmware/project/max30102"
   dir_ad7a4be99d22e5c07ffe4ece695aec7f [label="test", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_ad7a4be99d22e5c07ffe4ece695aec7f.html",tooltip=""];
   }
   }
-  dir_ae60f9dd799ab308b08b46e9fb621a87->dir_b15044b9012a98688a8fff62b365d054 [headlabel="1", labeldistance=1.5 headhref="dir_000018_000008.html" href="dir_000018_000008.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_ae60f9dd799ab308b08b46e9fb621a87->dir_b15044b9012a98688a8fff62b365d054 [headlabel="2", labeldistance=1.5 headhref="dir_000018_000008.html" href="dir_000018_000008.html" color="steelblue1" fontcolor="steelblue1"];
 }
