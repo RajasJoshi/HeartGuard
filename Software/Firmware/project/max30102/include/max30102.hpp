@@ -238,6 +238,8 @@ class MAX30102 {
     uint8_t tail;
   } sense_struct;
   sense_struct sense;
+  
+  
 };
 
 #endif  // MAX30102_HPP
