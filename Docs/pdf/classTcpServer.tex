@@ -14,9 +14,13 @@ Collaboration diagram for Tcp\+Server\+:
 \mbox{\hyperlink{classTcpServer_abc977059ef61f1c42f5fda1bc5945ab0}{Tcp\+Server}} ()
 \begin{DoxyCompactList}\small\item\em Starts the \doxylink{classECG}{ECG} sensor. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classTcpServer_a728a9e31c53cf86887f1f6149b1c46dd}{\texorpdfstring{$\sim$}{\string~}\+Tcp\+Server}} ()
-\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classTcpServer_ac9a5a1e64efecd74924cdf31c2a76d3b}{start}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classECG}{ECG}} $>$ \&ecg\+\_\+ptr, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classPPG}{PPG}} $>$ \&ppg\+\_\+ptr)
-\begin{DoxyCompactList}\small\item\em Starts the \doxylink{classECG}{ECG} sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{classECG}{ECG} sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTcpServer_a152a942201e124a1cdc47dec5b4e4783}{start}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classECG}{ECG}} $>$ \&ecg\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Starts the \doxylink{classECG}{ECG} sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTcpServer_aa2d8aaf6ff561bbdc5ceec712d8a3920}{stop}} (void)
+\begin{DoxyCompactList}\small\item\em Stops the Tcp Server. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTcpServer_a8e2b39a8e585450fd992279c49ddf177}{send\+\_\+data}} (void)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -38,16 +42,24 @@ Starts the \doxylink{classECG}{ECG} sensor.
 
 
 
-Destructor. 
+Destructor for the \doxylink{classECG}{ECG} sensor. 
 
+Here is the call graph for this function\+:
+% FIG 1
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classTcpServer_ac9a5a1e64efecd74924cdf31c2a76d3b}\label{classTcpServer_ac9a5a1e64efecd74924cdf31c2a76d3b} 
+\Hypertarget{classTcpServer_a8e2b39a8e585450fd992279c49ddf177}\label{classTcpServer_a8e2b39a8e585450fd992279c49ddf177} 
+\index{TcpServer@{TcpServer}!send\_data@{send\_data}}
+\index{send\_data@{send\_data}!TcpServer@{TcpServer}}
+\doxysubsubsection{\texorpdfstring{send\_data()}{send\_data()}}
+{\footnotesize\ttfamily void Tcp\+Server\+::send\+\_\+data (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classTcpServer_a152a942201e124a1cdc47dec5b4e4783}\label{classTcpServer_a152a942201e124a1cdc47dec5b4e4783} 
 \index{TcpServer@{TcpServer}!start@{start}}
 \index{start@{start}!TcpServer@{TcpServer}}
 \doxysubsubsection{\texorpdfstring{start()}{start()}}
-{\footnotesize\ttfamily void Tcp\+Server\+::start (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classECG}{ECG}} $>$ \&}]{ecg\+\_\+ptr,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classPPG}{PPG}} $>$ \&}]{ppg\+\_\+ptr }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Tcp\+Server\+::start (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classECG}{ECG}} $>$ \&}]{ecg\+\_\+ptr }\end{DoxyParamCaption})}
 
 
 
@@ -55,11 +67,21 @@ Starts the \doxylink{classECG}{ECG} sensor.
 
 
 \begin{DoxyParams}{Parameters}
-{\em ecg\+\_\+ptr} & Pointer to the \doxylink{classECG}{ECG} sensor. \\
-\hline
-{\em ppg\+\_\+ptr} & Pointer to the \doxylink{classPPG}{PPG} sensor. \\
+{\em ads\+\_\+ptr} & Pointer to the ecg object. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{classTcpServer_aa2d8aaf6ff561bbdc5ceec712d8a3920}\label{classTcpServer_aa2d8aaf6ff561bbdc5ceec712d8a3920} 
+\index{TcpServer@{TcpServer}!stop@{stop}}
+\index{stop@{stop}!TcpServer@{TcpServer}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily void Tcp\+Server\+::stop (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Stops the Tcp Server. 
+
+Here is the caller graph for this function\+:
+% FIG 2
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

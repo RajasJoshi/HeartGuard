@@ -9,5 +9,7 @@ digraph "ECG::calculate_RR_interval_hr"
   Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node2 [id="Node000002",label="ECG::ECG_filtering",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classECG.html#a5099dc2ec4abc8d9e4ae9dfa68cf8a9e",tooltip="Filters the ECG signal."];
   Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node3 [id="Node000003",label="ECG::start",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classECG.html#a54ef07ae8554eaabae9fd14a8c93abdf",tooltip="Starts the ECG sensor."];
+  Node3 [id="Node000003",label="ECG::start",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classECG.html#ac8ebbe01eb3bfa4c244ea1a8a94f4228",tooltip="Starts the ECG sensor."];
+  Node1 -> Node4 [id="edge3_Node000001_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="TEST",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ecg__test_8cpp.html#a9ea231c1be3e8b4bdfc527e30c8aeba8",tooltip=" "];
 }

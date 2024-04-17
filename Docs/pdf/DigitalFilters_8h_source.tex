@@ -184,187 +184,188 @@
 \DoxyCodeLine{00301\ \ \ \ \ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(yc[0]\ *\ y0);}
 \DoxyCodeLine{00302\ \ \ \ \ \textcolor{comment}{//\ return\ y.push(yc[0]\ *\ (}}
 \DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ x.get(0)\ *\ xc[0]\ +\ x.get(1)\ *\ xc[1]\ +\ x.get(2)\ *\ xc[2]\ +}}
-\DoxyCodeLine{00304\ \ \ \ \ \textcolor{comment}{//\ x.get(3)\ *\ xc[3]\ -\/\ \ \ \ \ \ \ y.get(0)\ *\ yc[1]\ -\/\ y.get(1)\ *\ yc[2]\ -\/\ y.get(2)\ *\ yc[3]}}
-\DoxyCodeLine{00305\ \ \ \ \ \textcolor{comment}{//\ \ )}}
-\DoxyCodeLine{00306\ \ \ \ \ \textcolor{comment}{//\ );}}
-\DoxyCodeLine{00307\ \ \ \}}
-\DoxyCodeLine{00308\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classHighPassFilter3_a85cf9d166660457475a0ee8d44b4ae30}{getOutput}}()\ final\ \{\ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{get}}(0);\ \}}
-\DoxyCodeLine{00309\ }
-\DoxyCodeLine{00310\ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00311\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ xc[4];}
-\DoxyCodeLine{00312\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ yc[4];}
-\DoxyCodeLine{00313\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 3>}}\ y;}
-\DoxyCodeLine{00314\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 4>}}\ x;}
-\DoxyCodeLine{00315\ \};}
-\DoxyCodeLine{00316\ }
-\DoxyCodeLine{00321\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLowPassFilter3}{LowPassFilter3}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classDigitalFilter}{DigitalFilter}}<double>\ \{}
-\DoxyCodeLine{00322\ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00323\ \ \ \mbox{\hyperlink{classLowPassFilter3_a2aee3a775bf81a4e2c8ba565a45e2790}{LowPassFilter3}}(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ sampleTime,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ omega\_c,}
-\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ ioutput\ =\ 0)}
-\DoxyCodeLine{00325\ \ \ \ \ \ \ :\ yc\{1,}
-\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ (double)((3\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ -\/}
-\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ -\/\ 24)\ /}
-\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
-\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ (double)((3\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ -\/}
-\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ -\/}
-\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 24)\ /}
-\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
-\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ (double)((1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ -\/}
-\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ -\/\ 8)\ /}
-\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8))\},}
-\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ xc\{(double)(1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ /}
-\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
-\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ (double)(3\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ /}
-\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
-\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ (double)(3\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ /}
-\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
-\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ (double)(1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ /}
-\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8))\}\ \{}
-\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordflow}{if}\ (omega\_c\ <\ sampleTime)\ \{}
-\DoxyCodeLine{00361\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::domain\_error(}
-\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}LowPassFilter\ constructor\ error:\ tua\_c\ is\ smaller\ than\ the\ sample\ "{}}}
-\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}time\ dt."{}});}
-\DoxyCodeLine{00364\ \ \ \ \ \}}
-\DoxyCodeLine{00365\ \ \ \}}
-\DoxyCodeLine{00366\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3_aca178ba1b27181ab00c02b7bddd67d65}{update}}(\textcolor{keywordtype}{double}\ newValue)\ \textcolor{keyword}{final}\ \{}
-\DoxyCodeLine{00367\ \ \ \ \ x.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(newValue);}
-\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordtype}{double}\ y0\ =\ 0;}
-\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ doubleP\ =\ xc;}
-\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ x.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ x.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
-\DoxyCodeLine{00371\ \ \ \ \ \ \ y0\ +=\ *it\ *\ *doubleP++;}
-\DoxyCodeLine{00372\ \ \ \ \ \}}
-\DoxyCodeLine{00373\ \ \ \ \ doubleP\ =\ yc\ +\ 1;}
-\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ y.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ y.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
-\DoxyCodeLine{00375\ \ \ \ \ \ \ y0\ -\/=\ *it\ *\ *doubleP++;}
-\DoxyCodeLine{00376\ \ \ \ \ \}}
-\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(yc[0]\ *\ y0);}
-\DoxyCodeLine{00378\ \ \ \}}
-\DoxyCodeLine{00379\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3_aa6dbecfcb05e369a7b51f1077eb29b7a}{getOutput}}()\ final\ \{\ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{get}}(0);\ \}}
-\DoxyCodeLine{00380\ }
-\DoxyCodeLine{00381\ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00382\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ yc[4];}
-\DoxyCodeLine{00383\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ xc[4];}
-\DoxyCodeLine{00384\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 3>}}\ y;}
-\DoxyCodeLine{00385\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 4>}}\ x;}
-\DoxyCodeLine{00386\ \};}
-\DoxyCodeLine{00387\ }
-\DoxyCodeLine{00392\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLowPassFilter3MatchedZ}{LowPassFilter3MatchedZ}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classDigitalFilter}{DigitalFilter}}<double>\ \{}
-\DoxyCodeLine{00393\ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00394\ \ \ \mbox{\hyperlink{classLowPassFilter3MatchedZ_a2987ee0dd4328d4abab2efb5498a3cea}{LowPassFilter3MatchedZ}}(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ sampleTime,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ omega\_c)}
-\DoxyCodeLine{00395\ \ \ \ \ \ \ :\ amplFac(-\/(2\ *}
-\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (expl(3\ *\ omega\_c\ *\ sampleTime)\ -\/}
-\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(2\ *\ omega\_c\ *\ sampleTime))\ *}
-\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cosl(sqrtl(3)\ *\ omega\_c\ *\ sampleTime\ /\ 2)\ -\/}
-\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(7\ *\ omega\_c\ *\ sampleTime\ /\ 2)\ +}
-\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(3\ *\ omega\_c\ *\ sampleTime\ /\ 2))\ *}
-\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(-\/7\ *\ omega\_c\ *\ sampleTime\ /\ 2)),}
-\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ yc\{(double)(-\/(2\ *\ cosl(sqrtl(3)\ *\ omega\_c\ *\ sampleTime\ /\ 2)\ *}
-\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(omega\_c\ *\ sampleTime\ *\ 5\ /\ 2)\ +}
-\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(2\ *\ omega\_c\ *\ sampleTime))\ *}
-\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(-\/3\ *\ omega\_c\ *\ sampleTime)),}
-\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ (double)((2\ *\ cosl(sqrtl(3)\ *\ omega\_c\ *\ sampleTime\ /\ 2)\ *}
-\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(omega\_c\ *\ sampleTime\ *\ 3\ /\ 2)\ +}
-\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(2\ *\ omega\_c\ *\ sampleTime))\ *}
-\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(-\/3\ *\ omega\_c\ *\ sampleTime)),}
-\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ (double)(-\/expl(-\/2\ *\ omega\_c\ *\ sampleTime))\}\ \{}
-\DoxyCodeLine{00411\ \ \ \ \ \textcolor{keywordflow}{if}\ (omega\_c\ /\ (2\ *\ M\_PI)\ <\ sampleTime)\ \{}
-\DoxyCodeLine{00412\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::domain\_error(}
-\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}LowPassFilter3MatchedZ\ constructor\ error:\ tua\_c\ is\ smaller\ than\ the\ "{}}}
-\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sample\ time\ dt."{}});}
-\DoxyCodeLine{00415\ \ \ \ \ \}}
-\DoxyCodeLine{00416\ \ \ \}}
-\DoxyCodeLine{00417\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3MatchedZ_a33b66cdaf560982a4be50bba27d90b5c}{update}}(\textcolor{keywordtype}{double}\ newValue)\ \textcolor{keyword}{final}\ \{}
-\DoxyCodeLine{00418\ \ \ \ \ \textcolor{keywordtype}{double}\ y0\ =\ newValue\ *\ amplFac;}
-\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ doubleP\ =\ yc;}
-\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ y.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ y.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
-\DoxyCodeLine{00421\ \ \ \ \ \ \ y0\ -\/=\ *it\ *\ *doubleP++;}
-\DoxyCodeLine{00422\ \ \ \ \ \}}
-\DoxyCodeLine{00423\ \ \ \ \ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(y0);}
-\DoxyCodeLine{00424\ \ \ \}}
-\DoxyCodeLine{00425\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3MatchedZ_a5190f065f0fecb5746117ea4e075762e}{getOutput}}()\ final\ \{\ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{get}}(0);\ \}}
-\DoxyCodeLine{00426\ }
-\DoxyCodeLine{00427\ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00428\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ amplFac;}
-\DoxyCodeLine{00429\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ yc[3];}
-\DoxyCodeLine{00430\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 3>}}\ y;}
-\DoxyCodeLine{00431\ \};}
-\DoxyCodeLine{00432\ }
-\DoxyCodeLine{00437\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLowPassFilter3DiffApprox}{LowPassFilter3DiffApprox}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classDigitalFilter}{DigitalFilter}}<double>\ \{}
-\DoxyCodeLine{00438\ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00439\ \ \ \mbox{\hyperlink{classLowPassFilter3DiffApprox_a72176a4c7ed1bfe464e39750414068d9}{LowPassFilter3DiffApprox}}(\textcolor{keywordtype}{double}\ sampleTime,\ \textcolor{keywordtype}{double}\ omega\_c,}
-\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ioutput\ =\ 0)}
-\DoxyCodeLine{00441\ \ \ \ \ \ \ :\ xc\{1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3),\ 0,\ 0,\ 0\},}
-\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ yc\{1\ /\ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ *\ sampleTime\ *\ omega\_c\ +\ 1),}
-\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ -\/}
-\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ -\/}
-\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ sampleTime\ *\ omega\_c\ -\/\ 3,}
-\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
-\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ *\ sampleTime\ *\ omega\_c\ +\ 3,}
-\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ -\/}
-\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
-\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ sampleTime\ *\ omega\_c\ -\/\ 1\}\ \{}
-\DoxyCodeLine{00454\ \ \ \ \ \textcolor{keywordflow}{if}\ (omega\_c\ <\ sampleTime)\ \{}
-\DoxyCodeLine{00455\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::domain\_error(}
-\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}LowPassFilter\ constructor\ error:\ tua\_c\ is\ smaller\ than\ the\ sample\ "{}}}
-\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}time\ dt."{}});}
-\DoxyCodeLine{00458\ \ \ \ \ \}}
-\DoxyCodeLine{00459\ \ \ \}}
-\DoxyCodeLine{00460\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3DiffApprox_a0d15deda1d403508a3ffe0619cee00de}{update}}(\textcolor{keywordtype}{double}\ newValue)\ \textcolor{keyword}{final}\ \{}
-\DoxyCodeLine{00461\ \ \ \ \ x.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(newValue);}
-\DoxyCodeLine{00462\ \ \ \ \ \textcolor{keywordtype}{double}\ y0\ =\ 0;}
-\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ doubleP\ =\ xc;}
-\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ x.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ x.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
-\DoxyCodeLine{00465\ \ \ \ \ \ \ y0\ +=\ *it\ *\ *doubleP++;}
-\DoxyCodeLine{00466\ \ \ \ \ \}}
-\DoxyCodeLine{00467\ \ \ \ \ doubleP\ =\ yc\ +\ 1;}
-\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ y.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ y.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
-\DoxyCodeLine{00469\ \ \ \ \ \ \ y0\ -\/=\ *it\ *\ *doubleP++;}
-\DoxyCodeLine{00470\ \ \ \ \ \}}
-\DoxyCodeLine{00471\ \ \ \ \ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(yc[0]\ *\ y0);}
-\DoxyCodeLine{00472\ \ \ \}}
-\DoxyCodeLine{00473\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3DiffApprox_a275b2f916d81c352bbea4785baeb6f46}{getOutput}}()\ final\ \{\ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{get}}(0);\ \}}
-\DoxyCodeLine{00474\ }
-\DoxyCodeLine{00475\ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00476\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ xc[4];}
-\DoxyCodeLine{00477\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ yc[4];}
-\DoxyCodeLine{00478\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 3>}}\ y;}
-\DoxyCodeLine{00479\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 4>}}\ x;}
-\DoxyCodeLine{00480\ \};}
-\DoxyCodeLine{00481\ }
-\DoxyCodeLine{00482\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{size\_t}\ size>}
-\DoxyCodeLine{00483\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMovingAvarageFilter}{MovingAvarageFilter}}\ \{}
-\DoxyCodeLine{00484\ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00485\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classMovingAvarageFilter_a84c7823e71ebfcc1859d8512cfd8ae81}{update}}(\textcolor{keywordtype}{double}\ input)\ \{}
-\DoxyCodeLine{00486\ \ \ \ \ input\ *=\ 1000;}
-\DoxyCodeLine{00487\ \ \ \ \ output\ +=\ int64\_t(input)\ -\/\ *buffer.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();}
-\DoxyCodeLine{00488\ \ \ \ \ buffer.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(input);}
-\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keywordflow}{return}\ double(output)\ /\ (1000);}
-\DoxyCodeLine{00490\ \ \ \}}
-\DoxyCodeLine{00491\ }
-\DoxyCodeLine{00492\ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00493\ \ \ int64\_t\ output\ =\ 0;}
-\DoxyCodeLine{00494\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<int64\_t,\ size>}}\ buffer;}
-\DoxyCodeLine{00495\ \};}
-\DoxyCodeLine{00496\ }
-\DoxyCodeLine{00497\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{comment}{//\ x.get(3)\ *\ xc[3]\ -\/\ \ \ \ \ \ \ y.get(0)\ *\ yc[1]\ -\/\ y.get(1)\ *\ yc[2]\ -\/}}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{comment}{//\ y.get(2)\ *\ yc[3]}}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{comment}{//\ \ )}}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{comment}{//\ );}}
+\DoxyCodeLine{00308\ \ \ \}}
+\DoxyCodeLine{00309\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classHighPassFilter3_a85cf9d166660457475a0ee8d44b4ae30}{getOutput}}()\ final\ \{\ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{get}}(0);\ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00312\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ xc[4];}
+\DoxyCodeLine{00313\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ yc[4];}
+\DoxyCodeLine{00314\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 3>}}\ y;}
+\DoxyCodeLine{00315\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 4>}}\ x;}
+\DoxyCodeLine{00316\ \};}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00322\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLowPassFilter3}{LowPassFilter3}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classDigitalFilter}{DigitalFilter}}<double>\ \{}
+\DoxyCodeLine{00323\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00324\ \ \ \mbox{\hyperlink{classLowPassFilter3_a2aee3a775bf81a4e2c8ba565a45e2790}{LowPassFilter3}}(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ sampleTime,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ omega\_c,}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ ioutput\ =\ 0)}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ :\ yc\{1,}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ (double)((3\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ -\/}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ -\/\ 24)\ /}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ (double)((3\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ -\/}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ -\/}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 24)\ /}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ (double)((1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ -\/}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ -\/\ 8)\ /}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8))\},}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ xc\{(double)(1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ /}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ (double)(3\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ /}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ (double)(3\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ /}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8)),}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ (double)(1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ /}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\ *\ sampleTime\ *\ omega\_c\ +\ 8))\}\ \{}
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keywordflow}{if}\ (omega\_c\ <\ sampleTime)\ \{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::domain\_error(}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}LowPassFilter\ constructor\ error:\ tua\_c\ is\ smaller\ than\ the\ sample\ "{}}}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}time\ dt."{}});}
+\DoxyCodeLine{00365\ \ \ \ \ \}}
+\DoxyCodeLine{00366\ \ \ \}}
+\DoxyCodeLine{00367\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3_aca178ba1b27181ab00c02b7bddd67d65}{update}}(\textcolor{keywordtype}{double}\ newValue)\ \textcolor{keyword}{final}\ \{}
+\DoxyCodeLine{00368\ \ \ \ \ x.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(newValue);}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordtype}{double}\ y0\ =\ 0;}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ doubleP\ =\ xc;}
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ x.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ x.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ y0\ +=\ *it\ *\ *doubleP++;}
+\DoxyCodeLine{00373\ \ \ \ \ \}}
+\DoxyCodeLine{00374\ \ \ \ \ doubleP\ =\ yc\ +\ 1;}
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ y.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ y.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ y0\ -\/=\ *it\ *\ *doubleP++;}
+\DoxyCodeLine{00377\ \ \ \ \ \}}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(yc[0]\ *\ y0);}
+\DoxyCodeLine{00379\ \ \ \}}
+\DoxyCodeLine{00380\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3_aa6dbecfcb05e369a7b51f1077eb29b7a}{getOutput}}()\ final\ \{\ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{get}}(0);\ \}}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00383\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ yc[4];}
+\DoxyCodeLine{00384\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ xc[4];}
+\DoxyCodeLine{00385\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 3>}}\ y;}
+\DoxyCodeLine{00386\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 4>}}\ x;}
+\DoxyCodeLine{00387\ \};}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00393\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLowPassFilter3MatchedZ}{LowPassFilter3MatchedZ}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classDigitalFilter}{DigitalFilter}}<double>\ \{}
+\DoxyCodeLine{00394\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00395\ \ \ \mbox{\hyperlink{classLowPassFilter3MatchedZ_a2987ee0dd4328d4abab2efb5498a3cea}{LowPassFilter3MatchedZ}}(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ sampleTime,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ omega\_c)}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ :\ amplFac(-\/(2\ *}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (expl(3\ *\ omega\_c\ *\ sampleTime)\ -\/}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(2\ *\ omega\_c\ *\ sampleTime))\ *}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cosl(sqrtl(3)\ *\ omega\_c\ *\ sampleTime\ /\ 2)\ -\/}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(7\ *\ omega\_c\ *\ sampleTime\ /\ 2)\ +}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(3\ *\ omega\_c\ *\ sampleTime\ /\ 2))\ *}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(-\/7\ *\ omega\_c\ *\ sampleTime\ /\ 2)),}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ yc\{(double)(-\/(2\ *\ cosl(sqrtl(3)\ *\ omega\_c\ *\ sampleTime\ /\ 2)\ *}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(omega\_c\ *\ sampleTime\ *\ 5\ /\ 2)\ +}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(2\ *\ omega\_c\ *\ sampleTime))\ *}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(-\/3\ *\ omega\_c\ *\ sampleTime)),}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ (double)((2\ *\ cosl(sqrtl(3)\ *\ omega\_c\ *\ sampleTime\ /\ 2)\ *}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(omega\_c\ *\ sampleTime\ *\ 3\ /\ 2)\ +}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(2\ *\ omega\_c\ *\ sampleTime))\ *}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expl(-\/3\ *\ omega\_c\ *\ sampleTime)),}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ (double)(-\/expl(-\/2\ *\ omega\_c\ *\ sampleTime))\}\ \{}
+\DoxyCodeLine{00412\ \ \ \ \ \textcolor{keywordflow}{if}\ (omega\_c\ /\ (2\ *\ M\_PI)\ <\ sampleTime)\ \{}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::domain\_error(}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}LowPassFilter3MatchedZ\ constructor\ error:\ tua\_c\ is\ smaller\ than\ the\ "{}}}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sample\ time\ dt."{}});}
+\DoxyCodeLine{00416\ \ \ \ \ \}}
+\DoxyCodeLine{00417\ \ \ \}}
+\DoxyCodeLine{00418\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3MatchedZ_a33b66cdaf560982a4be50bba27d90b5c}{update}}(\textcolor{keywordtype}{double}\ newValue)\ \textcolor{keyword}{final}\ \{}
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keywordtype}{double}\ y0\ =\ newValue\ *\ amplFac;}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ doubleP\ =\ yc;}
+\DoxyCodeLine{00421\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ y.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ y.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ y0\ -\/=\ *it\ *\ *doubleP++;}
+\DoxyCodeLine{00423\ \ \ \ \ \}}
+\DoxyCodeLine{00424\ \ \ \ \ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(y0);}
+\DoxyCodeLine{00425\ \ \ \}}
+\DoxyCodeLine{00426\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3MatchedZ_a5190f065f0fecb5746117ea4e075762e}{getOutput}}()\ final\ \{\ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{get}}(0);\ \}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00429\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ amplFac;}
+\DoxyCodeLine{00430\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ yc[3];}
+\DoxyCodeLine{00431\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 3>}}\ y;}
+\DoxyCodeLine{00432\ \};}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00438\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLowPassFilter3DiffApprox}{LowPassFilter3DiffApprox}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classDigitalFilter}{DigitalFilter}}<double>\ \{}
+\DoxyCodeLine{00439\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00440\ \ \ \mbox{\hyperlink{classLowPassFilter3DiffApprox_a72176a4c7ed1bfe464e39750414068d9}{LowPassFilter3DiffApprox}}(\textcolor{keywordtype}{double}\ sampleTime,\ \textcolor{keywordtype}{double}\ omega\_c,}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ioutput\ =\ 0)}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ :\ xc\{1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3),\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ yc\{1\ /\ (1\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ *\ sampleTime\ *\ omega\_c\ +\ 1),}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ -\/}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ -\/}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ sampleTime\ *\ omega\_c\ -\/\ 3,}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ +}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ *\ sampleTime\ *\ omega\_c\ +\ 3,}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 3)\ -\/}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ \mbox{\hyperlink{namespacetps}{tps}}::pow(sampleTime\ *\ omega\_c,\ 2)\ +}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ *\ sampleTime\ *\ omega\_c\ -\/\ 1\}\ \{}
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{keywordflow}{if}\ (omega\_c\ <\ sampleTime)\ \{}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::domain\_error(}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}LowPassFilter\ constructor\ error:\ tua\_c\ is\ smaller\ than\ the\ sample\ "{}}}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}time\ dt."{}});}
+\DoxyCodeLine{00459\ \ \ \ \ \}}
+\DoxyCodeLine{00460\ \ \ \}}
+\DoxyCodeLine{00461\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3DiffApprox_a0d15deda1d403508a3ffe0619cee00de}{update}}(\textcolor{keywordtype}{double}\ newValue)\ \textcolor{keyword}{final}\ \{}
+\DoxyCodeLine{00462\ \ \ \ \ x.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(newValue);}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keywordtype}{double}\ y0\ =\ 0;}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ doubleP\ =\ xc;}
+\DoxyCodeLine{00465\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ x.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ x.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ y0\ +=\ *it\ *\ *doubleP++;}
+\DoxyCodeLine{00467\ \ \ \ \ \}}
+\DoxyCodeLine{00468\ \ \ \ \ doubleP\ =\ yc\ +\ 1;}
+\DoxyCodeLine{00469\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ y.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();\ it\ !=\ y.\mbox{\hyperlink{classCircularDelay_ab337ed5b15ecdfdfb26a2b45dc495695}{rend}}();\ it++)\ \{}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ y0\ -\/=\ *it\ *\ *doubleP++;}
+\DoxyCodeLine{00471\ \ \ \ \ \}}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(yc[0]\ *\ y0);}
+\DoxyCodeLine{00473\ \ \ \}}
+\DoxyCodeLine{00474\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classLowPassFilter3DiffApprox_a275b2f916d81c352bbea4785baeb6f46}{getOutput}}()\ final\ \{\ \textcolor{keywordflow}{return}\ y.\mbox{\hyperlink{classCircularDelay_a18051b383e209f0f52779626f5c9d49e}{get}}(0);\ \}}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00477\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ xc[4];}
+\DoxyCodeLine{00478\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ yc[4];}
+\DoxyCodeLine{00479\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 3>}}\ y;}
+\DoxyCodeLine{00480\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<double,\ 4>}}\ x;}
+\DoxyCodeLine{00481\ \};}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{size\_t}\ size>}
+\DoxyCodeLine{00484\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMovingAvarageFilter}{MovingAvarageFilter}}\ \{}
+\DoxyCodeLine{00485\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00486\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classMovingAvarageFilter_a84c7823e71ebfcc1859d8512cfd8ae81}{update}}(\textcolor{keywordtype}{double}\ input)\ \{}
+\DoxyCodeLine{00487\ \ \ \ \ input\ *=\ 1000;}
+\DoxyCodeLine{00488\ \ \ \ \ output\ +=\ int64\_t(input)\ -\/\ *buffer.\mbox{\hyperlink{classCircularDelay_a45b712d677523479439f9ece87e11054}{rbegin}}();}
+\DoxyCodeLine{00489\ \ \ \ \ buffer.\mbox{\hyperlink{classCircularDelay_a0741f8e9b436b89620c56870457f22fa}{push}}(input);}
+\DoxyCodeLine{00490\ \ \ \ \ \textcolor{keywordflow}{return}\ double(output)\ /\ (1000);}
+\DoxyCodeLine{00491\ \ \ \}}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00494\ \ \ int64\_t\ output\ =\ 0;}
+\DoxyCodeLine{00495\ \ \ \mbox{\hyperlink{classCircularDelay}{CircularDelay<int64\_t,\ size>}}\ buffer;}
+\DoxyCodeLine{00496\ \};}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

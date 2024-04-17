@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['storage_5fsize_0',['STORAGE_SIZE',['../max30102_8hpp.html#a8d6f782ffe53d87f0fd0327d4b09352c',1,'max30102.hpp']]]
+  ['npy_5fno_5fdeprecated_5fapi_0',['NPY_NO_DEPRECATED_API',['../matplotlibcpp_8h.html#ab6e6ee86736f9ebb56e74ae21bf3ff8a',1,'matplotlibcpp.h']]]
 ];

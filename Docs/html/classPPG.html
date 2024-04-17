@@ -6,7 +6,6 @@
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Heartguard: PPG Class Reference</title>
-<link rel="icon" href="banner.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -105,8 +104,6 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a149309d37aa0ca61afaac500b74a170a" id="r_a149309d37aa0ca61afaac500b74a170a"><td class="memItemLeft" align="right" valign="top">boost::lockfree::spsc_queue&lt; std::string, boost::lockfree::capacity&lt; 1024 &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a149309d37aa0ca61afaac500b74a170a">ppgtcpqueue</a></td></tr>
-<tr class="separator:a149309d37aa0ca61afaac500b74a170a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c20f6c3cd0928367015e7ffb6e1a1ee" id="r_a6c20f6c3cd0928367015e7ffb6e1a1ee"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c20f6c3cd0928367015e7ffb6e1a1ee">bpmBuffer</a> [<a class="el" href="#a47255dcd674c7aee47b7d98145e0bf92">BPM_BUFFER_SIZE</a>]</td></tr>
 <tr class="separator:a6c20f6c3cd0928367015e7ffb6e1a1ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2819db6111e861731870e5ce4406e472" id="r_a2819db6111e861731870e5ce4406e472"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2819db6111e861731870e5ce4406e472">nextBPMBufferIndex</a> = 0</td></tr>
@@ -115,6 +112,18 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a5db3e4221b911bc82dd69c115922f671"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3c9cc7d7b145d58bc9e8efa5367890d" id="r_ad3c9cc7d7b145d58bc9e8efa5367890d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3c9cc7d7b145d58bc9e8efa5367890d">nextspo2BufferIndex</a> = 0</td></tr>
 <tr class="separator:ad3c9cc7d7b145d58bc9e8efa5367890d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff9708b8b3ad437555ca6b31a2edfd29" id="r_aff9708b8b3ad437555ca6b31a2edfd29"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff9708b8b3ad437555ca6b31a2edfd29">latestIRBPM</a></td></tr>
+<tr class="separator:aff9708b8b3ad437555ca6b31a2edfd29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7571699a1590a38d63a4d7f2034ca861" id="r_a7571699a1590a38d63a4d7f2034ca861"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7571699a1590a38d63a4d7f2034ca861">averageIRBPM</a></td></tr>
+<tr class="separator:a7571699a1590a38d63a4d7f2034ca861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aa10c79a619051acdb4f3c24fc6edb0" id="r_a0aa10c79a619051acdb4f3c24fc6edb0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0aa10c79a619051acdb4f3c24fc6edb0">latestRedSpO2</a></td></tr>
+<tr class="separator:a0aa10c79a619051acdb4f3c24fc6edb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecaa14046cda5c69519031bc5a121c42" id="r_aecaa14046cda5c69519031bc5a121c42"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecaa14046cda5c69519031bc5a121c42">averageRedSpO2</a></td></tr>
+<tr class="separator:aecaa14046cda5c69519031bc5a121c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a9451c82b5dcb1792c007308099491f" id="r_a4a9451c82b5dcb1792c007308099491f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a9451c82b5dcb1792c007308099491f">latestIRValue</a></td></tr>
+<tr class="separator:a4a9451c82b5dcb1792c007308099491f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d0532513c2abc1dcef049d374a89bcb" id="r_a0d0532513c2abc1dcef049d374a89bcb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d0532513c2abc1dcef049d374a89bcb">latestRedValue</a></td></tr>
+<tr class="separator:a0d0532513c2abc1dcef049d374a89bcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -218,6 +227,34 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7571699a1590a38d63a4d7f2034ca861" name="a7571699a1590a38d63a4d7f2034ca861"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7571699a1590a38d63a4d7f2034ca861">&#9670;&#160;</a></span>averageIRBPM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PPG::averageIRBPM</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aecaa14046cda5c69519031bc5a121c42" name="aecaa14046cda5c69519031bc5a121c42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecaa14046cda5c69519031bc5a121c42">&#9670;&#160;</a></span>averageRedSpO2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PPG::averageRedSpO2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a47255dcd674c7aee47b7d98145e0bf92" name="a47255dcd674c7aee47b7d98145e0bf92"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a47255dcd674c7aee47b7d98145e0bf92">&#9670;&#160;</a></span>BPM_BUFFER_SIZE</h2>
 
@@ -254,6 +291,62 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="aff9708b8b3ad437555ca6b31a2edfd29" name="aff9708b8b3ad437555ca6b31a2edfd29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff9708b8b3ad437555ca6b31a2edfd29">&#9670;&#160;</a></span>latestIRBPM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PPG::latestIRBPM</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a9451c82b5dcb1792c007308099491f" name="a4a9451c82b5dcb1792c007308099491f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a9451c82b5dcb1792c007308099491f">&#9670;&#160;</a></span>latestIRValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PPG::latestIRValue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0aa10c79a619051acdb4f3c24fc6edb0" name="a0aa10c79a619051acdb4f3c24fc6edb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aa10c79a619051acdb4f3c24fc6edb0">&#9670;&#160;</a></span>latestRedSpO2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PPG::latestRedSpO2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0d0532513c2abc1dcef049d374a89bcb" name="a0d0532513c2abc1dcef049d374a89bcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d0532513c2abc1dcef049d374a89bcb">&#9670;&#160;</a></span>latestRedValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PPG::latestRedValue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2819db6111e861731870e5ce4406e472" name="a2819db6111e861731870e5ce4406e472"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2819db6111e861731870e5ce4406e472">&#9670;&#160;</a></span>nextBPMBufferIndex</h2>
 
@@ -276,20 +369,6 @@ Here is the caller graph for this function:</div>
       <table class="memname">
         <tr>
           <td class="memname">int PPG::nextspo2BufferIndex = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a149309d37aa0ca61afaac500b74a170a" name="a149309d37aa0ca61afaac500b74a170a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a149309d37aa0ca61afaac500b74a170a">&#9670;&#160;</a></span>ppgtcpqueue</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::lockfree::spsc_queue&lt;std::string, boost::lockfree::capacity&lt;1024&gt; &gt; PPG::ppgtcpqueue</td>
         </tr>
       </table>
 </div><div class="memdoc">

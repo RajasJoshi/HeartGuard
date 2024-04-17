@@ -23,48 +23,45 @@
 \DoxyCodeLine{00019\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPPG_ab7db470ea433fe3b1ec2b0ee648e723f}{start}}(std::unique\_ptr<MAX30102>\&\ max30102\_ptr);\ \ \textcolor{comment}{//\ Start\ the\ PPG\ sensor}}
 \DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPPG_af198c57799484bc8c59a47c863e51823}{stop}}(\textcolor{keywordtype}{void});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Stop\ the\ PPG\ sensor}}
 \DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ boost::lockfree::spsc\_queue<std::string,\ boost::lockfree::capacity<1024>>}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \mbox{\hyperlink{classPPG_a149309d37aa0ca61afaac500b74a170a}{ppgtcpqueue}};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classPPG_a47255dcd674c7aee47b7d98145e0bf92}{BPM\_BUFFER\_SIZE}}\ =\ 100;}
-\DoxyCodeLine{00026\ \ \ int32\_t\ \mbox{\hyperlink{classPPG_a6c20f6c3cd0928367015e7ffb6e1a1ee}{bpmBuffer}}[\mbox{\hyperlink{classPPG_a47255dcd674c7aee47b7d98145e0bf92}{BPM\_BUFFER\_SIZE}}];}
-\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_a2819db6111e861731870e5ce4406e472}{nextBPMBufferIndex}}\ =\ 0;}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}{SPO2\_BUFFER\_SIZE}}\ =\ 100;}
-\DoxyCodeLine{00030\ \ \ int32\_t\ \mbox{\hyperlink{classPPG_a5db3e4221b911bc82dd69c115922f671}{spo2Buffer}}[\mbox{\hyperlink{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}{SPO2\_BUFFER\_SIZE}}];}
-\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_ad3c9cc7d7b145d58bc9e8efa5367890d}{nextspo2BufferIndex}}\ =\ 0;}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{bool}\ running\ =\ \textcolor{keyword}{false};\ \ \textcolor{comment}{//\ Indicates\ if\ the\ PPG\ sensor\ is\ running}}
+\DoxyCodeLine{00022\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classPPG_a47255dcd674c7aee47b7d98145e0bf92}{BPM\_BUFFER\_SIZE}}\ =\ 100;}
+\DoxyCodeLine{00023\ \ \ int32\_t\ \mbox{\hyperlink{classPPG_a6c20f6c3cd0928367015e7ffb6e1a1ee}{bpmBuffer}}[\mbox{\hyperlink{classPPG_a47255dcd674c7aee47b7d98145e0bf92}{BPM\_BUFFER\_SIZE}}];}
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_a2819db6111e861731870e5ce4406e472}{nextBPMBufferIndex}}\ =\ 0;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}{SPO2\_BUFFER\_SIZE}}\ =\ 100;}
+\DoxyCodeLine{00027\ \ \ int32\_t\ \mbox{\hyperlink{classPPG_a5db3e4221b911bc82dd69c115922f671}{spo2Buffer}}[\mbox{\hyperlink{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}{SPO2\_BUFFER\_SIZE}}];}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_ad3c9cc7d7b145d58bc9e8efa5367890d}{nextspo2BufferIndex}}\ =\ 0;}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_aff9708b8b3ad437555ca6b31a2edfd29}{latestIRBPM}};}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_a7571699a1590a38d63a4d7f2034ca861}{averageIRBPM}};}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_a0aa10c79a619051acdb4f3c24fc6edb0}{latestRedSpO2}};}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_aecaa14046cda5c69519031bc5a121c42}{averageRedSpO2}};}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_a4a9451c82b5dcb1792c007308099491f}{latestIRValue}};}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classPPG_a0d0532513c2abc1dcef049d374a89bcb}{latestRedValue}};}
 \DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ std::chrono::time\_point<std::chrono::system\_clock>\ timeLastLoopRan;}
-\DoxyCodeLine{00039\ \ \ \textcolor{comment}{//\ IR\ Data}}
-\DoxyCodeLine{00040\ \ \ std::chrono::time\_point<std::chrono::system\_clock>\ timeLastIRHeartBeat;}
-\DoxyCodeLine{00041\ \ \ int32\_t\ irLastValue;}
-\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{int}\ latestIRBPM;}
-\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{int}\ averageIRBPM;}
-\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{int}\ latestRedSpO2;}
-\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{int}\ averageRedSpO2;}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ For\ Peak\ Detection}}
-\DoxyCodeLine{00048\ \ \ int32\_t\ localMaxima;}
-\DoxyCodeLine{00049\ \ \ int32\_t\ localMinima;}
-\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{static}\ int8\_t\ PAST\_PEAKS\_SIZE\ =\ 2;}
-\DoxyCodeLine{00051\ \ \ int32\_t\ pastMaximas[PAST\_PEAKS\_SIZE];}
-\DoxyCodeLine{00052\ \ \ int32\_t\ pastMinimas[PAST\_PEAKS\_SIZE];}
-\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{bool}\ crest\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{bool}\ trough\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00055\ \ \ uint8\_t\ dataBeenIncreasing\ =\ 0;}
-\DoxyCodeLine{00056\ \ \ uint8\_t\ nextPastPeaksIndex\ =\ 0;}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ PPG\_filtering(std::unique\_ptr<MAX30102>\&\ ppgmax30102\_ptr);}
-\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{void}\ resetCalculations();}
-\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{bool}\ peakDetect(int32\_t\ data);}
-\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ loopThread(std::unique\_ptr<MAX30102>\&\ ppgmax30102\_ptr);}
-\DoxyCodeLine{00062\ \};}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ PPG\_HPP}}
+\DoxyCodeLine{00036\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{bool}\ running\ =\ \textcolor{keyword}{false};\ \ \textcolor{comment}{//\ Indicates\ if\ the\ PPG\ sensor\ is\ running}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ std::chrono::time\_point<std::chrono::system\_clock>\ timeLastLoopRan;}
+\DoxyCodeLine{00040\ \ \ \textcolor{comment}{//\ IR\ Data}}
+\DoxyCodeLine{00041\ \ \ std::chrono::time\_point<std::chrono::system\_clock>\ timeLastIRHeartBeat;}
+\DoxyCodeLine{00042\ \ \ int32\_t\ irLastValue;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \textcolor{comment}{//\ For\ Peak\ Detection}}
+\DoxyCodeLine{00045\ \ \ int32\_t\ localMaxima;}
+\DoxyCodeLine{00046\ \ \ int32\_t\ localMinima;}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{static}\ int8\_t\ PAST\_PEAKS\_SIZE\ =\ 2;}
+\DoxyCodeLine{00048\ \ \ int32\_t\ pastMaximas[PAST\_PEAKS\_SIZE];}
+\DoxyCodeLine{00049\ \ \ int32\_t\ pastMinimas[PAST\_PEAKS\_SIZE];}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{bool}\ crest\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{bool}\ trough\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00052\ \ \ uint8\_t\ dataBeenIncreasing\ =\ 0;}
+\DoxyCodeLine{00053\ \ \ uint8\_t\ nextPastPeaksIndex\ =\ 0;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ PPG\_filtering(std::unique\_ptr<MAX30102>\&\ ppgmax30102\_ptr);}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ resetCalculations();}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{bool}\ peakDetect(int32\_t\ data);}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ loopThread(std::unique\_ptr<MAX30102>\&\ ppgmax30102\_ptr);}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ PPG\_HPP}}
 
 \end{DoxyCode}

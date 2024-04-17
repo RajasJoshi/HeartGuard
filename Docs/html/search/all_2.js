@@ -1,21 +1,15 @@
 var searchData=
 [
-  ['calcc_5fcr_0',['calcC_Cr',['../DigitalFilters_8h.html#a7cb8f04610b43d68652382e672de2ec4',1,'DigitalFilters.h']]],
-  ['calculate_5fhrv_1',['calculate_hrv',['../classECG.html#a8d51af87f81836121fcf835d77d84f35',1,'ECG']]],
-  ['calculate_5frr_5finterval_5fhr_2',['calculate_RR_interval_hr',['../classECG.html#a9c84bb74b28e7e74670c583c007f487f',1,'ECG']]],
-  ['channel_3',['channel',['../structADS1115settings.html#a3f4f9b2d8b6f0ef724bd4e4a68b75245',1,'ADS1115settings']]],
-  ['check_4',['check',['../classMAX30102.html#a023a175af4f01d54f24f632296f71775',1,'MAX30102']]],
-  ['circularbuffer_5',['circularBuffer',['../classECG.html#a69a81ff4139e939e877bf8b7b03f9d4d',1,'ECG']]],
-  ['circulardelay_6',['CircularDelay',['../classCircularDelay.html',1,'CircularDelay&lt; type, size &gt;'],['../classCircularDelay_1_1iterator.html#a1468d92667c6a056f280c0d93aff142b',1,'CircularDelay::iterator::CircularDelay'],['../classCircularDelay_1_1const__iterator.html#a1468d92667c6a056f280c0d93aff142b',1,'CircularDelay::const_iterator::CircularDelay'],['../classCircularDelay_1_1reverse__iterator.html#a1468d92667c6a056f280c0d93aff142b',1,'CircularDelay::reverse_iterator::CircularDelay'],['../classCircularDelay_1_1const__reverse__iterator.html#a1468d92667c6a056f280c0d93aff142b',1,'CircularDelay::const_reverse_iterator::CircularDelay'],['../classCircularDelay.html#adbff4303da3145a6ac1dc297b2ab5b96',1,'CircularDelay::CircularDelay()']]],
-  ['circulardelay_2ehpp_7',['CircularDelay.hpp',['../CircularDelay_8hpp.html',1,'']]],
-  ['circulardelay_3c_20double_2c_202_20_3e_8',['CircularDelay&lt; double, 2 &gt;',['../classCircularDelay.html',1,'']]],
-  ['circulardelay_3c_20double_2c_203_20_3e_9',['CircularDelay&lt; double, 3 &gt;',['../classCircularDelay.html',1,'']]],
-  ['circulardelay_3c_20double_2c_204_20_3e_10',['CircularDelay&lt; double, 4 &gt;',['../classCircularDelay.html',1,'']]],
-  ['circulardelay_3c_20int64_5ft_2c_20size_20_3e_11',['CircularDelay&lt; int64_t, size &gt;',['../classCircularDelay.html',1,'']]],
-  ['clearfifo_12',['clearFIFO',['../classMAX30102.html#afbac1a581d2acb9aeb9dbe12b2d83b00',1,'MAX30102']]],
-  ['command_13',['command',['../structi2c__smbus__ioctl__data.html#a5c97619b99fbc3231d877acfe428826b',1,'i2c_smbus_ioctl_data']]],
-  ['configoutput_14',['configOutput',['../classLowPassFilter.html#a1b9808afc4ef573a1c4a9ede67138cd6',1,'LowPassFilter::configOutput()'],['../classLowPassFilter2.html#ad39e5fcbc2c84b75d848ada48c3248a7',1,'LowPassFilter2::configOutput()'],['../classHighPassFilter.html#af31f5fd39db94ec7c26f675c14ba11d9',1,'HighPassFilter::configOutput()']]],
-  ['const_5fiterator_15',['const_iterator',['../classCircularDelay_1_1const__iterator.html',1,'CircularDelay&lt; type, size &gt;::const_iterator'],['../classCircularDelay_1_1const__iterator.html#a21fd85501937e995d7b7e3090021ec61',1,'CircularDelay::const_iterator::const_iterator()']]],
-  ['const_5freverse_5fiterator_16',['const_reverse_iterator',['../classCircularDelay_1_1const__reverse__iterator.html',1,'CircularDelay&lt; type, size &gt;::const_reverse_iterator'],['../classCircularDelay_1_1const__reverse__iterator.html#ac1d14b2632952a220489a3dd85e58caf',1,'CircularDelay::const_reverse_iterator::const_reverse_iterator()']]],
-  ['cutoff_5ffrequency_17',['cutoff_frequency',['../classECG.html#abc04ef31f2ee2d9cf9f8576a659c8760',1,'ECG']]]
+  ['backend_0',['backend',['../namespacematplotlibcpp.html#a7c176020a3312c69b4af6fa80113e53b',1,'matplotlibcpp']]],
+  ['bar_1',['bar',['../namespacematplotlibcpp.html#a74ced83539862d0a6456935b507e9864',1,'matplotlibcpp::bar(const std::vector&lt; Numeric &gt; &amp;x, const std::vector&lt; Numeric &gt; &amp;y, std::string ec=&quot;black&quot;, std::string ls=&quot;-&quot;, double lw=1.0, const std::map&lt; std::string, std::string &gt; &amp;keywords={})'],['../namespacematplotlibcpp.html#a61e468c9ffbf0eb5f85bbe69d9f5ecd2',1,'matplotlibcpp::bar(const std::vector&lt; Numeric &gt; &amp;y, std::string ec=&quot;black&quot;, std::string ls=&quot;-&quot;, double lw=1.0, const std::map&lt; std::string, std::string &gt; &amp;keywords={})']]],
+  ['barh_2',['barh',['../namespacematplotlibcpp.html#ac31a739708c4c000f0787e1e6838ac13',1,'matplotlibcpp']]],
+  ['begin_3',['begin',['../classCircularDelay.html#ae8fedbd231b8e1b99b5a7bb321e4421c',1,'CircularDelay']]],
+  ['block_4',['block',['../unioni2c__smbus__data.html#af0c92c143c24c0c49902f705a1ebe65c',1,'i2c_smbus_data']]],
+  ['boxplot_5',['boxplot',['../namespacematplotlibcpp.html#aa20e464f2c76edfb057997407a6f3fc4',1,'matplotlibcpp::boxplot(const std::vector&lt; std::vector&lt; Numeric &gt; &gt; &amp;data, const std::vector&lt; std::string &gt; &amp;labels={}, const std::map&lt; std::string, std::string &gt; &amp;keywords={})'],['../namespacematplotlibcpp.html#a97d82f6044902f9120a16f55bfcbf7a0',1,'matplotlibcpp::boxplot(const std::vector&lt; Numeric &gt; &amp;data, const std::map&lt; std::string, std::string &gt; &amp;keywords={})']]],
+  ['bpm_5fbuffer_5fsize_6',['BPM_BUFFER_SIZE',['../classPPG.html#a47255dcd674c7aee47b7d98145e0bf92',1,'PPG']]],
+  ['bpmbuffer_7',['bpmBuffer',['../classPPG.html#a6c20f6c3cd0928367015e7ffb6e1a1ee',1,'PPG']]],
+  ['buf_8',['buf',['../structi2c__msg.html#a18a0ec0f4f45577ea2b751b984b00762',1,'i2c_msg']]],
+  ['buffer_5fsize_9',['BUFFER_SIZE',['../classECG.html#a65c08db0cd238db7a9a8c7477e5efcbf',1,'ECG']]],
+  ['bufferfull_10',['bufferFull',['../classECG.html#aa98f63000c1572508a3cf48f1816848f',1,'ECG']]],
+  ['byte_11',['byte',['../unioni2c__smbus__data.html#aa0e2604ac3df1abcfe68c95c8d1d8f5b',1,'i2c_smbus_data']]]
 ];
