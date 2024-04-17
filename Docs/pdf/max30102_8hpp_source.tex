@@ -1,0 +1,230 @@
+\doxysection{max30102.\+hpp}
+\hypertarget{max30102_8hpp_source}{}\label{max30102_8hpp_source}\index{Software/Firmware/project/max30102/include/max30102.hpp@{Software/Firmware/project/max30102/include/max30102.hpp}}
+\mbox{\hyperlink{max30102_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MAX30102\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MAX30102\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Include\ any\ necessary\ headers\ here}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fcntl.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <gpiod.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <sys/ioctl.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{i2c-dev_8h}{i2c-\/dev.h}}"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ MAX30102\_ADDRESS\ 0x57}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ I2C\_BUFFER\_LENGTH\ 32}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ INTERRUPT\_PIN\ 16\ \ }\textcolor{comment}{//\ Change\ this\ to\ the\ GPIO\ pin\ number\ you\ are\ using}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ Status\ Registers}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_INTENABLE1\ =\ 0x02;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ FIFO\ Registers}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_FIFOWRITEPTR\ =\ 0x04;}
+\DoxyCodeLine{00033\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_FIFOOVERFLOW\ =\ 0x05;}
+\DoxyCodeLine{00034\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_FIFOREADPTR\ =\ 0x06;}
+\DoxyCodeLine{00035\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_FIFODATA\ =\ 0x07;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ Configuration\ Registers}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_FIFOCONFIG\ =\ 0x08;}
+\DoxyCodeLine{00039\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_MODECONFIG\ =\ 0x09;}
+\DoxyCodeLine{00040\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_PARTICLECONFIG\ =\ 0x0A;}
+\DoxyCodeLine{00041\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_LED1\_PULSEAMP\ =\ 0x0C;}
+\DoxyCodeLine{00042\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_LED2\_PULSEAMP\ =\ 0x0D;}
+\DoxyCodeLine{00043\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_LED\_PROX\_AMP\ =\ 0x10;}
+\DoxyCodeLine{00044\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_MULTILEDCONFIG1\ =\ 0x11;}
+\DoxyCodeLine{00045\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_MULTILEDCONFIG2\ =\ 0x12;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ IDs}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_REVISIONID\ =\ 0xFE;}
+\DoxyCodeLine{00049\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ REG\_PARTID\ =\ 0xFF;}
+\DoxyCodeLine{00050\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MAX30102\_EXPECTEDPARTID\ =\ 0x15;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ Interrupt\ Configuration}}
+\DoxyCodeLine{00053\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_INT\_A\_FULL\ =\ (uint8\_t)\string~0b10000000;}
+\DoxyCodeLine{00054\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ INT\_A\_FULL\_ENABLE\ =\ 0x80;}
+\DoxyCodeLine{00055\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ INT\_A\_FULL\_DISABLE\ =\ 0x00;}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_INT\_DATA\_RDY\ =\ (uint8\_t)\string~0b01000000;}
+\DoxyCodeLine{00058\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ INT\_DATA\_RDY\_ENABLE\ =\ 0x40;}
+\DoxyCodeLine{00059\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ INT\_DATA\_RDY\_DISABLE\ =\ 0x00;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_INT\_ALC\_OVF\ =\ (uint8\_t)\string~0b00100000;}
+\DoxyCodeLine{00062\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ INT\_ALC\_OVF\_ENABLE\ =\ 0x20;}
+\DoxyCodeLine{00063\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ INT\_ALC\_OVF\_DISABLE\ =\ 0x00;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_SAMPLEAVG\ =\ (uint8\_t)\string~0b11100000;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_ROLLOVER\ =\ 0xEF;}
+\DoxyCodeLine{00068\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ ROLLOVER\_ENABLE\ =\ 0x10;}
+\DoxyCodeLine{00069\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ ROLLOVER\_DISABLE\ =\ 0x00;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ Mode\ configuration\ commands}}
+\DoxyCodeLine{00072\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_SHUTDOWN\ =\ 0x7f;}
+\DoxyCodeLine{00073\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ SHUTDOWN\ =\ 0x80;}
+\DoxyCodeLine{00074\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ WAKEUP\ =\ 0x00;}
+\DoxyCodeLine{00075\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_RESET\ =\ 0xBF;}
+\DoxyCodeLine{00076\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ RESET\ =\ 0X40;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_LEDMODE\ =\ 0xF8;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ Particle\ sensing\ configuration\ commands}}
+\DoxyCodeLine{00082\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_ADCRANGE\ =\ 0x9F;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_SAMPLERATE\ =\ 0xE3;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_PULSEWIDTH\ =\ 0xFC;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ Multi-\/LED\ Mode\ Configuration}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_SLOT1\ =\ 0xF8;}
+\DoxyCodeLine{00090\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_SLOT2\ =\ 0x8F;}
+\DoxyCodeLine{00091\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_SLOT3\ =\ 0xF8;}
+\DoxyCodeLine{00092\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MASK\_SLOT4\ =\ 0x8F;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ SLOT\_NONE\ =\ 0x00;}
+\DoxyCodeLine{00095\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ SLOT\_RED\_LED\ =\ 0x01;}
+\DoxyCodeLine{00096\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ SLOT\_IR\_LED\ =\ 0x02;}
+\DoxyCodeLine{00097\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ SLOT\_NONE\_PILOT\ =\ 0x04;}
+\DoxyCodeLine{00098\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ SLOT\_RED\_PILOT\ =\ 0x05;}
+\DoxyCodeLine{00099\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ SLOT\_IR\_PILOT\ =\ 0x06;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMAX30102settings}{MAX30102settings}}\ \{}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMAX30102settings_aad087bad5395946ad732eb5d8a5b8266}{i2c\_bus}}\ =\ 0;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \ \ uint8\_t\ \mbox{\hyperlink{structMAX30102settings_aaf506ca8ee555e0be6e50bd6bcefb462}{address}}\ =\ \mbox{\hyperlink{max30102_8hpp_ad7327a848315960f1d8828a09316c6a9}{MAX30102\_ADDRESS}};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMAX30102settings_aa21690d8c7a8d8f65a4f40d3ca1b81df}{drdy\_chip}}\ =\ 0;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMAX30102settings_a49b14f906cfc7ed88f6de8639459e8e5}{drdy\_gpio}}\ =\ \mbox{\hyperlink{max30102_8hpp_a6516333f436e810b6855db75f3b3cbbc}{INTERRUPT\_PIN}};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMAX30102settings_a43df059424a7c3ed2d513d1d0f53cd05}{ledMode}}\ =\ 2;}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMAX30102settings_afd8a466de7dd19afa0927f287e4664c4}{numberOfSamples}}\ =\ 4;}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMAX30102settings_a7ba8aa2fdb5cf1604ffae6f91a486c53}{sampleRate}}\ =\ 400;}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMAX30102settings_a64e80ce4ea0d62d7ee1782c250924b0e}{pulseWidth}}\ =\ 411;}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMAX30102settings_a6ee92fa3ca4ccb901473916f0746320d}{adcRange}}\ =\ 4096;}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMAX30102settings_a64ad988c8b69dc77e360c01117849440}{redPulseAmplitude}}\ =\ 0x1F;}
+\DoxyCodeLine{00131\ \};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMAX30102}{MAX30102}}\ \{}
+\DoxyCodeLine{00137\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00138\ \ \ \mbox{\hyperlink{classMAX30102_a631728e610c1c3eab45d2fc33e78dd50}{MAX30102}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00139\ \ \ \mbox{\hyperlink{classMAX30102_a6960834390229352e2b11c350ac68c08}{\string~MAX30102}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classMAX30102_a66e23eb885a4fe772fcc1e23f879b17f}{start}}();}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a9f8e9a4d56da2407fed721db9ee2d017}{stop}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ uint32\_t\ \mbox{\hyperlink{classMAX30102_a824883df0943c7accc013f05792e557d}{getRed}}(\textcolor{keywordtype}{void});\ \ \textcolor{comment}{//\ Returns\ immediate\ red\ value}}
+\DoxyCodeLine{00144\ \ \ uint32\_t\ \mbox{\hyperlink{classMAX30102_ad06cdfa399f91057cc2e8e7c872877e0}{getIR}}(\textcolor{keywordtype}{void});\ \ \ \textcolor{comment}{//\ Returns\ immediate\ IR\ value}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \textcolor{comment}{//\ Configuration}}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_ab6c07c546e397bd5d87292f434a0ee8c}{wakeUp}}();}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_ac5c9b06bf3cf668e018bb81a17d5aa2f}{shutDown}}();}
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_ad78ce89aa47f2c6e1a3cf07a6966c2c9}{softReset}}();}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a19cae8ee364f876cb34da812d5a657f2}{setLEDMode}}(uint8\_t\ mode);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_ab936f8072cde5aaf5b0bd8b9ec9c0e2f}{setADCRange}}(uint8\_t\ adcRange);}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a78604b395ccf72fbd6366684aa99e646}{setSampleRate}}(uint8\_t\ sampleRate);}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_aab527d480ff83e3059157bb793244644}{setPulseWidth}}(uint8\_t\ pulseWidth);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a92936c050f8a49ba8da5bda2069dd1f6}{setPulseAmplitudeRed}}(uint8\_t\ value);}
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a80aad8301d5ca50a72e72c02f9c824c9}{setPulseAmplitudeIR}}(uint8\_t\ value);}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8}{setPulseAmplitudeProximity}}(uint8\_t\ value);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \textcolor{comment}{//\ Multi-\/LED\ configuration\ mode}}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a34426debd59ef446363a7af352bdbd8e}{enableSlot}}(uint8\_t\ slotNumber,\ uint8\_t\ device);}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a07872942c5ee098cde2364b4d86ebec6}{disableSlots}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \textcolor{comment}{//\ Data\ Collection}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{comment}{//\ Interrupts}}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a4d436e6c3874f03fc32ca1412fbd8dfb}{enableAFULL}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_aec4831802832defb3f6453f27649f9fd}{disableAFULL}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a2e9b9a516572433c2dec4a304acb67f7}{enableDATARDY}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a23ac69410cbbbd0479bc195205be492f}{disableDATARDY}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_ae5b452eb18fbe798c99f238f49f64fe9}{enableALCOVF}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_aeb2a88238a3041b599bdd84269ebbcca}{disableALCOVF}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \textcolor{comment}{//\ FIFO\ Configurations}}
+\DoxyCodeLine{00176\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_ae11f7b66a205c5e465668fa401427737}{setFIFOAverage}}(uint8\_t\ samples);}
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a13354720f66fc1ec7d579bb3e765a96d}{enableFIFORollover}}();}
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_ac45e805b747d6723f59e41cbd6b0c8e9}{disableFIFORollover}}();}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \textcolor{comment}{//\ FIFO\ Reading}}
+\DoxyCodeLine{00181\ \ \ uint16\_t\ \mbox{\hyperlink{classMAX30102_a023a175af4f01d54f24f632296f71775}{check}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00182\ \ \ uint32\_t\ \mbox{\hyperlink{classMAX30102_a2dd900a208752875bc47eaaa6de45c60}{getFIFORed}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00183\ \ \ uint32\_t\ \mbox{\hyperlink{classMAX30102_a04ae15b45111ff3345fba97f3e558885}{getFIFOIR}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ uint8\_t\ \mbox{\hyperlink{classMAX30102_aeaf1c7ea1764c7d0553386cabfb783e6}{getWritePointer}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00186\ \ \ uint8\_t\ \mbox{\hyperlink{classMAX30102_a99dd07d94cdca56a0116bd3bc40eeb66}{getReadPointer}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_afbac1a581d2acb9aeb9dbe12b2d83b00}{clearFIFO}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \textcolor{comment}{//\ Detecting\ ID/Revision}}
+\DoxyCodeLine{00190\ \ \ uint8\_t\ \mbox{\hyperlink{classMAX30102_ac17326fd1347d61dfbfd5ab76d039fb2}{readPartID}}();}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \textcolor{comment}{//\ Setup\ the\ sensor\ with\ user\ selectable\ settings}}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMAX30102_a916d8a9b186001202f81fb71f643b26a}{setup}}();}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00196\ \ \ \mbox{\hyperlink{structMAX30102settings}{MAX30102settings}}\ settings;}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \textcolor{keywordtype}{int}\ \_i2c;}
+\DoxyCodeLine{00199\ \ \ uint8\_t\ \_i2caddr;}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ uint8\_t\ activeLEDs;}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ uint8\_t\ revisionID;}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{void}\ readRevisionID();}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordtype}{void}\ bitMask(uint8\_t\ reg,\ uint8\_t\ mask,\ uint8\_t\ thing);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ std::vector<uint8\_t>\ readMany(uint8\_t\ address,\ uint8\_t\ length);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \textcolor{comment}{//\ Private\ member\ variables\ and\ functions}}
+\DoxyCodeLine{00212\ \ \ \textcolor{keyword}{struct\ }gpiod\_chip\ *chipDRDY;}
+\DoxyCodeLine{00213\ \ \ \textcolor{keyword}{struct\ }gpiod\_line\ *lineDRDY;}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ std::thread\ thr;}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{int}\ fdDRDY\ =\ -\/1;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordtype}{bool}\ running\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordtype}{void}\ dataReady();}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{void}\ worker()\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordflow}{while}\ (running)\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }timespec\ ts\ =\ \{1,\ 0\};}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ gpiod\_line\_event\_wait(lineDRDY,\ \&ts);}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \textcolor{keyword}{struct\ }gpiod\_line\_event\ event;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ gpiod\_line\_event\_read(lineDRDY,\ \&event);}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ dataReady();}
+\DoxyCodeLine{00230\ \ \ \ \ \}}
+\DoxyCodeLine{00231\ \ \ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#define\ STORAGE\_SIZE\ 4}}
+\DoxyCodeLine{00234\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }Record\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ uint32\_t\ red[\mbox{\hyperlink{max30102_8hpp_a8d6f782ffe53d87f0fd0327d4b09352c}{STORAGE\_SIZE}}];}
+\DoxyCodeLine{00236\ \ \ \ \ uint32\_t\ IR[\mbox{\hyperlink{max30102_8hpp_a8d6f782ffe53d87f0fd0327d4b09352c}{STORAGE\_SIZE}}];}
+\DoxyCodeLine{00237\ \ \ \ \ uint8\_t\ head;}
+\DoxyCodeLine{00238\ \ \ \ \ uint8\_t\ tail;}
+\DoxyCodeLine{00239\ \ \ \}\ sense\_struct;}
+\DoxyCodeLine{00240\ \ \ sense\_struct\ sense;}
+\DoxyCodeLine{00241\ \};}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ MAX30102\_HPP}}
+
+\end{DoxyCode}

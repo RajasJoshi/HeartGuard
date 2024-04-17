@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['samplingrate_157',['samplingRate',['../structADS1115settings.html#aab5ef57bb9aef08aac7a7fd7de33a451',1,'ADS1115settings']]]
+  ['filter_5forder_0',['filter_order',['../classECG.html#a4a13e96e2aa1c58af59ac1efb19f33c4',1,'ECG']]],
+  ['flags_1',['flags',['../structi2c__msg.html#a4b3bc1a36147fedfbdf9a15cc6ae88d9',1,'i2c_msg']]]
 ];

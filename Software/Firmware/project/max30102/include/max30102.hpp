@@ -1,14 +1,13 @@
 #ifndef MAX30102_HPP
 #define MAX30102_HPP
 
-/**
- * @file max30102.hpp
- * @brief MAX30102 class for reading data from the MAX30102 sensor.
- */
-
 // Include any necessary headers here
+#include <assert.h>
 #include <fcntl.h>
-#include <pigpio.h>
+#include <gpiod.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 
@@ -16,18 +15,18 @@
 #include <cstdint>
 #include <cstring>
 #include <iostream>
+#include <thread>
 #include <vector>
 
-// Define any constants here
+#include "i2c-dev.h"
+
 #define MAX30102_ADDRESS 0x57
+
 #define I2C_BUFFER_LENGTH 32
 #define INTERRUPT_PIN 16  // Change this to the GPIO pin number you are using
 
 // Status Registers
-static const uint8_t REG_INTSTAT1 = 0x00;
-static const uint8_t REG_INTSTAT2 = 0x01;
 static const uint8_t REG_INTENABLE1 = 0x02;
-static const uint8_t REG_INTENABLE2 = 0x03;
 
 // FIFO Registers
 static const uint8_t REG_FIFOWRITEPTR = 0x04;
@@ -44,14 +43,6 @@ static const uint8_t REG_LED2_PULSEAMP = 0x0D;
 static const uint8_t REG_LED_PROX_AMP = 0x10;
 static const uint8_t REG_MULTILEDCONFIG1 = 0x11;
 static const uint8_t REG_MULTILEDCONFIG2 = 0x12;
-
-// Die Temperature Registers
-static const uint8_t REG_DIETEMPINT = 0x1F;
-static const uint8_t REG_DIETEMPFRAC = 0x20;
-static const uint8_t REG_DIETEMPCONFIG = 0x21;
-
-// Proximity Function Registers
-static const uint8_t REG_PROXINTTHRESH = 0x30;
 
 // IDs
 static const uint8_t REG_REVISIONID = 0xFE;
@@ -71,27 +62,11 @@ static const uint8_t MASK_INT_ALC_OVF = (uint8_t)~0b00100000;
 static const uint8_t INT_ALC_OVF_ENABLE = 0x20;
 static const uint8_t INT_ALC_OVF_DISABLE = 0x00;
 
-static const uint8_t MASK_INT_PROX_INT = (uint8_t)~0b00010000;
-static const uint8_t INT_PROX_INT_ENABLE = 0x10;
-static const uint8_t INT_PROX_INT_DISABLE = 0x00;
-
-static const uint8_t MASK_INT_DIE_TEMP_RDY = (uint8_t)~0b00000010;
-static const uint8_t INT_DIE_TEMP_RDY_ENABLE = 0x02;
-static const uint8_t INT_DIE_TEMP_RDY_DISABLE = 0x00;
-
 static const uint8_t MASK_SAMPLEAVG = (uint8_t)~0b11100000;
-static const uint8_t SAMPLEAVG_1 = 0x00;
-static const uint8_t SAMPLEAVG_2 = 0x20;
-static const uint8_t SAMPLEAVG_4 = 0x40;
-static const uint8_t SAMPLEAVG_8 = 0x60;
-static const uint8_t SAMPLEAVG_16 = 0x80;
-static const uint8_t SAMPLEAVG_32 = 0xA0;
 
 static const uint8_t MASK_ROLLOVER = 0xEF;
 static const uint8_t ROLLOVER_ENABLE = 0x10;
 static const uint8_t ROLLOVER_DISABLE = 0x00;
-
-static const uint8_t MASK_A_FULL = 0xF0;
 
 // Mode configuration commands
 static const uint8_t MASK_SHUTDOWN = 0x7f;
@@ -99,34 +74,16 @@ static const uint8_t SHUTDOWN = 0x80;
 static const uint8_t WAKEUP = 0x00;
 static const uint8_t MASK_RESET = 0xBF;
 static const uint8_t RESET = 0X40;
+
 /// IR led mode
 static const uint8_t MASK_LEDMODE = 0xF8;
-static const uint8_t LEDMODE_REDONLY = 0x02;
-static const uint8_t LEDMODE_REDIRONLY = 0x03;
-static const uint8_t LEDMODE_MULTILED = 0x07;
 
 // Particle sensing configuration commands
 static const uint8_t MASK_ADCRANGE = 0x9F;
-static const uint8_t ADCRANGE_2048 = 0x00;
-static const uint8_t ADCRANGE_4096 = 0x20;
-static const uint8_t ADCRANGE_8192 = 0x40;
-static const uint8_t ADCRANGE_16384 = 0x60;
 
 static const uint8_t MASK_SAMPLERATE = 0xE3;
-static const uint8_t SAMPLERATE_50 = 0x00;
-static const uint8_t SAMPLERATE_100 = 0x04;
-static const uint8_t SAMPLERATE_200 = 0x08;
-static const uint8_t SAMPLERATE_400 = 0x0C;
-static const uint8_t SAMPLERATE_800 = 0x10;
-static const uint8_t SAMPLERATE_1000 = 0x14;
-static const uint8_t SAMPLERATE_1600 = 0x18;
-static const uint8_t SAMPLERATE_3200 = 0x1C;
 
 static const uint8_t MASK_PULSEWIDTH = 0xFC;
-static const uint8_t PULSEWIDTH_69 = 0x00;
-static const uint8_t PULSEWIDTH_118 = 0x01;
-static const uint8_t PULSEWIDTH_215 = 0x02;
-static const uint8_t PULSEWIDTH_411 = 0x03;
 
 // Multi-LED Mode Configuration
 static const uint8_t MASK_SLOT1 = 0xF8;
@@ -142,17 +99,49 @@ static const uint8_t SLOT_RED_PILOT = 0x05;
 static const uint8_t SLOT_IR_PILOT = 0x06;
 
 /**
+ * ADS1115 initial settings when starting the device.
+ **/
+struct MAX30102settings {
+  /**
+   * I2C bus used
+   **/
+  int i2c_bus = 0;
+
+  /**
+   * I2C address of the ads1115
+   **/
+  uint8_t address = MAX30102_ADDRESS;
+
+  /**
+   * GPIO Chip number which receives the Data Ready signal
+   **/
+  int drdy_chip = 0;
+
+  /**
+   * GPIO pin connected to ALERT/RDY
+   **/
+  int drdy_gpio = INTERRUPT_PIN;
+
+  int ledMode = 2;
+  int numberOfSamples = 4;
+  int sampleRate = 400;
+  int pulseWidth = 411;
+  int adcRange = 4096;
+  int redPulseAmplitude = 0x1F;
+};
+
+/**
  * @brief MAX30102 class for reading data from the MAX30102 sensor.
  */
 class MAX30102 {
  public:
   MAX30102(void);
   ~MAX30102(void);
+  int start();
+  void stop(void);
 
-  int begin(uint8_t i2cAddr = MAX30102_ADDRESS);
-
-  bool safeCheck(uint8_t maxTimeToCheck);  // Given a max amount of time, checks
-                                           // for new data.
+  uint32_t getRed(void);  // Returns immediate red value
+  uint32_t getIR(void);   // Returns immediate IR value
 
   // Configuration
   void wakeUp();
@@ -169,8 +158,6 @@ class MAX30102 {
   void setPulseAmplitudeIR(uint8_t value);
   void setPulseAmplitudeProximity(uint8_t value);
 
-  void setProximityThreshold(uint8_t thresMSB);
-
   // Multi-LED configuration mode
   void enableSlot(uint8_t slotNumber, uint8_t device);
   void disableSlots(void);
@@ -178,23 +165,20 @@ class MAX30102 {
   // Data Collection
 
   // Interrupts
-  uint8_t getINT1(void);
-  uint8_t getINT2(void);
   void enableAFULL(void);
   void disableAFULL(void);
   void enableDATARDY(void);
   void disableDATARDY(void);
+  void enableALCOVF(void);
+  void disableALCOVF(void);
 
   // FIFO Configurations
   void setFIFOAverage(uint8_t samples);
   void enableFIFORollover();
   void disableFIFORollover();
-  void setFIFOAlmostFull(uint8_t samples);
 
   // FIFO Reading
   uint16_t check(void);
-  uint8_t available(void);
-  void nextSample(void);
   uint32_t getFIFORed(void);
   uint32_t getFIFOIR(void);
 
@@ -203,16 +187,14 @@ class MAX30102 {
   void clearFIFO(void);
 
   // Detecting ID/Revision
-  uint8_t getRevisionID();
   uint8_t readPartID();
 
-  void setup(uint8_t powerLevel = 0x1F, uint8_t sampleAverage = 4,
-             uint8_t ledMode = 2, int sampleRate = 400, int pulseWidth = 411,
-             int adcRange = 4096);
-             
-  ~MAX30102();
+  // Setup the sensor with user selectable settings
+  void setup();
 
  private:
+  MAX30102settings settings;
+
   int _i2c;
   uint8_t _i2caddr;
 
@@ -226,15 +208,26 @@ class MAX30102 {
 
   std::vector<uint8_t> readMany(uint8_t address, uint8_t length);
 
-  static void gpioISR(int, int, uint32_t, void* userdata) {
-<<<<<<< HEAD
-    ((MAX30102*)userdata)->check();
-=======
-    MAX30102* max = static_cast<MAX30102*>(userdata);
-    std::cout << "IR: " << max->sense.IR[max->sense.head];
-    std::cout << ", RED: " << max->sense.red[max->sense.head];
-    std::cout << std::endl;
->>>>>>> 57151da4cc2750d82618a852e0d46785bd8e1758
+  // Private member variables and functions
+  struct gpiod_chip *chipDRDY;
+  struct gpiod_line *lineDRDY;
+
+  std::thread thr;
+
+  int fdDRDY = -1;
+
+  bool running = false;
+
+  void dataReady();
+
+  void worker() {
+    while (running) {
+      // const struct timespec ts = {1, 0};
+      // gpiod_line_event_wait(lineDRDY, &ts);
+      // struct gpiod_line_event event;
+      // gpiod_line_event_read(lineDRDY, &event);
+      dataReady();
+    }
   }
 
 #define STORAGE_SIZE 4

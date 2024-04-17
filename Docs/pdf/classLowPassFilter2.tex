@@ -1,0 +1,128 @@
+\doxysection{Low\+Pass\+Filter2 Class Reference}
+\hypertarget{classLowPassFilter2}{}\label{classLowPassFilter2}\index{LowPassFilter2@{LowPassFilter2}}
+
+
+Class for a 2nd order low pass filter.  
+
+
+
+
+{\ttfamily \#include $<$Digital\+Filters.\+h$>$}
+
+
+
+Inheritance diagram for Low\+Pass\+Filter2\+:
+% FIG 0
+
+
+Collaboration diagram for Low\+Pass\+Filter2\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLowPassFilter2_a05dfd33751e89949740e91961b3e0379}{Low\+Pass\+Filter2}} (double dt, double tau\+\_\+c, double ioutput=0)
+\begin{DoxyCompactList}\small\item\em Constructor to set sample time and the tau constant. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classLowPassFilter2_a053fed2b2d040e6dbfed5f1b6ddab3e6}{update}} (double new\+Value) final
+\begin{DoxyCompactList}\small\item\em Update function to push new value into the low pass filter. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classLowPassFilter2_aa65e10057d975ce9569503f71df2c8e1}{get\+Output}} () final
+\begin{DoxyCompactList}\small\item\em Gets the output. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLowPassFilter2_ad39e5fcbc2c84b75d848ada48c3248a7}{config\+Output}} (double new\+Output)
+\begin{DoxyCompactList}\small\item\em Force the output to a desired value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for a 2nd order low pass filter. 
+
+\begin{DoxyVerb}        Design to be a 2nd order Butterworth low pass filter.
+        Transformation done using the bilinear transform method
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classLowPassFilter2_a05dfd33751e89949740e91961b3e0379}\label{classLowPassFilter2_a05dfd33751e89949740e91961b3e0379} 
+\index{LowPassFilter2@{LowPassFilter2}!LowPassFilter2@{LowPassFilter2}}
+\index{LowPassFilter2@{LowPassFilter2}!LowPassFilter2@{LowPassFilter2}}
+\doxysubsubsection{\texorpdfstring{LowPassFilter2()}{LowPassFilter2()}}
+{\footnotesize\ttfamily Low\+Pass\+Filter2\+::\+Low\+Pass\+Filter2 (\begin{DoxyParamCaption}\item[{double}]{dt,  }\item[{double}]{tau\+\_\+c,  }\item[{double}]{ioutput = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor to set sample time and the tau constant. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em idt} & Sample time for the low pass filter \\
+\hline
+\mbox{\texttt{ in}}  & {\em itua\+\_\+c} & Or  $ \tau_c
+            $ The time constant for the filter. Note that $ \tau_c = \frac{1}{2 pi f_c}$ where $ f_c $ is the cutoff frequency \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classLowPassFilter2_ad39e5fcbc2c84b75d848ada48c3248a7}\label{classLowPassFilter2_ad39e5fcbc2c84b75d848ada48c3248a7} 
+\index{LowPassFilter2@{LowPassFilter2}!configOutput@{configOutput}}
+\index{configOutput@{configOutput}!LowPassFilter2@{LowPassFilter2}}
+\doxysubsubsection{\texorpdfstring{configOutput()}{configOutput()}}
+{\footnotesize\ttfamily void Low\+Pass\+Filter2\+::config\+Output (\begin{DoxyParamCaption}\item[{double}]{new\+Output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Force the output to a desired value. 
+
+\begin{DoxyVerb}        This can be useful when the output needs to be forced in case
+        of extreme inputs or such
+\end{DoxyVerb}
+ 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em new\+Output} & The new output \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classLowPassFilter2_aa65e10057d975ce9569503f71df2c8e1}\label{classLowPassFilter2_aa65e10057d975ce9569503f71df2c8e1} 
+\index{LowPassFilter2@{LowPassFilter2}!getOutput@{getOutput}}
+\index{getOutput@{getOutput}!LowPassFilter2@{LowPassFilter2}}
+\doxysubsubsection{\texorpdfstring{getOutput()}{getOutput()}}
+{\footnotesize\ttfamily double Low\+Pass\+Filter2\+::get\+Output (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Gets the output. 
+
+\begin{DoxyReturn}{Returns}
+The output. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classDigitalFilter_a7fe3a1d7a5ed94d245d06412e1805acd}{Digital\+Filter$<$ double $>$}}.
+
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{classLowPassFilter2_a053fed2b2d040e6dbfed5f1b6ddab3e6}\label{classLowPassFilter2_a053fed2b2d040e6dbfed5f1b6ddab3e6} 
+\index{LowPassFilter2@{LowPassFilter2}!update@{update}}
+\index{update@{update}!LowPassFilter2@{LowPassFilter2}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily double Low\+Pass\+Filter2\+::update (\begin{DoxyParamCaption}\item[{double}]{new\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Update function to push new value into the low pass filter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em new\+Value} & The new value after dt time\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The new output value 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classDigitalFilter_add8ed2fd242acaf42e18cf44cdb314ac}{Digital\+Filter$<$ double $>$}}.
+
+Here is the call graph for this function\+:
+% FIG 3
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Software/\+Firmware/project/ppg/include/\mbox{\hyperlink{DigitalFilters_8h}{Digital\+Filters.\+h}}\end{DoxyCompactItemize}

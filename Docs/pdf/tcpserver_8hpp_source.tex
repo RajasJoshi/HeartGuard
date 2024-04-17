@@ -1,0 +1,77 @@
+\doxysection{tcpserver.\+hpp}
+\hypertarget{tcpserver_8hpp_source}{}\label{tcpserver_8hpp_source}\index{Software/Firmware/project/tcpserver/include/tcpserver.hpp@{Software/Firmware/project/tcpserver/include/tcpserver.hpp}}
+\mbox{\hyperlink{tcpserver_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TCPSERVER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TCPSERVER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <arpa/inet.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <netinet/in.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <sys/select.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <boost/lockfree/spsc\_queue.hpp>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cerrno>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <condition\_variable>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ecg_8hpp}{ecg.hpp}}"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ppg_8hpp}{ppg.hpp}}"{}}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classTcpServer}{TcpServer}}\ \{}
+\DoxyCodeLine{00026\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \mbox{\hyperlink{classTcpServer_abc977059ef61f1c42f5fda1bc5945ab0}{TcpServer}}();}
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{classTcpServer_a728a9e31c53cf86887f1f6149b1c46dd}{\string~TcpServer}}();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTcpServer_ac9a5a1e64efecd74924cdf31c2a76d3b}{start}}(std::unique\_ptr<ECG>\&\ ecg\_ptr,\ std::unique\_ptr<PPG>\&\ ppg\_ptr);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{void}\ setupSocket();}
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ *\ @brief\ Worker\ thread\ function.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ *\ @param\ tcp\_server\ Pointer\ to\ the\ TcpServer\ object.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ *\ @param\ queue\ Reference\ to\ the\ queue.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ workerThreadFunc(}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \mbox{\hyperlink{classTcpServer}{TcpServer}}*\ server\_ptr,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ boost::lockfree::spsc\_queue<std::string,\ boost::lockfree::capacity<1024>>\&}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ data\_queue)\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ std::string\ message;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \textcolor{comment}{//\ Pop\ data\ from\ the\ queue}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!data\_queue.pop(message))\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::this\_thread::yield();}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(server\_ptr-\/>socket\_mutex);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (server\_ptr-\/>socket\_connected)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (send(server\_ptr-\/>client\_socket,\ message.c\_str(),\ message.length(),}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0)\ <\ 0)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ sending\ data:\ "{}}\ <<\ strerror(errno)\ <<\ std::endl;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ server\_ptr-\/>socket\_connected\ =\ \textcolor{keyword}{false};\ \ \textcolor{comment}{//\ Manage\ connection\ state}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exit\ the\ loop\ on\ error}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ port\ =\ 5000;\ \ \textcolor{comment}{//\ Example\ port\ number}}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{int}\ server\_socket,\ client\_socket;}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ address;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{bool}\ socket\_connected\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00066\ \ \ std::mutex\ socket\_mutex;\ \ \textcolor{comment}{//\ Mutex\ for\ socket\ access}}
+\DoxyCodeLine{00067\ \ \ std::thread\ worker1;}
+\DoxyCodeLine{00068\ \ \ std::thread\ worker2;}
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TCPSERVER\_HPP}}
+
+\end{DoxyCode}

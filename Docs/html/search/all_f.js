@@ -1,4 +1,28 @@
 var searchData=
 [
-  ['wakeup_90',['wakeUp',['../classMAX30102.html#ab6c07c546e397bd5d87292f434a0ee8c',1,'MAX30102']]]
+  ['samplerate_0',['sampleRate',['../structMAX30102settings.html#a7ba8aa2fdb5cf1604ffae6f91a486c53',1,'MAX30102settings']]],
+  ['sampling_5frate_1',['SAMPLING_RATE',['../classECG.html#afd10756cc462e7a253f476e8aa4ace95',1,'ECG']]],
+  ['samplingrate_2',['samplingRate',['../structADS1115settings.html#aab5ef57bb9aef08aac7a7fd7de33a451',1,'ADS1115settings']]],
+  ['samplingrates_3',['SamplingRates',['../structADS1115settings.html#aa3a33d5f6c7f14bb708a70499a225357',1,'ADS1115settings']]],
+  ['self_5ftype_4',['self_type',['../classCircularDelay_1_1iterator.html#a0664fcbb593436b59076701c4fe5d462',1,'CircularDelay::iterator::self_type'],['../classCircularDelay_1_1const__iterator.html#a0884b1781f409c108f126cff56b27582',1,'CircularDelay::const_iterator::self_type'],['../classCircularDelay_1_1reverse__iterator.html#adea6e1a71f1906b4e33433e932a41728',1,'CircularDelay::reverse_iterator::self_type'],['../classCircularDelay_1_1const__reverse__iterator.html#a30377f93d5150e091333729e11161676',1,'CircularDelay::const_reverse_iterator::self_type']]],
+  ['setadcrange_5',['setADCRange',['../classMAX30102.html#ab936f8072cde5aaf5b0bd8b9ec9c0e2f',1,'MAX30102']]],
+  ['setchannel_6',['setChannel',['../classADS1115.html#aa9c73af16fd1583219291b0c00ecdfa6',1,'ADS1115']]],
+  ['setfifoaverage_7',['setFIFOAverage',['../classMAX30102.html#ae11f7b66a205c5e465668fa401427737',1,'MAX30102']]],
+  ['setledmode_8',['setLEDMode',['../classMAX30102.html#a19cae8ee364f876cb34da812d5a657f2',1,'MAX30102']]],
+  ['setpulseamplitudeir_9',['setPulseAmplitudeIR',['../classMAX30102.html#a80aad8301d5ca50a72e72c02f9c824c9',1,'MAX30102']]],
+  ['setpulseamplitudeproximity_10',['setPulseAmplitudeProximity',['../classMAX30102.html#a2c3d0e2fb0ba82d0a2cbb4e5a5c2edd8',1,'MAX30102']]],
+  ['setpulseamplitudered_11',['setPulseAmplitudeRed',['../classMAX30102.html#a92936c050f8a49ba8da5bda2069dd1f6',1,'MAX30102']]],
+  ['setpulsewidth_12',['setPulseWidth',['../classMAX30102.html#aab527d480ff83e3059157bb793244644',1,'MAX30102']]],
+  ['setsamplerate_13',['setSampleRate',['../classMAX30102.html#a78604b395ccf72fbd6366684aa99e646',1,'MAX30102']]],
+  ['setup_14',['setup',['../classMAX30102.html#a916d8a9b186001202f81fb71f643b26a',1,'MAX30102']]],
+  ['shutdown_15',['shutDown',['../classMAX30102.html#ac5c9b06bf3cf668e018bb81a17d5aa2f',1,'MAX30102']]],
+  ['size_16',['size',['../structi2c__smbus__ioctl__data.html#a8656ac3dfa404899f6549baea41cf342',1,'i2c_smbus_ioctl_data']]],
+  ['softreset_17',['softReset',['../classMAX30102.html#ad78ce89aa47f2c6e1a3cf07a6966c2c9',1,'MAX30102']]],
+  ['spo2_5fbuffer_5fsize_18',['SPO2_BUFFER_SIZE',['../classPPG.html#ac7389ddc8862b1de0cff4a9e41fbe9e1',1,'PPG']]],
+  ['spo2buffer_19',['spo2Buffer',['../classPPG.html#a5db3e4221b911bc82dd69c115922f671',1,'PPG']]],
+  ['squareof_20',['squareOf',['../DigitalFilters_8h.html#a2186e3c748b2f275583dcae30f1e21d1',1,'DigitalFilters.h']]],
+  ['start_21',['start',['../classADS1115.html#a05c4fdde78e32fd5d15c05af895a4871',1,'ADS1115::start()'],['../classECG.html#a54ef07ae8554eaabae9fd14a8c93abdf',1,'ECG::start()'],['../classMAX30102.html#a66e23eb885a4fe772fcc1e23f879b17f',1,'MAX30102::start()'],['../classPPG.html#ab7db470ea433fe3b1ec2b0ee648e723f',1,'PPG::start()'],['../classTcpServer.html#ac9a5a1e64efecd74924cdf31c2a76d3b',1,'TcpServer::start()']]],
+  ['stdev_22',['stdev',['../classECG.html#a41524454a35a4ea47d73d4adb6167348',1,'ECG']]],
+  ['stop_23',['stop',['../classADS1115.html#aa3063eac80a95f6db16950e9783bc92b',1,'ADS1115::stop()'],['../classECG.html#a00e642fe0cf0806ca18af138136aa025',1,'ECG::stop()'],['../classMAX30102.html#a9f8e9a4d56da2407fed721db9ee2d017',1,'MAX30102::stop()'],['../classPPG.html#af198c57799484bc8c59a47c863e51823',1,'PPG::stop()']]],
+  ['storage_5fsize_24',['STORAGE_SIZE',['../max30102_8hpp.html#a8d6f782ffe53d87f0fd0327d4b09352c',1,'max30102.hpp']]]
 ];

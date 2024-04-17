@@ -1,22 +1,16 @@
 /**
- * \mainpage My Personal Index Page
+ * \mainpage Heartguard Index Page
  *
  * \section intro_sec Introduction
  *
- * This is the introduction to my project.
- *
- * \section install_sec Installation
- *
- * \subsection step1 Step 1: Opening the box
- *
- * etc...
+ * HeartGuard Lite: Promoting Heart Health Awareness
  */
 
 #ifndef HEARTGUARD_HPP
 #define HEARTGUARD_HPP
 
 #include <fcntl.h>
-#include <pigpio.h>
+#include <gpiod.h>
 #include <signal.h>
 #include <stdio.h>
 #include <sys/file.h>  // flock
@@ -37,11 +31,13 @@
 #include <mutex>
 #include <thread>
 
+#include "Iir.h"
 #include "ads1115.hpp"
 #include "ecg.hpp"
 #include "HeartRate.h"
 #include "max30102.hpp"
-#include "Iir.h"
+#include "ppg.hpp"
+#include "tcpserver.hpp"
 // Add your function declarations, classes, etc. here
 
 #endif  // HEARTGUARD_HPP

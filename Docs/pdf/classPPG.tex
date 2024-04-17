@@ -1,0 +1,147 @@
+\doxysection{PPG Class Reference}
+\hypertarget{classPPG}{}\label{classPPG}\index{PPG@{PPG}}
+
+
+{\ttfamily \#include $<$ppg.\+hpp$>$}
+
+
+
+Collaboration diagram for PPG\+:
+% FIG 0
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPPG_a02b86dd957da5b310e2e3c76a36375ac}{PPG}} (void)
+\begin{DoxyCompactList}\small\item\em Starts the \doxylink{classPPG}{PPG} sensor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classPPG_afdc212505516715cd5bca0e92899e43b}{\texorpdfstring{$\sim$}{\string~}\+PPG}} (void)
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{classPPG}{PPG} sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPPG_ab7db470ea433fe3b1ec2b0ee648e723f}{start}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classMAX30102}{MAX30102}} $>$ \&max30102\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Starts the \doxylink{classPPG}{PPG} sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPPG_af198c57799484bc8c59a47c863e51823}{stop}} (void)
+\begin{DoxyCompactList}\small\item\em Stops the \doxylink{classPPG}{PPG} sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+boost\+::lockfree\+::spsc\+\_\+queue$<$ std\+::string, boost\+::lockfree\+::capacity$<$ 1024 $>$ $>$ \mbox{\hyperlink{classPPG_a149309d37aa0ca61afaac500b74a170a}{ppgtcpqueue}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{classPPG_a6c20f6c3cd0928367015e7ffb6e1a1ee}{bpm\+Buffer}} \mbox{[}\mbox{\hyperlink{classPPG_a47255dcd674c7aee47b7d98145e0bf92}{BPM\+\_\+\+BUFFER\+\_\+\+SIZE}}\mbox{]}
+\item 
+int \mbox{\hyperlink{classPPG_a2819db6111e861731870e5ce4406e472}{next\+BPMBuffer\+Index}} = 0
+\item 
+int32\+\_\+t \mbox{\hyperlink{classPPG_a5db3e4221b911bc82dd69c115922f671}{spo2\+Buffer}} \mbox{[}\mbox{\hyperlink{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}{SPO2\+\_\+\+BUFFER\+\_\+\+SIZE}}\mbox{]}
+\item 
+int \mbox{\hyperlink{classPPG_ad3c9cc7d7b145d58bc9e8efa5367890d}{nextspo2\+Buffer\+Index}} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const static int \mbox{\hyperlink{classPPG_a47255dcd674c7aee47b7d98145e0bf92}{BPM\+\_\+\+BUFFER\+\_\+\+SIZE}} = 100
+\item 
+const static int \mbox{\hyperlink{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}{SPO2\+\_\+\+BUFFER\+\_\+\+SIZE}} = 100
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classPPG_a02b86dd957da5b310e2e3c76a36375ac}\label{classPPG_a02b86dd957da5b310e2e3c76a36375ac} 
+\index{PPG@{PPG}!PPG@{PPG}}
+\index{PPG@{PPG}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{PPG()}{PPG()}}
+{\footnotesize\ttfamily PPG\+::\+PPG (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Starts the \doxylink{classPPG}{PPG} sensor. 
+
+\Hypertarget{classPPG_afdc212505516715cd5bca0e92899e43b}\label{classPPG_afdc212505516715cd5bca0e92899e43b} 
+\index{PPG@{PPG}!````~PPG@{\texorpdfstring{$\sim$}{\string~}PPG}}
+\index{````~PPG@{\texorpdfstring{$\sim$}{\string~}PPG}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}PPG()}{\string~PPG()}}
+{\footnotesize\ttfamily PPG\+::\texorpdfstring{$\sim$}{\string~}\+PPG (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \doxylink{classPPG}{PPG} sensor. 
+
+Here is the call graph for this function\+:
+% FIG 1
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classPPG_ab7db470ea433fe3b1ec2b0ee648e723f}\label{classPPG_ab7db470ea433fe3b1ec2b0ee648e723f} 
+\index{PPG@{PPG}!start@{start}}
+\index{start@{start}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily void PPG\+::start (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classMAX30102}{MAX30102}} $>$ \&}]{max30102\+\_\+ptr }\end{DoxyParamCaption})}
+
+
+
+Starts the \doxylink{classPPG}{PPG} sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max30102\+\_\+ptr} & Pointer to the \doxylink{classMAX30102}{MAX30102} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classPPG_af198c57799484bc8c59a47c863e51823}\label{classPPG_af198c57799484bc8c59a47c863e51823} 
+\index{PPG@{PPG}!stop@{stop}}
+\index{stop@{stop}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily void PPG\+::stop (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Stops the \doxylink{classPPG}{PPG} sensor. 
+
+Here is the caller graph for this function\+:
+% FIG 2
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classPPG_a47255dcd674c7aee47b7d98145e0bf92}\label{classPPG_a47255dcd674c7aee47b7d98145e0bf92} 
+\index{PPG@{PPG}!BPM\_BUFFER\_SIZE@{BPM\_BUFFER\_SIZE}}
+\index{BPM\_BUFFER\_SIZE@{BPM\_BUFFER\_SIZE}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{BPM\_BUFFER\_SIZE}{BPM\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily const static int PPG\+::\+BPM\+\_\+\+BUFFER\+\_\+\+SIZE = 100\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{classPPG_a6c20f6c3cd0928367015e7ffb6e1a1ee}\label{classPPG_a6c20f6c3cd0928367015e7ffb6e1a1ee} 
+\index{PPG@{PPG}!bpmBuffer@{bpmBuffer}}
+\index{bpmBuffer@{bpmBuffer}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{bpmBuffer}{bpmBuffer}}
+{\footnotesize\ttfamily int32\+\_\+t PPG\+::bpm\+Buffer\mbox{[}\mbox{\hyperlink{classPPG_a47255dcd674c7aee47b7d98145e0bf92}{BPM\+\_\+\+BUFFER\+\_\+\+SIZE}}\mbox{]}}
+
+\Hypertarget{classPPG_a2819db6111e861731870e5ce4406e472}\label{classPPG_a2819db6111e861731870e5ce4406e472} 
+\index{PPG@{PPG}!nextBPMBufferIndex@{nextBPMBufferIndex}}
+\index{nextBPMBufferIndex@{nextBPMBufferIndex}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{nextBPMBufferIndex}{nextBPMBufferIndex}}
+{\footnotesize\ttfamily int PPG\+::next\+BPMBuffer\+Index = 0}
+
+\Hypertarget{classPPG_ad3c9cc7d7b145d58bc9e8efa5367890d}\label{classPPG_ad3c9cc7d7b145d58bc9e8efa5367890d} 
+\index{PPG@{PPG}!nextspo2BufferIndex@{nextspo2BufferIndex}}
+\index{nextspo2BufferIndex@{nextspo2BufferIndex}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{nextspo2BufferIndex}{nextspo2BufferIndex}}
+{\footnotesize\ttfamily int PPG\+::nextspo2\+Buffer\+Index = 0}
+
+\Hypertarget{classPPG_a149309d37aa0ca61afaac500b74a170a}\label{classPPG_a149309d37aa0ca61afaac500b74a170a} 
+\index{PPG@{PPG}!ppgtcpqueue@{ppgtcpqueue}}
+\index{ppgtcpqueue@{ppgtcpqueue}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{ppgtcpqueue}{ppgtcpqueue}}
+{\footnotesize\ttfamily boost\+::lockfree\+::spsc\+\_\+queue$<$std\+::string, boost\+::lockfree\+::capacity$<$1024$>$ $>$ PPG\+::ppgtcpqueue}
+
+\Hypertarget{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}\label{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1} 
+\index{PPG@{PPG}!SPO2\_BUFFER\_SIZE@{SPO2\_BUFFER\_SIZE}}
+\index{SPO2\_BUFFER\_SIZE@{SPO2\_BUFFER\_SIZE}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{SPO2\_BUFFER\_SIZE}{SPO2\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily const static int PPG\+::\+SPO2\+\_\+\+BUFFER\+\_\+\+SIZE = 100\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{classPPG_a5db3e4221b911bc82dd69c115922f671}\label{classPPG_a5db3e4221b911bc82dd69c115922f671} 
+\index{PPG@{PPG}!spo2Buffer@{spo2Buffer}}
+\index{spo2Buffer@{spo2Buffer}!PPG@{PPG}}
+\doxysubsubsection{\texorpdfstring{spo2Buffer}{spo2Buffer}}
+{\footnotesize\ttfamily int32\+\_\+t PPG\+::spo2\+Buffer\mbox{[}\mbox{\hyperlink{classPPG_ac7389ddc8862b1de0cff4a9e41fbe9e1}{SPO2\+\_\+\+BUFFER\+\_\+\+SIZE}}\mbox{]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Software/\+Firmware/project/ppg/include/\mbox{\hyperlink{ppg_8hpp}{ppg.\+hpp}}\item 
+Software/\+Firmware/project/ppg/src/\mbox{\hyperlink{ppg_8cpp}{ppg.\+cpp}}\end{DoxyCompactItemize}
