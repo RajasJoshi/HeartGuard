@@ -2,6 +2,8 @@
 #include <sstream>
 #include <vector>
 
+const int UPDATE_INTERVAL_MS = 40;
+
 Window::Window(QWidget *parent) : QWidget(parent) 
 {
     heartqt.window = this;
@@ -50,6 +52,10 @@ Window::Window(QWidget *parent) : QWidget(parent)
     plot2 = new QwtPlot;
     plot3 = new QwtPlot;
 
+    plot1->setStyleSheet("background-color: #777; color: #ddd;");
+    plot2->setStyleSheet("background-color: #777; color: #ddd;");
+    plot3->setStyleSheet("background-color: #777; color: #ddd;");
+
     // make plot curves from the data and attach them to the plots
     curve1->setSamples(xData1, yData1, plotDataSize);
     curve1->attach(plot1);
@@ -58,18 +64,26 @@ Window::Window(QWidget *parent) : QWidget(parent)
     curve3->setSamples(xData3, yData3, plotDataSize);
     curve3->attach(plot3);
 
-    plot1->setAxisScale(QwtPlot::yLeft,-100,100);
-    plot1->setAxisScale(QwtPlot::xBottom,0,4000);
+
+    QPen bluePen(Qt::green);
+
+    curve1->setPen(bluePen);
+    curve2->setPen(bluePen);
+    curve3->setPen(bluePen);
+
+
+    plot1->setAxisScale(QwtPlot::yLeft,-5,5);
+    plot1->setAxisScale(QwtPlot::xBottom,0,UPDATE_INTERVAL_MS / 250);
     plot1->replot();
     plot1->show();
 
-    plot2->setAxisScale(QwtPlot::yLeft,-100,100);
-    plot2->setAxisScale(QwtPlot::xBottom,0,4000);
+    plot2->setAxisScale(QwtPlot::yLeft,-5,5);
+    plot2->setAxisScale(QwtPlot::xBottom,0,UPDATE_INTERVAL_MS / 250);
     plot2->replot();
     plot2->show();
 
-    plot3->setAxisScale(QwtPlot::yLeft,-100,100);
-    plot3->setAxisScale(QwtPlot::xBottom,0,4000);
+    plot3->setAxisScale(QwtPlot::yLeft,20,250);
+    plot3->setAxisScale(QwtPlot::xBottom,0,UPDATE_INTERVAL_MS / 250);
     plot3->replot();
     plot3->show();
 
@@ -103,13 +117,28 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     setLayout(hLayout);
 
+    // Example style sheet (adjust colors as needed)
+    QString styleSheet = R"(
+        QWidget {
+            background-color: #303030; 
+            color: white; 
+        }
+        QPushButton { 
+            background-color: #505050; 
+            color: white;
+        }
+    )";
+
+    this->setStyleSheet(styleSheet);
+
+
     
 
     // Initialize TCP Client
     tcpClient = new QTcpSocket(this);
 
     // Connect to server (replace with your actual server details)
-    tcpClient->connectToHost("10.0.0.25", 5000); 
+    tcpClient->connectToHost("10.0.0.21", 5000); 
 
     // Connect signals and slots (we'll add these slots next)
     connect(tcpClient, &QTcpSocket::connected, this, &Window::handleConnected);
@@ -119,7 +148,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
     //     // a fake data sample every 10ms
     // heartqt.startms(10);
     // Screen refresh every 40ms
-    startTimer(40);
+    startTimer(UPDATE_INTERVAL_MS);
 }
 
 Window::~Window() {
@@ -154,7 +183,7 @@ void Window::reset() {
     red = 0;
 }
 
-// add the new input to the plots
+
 void Window::hasData(std::string& received) {
     mtx.lock();
     // Move the existing data for all three graphs
@@ -162,21 +191,38 @@ void Window::hasData(std::string& received) {
     std::move( yData2, yData2 + plotDataSize - 1, yData2 + 1 );
     std::move( yData3, yData3 + plotDataSize - 1, yData3 + 1 );
     
-    std::cout << "Received: " << received << std::endl;
 
     // Create a stringstream from the input string
     std::istringstream iss(received);
-
-    std::string segment;
+    std::string message;
 
     std::vector<std::string> result;
 
-    while (std::getline(iss, segment, ',')) {
 
-        if (!segment.empty()){
-            result.push_back(segment);
+    while (std::getline(iss, message, '#')) {
+        if (!message.empty()) {
+            std::istringstream segmentStream(message);
+            std::string token;
+            std::vector<std::string> tokens;
+            std::cout << "Message: " << message << "\n";
+
+            while (std::getline(segmentStream, token, ',')) {
+                tokens.push_back(token);
+            }
+            std::cout << "Tokens: " << tokens.size() << "\n";
+
+            if (tokens.size() == 8) {
+                for (const std::string& subToken : tokens) {
+                    result.push_back(subToken);
+                }
+            }else{
+                result = {"0","0","0","0","0","0","0","0"};
+            }
+            tokens.clear();
         }
     }
+
+
     // Update the first graph data
     yData1[0] = std::stod(result[1]);
     // Update the second graph data (example)
@@ -205,6 +251,13 @@ void Window::timerEvent( QTimerEvent * )
     plot2->replot();
     plot3->replot();
     update();
+    QString message = "BPM: " + QString::number(bpm) + 
+                    " SpO2: " + QString::number(spo2) + 
+                    " IR: " + QString::number(ir) + 
+                    " Red: " + QString::number(red);
+    statusBar->showMessage(message);
+
+    
 }
 
 void Window::handleConnected() {
